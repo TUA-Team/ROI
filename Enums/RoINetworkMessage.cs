@@ -1,7 +1,7 @@
 ﻿namespace ROI.Enums
 {
-    internal enum ROINetworkMessage : byte
-    {
-        PlayerData
-    }
+	internal enum ROINetworkMessage : byte
+	{
+		PlayerData
+	}
 }

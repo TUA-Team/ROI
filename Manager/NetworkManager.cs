@@ -7,23 +7,23 @@ using Terraria;
 
 namespace ROI.Network
 {
-    internal class NetworkManager : BaseInstanceManager<NetworkManager>
-    {
+	internal class NetworkManager : BaseInstanceManager<NetworkManager>
+	{
 
-        public override void Initialize()
-        {
-            
-        }
+		public override void Initialize()
+		{
+			
+		}
 
-        public void ReceivePacket(BinaryReader networkReader, int whoAmI)
-        {
-            ROINetworkMessage networkMessage = (ROINetworkMessage) networkReader.ReadByte();
-            switch (networkMessage)
-            {
-                case ROINetworkMessage.PlayerData:
-                    Main.player[whoAmI].GetModPlayer<ROIPlayer>().ReceiveNetworkData(networkReader);
-                    break;
-            }
-        }
-    }
+		public void ReceivePacket(BinaryReader networkReader, int whoAmI)
+		{
+			ROINetworkMessage networkMessage = (ROINetworkMessage) networkReader.ReadByte();
+			switch (networkMessage)
+			{
+				case ROINetworkMessage.PlayerData:
+					Main.player[whoAmI].GetModPlayer<ROIPlayer>().ReceiveNetworkData(networkReader);
+					break;
+			}
+		}
+	}
 }
