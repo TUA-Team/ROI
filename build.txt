@@ -1,0 +1,3 @@
+author = TUA Team
+version = 0.1
+displayName = Realm of Infinity
