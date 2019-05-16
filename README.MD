@@ -8,4 +8,4 @@ This mod features some really unique stuff like:
 - New biome alternatives
 - Unique mechanics that will give you progression, not just the classic boss battling
 
-And a tons more stuff that will make you want to play and replay this over and over!
+And tons more stuff that will make you want to play and replay this over and over!
