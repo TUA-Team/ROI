@@ -24,42 +24,34 @@ namespace ROI
 
 		public override void Load()
 		{
-			GeneralLoad();
-			if (!Main.dedServ)
+            #region General load
+
+            instance = this;
+
+            #endregion
+
+            if (!Main.dedServ)
 			{
-				NonNetworkLoad();
-			}
-		}
-
-		private void NonNetworkLoad()
-		{
-
-		}
-
-		private void GeneralLoad()
-		{
-			instance = this;
+                #region Client load
+                #endregion
+            }
 		}
 
 		public override void Unload()
 		{
-			base.Unload();
-		}
+            #region General unload
 
-		private void GeneralUnload()
-		{
-			instance = null;
-			if (!Main.dedServ)
-			{
-				NonNetworkUnload();
-			}
-		}
+            instance = null;
 
-		private void NonNetworkUnload()
-		{
+            #endregion
 
-		}
+            if (!Main.dedServ)
+            {
+                #region Client unload
+                #endregion
+            }
+        }
+
 		#endregion
-
 	}
 }

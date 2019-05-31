@@ -28,7 +28,6 @@ namespace ROI.Players
 			VoidTier = tag.GetAsInt("VoidTier");
 		}
 
-
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket(ushort.MaxValue);

@@ -1,8 +1,10 @@
-﻿namespace ROI.Manager
+﻿using System;
+
+namespace ROI.Manager
 {
 	internal abstract class BaseInstanceManager<T> where T : new()
 	{
-		private static T _instance;
+		private static Lazy<T> _instance;
 
 		/// <summary>
 		/// Use this to initialize variable instead of overriding the constructor
@@ -13,12 +15,7 @@
 		{
 			get
 			{
-				if (_instance == null)
-				{
-					_instance = new T();
-				}
-
-				return _instance;
+				return _instance.Value;
 			}
 		}
 
@@ -29,7 +26,7 @@
 
 		public void Unload()
 		{
-			_instance = default(T);
+			_instance = null;
 		}
 	}
 }
