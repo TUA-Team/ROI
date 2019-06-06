@@ -1,1 +1,12 @@
-Realm of Infinity is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+=== The long awaited sequel of terraria apocalypse is finally here ===
+In this new version you can expect everything that can come in your mind.
+Dimension? We got it! Custom liquid? We also got it! Bome alt? We also have it!
+Realm of infinity is a mod that will change forever the modding community with it's many never seen feature!
+Also with multiplayer support (our #1 priority)
+
+== Changelog ==
+0.1.0 - The hunt for the void:
+- Introducing the void class, a class massively based debuffing around your enemy and buffing your friends, click on it and watch the magic happen.
+- Introducing the void affinity, collect void affinity by doing certain task and use it to craft rare relic that will help your in your journey.
+- Introducing the void tier, a mechanic related to void affinity, the higher tier you are, the more danger you get, but the more reward you get.
+- Introducing the void pillar, a boss that have a chance to spawn in the higher void tier, it is not related to the moon lord ;)

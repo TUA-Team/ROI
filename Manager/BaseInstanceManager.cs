@@ -11,7 +11,7 @@ namespace ROI.Manager
 		/// </summary>
 		public abstract void Initialize();
 
-		public static T Instance
+		public static T Instance_
 		{
 			get
 			{
