@@ -40,6 +40,8 @@
     <Compile Include="Manager\UIManager.cs" />
     <Compile Include="GUI\VoidUI\VoidUI.cs" />
     <Compile Include="Items\Void.cs" />
+    <Compile Include="NPCs\Void\VoidPillar\VoidPillar.cs" />
+    <Compile Include="ROIExtension.cs" />
     <Compile Include="ROIMod.cs" />
     <Compile Include="Manager\BaseInstanceManager.cs" />
     <Compile Include="Manager\VoidManager.cs" />
@@ -123,6 +125,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Relics\" />
+    <Folder Include="NPCs\Boss\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
