@@ -7,8 +7,8 @@
     <ProjectGuid>{8298EAB6-0586-4BDA-9483-83624B66B13A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>InfinityRealm</RootNamespace>
-    <AssemblyName>InfinityRealm</AssemblyName>
+    <RootNamespace>ROI</RootNamespace>
+    <AssemblyName>ROI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,8 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Buffs\ROIBuff.cs" />
+    <Compile Include="Enums\PillarShieldColor.cs" />
     <Compile Include="Enums\ROINetworkMessage.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
+    <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
     <Compile Include="Items\ROIItem.cs" />
     <Compile Include="Manager\UIManager.cs" />
     <Compile Include="GUI\VoidUI\VoidUI.cs" />
@@ -124,8 +126,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dusts\" />
     <Folder Include="Items\Relics\" />
     <Folder Include="NPCs\Boss\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Textures\UIElements\HealthBarBG.png" />
+    <Content Include="Textures\UIElements\HealthBarFG.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

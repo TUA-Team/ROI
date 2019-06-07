@@ -1,9 +1,11 @@
 ﻿using ROI.Players;
+using Terraria;
 
 namespace ROI.Manager
 {
 	internal sealed class VoidManager : BaseInstanceManager<VoidManager>
 	{
+
 		public override void Initialize()
 		{
 
@@ -26,10 +28,26 @@ namespace ROI.Manager
 		#region Void Effect
 		public void Effect(ROIPlayer target)
 		{
+		    if (target.VoidTier >= 6) //normally impossible but hey, still prevempting potential error
+		    {
+		        target.VoidTier = 6;
+		    }
 
+		    if(Main.rand.Next(100) == 0 || VoidPillarRequirement(target))
+		    {
+		        if (VoidPillarRequirement(target))
+		        {
+		            target.AddVoidAffinity(target.MaxVoidAffinity, false);
+		        }
+		    }
 		}
 
-		private bool Tier1Effect(ROIPlayer target)
+	    private static bool VoidPillarRequirement(ROIPlayer target)
+	    {
+	        return target.VoidAffinityAmount == target.MaxVoidAffinity && target.VoidTier == 6;
+	    }
+
+	    private bool Tier1Effect(ROIPlayer target)
 		{
 			return false;
 		}

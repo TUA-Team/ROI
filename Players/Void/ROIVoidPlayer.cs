@@ -1,4 +1,5 @@
-﻿using Terraria.ModLoader;
+﻿using System;
+using Terraria.ModLoader;
 
 namespace ROI.Players
 {
@@ -9,8 +10,20 @@ namespace ROI.Players
 
 		public int MaxVoidAffinity => _maxVoidAffinity;
 
-		internal int VoidAffinityAmount => _voidAffinityAmount;
+	    internal int VoidAffinityAmount
+	    {
+            get => _voidAffinityAmount;
+	    }
 
 
-	}
+	    public int AddVoidAffinity(int voidAffinity, bool simulate)
+	    {
+	        int simulatedAmount = Math.Min(MaxVoidAffinity - VoidAffinityAmount, voidAffinity);
+	        if (!simulate)
+	        {
+	            _voidAffinityAmount += simulatedAmount;
+            }
+	        return simulatedAmount;
+	    }
+    }
 }

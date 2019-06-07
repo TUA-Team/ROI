@@ -9,7 +9,7 @@
 		/// </summary>
 		public abstract void Initialize();
 
-		public static T Instance_
+		public static T Instance
 		{
 			get
 			{
