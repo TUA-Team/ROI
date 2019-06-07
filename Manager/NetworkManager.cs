@@ -1,11 +1,9 @@
-﻿using ROI.Manager;
-using System;
-using System.IO;
+﻿using System.IO;
 using ROI.Enums;
 using ROI.Players;
 using Terraria;
 
-namespace ROI.Network
+namespace ROI.Manager
 {
 	internal class NetworkManager : BaseInstanceManager<NetworkManager>
 	{

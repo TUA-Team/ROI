@@ -1,4 +1,6 @@
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
+using ROI.GUI.VoidUI;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -53,5 +55,10 @@ namespace ROI
         }
 
 		#endregion
+	    public override void PostDrawInterface(SpriteBatch spriteBatch)
+	    {
+	        VoidPillarHealthBar.Update();
+            VoidPillarHealthBar.Draw(spriteBatch);
+	    }
 	}
 }

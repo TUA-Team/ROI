@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria.ModLoader;
 
-namespace InfinityRealm.Items
+namespace ROI.Items
 {
 	/// <summary>
 	/// Base of any RoI item

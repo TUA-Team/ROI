@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Manager;
 using ROI.Players;
-using System;
 using Terraria;
 using Terraria.UI;
 
