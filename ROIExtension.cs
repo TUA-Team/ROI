@@ -1,4 +1,6 @@
-﻿namespace ROI
+﻿using Terraria;
+
+namespace ROI
 {
     static class ROIExtension
     {
@@ -16,6 +18,13 @@
             {
                 self[i] = false;
             }
+        }
+
+        public static void Kill(this NPC npc)
+        {
+            npc.life = 0;
+            npc.HitEffect();
+            npc.active = false;
         }
     }
 }

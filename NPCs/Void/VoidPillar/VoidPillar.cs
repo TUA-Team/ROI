@@ -26,9 +26,21 @@ namespace ROI.NPCs.Void.VoidPillar
     {
         public override string Texture => "Terraria/NPC_507";
 
-        private int movementTimer = 100;
-        private bool _movementUp = false;
-        private float _damageReduction = 0.0f;
+        private int movementTimer
+        {
+            set => npc.ai[0] = value;
+            get => (int)npc.ai[0];
+        }
+        private bool _movementUp
+        {
+            set => npc.ai[1] = value ? 1 : 0;
+            get => npc.ai[1] == 1;
+        }
+        private float _damageReduction
+        {
+            set => npc.ai[0] = value;
+            get => npc.ai[0];
+        }
 
         public PillarShieldColor ShieldColor { get; private set; }
         public int ShieldHealth { get; private set; }
@@ -51,8 +63,21 @@ namespace ROI.NPCs.Void.VoidPillar
             npc.immortal = true;
             npc.knockBackResist = 0f;
 
+            movementTimer = 100;
+            _movementUp = false;
+            _damageReduction = 0;
+
             ShieldColor = PillarShieldColor.Red;
             ShieldHealth = npc.lifeMax;
+            for (int i = 0; i < 200; i++)
+            {
+                var possiblePillar = Main.npc[i];
+                if (possiblePillar.modNPC is VoidPillar
+                    && possiblePillar.active && i != npc.whoAmI)
+                {
+                    npc.Kill();
+                }
+            }
         }
 
         public override void AI()
@@ -214,7 +239,7 @@ namespace ROI.NPCs.Void.VoidPillar
                 {
                     continue;
                 }
-                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by a manifestation of the void.");
+                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by the void.");
                 Main.player[i].Hurt(death, 5, 0, false, true, false, 5);
                 Main.player[i].lifeRegen = 0;
             }
@@ -232,7 +257,7 @@ namespace ROI.NPCs.Void.VoidPillar
                     continue;
                 }
 
-                Main.player[i].allDamage /= 0.75f;
+                Main.player[i].allDamage *= 0.75f;
             }
         }
 
