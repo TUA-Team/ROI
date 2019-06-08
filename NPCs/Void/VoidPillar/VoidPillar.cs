@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Enums;
@@ -32,17 +27,15 @@ namespace ROI.NPCs.Void.VoidPillar
         public override string Texture => "Terraria/NPC_507";
 
         private int movementTimer = 100;
-        private PillarShieldColor _shieldColor = PillarShieldColor.Red;
         private bool _movementUp = false;
-        private int _shieldHealth = 20000;
         private float _damageReduction = 0.0f;
 
-        public PillarShieldColor ShieldColor => _shieldColor;
-        public int ShieldHealth => _shieldHealth;
+        public PillarShieldColor ShieldColor { get; private set; }
+        public int ShieldHealth { get; private set; }
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Void Pillar - Manifestation of the void");
+            DisplayName.SetDefault("Void Pillar");
         }
 
         public override void SetDefaults()
@@ -57,6 +50,9 @@ namespace ROI.NPCs.Void.VoidPillar
             npc.noGravity = true;
             npc.immortal = true;
             npc.knockBackResist = 0f;
+
+            ShieldColor = PillarShieldColor.Red;
+            ShieldHealth = npc.lifeMax;
         }
 
         public override void AI()
@@ -67,23 +63,26 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write((byte) _shieldColor);
+            writer.Write((byte) ShieldColor);
             writer.Write(movementTimer);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            _shieldColor = (PillarShieldColor) reader.ReadByte();
+            ShieldColor = (PillarShieldColor) reader.ReadByte();
             movementTimer = reader.Read();
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
             DamageShield(damage);
-            if (_shieldColor == PillarShieldColor.Green)
+            if (ShieldColor == PillarShieldColor.Green)
             {
-                string genderPronoun = (player.Male) ? "his" : "her";
-                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason($"Got slain by {genderPronoun} own sword.");
+                string gp1 = player.Male ? "himself" : "herself";
+                string gp2 = player.Male ? "his" : "her";
+                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(
+                    Main.rand.Next(new string[] {string.Format("{0} impaled {1}", player.name, gp1),
+                    string.Format("{0} swung {1} sword and the sword hit them back", player.name, gp2) }));
                 player.Hurt(deathReason, damage / 10, 0, false, false, crit);
             }
         }
@@ -92,11 +91,13 @@ namespace ROI.NPCs.Void.VoidPillar
         {
             DamageShield(damage);
 
-            if (_shieldColor == PillarShieldColor.Green)
+            if (ShieldColor == PillarShieldColor.Green)
             {
-                string genderPronoun = (Main.player[projectile.owner].Male) ? "his" : "her";
-                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason($"Got shredded by {genderPronoun} own projectile.");
-                Main.player[projectile.owner].Hurt(deathReason, damage / 10, 0, false, false, crit);
+                var plr = Main.player[projectile.owner];
+                string genderPronoun = plr.Male ? "his" : "her";
+                PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(
+                    string.Format("{0} threw something and was unlucky enough that it came back", plr));
+                plr.Hurt(deathReason, damage / 10, 0, false, false, crit);
             }
         }
 
@@ -107,7 +108,7 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (_shieldHealth > 0)
+            if (ShieldHealth > 0)
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
@@ -124,11 +125,11 @@ namespace ROI.NPCs.Void.VoidPillar
 
         private void DamageShield(int damage)
         {
-            _shieldHealth -=  damage - (int)(damage * _damageReduction);
+            ShieldHealth -=  damage - (int)(damage * _damageReduction);
             
-            if (_shieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow)
+            if (ShieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow)
             {
-                _shieldHealth = 20000;
+                ShieldHealth = 20000;
                 SwitchShieldColor();
             }
         }
@@ -139,22 +140,22 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 case PillarShieldColor.Red:
                     _damageReduction = 0.2f;
-                    _shieldColor = PillarShieldColor.Purple;
+                    ShieldColor = PillarShieldColor.Purple;
                     break;
                 case PillarShieldColor.Purple:
-                    _shieldColor = PillarShieldColor.Black;
+                    ShieldColor = PillarShieldColor.Black;
                     _damageReduction = 0.9f;
                     break;
                 case PillarShieldColor.Black:
-                    _shieldColor = PillarShieldColor.Green;
+                    ShieldColor = PillarShieldColor.Green;
                     _damageReduction = 0.2f;
                     break;
                 case PillarShieldColor.Green:
-                    _shieldColor = PillarShieldColor.Blue;
+                    ShieldColor = PillarShieldColor.Blue;
                     _damageReduction = 0.5f;
                     break;
                 case PillarShieldColor.Blue:
-                    _shieldColor = PillarShieldColor.Rainbow;
+                    ShieldColor = PillarShieldColor.Rainbow;
                     _damageReduction = 0.8f;
                     npc.immortal = false;
                     break;
@@ -275,7 +276,6 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 npc.position.Y += 0.2f;
             }
-
         }
     }
 }

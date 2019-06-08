@@ -35,6 +35,9 @@ namespace ROI
             if (!Main.dedServ)
 			{
                 #region Client load
+
+                VoidPillarHealthBar.Load();
+
                 #endregion
             }
 		}
@@ -50,11 +53,15 @@ namespace ROI
             if (!Main.dedServ)
             {
                 #region Client unload
+
+                VoidPillarHealthBar.Unload();
+
                 #endregion
             }
         }
 
 		#endregion
+
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
 	        VoidPillarHealthBar.FindPillar();
