@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Enums;
@@ -21,7 +18,7 @@ namespace ROI.GUI.VoidUI
             ROIMod.instance.GetTexture("Textures/UIElements/HealthBarFG");
 
 
-        public static void Update()
+        public static void FindPillar()
         {
             if (!Main.npc.Any(i => i.modNPC is VoidPillar))
             {
@@ -63,6 +60,10 @@ namespace ROI.GUI.VoidUI
 
         private static void DrawHealthBar(SpriteBatch sb, Color shieldColor, String colorName)
         {
+            float oldScale = Main.inventoryScale;
+            Main.inventoryScale = 0.6f;
+            // make recalculate or something
+
             Vector2 offset = new Vector2(Main.screenWidth / 2, Main.screenHeight - 100);
             Vector2 textSize = Main.fontDeathText.MeasureString($"Void pillar - {colorName} shield") * 0.5f;
             Vector2 healthTextSize = Main.fontDeathText.MeasureString($"{pillar.ShieldHealth}/20000") * 0.5f;
@@ -79,12 +80,12 @@ namespace ROI.GUI.VoidUI
 
             sb.Draw(BOSSHEALTH_FOREGROUND, barArea, new Rectangle(23, 0, 24, 41), shieldColor);
 
-            
-
             Utils.DrawBorderStringFourWay(sb, Main.fontDeathText, $"Void pillar - {colorName} shield", (int)offset.X - textSize.X / 2, offset.Y, Color.Purple, Color.MediumPurple, Vector2.Zero, 0.5f);
             Utils.DrawBorderStringFourWay(sb, Main.fontDeathText, $"{pillar.ShieldHealth}/20000", (int)offset.X - healthTextSize.X / 2, offset.Y + healthTextSize.Y + 10, Color.LightGray, Color.DimGray, Vector2.Zero, 0.5f);
             sb.End();
             sb.Begin();
+
+            Main.inventoryScale = oldScale;
         }
     }
 }

@@ -1,3 +1,9 @@
 author = TUA Team
 version = 0.1.0
-displayName = Realm of Infinity - The hunt for the void
+displayName = Realm of Infinity - Hunt for the Void
+
+includePDB = true
+
+includeResources = false
+includeCode = true
+includeSource = true

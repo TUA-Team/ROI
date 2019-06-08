@@ -57,7 +57,7 @@ namespace ROI
 		#endregion
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
-	        VoidPillarHealthBar.Update();
+	        VoidPillarHealthBar.FindPillar();
             VoidPillarHealthBar.Draw(spriteBatch);
 	    }
 	}
