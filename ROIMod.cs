@@ -10,12 +10,7 @@ namespace ROI
 	{
 		internal static string SAVE_PATH = "";
 
-		internal static ROIMod instance;
-
-		public ROIMod()
-		{
-
-		}
+        internal static ROIMod mod;
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
@@ -28,7 +23,7 @@ namespace ROI
 		{
             #region General load
 
-            instance = this;
+            mod = this;
 
             #endregion
 
@@ -46,7 +41,7 @@ namespace ROI
 		{
             #region General unload
 
-            instance = null;
+            mod = null;
 
             #endregion
 

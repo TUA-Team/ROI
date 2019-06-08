@@ -21,9 +21,9 @@ namespace ROI.GUI.VoidUI
         public static void Load()
         {
             BOSSHEALTH_BACKGROUND =
-                ROIMod.instance.GetTexture("Textures/UIElements/HealthBarBG");
+                ROIMod.mod.GetTexture("Textures/UIElements/HealthBarBG");
             BOSSHEALTH_FOREGROUND =
-                ROIMod.instance.GetTexture("Textures/UIElements/HealthBarFG");
+                ROIMod.mod.GetTexture("Textures/UIElements/HealthBarFG");
         }
 
         public static void Unload()
@@ -37,7 +37,8 @@ namespace ROI.GUI.VoidUI
             for (int i = 0; i < 200; i++)
             {
                 var npc = Main.npc[i];
-                if (npc.active && npc.modNPC is VoidPillar local)
+                if (npc.active && npc.modNPC is VoidPillar local
+                    && npc.DistanceSQ(Main.LocalPlayer.position) <= 2500)
                 {
                     pillar = local;
                     return;
