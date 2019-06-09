@@ -15,9 +15,9 @@ namespace ROI.GUI.VoidUI
         public static void Load()
         {
             BOSSHEALTH_BACKGROUND =
-                ROIMod.mod.GetTexture("Textures/UIElements/HealthBarBG");
+                ROIMod.instance.GetTexture("Textures/UIElements/HealthBarBG");
             BOSSHEALTH_FOREGROUND =
-                ROIMod.mod.GetTexture("Textures/UIElements/HealthBarFG");
+                ROIMod.instance.GetTexture("Textures/UIElements/HealthBarFG");
         }
 
         public static void Unload()

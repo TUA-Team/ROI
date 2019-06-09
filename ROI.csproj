@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -36,9 +36,12 @@
     <Compile Include="Buffs\ROIBuff.cs" />
     <Compile Include="Enums\PillarShieldColor.cs" />
     <Compile Include="Enums\ROINetworkMessage.cs" />
+    <Compile Include="Buffs\Void\DarkMind.cs" />
+    <Compile Include="Buffs\Void\VoidSlowness.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
     <Compile Include="Items\ROIItem.cs" />
+    <Compile Include="LoreEntry.cs" />
     <Compile Include="Manager\UIManager.cs" />
     <Compile Include="GUI\VoidUI\VoidUI.cs" />
     <Compile Include="NPCs\Void\VoidPillar\VoidPillar.cs" />

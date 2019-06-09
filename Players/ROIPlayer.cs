@@ -13,7 +13,9 @@ namespace ROI.Players
 	/// </summary>
 	public sealed partial class ROIPlayer : ModPlayer
 	{
-		private int _voidAffinityAmount = 0;        
+		private int _voidAffinityAmount = 0;
+
+	    public bool darkMind = false;
 
 		public override TagCompound Save()
 		{
