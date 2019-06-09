@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
@@ -67,6 +68,31 @@ namespace ROI
 	    {
 	        VoidPillarHealthBar.Update();
             VoidPillarHealthBar.Draw(spriteBatch);
+	    }
+
+	    public override object Call(params object[] args)
+	    {
+	        string command = (string) args[0];
+	        try
+	        {
+	            switch (command)
+	            {
+	                case "DarkMind":
+	                    int npcID = (int) args[1]; 
+	                    int buffType = (int)args[2];
+	                    int buffLength = (int) args[3];
+	                    bool quiet = (bool) args[4];
+                        Main.npc[npcID].AddBuff(buffType, buffLength, true, quiet);
+	                    break;
+	            }
+            }
+	        catch (Exception e)
+	        {
+                
+	        }
+	        
+
+	        return null;
 	    }
 	}
 }

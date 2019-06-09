@@ -34,6 +34,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Buffs\ROIBuff.cs" />
+    <Compile Include="Buffs\Void\DarkMind.cs" />
+    <Compile Include="Buffs\Void\VoidSlowness.cs" />
     <Compile Include="Enums\PillarShieldColor.cs" />
     <Compile Include="Enums\ROINetworkMessage.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
@@ -131,6 +133,13 @@
     <Folder Include="NPCs\Boss\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Buffs\Void\DarkMind.png" />
+    <Content Include="Buffs\Void\EternalGrace.png" />
+    <Content Include="Buffs\Void\PillarPresence.png" />
+    <Content Include="Buffs\Void\VoidAffliction.png" />
+    <Content Include="Buffs\Void\VoidInfliction.png" />
+    <Content Include="Buffs\Void\VoidRage.png" />
+    <Content Include="Buffs\Void\VoidSlowness.png" />
     <Content Include="Textures\UIElements\HealthBarBG.png" />
     <Content Include="Textures\UIElements\HealthBarFG.png" />
   </ItemGroup>

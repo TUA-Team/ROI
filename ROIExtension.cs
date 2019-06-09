@@ -24,5 +24,14 @@ namespace ROI
                 self[i] = false;
             }
         }
+
+        public static void AddBuff(this NPC npc, int type, int time1, bool darkMind, bool quiet = false)
+        {
+            if (darkMind)
+            {
+                time1 += (int)(time1 * 0.5f);
+            }
+            npc.AddBuff(type, time1, quiet);
+        }
     }
 }
