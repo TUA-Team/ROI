@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Enums;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 
@@ -38,7 +32,7 @@ namespace ROI.GUI.VoidUI
             {
                 var npc = Main.npc[i];
                 if (npc.active && npc.modNPC is VoidPillar local
-                    && npc.DistanceSQ(Main.LocalPlayer.position) <= 2500)
+                    && npc.DistanceSQ(Main.LocalPlayer.position) <= 6250000)
                 {
                     pillar = local;
                     return;
@@ -55,7 +49,7 @@ namespace ROI.GUI.VoidUI
             }
 
             string name = "Void Pillar - " + pillar.ShieldColor.ToString() + " Shield";
-            string health = pillar.ShieldHealth + "/" + pillar.npc.lifeMax;
+            string health = pillar.npc.life + "/" + pillar.npc.lifeMax;
             var color = pillar.GetShieldColor();
 
             Vector2 offset = new Vector2(Main.screenWidth / 2, Main.screenHeight - 100);
@@ -71,7 +65,7 @@ namespace ROI.GUI.VoidUI
             sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41), new Rectangle(23, 0, 24, 41), color * 0.5f);
             sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 480, (int)offset.Y + 41, 20, 41), new Rectangle(51, 0, 20, 41), color * 0.5f);
 
-            float barProgress = pillar.ShieldHealth / pillar.npc.lifeMax;
+            float barProgress = pillar.npc.life / pillar.npc.lifeMax;
             int width = (int)(500 * barProgress);
             Rectangle barArea = new Rectangle((int)offset.X - 250 + 2, (int)offset.Y + 41, width, 41);
 

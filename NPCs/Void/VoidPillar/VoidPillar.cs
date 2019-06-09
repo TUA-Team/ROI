@@ -11,39 +11,17 @@ using Terraria.ModLoader;
 
 namespace ROI.NPCs.Void.VoidPillar
 {
-    /// <summary>
-    /// AI slot usage
-    /// <list type="bullet">
-    /// 
-    /// </list>>
-    /// 0 -
-    /// 1 -
-    /// 2 -
-    /// 3 -
-    /// 
-    /// </summary>
     internal sealed class VoidPillar : ModNPC
     {
         public override string Texture => "Terraria/NPC_507";
 
-        private int movementTimer
-        {
-            set => npc.ai[0] = value;
-            get => (int)npc.ai[0];
-        }
-        private bool _movementUp
-        {
-            set => npc.ai[1] = value ? 1 : 0;
-            get => npc.ai[1] == 1;
-        }
-        private float _damageReduction
-        {
-            set => npc.ai[0] = value;
-            get => npc.ai[0];
-        }
+        private int movementTimer = 100;
+        private bool _movementUp = false;
+        private float _damageReduction = 0.0f;
 
-        public PillarShieldColor ShieldColor { get; private set; }
-        public int ShieldHealth { get; private set; }
+        public PillarShieldColor ShieldColor { get; private set; } = PillarShieldColor.Red;
+
+        public int ShieldHealth { get; private set; } = 20000;
 
         public override void SetStaticDefaults()
         {
@@ -63,21 +41,12 @@ namespace ROI.NPCs.Void.VoidPillar
             npc.immortal = true;
             npc.knockBackResist = 0f;
 
+            ShieldColor = PillarShieldColor.Red;
+            ShieldHealth = 20000;
+
             movementTimer = 100;
             _movementUp = false;
             _damageReduction = 0;
-
-            ShieldColor = PillarShieldColor.Red;
-            ShieldHealth = npc.lifeMax;
-            for (int i = 0; i < 200; i++)
-            {
-                var possiblePillar = Main.npc[i];
-                if (possiblePillar.modNPC is VoidPillar
-                    && possiblePillar.active && i != npc.whoAmI)
-                {
-                    npc.Kill();
-                }
-            }
         }
 
         public override void AI()
@@ -88,19 +57,22 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public override void SendExtraAI(BinaryWriter writer)
         {
-            writer.Write((byte) ShieldColor);
+            writer.Write(ShieldHealth);
+            writer.Write((byte)ShieldColor);
             writer.Write(movementTimer);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
         {
-            ShieldColor = (PillarShieldColor) reader.ReadByte();
+            ShieldHealth = reader.ReadInt32();
+            ShieldColor = (PillarShieldColor)reader.ReadByte();
             movementTimer = reader.Read();
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
         {
             DamageShield(damage);
+
             if (ShieldColor == PillarShieldColor.Green)
             {
                 string gp1 = player.Male ? "himself" : "herself";
@@ -119,7 +91,6 @@ namespace ROI.NPCs.Void.VoidPillar
             if (ShieldColor == PillarShieldColor.Green)
             {
                 var plr = Main.player[projectile.owner];
-                string genderPronoun = plr.Male ? "his" : "her";
                 PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(
                     string.Format("{0} threw something and was unlucky enough that it came back", plr));
                 plr.Hurt(deathReason, damage / 10, 0, false, false, crit);
@@ -133,28 +104,26 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
         {
-            if (ShieldHealth > 0)
-            {
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
-                Vector2 center = npc.Center - Main.screenPosition;
-                DrawData drawingData = new DrawData(TextureManager.Load("Images/Misc/Perlin"), center - new Vector2(0, 10), new Rectangle(0, 0, 600, 600), GetShieldColor(), npc.rotation, new Vector2(300, 300), Vector2.One, SpriteEffects.None, 0);
-                GameShaders.Misc["ForceField"].UseColor(Main.DiscoColor);
-                GameShaders.Misc["ForceField"].Apply(drawingData);
-                drawingData.Draw(Main.spriteBatch);
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin();
-            }
-            
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
+            Vector2 center = npc.Center - Main.screenPosition;
+            DrawData drawingData = new DrawData(TextureManager.Load("Images/Misc/Perlin"), center - new Vector2(0, 10), new Rectangle(0, 0, 600, 600), GetShieldColor(), npc.rotation, new Vector2(300, 300), Vector2.One, SpriteEffects.None, 0);
+            GameShaders.Misc["ForceField"].UseColor(Main.DiscoColor);
+            GameShaders.Misc["ForceField"].Apply(drawingData);
+            drawingData.Draw(Main.spriteBatch);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin();
         }
 
         private void DamageShield(int damage)
         {
-            ShieldHealth -=  damage - (int)(damage * _damageReduction);
-            
+            ShieldHealth -= damage - (int)(damage * _damageReduction);
+            npc.life -= damage - (int)(damage * _damageReduction);
+
             if (ShieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow)
             {
                 ShieldHealth = 20000;
+                npc.life = 20000;
                 SwitchShieldColor();
             }
         }
@@ -239,7 +208,7 @@ namespace ROI.NPCs.Void.VoidPillar
                 {
                     continue;
                 }
-                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by the void.");
+                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by a manifestation of the void.");
                 Main.player[i].Hurt(death, 5, 0, false, true, false, 5);
                 Main.player[i].lifeRegen = 0;
             }
@@ -257,7 +226,7 @@ namespace ROI.NPCs.Void.VoidPillar
                     continue;
                 }
 
-                Main.player[i].allDamage *= 0.75f;
+                Main.player[i].allDamage /= 0.75f;
             }
         }
 
@@ -301,6 +270,7 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 npc.position.Y += 0.2f;
             }
+
         }
     }
 }
