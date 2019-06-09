@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
+using ROI.GUI.VoidUI;
 using ROI.Manager;
 using Terraria;
 using Terraria.ModLoader;
@@ -31,7 +32,7 @@ namespace ROI
 			{
                 #region Client load
 
-                UIManager.Instance.Initialize();
+                VoidPillarHealthBar.Load();
 
                 #endregion
             }
@@ -49,7 +50,7 @@ namespace ROI
             {
                 #region Client unload
 
-                UIManager.Instance.Unload();
+                VoidPillarHealthBar.Unload();
 
                 #endregion
             }
@@ -59,7 +60,8 @@ namespace ROI
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
-            UIManager.Instance.PostDrawInterface(spriteBatch);
-	    }
+            VoidPillarHealthBar.FindPillar();
+            VoidPillarHealthBar.Draw(spriteBatch);
+        }
 	}
 }
