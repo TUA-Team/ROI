@@ -15,13 +15,13 @@ namespace ROI.NPCs.Void.VoidPillar
     {
         public override string Texture => "Terraria/NPC_507";
 
-        private int movementTimer = 100;
-        private bool _movementUp = false;
-        private float _damageReduction = 0.0f;
+        private int movementTimer;
+        private bool _movementUp;
+        private float _damageReduction;
 
-        public PillarShieldColor ShieldColor { get; private set; } = PillarShieldColor.Red;
+        public PillarShieldColor ShieldColor { get; private set; };
 
-        public int ShieldHealth { get; private set; } = 20000;
+        public int ShieldHealth { get; private set; };
 
         public override void SetStaticDefaults()
         {
