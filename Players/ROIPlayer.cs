@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -18,15 +20,29 @@ namespace ROI.Players
 			return new TagCompound()
 			{
 				["VoidAffinity"] = _voidAffinityAmount,
-				["VoidTier"] = VoidTier
-			};
+				["VoidTier"] = VoidTier,
+                [nameof(loreEntries)] = loreEntries.Select(x => x.ID)
+            };
 		}
 
-		public override void Load(TagCompound tag)
+        public List<LoreEntry> loreEntries;
+
+        public override void Initialize()
+        {
+            loreEntries = new List<LoreEntry>();
+        }
+
+        public override void Load(TagCompound tag)
 		{
 			_voidAffinityAmount = tag.GetAsInt("VoidAffinity");
 			VoidTier = tag.GetAsInt("VoidTier");
-		}
+            IList<short> list = tag.GetList<short>("loreEntries");
+            for (int i = 0; i < list.Count; i++)
+            {
+                short entry = list[i];
+                loreEntries.Add(new LoreEntry(entry));
+            }
+        }
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
