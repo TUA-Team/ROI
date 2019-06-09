@@ -11,6 +11,8 @@ namespace ROI.Manager
 		/// </summary>
 		public abstract void Initialize();
 
+        public virtual void Unload() { _instance = null;  }
+
 		public static T Instance
 		{
 			get
@@ -22,11 +24,6 @@ namespace ROI.Manager
 		protected BaseInstanceManager()
 		{
 			Initialize();
-		}
-
-		public void Unload()
-		{
-			_instance = null;
 		}
 	}
 }

@@ -19,9 +19,9 @@ namespace ROI.NPCs.Void.VoidPillar
         private bool _movementUp;
         private float _damageReduction;
 
-        public PillarShieldColor ShieldColor { get; private set; };
+        public PillarShieldColor ShieldColor { get; private set; }
 
-        public int ShieldHealth { get; private set; };
+        public int ShieldHealth { get; private set; }
 
         public override void SetStaticDefaults()
         {

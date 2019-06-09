@@ -1,12 +1,12 @@
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.GUI.VoidUI;
+using ROI.Manager;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI
 {
-	internal sealed partial class ROIMod : Mod
+    internal sealed partial class ROIMod : Mod
 	{
 		internal static string SAVE_PATH = "";
 
@@ -14,7 +14,7 @@ namespace ROI
 
 		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
-
+            NetworkManager.Instance.ReceivePacket(reader, whoAmI);
 		}
 
 		#region Load and unload stuff
@@ -31,7 +31,7 @@ namespace ROI
 			{
                 #region Client load
 
-                VoidPillarHealthBar.Load();
+                UIManager.Instance.Initialize();
 
                 #endregion
             }
@@ -49,7 +49,7 @@ namespace ROI
             {
                 #region Client unload
 
-                VoidPillarHealthBar.Unload();
+                UIManager.Instance.Unload();
 
                 #endregion
             }
@@ -59,8 +59,7 @@ namespace ROI
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
-	        VoidPillarHealthBar.FindPillar();
-            VoidPillarHealthBar.Draw(spriteBatch);
+            UIManager.Instance.PostDrawInterface(spriteBatch);
 	    }
 	}
 }

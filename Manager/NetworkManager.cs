@@ -7,7 +7,6 @@ namespace ROI.Manager
 {
 	internal class NetworkManager : BaseInstanceManager<NetworkManager>
 	{
-
 		public override void Initialize()
 		{
 			
@@ -19,7 +18,8 @@ namespace ROI.Manager
 			switch (networkMessage)
 			{
 				case ROINetworkMessage.PlayerData:
-					Main.player[whoAmI].GetModPlayer<ROIPlayer>().ReceiveNetworkData(networkReader);
+					Main.player[whoAmI].GetModPlayer<ROIPlayer>()
+                        .ReceiveNetworkData(networkReader);
 					break;
 			}
 		}
