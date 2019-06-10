@@ -76,4 +76,3 @@ namespace ROI.GUI.VoidUI
         }
     }
 }
-

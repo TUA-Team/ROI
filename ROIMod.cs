@@ -18,10 +18,6 @@ namespace ROI
 
 		}
 
-		public override void HandlePacket(BinaryReader reader, int whoAmI)
-		{
-
-		}
 
 		#region Load and unload stuff
 
@@ -62,6 +58,7 @@ namespace ROI
 		{
 
 		}
+
 		#endregion
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
