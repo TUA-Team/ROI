@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ROI.Manager;
+using ROI.Players;
 using Terraria;
 
 namespace ROI
@@ -34,7 +36,17 @@ namespace ROI
             npc.AddBuff(type, time1, quiet);
         }
 
-		public static void Kill(this NPC npc)
+        public static void UnlockVoidTier(this Player self, int tier)
+        {
+            VoidManager.Instance.UnlockTier(self.GetModPlayer<ROIPlayer>(), tier);
+        }
+
+        public static void RewardVoidAffinity(this Player self, NPC npc)
+        {
+            
+        }
+
+        public static void Kill(this NPC npc)
         {
             npc.life = 0;
             npc.HitEffect();

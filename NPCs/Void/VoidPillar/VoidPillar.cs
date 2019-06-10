@@ -19,9 +19,9 @@ namespace ROI.NPCs.Void.VoidPillar
         private bool _movementUp;
         private float _damageReduction;
 
-        public PillarShieldColor ShieldColor { get; private set; }
+        public PillarShieldColor ShieldColor { get; internal set; }
 
-        public int ShieldHealth { get; private set; }
+        public int ShieldHealth { get; internal set; }
 
         public override void SetStaticDefaults()
         {
@@ -113,6 +113,11 @@ namespace ROI.NPCs.Void.VoidPillar
             drawingData.Draw(Main.spriteBatch);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin();
+        }
+
+        public override bool CheckActive()
+        {
+            return false;
         }
 
         private void DamageShield(int damage)

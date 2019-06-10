@@ -10,6 +10,11 @@ namespace ROI.Players
 
 		public int MaxVoidAffinity => _maxVoidAffinity;
 
+        /// <summary>
+        /// 1 minute cooldown
+        /// </summary>
+	    public int voidEffectAttemptCooldown = 60 * 60; 
+
 	    internal int VoidAffinityAmount
 	    {
             get => _voidAffinityAmount;

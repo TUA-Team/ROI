@@ -17,13 +17,15 @@ namespace ROI.Players
 
 	    public bool darkMind = false;
 
-		public override TagCompound Save()
+	    public int VoidTier { get; internal set; }
+
+        public override TagCompound Save()
 		{
 			return new TagCompound()
 			{
 				["VoidAffinity"] = _voidAffinityAmount,
 				["VoidTier"] = VoidTier,
-                [nameof(loreEntries)] = loreEntries.Select(x => x.ID)
+                //[nameof(loreEntries)] = loreEntries.Select(x => x.ID)
             };
 		}
 
@@ -38,12 +40,12 @@ namespace ROI.Players
 		{
 			_voidAffinityAmount = tag.GetAsInt("VoidAffinity");
 			VoidTier = tag.GetAsInt("VoidTier");
-            IList<short> list = tag.GetList<short>("loreEntries");
-            for (int i = 0; i < list.Count; i++)
-            {
-                short entry = list[i];
-                loreEntries.Add(new LoreEntry(entry));
-            }
+            //IList<short> list = tag.GetList<short>("loreEntries");
+            //for (int i = 0; i < list.Count; i++)
+            //{
+            //    short entry = list[i];
+            //    loreEntries.Add(new LoreEntry(entry));
+            //}
         }
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -54,12 +56,15 @@ namespace ROI.Players
 			packet.Send(toWho, fromWho);
 		}
 
-		public int VoidTier { get; internal set; }
-
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
 			_voidAffinityAmount = reader.ReadInt32();
 			VoidTier = reader.ReadInt32();
 		}
+
+	    public override void PostUpdate()
+	    {
+	        base.PostUpdate();
+	    }
 	}
 }

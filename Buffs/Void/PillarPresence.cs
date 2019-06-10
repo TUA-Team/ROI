@@ -7,9 +7,10 @@ using Terraria;
 
 namespace ROI.Buffs.Void
 {
-    class VoidSlowness : ROIBuff
+    class PillarPresence : ROIBuff
     {
-        protected VoidSlowness(string displayName, string description) : base("Void Slowness", "The void is slowly consuming you\n- 75% movement speed")
+
+        protected PillarPresence(string displayName, string description) : base("Strange Presence...", "Something isn't right")
         {
         }
 
@@ -20,7 +21,7 @@ namespace ROI.Buffs.Void
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.moveSpeed /= 0.75f;
+            base.Update(player, ref buffIndex);
         }
     }
 }

@@ -34,10 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Buffs\ROIBuff.cs" />
+    <Compile Include="Buffs\Void\PillarPresence.cs" />
     <Compile Include="Enums\PillarShieldColor.cs" />
     <Compile Include="Enums\ROINetworkMessage.cs" />
     <Compile Include="Buffs\Void\DarkMind.cs" />
     <Compile Include="Buffs\Void\VoidSlowness.cs" />
+    <Compile Include="Enums\BossKillType.cs" />
+    <Compile Include="Globals\ROIGlobalNPC.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
     <Compile Include="Items\ROIItem.cs" />
@@ -52,6 +55,7 @@
     <Compile Include="Players\ROIPlayer.cs" />
     <Compile Include="Manager\NetworkManager.cs" />
     <Compile Include="Players\Void\ROIVoidPlayer.cs" />
+    <Compile Include="ROIWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -131,8 +135,19 @@
     <Folder Include="Dusts\" />
     <Folder Include="Items\Relics\" />
     <Folder Include="NPCs\Boss\" />
+    <Folder Include="Projectiles\" />
+    <Folder Include="Recipes\" />
+    <Folder Include="Tiles\" />
+    <Folder Include="Walls\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Buffs\Void\DarkMind.png" />
+    <Content Include="Buffs\Void\EternalGrace.png" />
+    <Content Include="Buffs\Void\PillarPresence.png" />
+    <Content Include="Buffs\Void\VoidAffliction.png" />
+    <Content Include="Buffs\Void\VoidInfliction.png" />
+    <Content Include="Buffs\Void\VoidRage.png" />
+    <Content Include="Buffs\Void\VoidSlowness.png" />
     <Content Include="Textures\UIElements\HealthBarBG.png" />
     <Content Include="Textures\UIElements\HealthBarFG.png" />
   </ItemGroup>
