@@ -40,6 +40,7 @@
     <Compile Include="Buffs\Void\DarkMind.cs" />
     <Compile Include="Buffs\Void\VoidSlowness.cs" />
     <Compile Include="Enums\BossKillType.cs" />
+    <Compile Include="Globals\ROIGlobalItem.cs" />
     <Compile Include="Globals\ROIGlobalNPC.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
@@ -148,8 +149,14 @@
     <Content Include="Buffs\Void\VoidInfliction.png" />
     <Content Include="Buffs\Void\VoidRage.png" />
     <Content Include="Buffs\Void\VoidSlowness.png" />
+    <Content Include="Effects\RadialProgressSource.txt" />
     <Content Include="Textures\UIElements\HealthBarBG.png" />
     <Content Include="Textures\UIElements\HealthBarFG.png" />
+    <Content Include="Textures\UIElements\VoidMeterEmpty.png" />
+    <Content Include="Textures\UIElements\VoidMeterFull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Effects\RadialProgress.xnb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -19,12 +19,15 @@ namespace ROI.Players
 
 	    public int VoidTier { get; internal set; }
 
-        public override TagCompound Save()
+	    public int MaxVoidAffinity { get; internal set; }
+
+	    public override TagCompound Save()
 		{
 			return new TagCompound()
 			{
 				["VoidAffinity"] = _voidAffinityAmount,
 				["VoidTier"] = VoidTier,
+                ["MaxVoidAffinity"] = MaxVoidAffinity
                 //[nameof(loreEntries)] = loreEntries.Select(x => x.ID)
             };
 		}
@@ -40,13 +43,14 @@ namespace ROI.Players
 		{
 			_voidAffinityAmount = tag.GetAsInt("VoidAffinity");
 			VoidTier = tag.GetAsInt("VoidTier");
-            //IList<short> list = tag.GetList<short>("loreEntries");
-            //for (int i = 0; i < list.Count; i++)
-            //{
-            //    short entry = list[i];
-            //    loreEntries.Add(new LoreEntry(entry));
-            //}
-        }
+		    MaxVoidAffinity = tag.GetAsInt("MaxVoidAffinity");
+		    //IList<short> list = tag.GetList<short>("loreEntries");
+		    //for (int i = 0; i < list.Count; i++)
+		    //{
+		    //    short entry = list[i];
+		    //    loreEntries.Add(new LoreEntry(entry));
+		    //}
+		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
@@ -61,10 +65,5 @@ namespace ROI.Players
 			_voidAffinityAmount = reader.ReadInt32();
 			VoidTier = reader.ReadInt32();
 		}
-
-	    public override void PostUpdate()
-	    {
-	        base.PostUpdate();
-	    }
 	}
 }

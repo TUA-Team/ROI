@@ -5,11 +5,6 @@ namespace ROI.Players
 {
 	public sealed partial class ROIPlayer : ModPlayer
 	{
-		//By default is 100, which correspond to Alpha Tier capacity
-		private int _maxVoidAffinity = 100;
-
-		public int MaxVoidAffinity => _maxVoidAffinity;
-
         /// <summary>
         /// 1 minute cooldown
         /// </summary>
@@ -21,7 +16,7 @@ namespace ROI.Players
 	    }
 
 
-	    public int AddVoidAffinity(int voidAffinity, bool simulate)
+	    public int AddVoidAffinity(int voidAffinity, bool simulate = false)
 	    {
 	        int simulatedAmount = Math.Min(MaxVoidAffinity - VoidAffinityAmount, voidAffinity);
 	        if (!simulate)

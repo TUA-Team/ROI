@@ -21,13 +21,42 @@ namespace ROI.Manager
 		/// </summary>
 		public void UnlockTier(ROIPlayer player, int tier)
 		{
-			if (player.VoidTier == tier - 1)
-				player.VoidTier = tier;
+		    if (player.VoidTier != tier - 1)
+		    {
+		        return;
+		    }
+		    player.VoidTier = tier;
+		    switch (tier)
+		    {
+                case 1:
+                    player.MaxVoidAffinity = 100;
+                    break;
+		        case 2:
+		            player.MaxVoidAffinity = 200;
+                    break;
+		        case 3:
+		            player.MaxVoidAffinity = 500;
+                    break;
+		        case 4:
+		            player.MaxVoidAffinity = 900;
+                    break;
+		        case 5:
+		            player.MaxVoidAffinity = 1200;
+                    break;
+		        case 6:
+		            player.MaxVoidAffinity = 2000;
+                    break;
+            }
 		}
 
-	    public void RewardAffinity()
+	    public void RewardAffinity(ROIPlayer player, int amount)
 	    {
+	        if (amount >= 50)
+	        {
+	            amount = 50;
+	        }
 
+	        player.AddVoidAffinity(amount);
 	    }
 
 	    #region Void Effect

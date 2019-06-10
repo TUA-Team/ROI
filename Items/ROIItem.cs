@@ -31,6 +31,7 @@ namespace ROI.Items
 				item.thrown = false;
 				item.magic = false;
 			}
+            
 		}
 		/// <summary>
 		/// Use this SetDefaults just in case it's a void item

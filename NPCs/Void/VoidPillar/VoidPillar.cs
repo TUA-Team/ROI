@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Enums;
@@ -47,10 +48,15 @@ namespace ROI.NPCs.Void.VoidPillar
             movementTimer = 100;
             _movementUp = false;
             _damageReduction = 0;
+            if (Main.npc.Any(i => i.modNPC is VoidPillar))
+            {
+                npc.ForceKill();
+            }
         }
 
         public override void AI()
         {
+
             PillarMovement();
             DecideAttack();
         }

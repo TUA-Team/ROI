@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using ROI.Manager;
 using Terraria;
 using Terraria.ID;
@@ -12,8 +13,39 @@ namespace ROI.Globals
 {
     internal partial class ROIGlobalNPC : GlobalNPC
     {
-        public override void NPCLoot(NPC npc)
+        public override bool InstancePerEntity => true;
+
+        internal bool forcedKill = false;
+
+        public override void SetDefaults(NPC npc)
         {
+            switch (npc.type)
+            {
+                case NPCID.MoonLordCore:
+                    npc.value = Item.buyPrice(0, 50, 0 , 0);
+                    break;
+                case NPCID.DukeFishron:
+                    npc.value = Item.buyPrice(0, 25, 0, 0); ;
+                    break;
+                case NPCID.BrainofCthulhu:
+                    npc.value = Item.buyPrice(0, 3, 0, 0); ;
+                    break;
+                case NPCID.QueenBee:
+                    npc.value = Item.buyPrice(0, 5, 0, 0); ;
+                    break;
+                case NPCID.Golem:
+                    npc.value = Item.buyPrice(0, 15, 0, 0); ;
+                    break;
+                case NPCID.CultistBoss:
+                    npc.value = Item.buyPrice(0, 20, 0, 0); ;
+                    break;
+            }
+        }
+
+        public override bool PreNPCLoot(NPC npc)
+        {
+            LogManager.GetLogger("Void logger").Info($"Void Reward : {npc.FullName} - {npc.value} NPC value");
+
             switch (npc.type)
             {
                 case NPCID.EyeofCthulhu:
@@ -35,10 +67,7 @@ namespace ROI.Globals
                     RewardVoidTier(6);
                     break;
             }
-        }
 
-        public override bool SpecialNPCLoot(NPC npc)
-        {
             if (npc.boss)
             {
                 if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
@@ -47,24 +76,35 @@ namespace ROI.Globals
                 }
                 RewardVoidAffinity(npc);
             }
-
-            return true;
+            return base.PreNPCLoot(npc);
         }
+
+        /*
+        public override bool SpecialNPCLoot(NPC npc)
+        {
+
+            if (npc.boss)
+            {
+                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
+                {
+                    return true;
+                }
+                RewardVoidAffinity(npc);
+                return false;
+            }
+
+            return base.SpecialNPCLoot(npc);
+        }*/
 
         public void RewardVoidAffinity(NPC npc)
         {
-            if (npc.modNPC.mod.Name == "CalamityMod")
-            {
-                return;
-            }
-
             foreach (var player in Main.player)
             {
-                if (player == null)
+                if (player.name == "")
                 {
                     continue;
                 }
-                //player.RewardVoidAffinity();
+                player.RewardVoidAffinityTroughNPC(npc);
             }
         }
 
@@ -72,12 +112,14 @@ namespace ROI.Globals
         {
             foreach (var player in Main.player)
             {
-                if (player == null)
+                if (player.name == "")
                 {
                     continue;
                 }
                 player.UnlockVoidTier(tier);
             }
         }
+
+
     }
 }
