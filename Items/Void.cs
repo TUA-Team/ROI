@@ -79,7 +79,7 @@ namespace ROI.Items
 	    {
 	        ROIPlayer roi_player = player.GetModPlayer<ROIPlayer>();
 
-            if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
+            //if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
 	        {
 	            foreach (var buffID in integratedBuff)
 	            {
@@ -98,22 +98,14 @@ namespace ROI.Items
 	        if (integratedBuff.Count != 0)
 	        {
 	            int expertToolTipIndex = tooltips.FindIndex(i => i.mod == "Terraria" && i.Name == "Expert");
+	            int previousLineIndex = expertToolTipIndex;
                 
-	            StringBuilder sb = new StringBuilder();
-	            int buffInLine = 0;
-	            int tooltipLine = 0;
 	            for (int i = 0; i < integratedBuff.Count; i++)
 	            {
-	                sb.Append($"[c/00ff00:- {ROIStaticHelper.GetBuffName(integratedBuff[i])}]  ");
-	                buffInLine++;
-	                if (buffInLine == 5)
-	                {
-	                    sb.AppendLine();
-	                    buffInLine = 0;
-	                }
+                    TooltipLine line = new TooltipLine(mod, $"VoidPotion:{ROIStaticHelper.GetBuffName(integratedBuff[i])}", $"[c/00ff00:- {ROIStaticHelper.GetBuffName(integratedBuff[i])}]");
+	                tooltips.Insert(previousLineIndex - 1, line);
+	                previousLineIndex++;
 	            }
-	            TooltipLine line = new TooltipLine(mod, "VoidPotion", $"{sb}");
-	            tooltips.Insert(expertToolTipIndex - 1, line);
             }
 	    }
     }

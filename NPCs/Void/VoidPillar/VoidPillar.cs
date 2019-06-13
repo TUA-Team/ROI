@@ -48,7 +48,7 @@ namespace ROI.NPCs.Void.VoidPillar
             movementTimer = 100;
             _movementUp = false;
             _damageReduction = (Main.expertMode) ? 0.2f : 0; //Set red shield damage reduction here
-            if (Main.npc.Any(i => i.modNPC is VoidPillar))
+            if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
             {
                 npc.ForceKill();
             }
