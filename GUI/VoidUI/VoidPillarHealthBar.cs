@@ -65,7 +65,7 @@ namespace ROI.GUI.VoidUI
             sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41), new Rectangle(23, 0, 24, 41), color * 0.5f);
             sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 480, (int)offset.Y + 41, 20, 41), new Rectangle(51, 0, 20, 41), color * 0.5f);
 
-            float barProgress = pillar.ShieldHealth / 20000f;
+            float barProgress = pillar.ShieldHealth / ((Main.expertMode) ? 25000f : 20000f);
             int width = (int)(500 * barProgress);
             Rectangle barArea = new Rectangle((int)offset.X - 250 + 2, (int)offset.Y + 41, width, 41);
 

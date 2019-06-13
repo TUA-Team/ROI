@@ -27,8 +27,8 @@ namespace ROI.Players
 			{
 				["VoidAffinity"] = _voidAffinityAmount,
 				["VoidTier"] = VoidTier,
-                ["MaxVoidAffinity"] = MaxVoidAffinity
-                //[nameof(loreEntries)] = loreEntries.Select(x => x.ID)
+                ["MaxVoidAffinity"] = MaxVoidAffinity,
+                ["VoidItemCooldown"] = voidItemCooldown
             };
 		}
 
@@ -57,6 +57,7 @@ namespace ROI.Players
 			ModPacket packet = mod.GetPacket(ushort.MaxValue);
 			packet.Write(_voidAffinityAmount);
 			packet.Write(VoidTier);
+            packet.Write(voidItemCooldown);
 			packet.Send(toWho, fromWho);
 		}
 
@@ -64,6 +65,15 @@ namespace ROI.Players
 		{
 			_voidAffinityAmount = reader.ReadInt32();
 			VoidTier = reader.ReadInt32();
+		    voidItemCooldown = reader.ReadInt32();
 		}
+
+	    public override void PostUpdate()
+	    {
+	        if (voidItemCooldown != 0)
+	        {
+	            voidItemCooldown--;
+	        }
+	    }
 	}
 }

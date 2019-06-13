@@ -216,7 +216,7 @@ namespace ROI.NPCs.Void.VoidPillar
         {
             for (int i = 0; i < Main.player.Length; i++)
             {
-                if (Main.player[i] == null)
+                if (Main.player[i].name == "")
                 {
                     continue;
                 }

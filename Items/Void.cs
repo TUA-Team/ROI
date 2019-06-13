@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text;
+using MonoMod.RuntimeDetour.HookGen;
 using ROI.Players;
 using Terraria;
 using Terraria.ID;
@@ -30,8 +31,8 @@ namespace ROI.Items
 		{
 			DisplayName.SetDefault("The void");
             Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the void\"\n" +
-                               "5 minute cooldown, gives a random buff from the void!\n" +
-                               "Can also add up to 10 guaranteed potion effect that will last for 4 minute!\n" +
+                               "5 minutes cooldown, gives a random buff from the void!\n" +
+                               "Can also add up to 10 guaranteed potion effect that will last for 4 minutes!\n" +
                                "Consume 50 void affinity points");
         
 		}
@@ -79,18 +80,19 @@ namespace ROI.Items
 	    {
 	        ROIPlayer roi_player = player.GetModPlayer<ROIPlayer>();
 
-            //if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
+            if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
 	        {
 	            foreach (var buffID in integratedBuff)
 	            {
 	                player.AddBuff(buffID, 60*60*4, false);
 	            }
 
-	            player.GetModPlayer<ROIPlayer>().voidItemCooldown = 60 * 60 * 5;
+	            roi_player.voidItemCooldown = 60 * 60 * 5;
+	            roi_player.AddVoidAffinity(-50);
 	            return true;
 	        }
 
-	        return base.UseItem(player);
+	        return false;
 	    }
 
 	    public override void ModifyTooltips(List<TooltipLine> tooltips)
