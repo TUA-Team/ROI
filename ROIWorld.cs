@@ -17,7 +17,7 @@ namespace ROI
 {
     class ROIWorld : ModWorld
     {
-        private bool strangePresenceDebuff;
+        public bool strangePresenceDebuff { get; internal set; }
         private int pillarSpawningTimer = 60 * 60 * 60;
 
         public override TagCompound Save()

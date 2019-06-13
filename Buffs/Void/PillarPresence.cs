@@ -21,7 +21,11 @@ namespace ROI.Buffs.Void
 
         public override void Update(Player player, ref int buffIndex)
         {
-            base.Update(player, ref buffIndex);
+            ROIWorld world = mod.GetModWorld<ROIWorld>();
+            if (world.strangePresenceDebuff)
+            {
+                world.strangePresenceDebuff = true;
+            }
         }
     }
 }

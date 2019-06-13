@@ -10,7 +10,7 @@ namespace ROI.Items
 	/// <summary>
 	/// Base of any RoI item
 	/// </summary>
-	internal abstract class ROIItem : ModItem
+	public abstract class ROIItem : ModItem
 	{
 		/// <summary>
 		/// Override this to set it true in case it's a void item
