@@ -5,50 +5,55 @@ using Terraria.ModLoader.IO;
 namespace ROI.Players
 {
     /// <summary>
-    /// Use this to store the main player data, otherwise create a partial classà
+    /// Use this to store the main player data, otherwise create a partial class
     /// Web, decide on this one if it's internal or public,
     /// I leave it public in case someone wanna do call in it but I only give them Get accessor
     /// </summary>
     public sealed partial class ROIPlayer : ModPlayer
 	{
-		private int _voidAffinityAmount = 0;
+        private short voidAffinityAmount;
+        public bool darkMind;
+	    public byte VoidTier { get; internal set; }
+        private short voidExposure;
 
-	    public bool darkMind = false;
+        public override void Initialize()
+        {
+            voidAffinityAmount = 0;
+            darkMind = false;
+            voidExposure = 0;
 
-	    public int VoidTier { get; internal set; }
+            InitVoid();
+        }
 
         public override TagCompound Save()
 		{
 			return new TagCompound()
 			{
-				["VoidAffinity"] = _voidAffinityAmount,
-				["VoidTier"] = VoidTier,
+				["voidAffinity"] = voidAffinityAmount,
+				["voidTier"] = VoidTier,
+                ["voidExposure"] = voidExposure
             };
 		}
 
         public override void Load(TagCompound tag)
 		{
-			_voidAffinityAmount = tag.GetAsInt("VoidAffinity");
-			VoidTier = tag.GetAsInt("VoidTier");
+			voidAffinityAmount = tag.Get<short>("voidAffinity");
+			VoidTier = tag.Get<byte>("voidTier");
+            voidExposure = tag.Get<short>("voidExposure");
         }
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket(ushort.MaxValue);
-			packet.Write(_voidAffinityAmount);
+			packet.Write(voidAffinityAmount);
 			packet.Write(VoidTier);
 			packet.Send(toWho, fromWho);
 		}
 
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
-			_voidAffinityAmount = reader.ReadInt32();
-			VoidTier = reader.ReadInt32();
+            voidAffinityAmount = reader.ReadInt16();
+            VoidTier = reader.ReadByte();
 		}
-
-	    public override void PostUpdate()
-	    {
-	        base.PostUpdate();
-	    }
 	}
 }

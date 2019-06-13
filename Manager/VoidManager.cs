@@ -11,15 +11,13 @@ namespace ROI.Manager
 
 		}
 
-		public float Percent(ROIPlayer player)
-		{
-			return player.VoidAffinityAmount * 100f / player.MaxVoidAffinity;
-		}
+        public float Percent(ROIPlayer player) 
+            => player.VoidAffinityAmount * 100f / player.MaxVoidAffinity;
 
-		/// <summary>
-		/// Unlock the player tier locally, then will send to the server, it's a global unlock anyway for everyone in the server
-		/// </summary>
-		public void UnlockTier(ROIPlayer player, int tier)
+        /// <summary>
+        /// Unlock the player tier locally, then will send to the server, it's a global unlock anyway for everyone in the server
+        /// </summary>
+        public void UnlockTier(ROIPlayer player, byte tier)
 		{
 			if (player.VoidTier == tier - 1)
 				player.VoidTier = tier;
@@ -31,6 +29,7 @@ namespace ROI.Manager
 	    }
 
 	    #region Void Effect
+
 		public void Effect(ROIPlayer target)
 		{
 		    if (target.VoidTier >= 6) //normally impossible but hey, still prevempting potential error
@@ -49,7 +48,8 @@ namespace ROI.Manager
 
 	    private static bool VoidPillarRequirement(ROIPlayer target)
 	    {
-	        return target.VoidAffinityAmount == target.MaxVoidAffinity && target.VoidTier == 6;
+	        return target.VoidAffinityAmount == target.MaxVoidAffinity 
+                && target.VoidTier == 6;
 	    }
 
 	    private bool Tier1Effect(ROIPlayer target)
@@ -90,7 +90,7 @@ namespace ROI.Manager
 		{
 
 		}
-		#endregion
 
+		#endregion
 	}
 }

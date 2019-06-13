@@ -24,7 +24,7 @@ namespace ROI.GUI.VoidUI
 
 			Rectangle rec = new Rectangle(3, 78, 104, 104);
 			bool isMouseInRec = rec.Contains(Main.MouseScreen.ToPoint());
-			Vector2 fontSize = (isMouseInRec) ? Main.fontDeathText.MeasureString($"{player.VoidAffinityAmount}/{player.MaxVoidAffinity}") * 0.5f : Main.fontDeathText.MeasureString("Void affinity") * 0.4f;
+			Vector2 fontSize = (isMouseInRec) ? Main.fontDeathText.MeasureString($"{player.VoidAffinityAmount}/{player.MaxVoidAffinity}") * 0.5f : Main.fontDeathText.MeasureString("Void Affinity") * 0.4f;
 
 			if (isMouseInRec)
 			{
@@ -32,7 +32,7 @@ namespace ROI.GUI.VoidUI
 			}
 			else
 			{
-				Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"Void affinity", 104f / 2f - fontSize.X / 2f, 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.4f);
+				Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"Void Affinity", 104f * .5f - fontSize.X / 2f, 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.4f);
 			}
 		}
 

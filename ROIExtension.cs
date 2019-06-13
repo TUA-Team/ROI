@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ROI.Manager;
+﻿using ROI.Manager;
 using ROI.Players;
 using Terraria;
 
@@ -36,7 +31,7 @@ namespace ROI
             npc.AddBuff(type, time1, quiet);
         }
 
-        public static void UnlockVoidTier(this Player self, int tier)
+        public static void UnlockVoidTier(this Player self, byte tier)
         {
             VoidManager.Instance.UnlockTier(self.GetModPlayer<ROIPlayer>(), tier);
         }

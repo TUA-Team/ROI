@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ROI.Manager;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,71 +7,58 @@ namespace ROI.Globals
 {
     internal partial class ROIGlobalNPC : GlobalNPC
     {
+        private Dictionary<short, byte> bossToVoidTier = new Dictionary<short, byte>
+        {
+            { NPCID.EyeofCthulhu, 1 },
+            { NPCID.SkeletronHead, 2 },
+            { NPCID.WallofFlesh, 3 },
+            { NPCID.Plantera, 4 },
+            { NPCID.CultistBoss, 5 },
+            { NPCID.MoonLordCore, 6 }
+        };
+
         public override void NPCLoot(NPC npc)
         {
-            switch (npc.type)
-            {
-                case NPCID.EyeofCthulhu:
-                    RewardVoidTier(1);
-                    break;
-                case NPCID.SkeletronHead:
-                    RewardVoidTier(2);
-                    break;
-                case NPCID.WallofFlesh:
-                    RewardVoidTier(3);
-                    break;
-                case NPCID.Plantera:
-                    RewardVoidTier(4);
-                    break;
-                case NPCID.CultistBoss:
-                    RewardVoidTier(5);
-                    break;
-                case NPCID.MoonLordCore:
-                    RewardVoidTier(6);
-                    break;
-            }
+            if (bossToVoidTier.TryGetValue((short)npc.type, out byte tier))
+                RewardVoidTier(tier);
         }
 
         public override bool SpecialNPCLoot(NPC npc)
         {
             if (npc.boss)
             {
-                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
-                {
-                    return false;
-                }
+                if (npc.type == NPCID.EaterofWorldsHead && eowAlive()) return false;
                 RewardVoidAffinity(npc);
             }
-
             return true;
+
+            bool eowAlive()
+            {
+                ushort count = 0;
+                for (int i = 0; i < 200; i++)
+                {
+                    if (Main.npc[i].type == NPCID.EaterofWorldsBody
+                        && ++count == 2) return true;
+                }
+                return false;
+            }
         }
 
         public void RewardVoidAffinity(NPC npc)
         {
-            if (npc.modNPC.mod.Name == "CalamityMod")
-            {
-                return;
-            }
+            if (npc.modNPC?.mod.Name == "CalamityMod") return;
 
-            foreach (var player in Main.player)
+            for (int i = 0; i < Main.player.Length; i++)
             {
-                if (player == null)
-                {
-                    continue;
-                }
-                //player.RewardVoidAffinity();
+                //Main.player[i]?.RewardVoidAffinity();
             }
         }
 
-        private void RewardVoidTier(int tier)
+        private void RewardVoidTier(byte tier)
         {
-            foreach (var player in Main.player)
+            for (int i = 0; i < Main.player.Length; i++)
             {
-                if (player == null)
-                {
-                    continue;
-                }
-                player.UnlockVoidTier(tier);
+                Main.player[i]?.UnlockVoidTier(tier);
             }
         }
     }
