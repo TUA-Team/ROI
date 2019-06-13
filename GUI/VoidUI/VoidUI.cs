@@ -4,45 +4,64 @@ using Microsoft.Xna.Framework.Graphics;
 using ROI.Manager;
 using ROI.Players;
 using Terraria;
-using Terraria.UI;
+using Terraria.Graphics.Shaders;
 
 namespace ROI.GUI.VoidUI
 {
-	internal class VoidUI : UIState
+    internal class VoidUI
 	{
-		private static readonly int DrawingOffset = 150;
-		public override void Draw(SpriteBatch spriteBatch)
+		private static readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
+	    private static Texture2D voidMeterFilled;
+	    private static Texture2D voidMeterEmpty;
+
+	    public static void Load()
+	    {
+	        GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/RadialProgress")), "progress");
+
+            voidMeterFilled = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterFull");
+	        voidMeterEmpty = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterEmpty");
+        }
+
+	    public static void Unload()
+	    {
+	        voidMeterFilled.Dispose();
+	        voidMeterEmpty.Dispose();
+        }
+
+	    public static void Draw(SpriteBatch spriteBatch)
 		{
-			//TODO Create RoI player
 			ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
-			float percent = VoidManager.Instance.Percent(player);
+			float percent = VoidManager.Instance.Percent(player) / 100f;
 
-			spriteBatch.Draw(DrawCircle(104, 66, 1f), new Vector2(3, 100), Color.Black);
-			spriteBatch.Draw(DrawCircle(100, 70, 1f), new Vector2(5, 102), Color.White);
-			spriteBatch.Draw(DrawCircle(100, 70, percent / 100), new Vector2(5, 80), Color.Purple);
-			Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"{percent}%", 34f, 117f, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
+            spriteBatch.Draw(voidMeterEmpty, DrawingOffset, null, Color.White, 0f, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 1f);
+            spriteBatch.End();
+		    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+		    var radialShader = GameShaders.Misc["ROI:RadialProgress"];
+		    radialShader.Shader.Parameters["progress"].SetValue(percent);
+            radialShader.Shader.CurrentTechnique.Passes[0].Apply();
+            spriteBatch.Draw(voidMeterFilled, DrawingOffset, null, Color.White, 0f, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 1f);
+            spriteBatch.End();
+		    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+            
+            Rectangle textureBound = new Rectangle((int)DrawingOffset.X, (int)DrawingOffset.Y, voidMeterEmpty.Width, voidMeterFilled.Height);
 
-			Rectangle rec = new Rectangle(3, 78, 104, 104);
-			bool isMouseInRec = rec.Contains(Main.MouseScreen.ToPoint());
-			Vector2 fontSize = (isMouseInRec) ? Main.fontDeathText.MeasureString($"{player.VoidAffinityAmount}/{player.MaxVoidAffinity}") * 0.5f : Main.fontDeathText.MeasureString("Void Affinity") * 0.4f;
-
-			if (isMouseInRec)
-			{
-				Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"{player.VoidAffinityAmount}/{player.MaxVoidAffinity}", (104f / 2f - fontSize.X / 2f), 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.5f);
-			}
-			else
-			{
-				Utils.DrawBorderStringFourWay(spriteBatch, Main.fontDeathText, $"Void Affinity", 104f * .5f - fontSize.X / 2f, 78f + 104f + fontSize.Y / 2, Color.MediumPurple, Color.Black, Vector2.Zero, 0.4f);
-			}
+		    if (textureBound.Contains((int) Main.MouseScreen.X, (int) Main.MouseScreen.Y))
+		    {
+		        Main.hoverItemName = $"Void meter : {player.VoidAffinityAmount}/{player.MaxVoidAffinity}\n" +
+		                             $"Percent : {percent * 100}%\n" +
+		                             $"Tier : {player.VoidTier}";
+		    }
 		}
 
+
+        //TODO: Move this to DrawUtils
 		public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
 		{
 			Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
 			Color[] colorData = new Color[diameter * diameter];
 
-			float radius = diameter / 2f;
-			float radiusInterior = diameterInterior / 2f;
+			float radius = diameter * .5f;
+			float radiusInterior = diameterInterior * .5f;
 			float radiusSquared = radius * radius;
 			float radiusSquaredInterior = radiusInterior * radiusInterior;
 
@@ -50,21 +69,15 @@ namespace ROI.GUI.VoidUI
 			{
 				for (int y = 0; y < diameter; y++)
 				{
-
 					int index = x * diameter + y;
 					Vector2 pos = new Vector2(x - radius, y - radius);
 					float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
 					float angle = (float)Math.Atan2(pos.Y, pos.X);
 
-					if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
-					{
-						colorData[index] = Color.White;
-					}
-					else
-					{
-						colorData[index] = Color.Transparent;
-					}
-				}
+                    colorData[index] = (anglePercent > angle 
+                        && pos.LengthSquared() < radiusSquared 
+                        && pos.LengthSquared() > radiusSquaredInterior) ? Color.White : Color.Transparent;
+                }
 			}
 
 			texture.SetData(colorData);

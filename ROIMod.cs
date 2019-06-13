@@ -32,7 +32,8 @@ namespace ROI
 
 		private void NonNetworkLoad()
 		{
-			VoidPillarHealthBar.Load();
+            VoidPillarHealthBar.Load();
+            VoidUI.Load();
 		}
 
 		private void GeneralLoad()
@@ -56,7 +57,8 @@ namespace ROI
 
 		private void NonNetworkUnload()
 		{
-
+            VoidPillarHealthBar.Unload();
+            VoidUI.Unload();
 		}
 
 		#endregion
@@ -65,6 +67,10 @@ namespace ROI
 	    {
 	        VoidPillarHealthBar.FindPillar();
             VoidPillarHealthBar.Draw(spriteBatch);
+	        if (!Main.playerInventory)
+	        {
+                VoidUI.Draw(spriteBatch);
+	        }
 	    }
 
 	    public override object Call(params object[] args)
@@ -87,8 +93,6 @@ namespace ROI
 	        {
                 
 	        }
-	        
-
 	        return null;
 	    }
 	}

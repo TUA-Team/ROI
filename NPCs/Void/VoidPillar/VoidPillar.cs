@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Enums;
@@ -35,18 +36,22 @@ namespace ROI.NPCs.Void.VoidPillar
             npc.height = 364;
             npc.aiStyle = -1;
             npc.buffImmune.SetAllTrue();
-            npc.lifeMax = 20000;
+            npc.lifeMax = (Main.expertMode) ? 25000 : 20000;
             music = MusicID.LunarBoss;
             npc.noGravity = true;
             npc.immortal = true;
             npc.knockBackResist = 0f;
 
             ShieldColor = PillarShieldColor.Red;
-            ShieldHealth = 20000;
+            ShieldHealth = (Main.expertMode) ? 25000 : 20000;
 
             movementTimer = 100;
             _movementUp = false;
-            _damageReduction = 0;
+            _damageReduction = (Main.expertMode) ? 0.2f : 0; //Set red shield damage reduction here
+            if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
+            {
+                npc.ForceKill();
+            }
         }
 
         public override void AI()
@@ -127,8 +132,8 @@ namespace ROI.NPCs.Void.VoidPillar
 
             if (ShieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow)
             {
-                ShieldHealth = 20000;
-                npc.life = 20000;
+                ShieldHealth = (Main.expertMode) ? 25000 : 20000;
+                npc.life = (Main.expertMode) ? 25000 : 20000;
                 SwitchShieldColor();
             }
         }
@@ -185,8 +190,10 @@ namespace ROI.NPCs.Void.VoidPillar
             switch (ShieldColor)
             {
                 case PillarShieldColor.Red:
+                    DebuffRed();
                     break;
                 case PillarShieldColor.Purple:
+                    DebuffPurple();
                     break;
                 case PillarShieldColor.Black:
                     DebuffBlack();
@@ -209,12 +216,12 @@ namespace ROI.NPCs.Void.VoidPillar
         {
             for (int i = 0; i < Main.player.Length; i++)
             {
-                if (Main.player[i] == null)
+                if (Main.player[i].name == "")
                 {
                     continue;
                 }
-                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by a manifestation of the void.");
-                Main.player[i].Hurt(death, 5, 0, false, true, false, 5);
+                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by his avatar from the void.");
+                Main.player[i].Hurt(death, (Main.expertMode) ? 50 : 25, 0, false, true, false, 5);
                 Main.player[i].lifeRegen = 0;
             }
         }
@@ -248,9 +255,10 @@ namespace ROI.NPCs.Void.VoidPillar
                 }
 
                 Main.player[i].headcovered = true;
+                
                 if (Main.rand.Next(1000) == 0)
                 {
-                    Main.player[i].AddBuff(BuffID.Suffocation, 60 * 5, false);
+                    Main.player[i].AddBuff(BuffID.Suffocation, (Main.expertMode) ? 60 * 5 : 60 * 10, false);
                 }
 
             }

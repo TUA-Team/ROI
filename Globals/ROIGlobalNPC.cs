@@ -1,4 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using log4net;
+using ROI.Manager;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,59 +13,113 @@ namespace ROI.Globals
 {
     internal partial class ROIGlobalNPC : GlobalNPC
     {
-        private Dictionary<short, byte> bossToVoidTier = new Dictionary<short, byte>
-        {
-            { NPCID.EyeofCthulhu, 1 },
-            { NPCID.SkeletronHead, 2 },
-            { NPCID.WallofFlesh, 3 },
-            { NPCID.Plantera, 4 },
-            { NPCID.CultistBoss, 5 },
-            { NPCID.MoonLordCore, 6 }
-        };
+        public override bool InstancePerEntity => true;
 
-        public override void NPCLoot(NPC npc)
+        internal bool forcedKill = false;
+
+        public override void SetDefaults(NPC npc)
         {
-            if (bossToVoidTier.TryGetValue((short)npc.type, out byte tier))
-                RewardVoidTier(tier);
+            switch (npc.type)
+            {
+                case NPCID.MoonLordCore:
+                    npc.value = Item.buyPrice(0, 50, 0 , 0);
+                    break;
+                case NPCID.DukeFishron:
+                    npc.value = Item.buyPrice(0, 25, 0, 0); ;
+                    break;
+                case NPCID.BrainofCthulhu:
+                    npc.value = Item.buyPrice(0, 3, 0, 0); ;
+                    break;
+                case NPCID.QueenBee:
+                    npc.value = Item.buyPrice(0, 5, 0, 0); ;
+                    break;
+                case NPCID.Golem:
+                    npc.value = Item.buyPrice(0, 15, 0, 0); ;
+                    break;
+                case NPCID.CultistBoss:
+                    npc.value = Item.buyPrice(0, 20, 0, 0); ;
+                    break;
+            }
         }
 
-        public override bool SpecialNPCLoot(NPC npc)
+        public override bool PreNPCLoot(NPC npc)
         {
+            LogManager.GetLogger("Void logger").Info($"Void Reward : {npc.FullName} - {npc.value} NPC value");
+
+            switch (npc.type)
+            {
+                case NPCID.EyeofCthulhu:
+                    RewardVoidTier(1);
+                    break;
+                case NPCID.SkeletronHead:
+                    RewardVoidTier(2);
+                    break;
+                case NPCID.WallofFlesh:
+                    RewardVoidTier(3);
+                    break;
+                case NPCID.Plantera:
+                    RewardVoidTier(4);
+                    break;
+                case NPCID.CultistBoss:
+                    RewardVoidTier(5);
+                    break;
+                case NPCID.MoonLordCore:
+                    RewardVoidTier(6);
+                    break;
+            }
+
             if (npc.boss)
             {
-                if (npc.type == NPCID.EaterofWorldsHead && eowAlive()) return false;
+                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
+                {
+                    return false;
+                }
                 RewardVoidAffinity(npc);
             }
-            return true;
+            return base.PreNPCLoot(npc);
+        }
 
-            bool eowAlive()
+        /*
+        public override bool SpecialNPCLoot(NPC npc)
+        {
+
+            if (npc.boss)
             {
-                ushort count = 0;
-                for (int i = 0; i < 200; i++)
+                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
                 {
-                    if (Main.npc[i].type == NPCID.EaterofWorldsBody
-                        && ++count == 2) return true;
+                    return true;
                 }
+                RewardVoidAffinity(npc);
                 return false;
             }
-        }
+
+            return base.SpecialNPCLoot(npc);
+        }*/
 
         public void RewardVoidAffinity(NPC npc)
         {
-            if (npc.modNPC?.mod.Name == "CalamityMod") return;
-
-            for (int i = 0; i < Main.player.Length; i++)
+            foreach (var player in Main.player)
             {
-                //Main.player[i]?.RewardVoidAffinity();
+                if (player.name == "")
+                {
+                    continue;
+                }
+                player.RewardVoidAffinityTroughNPC(npc);
             }
         }
 
-        private void RewardVoidTier(byte tier)
+        private void RewardVoidTier(int tier)
         {
-            for (int i = 0; i < Main.player.Length; i++)
+            foreach (var player in Main.player)
             {
-                Main.player[i]?.UnlockVoidTier(tier);
+                if (player.name == "")
+                {
+                    continue;
+                }
+                player.UnlockVoidTier(tier);
             }
         }
+
+
     }
 }

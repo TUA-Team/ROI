@@ -21,39 +21,50 @@ namespace ROI.Players
             voidAffinityAmount = 0;
             darkMind = false;
             voidExposure = 0;
-
-            InitVoid();
         }
 
-        public override TagCompound Save()
+	    public int MaxVoidAffinity { get; internal set; }
+
+	    public override TagCompound Save()
 		{
 			return new TagCompound()
 			{
-				["voidAffinity"] = voidAffinityAmount,
-				["voidTier"] = VoidTier,
-                ["voidExposure"] = voidExposure
+				["VoidAffinity"] = voidAffinityAmount,
+				["VoidTier"] = VoidTier,
+                ["MaxVoidAffinity"] = MaxVoidAffinity,
+                ["VoidItemCooldown"] = voidItemCooldown
             };
 		}
 
         public override void Load(TagCompound tag)
 		{
-			voidAffinityAmount = tag.Get<short>("voidAffinity");
-			VoidTier = tag.Get<byte>("voidTier");
-            voidExposure = tag.Get<short>("voidExposure");
-        }
+			voidAffinityAmount = tag.GetShort("VoidAffinity");
+			VoidTier = tag.GetByte("VoidTier");
+		    MaxVoidAffinity = tag.GetAsInt("MaxVoidAffinity");
+		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket(ushort.MaxValue);
 			packet.Write(voidAffinityAmount);
 			packet.Write(VoidTier);
+            packet.Write(voidItemCooldown);
 			packet.Send(toWho, fromWho);
 		}
 
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
             voidAffinityAmount = reader.ReadInt16();
-            VoidTier = reader.ReadByte();
+			VoidTier = reader.ReadByte();
+		    voidItemCooldown = reader.ReadInt32();
 		}
+
+	    public override void PostUpdate()
+	    {
+	        if (voidItemCooldown != 0)
+	        {
+	            voidItemCooldown--;
+	        }
+	    }
 	}
 }

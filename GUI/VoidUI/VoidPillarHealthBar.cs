@@ -43,10 +43,7 @@ namespace ROI.GUI.VoidUI
 
         public static void Draw(SpriteBatch sb)
         {
-            if (pillar == null)
-            {
-                return;
-            }
+            if (pillar == null) return;
 
             string name = "Void Pillar - " + pillar.ShieldColor.ToString() + " Shield";
             string health = pillar.npc.life + "/" + pillar.npc.lifeMax;
@@ -74,7 +71,7 @@ namespace ROI.GUI.VoidUI
                 new Rectangle(51, 0, 20, 41),
                 color * 0.5f);
 
-            float barProgress = pillar.ShieldHealth / 20000f;
+            float barProgress = pillar.ShieldHealth / (Main.expertMode ? 25000f : 20000f);
             int width = (int)(500 * barProgress);
             Rectangle barArea = new Rectangle((int)offset.X - 250 + 2, 
                 (int)offset.Y + 41, 

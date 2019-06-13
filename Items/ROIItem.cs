@@ -10,7 +10,7 @@ namespace ROI.Items
 	/// <summary>
 	/// Base of any RoI item
 	/// </summary>
-	internal abstract class ROIItem : ModItem
+	public abstract class ROIItem : ModItem
 	{
 		/// <summary>
 		/// Override this to set it true in case it's a void item
@@ -31,6 +31,7 @@ namespace ROI.Items
 				item.thrown = false;
 				item.magic = false;
 			}
+            
 		}
 		/// <summary>
 		/// Use this SetDefaults just in case it's a void item

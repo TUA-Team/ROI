@@ -5,9 +5,12 @@ namespace ROI.Players
 {
 	public sealed partial class ROIPlayer : ModPlayer
 	{
-        public int MaxVoidAffinity { get; private set; }
+        /// <summary>
+        /// 1 minute cooldown
+        /// </summary>
+	    public int voidEffectAttemptCooldown = 60 * 60;
 
-	    public int voidEffectAttemptCooldown;
+	    public int voidItemCooldown = 60 * 60 * 5;
 
         internal int VoidAffinityAmount => voidAffinityAmount;
 
@@ -18,7 +21,7 @@ namespace ROI.Players
             voidEffectAttemptCooldown = 60 * 60;
         }
 
-	    public short AddVoidAffinity(int voidAffinity, bool simulate)
+	    public int AddVoidAffinity(int voidAffinity, bool simulate = false)
 	    {
 	        short simulatedAmount = 
                 (short)Math.Min(MaxVoidAffinity - VoidAffinityAmount, voidAffinity);
