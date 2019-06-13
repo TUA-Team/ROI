@@ -15,7 +15,9 @@ namespace ROI.Players
 
 	    public bool darkMind = false;
 
-		public override TagCompound Save()
+	    public int VoidTier { get; internal set; }
+
+        public override TagCompound Save()
 		{
 			return new TagCompound()
 			{
@@ -38,12 +40,15 @@ namespace ROI.Players
 			packet.Send(toWho, fromWho);
 		}
 
-		public int VoidTier { get; internal set; }
-
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
 			_voidAffinityAmount = reader.ReadInt32();
 			VoidTier = reader.ReadInt32();
 		}
+
+	    public override void PostUpdate()
+	    {
+	        base.PostUpdate();
+	    }
 	}
 }

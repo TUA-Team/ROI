@@ -25,7 +25,12 @@ namespace ROI.Manager
 				player.VoidTier = tier;
 		}
 
-		#region Void Effect
+	    public void RewardAffinity()
+	    {
+
+	    }
+
+	    #region Void Effect
 		public void Effect(ROIPlayer target)
 		{
 		    if (target.VoidTier >= 6) //normally impossible but hey, still prevempting potential error
