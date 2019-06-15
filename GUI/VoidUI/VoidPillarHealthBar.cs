@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
+using Terraria.Localization;
 
 namespace ROI.GUI.VoidUI
 {
@@ -45,7 +46,7 @@ namespace ROI.GUI.VoidUI
         {
             if (pillar == null) return;
 
-            string name = "Void Pillar - " + pillar.ShieldColor.ToString() + " Shield";
+            string name = Utils.GetLangValue("VoidPillarHealthBar", pillar.ShieldColor.ToString());
             string health = pillar.npc.life + "/" + pillar.npc.lifeMax;
             var color = pillar.GetShieldColor();
 
@@ -83,22 +84,22 @@ namespace ROI.GUI.VoidUI
                 new Rectangle(23, 0, 24, 41), 
                 color);
 
-            Utils.DrawBorderStringFourWay(sb, 
+            Terraria.Utils.DrawBorderStringFourWay(sb,
                 Main.fontDeathText, 
                 name, 
-                (int)offset.X - textSize.X * .5, 
-                offset.Y, 
-                Color.Purple, 
+                (int)offset.X - textSize.X * .5f, 
+                offset.Y,
+                Color.Purple,
                 Color.MediumPurple,
                 Vector2.Zero,
                 0.5f);
-            Utils.DrawBorderStringFourWay(sb, 
+            Terraria.Utils.DrawBorderStringFourWay(sb,
                 Main.fontDeathText, 
                 health,
-                (int)offset.X - healthTextSize.X * .5, 
-                offset.Y + healthTextSize.Y + 10, 
-                Color.LightGray, 
-                Color.DimGray, 
+                (int)offset.X - healthTextSize.X * .5f, 
+                offset.Y + healthTextSize.Y + 10,
+                Color.LightGray,
+                Color.DimGray,
                 Vector2.Zero,
                 0.5f);
         }

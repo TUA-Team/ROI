@@ -1,17 +1,14 @@
 using System.Collections.Generic;
-using System.Text;
-using MonoMod.RuntimeDetour.HookGen;
 using ROI.Players;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ROI.Items
 {
-	//Delete me later or give me the binding of isaac void sprite and some actual use
-	public class Void : ROIItem
+    //Delete me later or give me the binding of isaac void sprite and some actual use
+    public class Void : ROIItem
 	{
 	    public override bool CloneNewInstances => false;
 
@@ -27,16 +24,6 @@ namespace ROI.Items
 	        return item.modItem;
 	    }
 
-	    public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("The void");
-            Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the void\"\n" +
-                               "5 minutes cooldown, gives a random buff from the void!\n" +
-                               "Can also add up to 10 guaranteed potion effect that will last for 4 minutes!\n" +
-                               "Consume 50 void affinity points");
-        
-		}
-
 	    public override void TrueSetDefaults()
 	    {
 	        item.width = 40;
@@ -50,9 +37,11 @@ namespace ROI.Items
 
 	    public override TagCompound Save()
 	    {
-            TagCompound tag = new TagCompound();
-	        tag.Add("potionEffect", integratedBuff);
-	        return tag;
+            TagCompound tag = new TagCompound
+            {
+                { "potionEffect", integratedBuff }
+            };
+            return tag;
 	    }
 
 	    public override void Load(TagCompound tag)
@@ -82,9 +71,10 @@ namespace ROI.Items
 
             if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
 	        {
-	            foreach (var buffID in integratedBuff)
+                for (int i = 0; i < integratedBuff.Count; i++)
 	            {
-	                player.AddBuff(buffID, 60*60*4, false);
+                    int buffID = integratedBuff[i];
+                    player.AddBuff(buffID, 60*60*4, false);
 	            }
 
 	            roi_player.voidItemCooldown = 60 * 60 * 5;
@@ -104,7 +94,9 @@ namespace ROI.Items
                 
 	            for (int i = 0; i < integratedBuff.Count; i++)
 	            {
-                    TooltipLine line = new TooltipLine(mod, $"VoidPotion:{ROIStaticHelper.GetBuffName(integratedBuff[i])}", $"[c/00ff00:- {ROIStaticHelper.GetBuffName(integratedBuff[i])}]");
+                    TooltipLine line = new TooltipLine(mod, 
+                        $"VoidPotion:{Utils.GetBuffName(integratedBuff[i])}",
+                        $"[c/00ff00:- {Utils.GetBuffName(integratedBuff[i])}]");
 	                tooltips.Insert(previousLineIndex - 1, line);
 	                previousLineIndex++;
 	            }

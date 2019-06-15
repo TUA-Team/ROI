@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using Terraria;
@@ -7,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI
 {
-	internal sealed partial class ROIMod : Mod
+    internal sealed partial class ROIMod : Mod
 	{
 		internal static string SAVE_PATH = "";
 
@@ -89,11 +87,11 @@ namespace ROI
 	                    break;
 	            }
             }
-	        catch (Exception e)
+	        catch // (Exception e)
 	        {
                 
 	        }
 	        return null;
 	    }
-	}
+    }
 }

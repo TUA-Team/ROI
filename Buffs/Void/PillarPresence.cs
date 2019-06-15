@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace ROI.Buffs.Void
 {
-    class PillarPresence : ROIBuff
+    class PillarPresence : ModBuff
     {
-
-        protected PillarPresence(string displayName, string description) : base("Strange Presence...", "Something isn't right")
-        {
-        }
-
         public override void SetDefaults()
         {
-            this.canBeCleared = false;
+            canBeCleared = false;
+            longerExpertDebuff = true;
+            Main.persistentBuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

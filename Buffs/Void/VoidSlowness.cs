@@ -1,16 +1,15 @@
 ﻿using Terraria;
+using Terraria.ModLoader;
 
 namespace ROI.Buffs.Void
 {
-    class VoidSlowness : ROIBuff
+    class VoidSlowness : ModBuff
     {
-        protected VoidSlowness(string displayName, string description) : base("Void Slowness", "The void is slowly consuming you\n- 75% movement speed")
-        {
-        }
-
         public override void SetDefaults()
         {
             canBeCleared = false;
+            longerExpertDebuff = true;
+            Main.persistentBuff[Type] = true;
         }
 
         public override void Update(Player player, ref int buffIndex)

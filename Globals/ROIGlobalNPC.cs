@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using log4net;
-using ROI.Manager;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,69 +9,55 @@ namespace ROI.Globals
     internal partial class ROIGlobalNPC : GlobalNPC
     {
         public override bool InstancePerEntity => true;
-
         internal bool forcedKill = false;
+
+        private static readonly Dictionary<short, int> bossValue = new Dictionary<short, int>
+        {
+            { NPCID.MoonLordCore, 500000 }, // 50 gold
+            { NPCID.DukeFishron, 250000 }, // 25 gold
+            { NPCID.BrainofCthulhu, 50000 }, // 5 gold
+            { NPCID.QueenBee, 30000 }, // 3 gold
+            { NPCID.Golem, 150000 }, // 15 gold
+            { NPCID.CultistBoss, 200000 } // 20 gold
+        };
+        private static readonly Dictionary<short, byte> bossTier = new Dictionary<short, byte>
+        {
+            { NPCID.EyeofCthulhu, 1 },
+            { NPCID.SkeletronHead, 2 },
+            { NPCID.WallofFlesh, 3 },
+            { NPCID.Plantera, 4 },
+            { NPCID.CultistBoss, 5 },
+            { NPCID.MoonLordCore, 6 }
+        };
 
         public override void SetDefaults(NPC npc)
         {
-            switch (npc.type)
-            {
-                case NPCID.MoonLordCore:
-                    npc.value = Item.buyPrice(0, 50, 0 , 0);
-                    break;
-                case NPCID.DukeFishron:
-                    npc.value = Item.buyPrice(0, 25, 0, 0); ;
-                    break;
-                case NPCID.BrainofCthulhu:
-                    npc.value = Item.buyPrice(0, 3, 0, 0); ;
-                    break;
-                case NPCID.QueenBee:
-                    npc.value = Item.buyPrice(0, 5, 0, 0); ;
-                    break;
-                case NPCID.Golem:
-                    npc.value = Item.buyPrice(0, 15, 0, 0); ;
-                    break;
-                case NPCID.CultistBoss:
-                    npc.value = Item.buyPrice(0, 20, 0, 0); ;
-                    break;
-            }
+            if (bossValue.TryGetValue((short)npc.type, out int value)) npc.value = value;
         }
 
         public override bool PreNPCLoot(NPC npc)
         {
             LogManager.GetLogger("Void logger").Info($"Void Reward : {npc.FullName} - {npc.value} NPC value");
 
-            switch (npc.type)
-            {
-                case NPCID.EyeofCthulhu:
-                    RewardVoidTier(1);
-                    break;
-                case NPCID.SkeletronHead:
-                    RewardVoidTier(2);
-                    break;
-                case NPCID.WallofFlesh:
-                    RewardVoidTier(3);
-                    break;
-                case NPCID.Plantera:
-                    RewardVoidTier(4);
-                    break;
-                case NPCID.CultistBoss:
-                    RewardVoidTier(5);
-                    break;
-                case NPCID.MoonLordCore:
-                    RewardVoidTier(6);
-                    break;
-            }
+            if (bossTier.TryGetValue((short)npc.type, out byte tier)) RewardVoidTier(tier);
 
             if (npc.boss)
             {
-                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
-                {
-                    return false;
-                }
+                if (npc.type == NPCID.EaterofWorldsHead && eowAlive()) return false;
                 RewardVoidAffinity(npc);
             }
             return base.PreNPCLoot(npc);
+
+            bool eowAlive()
+            {
+                int count = 0;
+                for (int i = 0; i < 200; i++)
+                {
+                    if (Main.npc[i].type == NPCID.EaterofWorldsBody
+                        && ++count == 2) return true;
+                }
+                return false;
+            }
         }
 
         /*
@@ -98,8 +79,9 @@ namespace ROI.Globals
 
         public void RewardVoidAffinity(NPC npc)
         {
-            foreach (var player in Main.player)
+            for (int i = 0; i < Main.player.Length; i++)
             {
+                Player player = Main.player[i];
                 if (player.name == "")
                 {
                     continue;
@@ -108,10 +90,11 @@ namespace ROI.Globals
             }
         }
 
-        private void RewardVoidTier(int tier)
+        private void RewardVoidTier(byte tier)
         {
-            foreach (var player in Main.player)
+            for (int i = 0; i < Main.player.Length; i++)
             {
+                Player player = Main.player[i];
                 if (player.name == "")
                 {
                     continue;
@@ -119,7 +102,5 @@ namespace ROI.Globals
                 player.UnlockVoidTier(tier);
             }
         }
-
-
     }
 }

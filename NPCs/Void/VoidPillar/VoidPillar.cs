@@ -24,11 +24,6 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public int ShieldHealth { get; internal set; }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Void Pillar");
-        }
-
         public override void SetDefaults()
         {
             npc.boss = true;
@@ -47,7 +42,7 @@ namespace ROI.NPCs.Void.VoidPillar
 
             movementTimer = 100;
             _movementUp = false;
-            _damageReduction = (Main.expertMode) ? 0.2f : 0; //Set red shield damage reduction here
+            _damageReduction = Main.expertMode ? 0.2f : 0; //Set red shield damage reduction here
             if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
             {
                 npc.ForceKill();
@@ -120,10 +115,7 @@ namespace ROI.NPCs.Void.VoidPillar
             Main.spriteBatch.Begin();
         }
 
-        public override bool CheckActive()
-        {
-            return false;
-        }
+        public override bool CheckActive() => false;
 
         private void DamageShield(int damage)
         {

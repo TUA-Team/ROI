@@ -33,17 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Buffs\ROIBuff.cs" />
     <Compile Include="Buffs\Void\PillarPresence.cs" />
-    <Compile Include="Enums\PillarShieldColor.cs" />
-    <Compile Include="Enums\ROINetworkMessage.cs" />
+    <Compile Include="ID\PillarShieldColor.cs" />
+    <Compile Include="ID\ROINetworkMessage.cs" />
     <Compile Include="Buffs\Void\DarkMind.cs" />
     <Compile Include="Buffs\Void\VoidSlowness.cs" />
-    <Compile Include="Enums\BossKillType.cs" />
+    <Compile Include="ID\BossKillType.cs" />
     <Compile Include="Globals\ROIGlobalItem.cs" />
     <Compile Include="Globals\ROIGlobalNPC.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
+    <Compile Include="ID\VoidTier.cs" />
     <Compile Include="Items\ROIItem.cs" />
     <Compile Include="LoreEntry.cs" />
     <Compile Include="Manager\UIManager.cs" />
@@ -51,7 +51,6 @@
     <Compile Include="NPCs\Void\VoidPillar\VoidPillar.cs" />
     <Compile Include="Items\Void.cs" />
     <Compile Include="Recipes\VoidRecipe.cs" />
-    <Compile Include="ROIConst.cs" />
     <Compile Include="ROIExtension.cs" />
     <Compile Include="ROIMod.cs" />
     <Compile Include="Manager\BaseInstanceManager.cs" />
@@ -59,7 +58,7 @@
     <Compile Include="Players\ROIPlayer.cs" />
     <Compile Include="Manager\NetworkManager.cs" />
     <Compile Include="Players\Void\ROIVoidPlayer.cs" />
-    <Compile Include="ROIStaticHelper.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="ROIWorld.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Effects\RadialProgress.xnb" />
+    <None Include="Localization\en-US.lang" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
