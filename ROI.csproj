@@ -43,7 +43,9 @@
     <Compile Include="Globals\ROIGlobalItem.cs" />
     <Compile Include="Globals\ROIGlobalNPC.cs" />
     <Compile Include="GUI\CustomComponent\UIPanel.cs" />
+    <Compile Include="GUI\VoidUI\VoidHeartHealthBar.cs" />
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
+    <Compile Include="Items\Interface\IVoidItem.cs" />
     <Compile Include="Items\ROIItem.cs" />
     <Compile Include="LoreEntry.cs" />
     <Compile Include="Manager\UIManager.cs" />
@@ -59,7 +61,8 @@
     <Compile Include="Players\ROIPlayer.cs" />
     <Compile Include="Manager\NetworkManager.cs" />
     <Compile Include="Players\Void\ROIVoidPlayer.cs" />
-    <Compile Include="ROIStaticHelper.cs" />
+    <Compile Include="ROISerializerUtils.cs" />
+    <Compile Include="ROIUtils.cs" />
     <Compile Include="ROIWorld.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dusts\" />
+    <Folder Include="GUI\Toolkit\" />
     <Folder Include="Items\Relics\" />
     <Folder Include="NPCs\Boss\" />
     <Folder Include="Projectiles\" />

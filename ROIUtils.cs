@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ROI.Items.Interface;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -10,7 +11,7 @@ using Terraria.ModLoader;
 
 namespace ROI
 {
-    static class ROIStaticHelper
+    internal partial class ROIUtils
     {
         /// <summary>
         /// Credit to jof on this snippet of code, coming from EvenMoreModifiers
@@ -24,6 +25,22 @@ namespace ROI
                 return BuffLoader.GetBuff(buffID)?.DisplayName.GetTranslation(LanguageManager.Instance.ActiveCulture) ?? "null";
             }
             return Lang.GetBuffName(buffID);
+        }
+
+        /// <summary>
+        /// To increase void tier safely
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="tier"></param>
+        /// <returns></returns>
+        public static bool AddVoidTierToItem(IVoidItem item, int tier)
+        {
+            if (item.VoidTier == tier - 1)
+            {
+                item.VoidTier = tier;
+                return true;
+            }
+            return false;
         }
     }
 }

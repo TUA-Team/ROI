@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI
 {
@@ -38,12 +39,13 @@ namespace ROI
 		{
             VoidPillarHealthBar.Load();
             VoidUI.Load();
+            VoidHeartHealthBar.Load();
 		}
 
 		private void GeneralLoad()
 		{
 			instance = this;
-		}
+        }
 
 		public override void Unload()
 		{
@@ -63,6 +65,7 @@ namespace ROI
 		{
             VoidPillarHealthBar.Unload();
             VoidUI.Unload();
+            VoidHeartHealthBar.Unload();
 		}
 		#endregion
 
@@ -70,6 +73,7 @@ namespace ROI
 	    {
 	        VoidPillarHealthBar.FindPillar();
             VoidPillarHealthBar.Draw(spriteBatch);
+	        VoidHeartHealthBar.Draw(spriteBatch);
 	        if (!Main.playerInventory)
 	        {
                 VoidUI.Draw(spriteBatch);
