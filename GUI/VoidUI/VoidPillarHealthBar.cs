@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
-using Terraria.Localization;
 
 namespace ROI.GUI.VoidUI
 {
@@ -46,7 +45,7 @@ namespace ROI.GUI.VoidUI
         {
             if (pillar == null) return;
 
-            string name = Utils.GetLangValue("VoidPillarHealthBar", pillar.ShieldColor.ToString());
+            string name = ROIUtils.GetLangValue("VoidPillarHealthBar", pillar.ShieldColor.ToString());
             string health = pillar.npc.life + "/" + pillar.npc.lifeMax;
             var color = pillar.GetShieldColor();
 

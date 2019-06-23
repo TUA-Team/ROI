@@ -30,15 +30,6 @@ namespace ROI.Items
             return item.modItem;
         }
 
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("The void");
-            Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the void\"\n" +
-                               "5 minutes cooldown, gives a random buff from the void!\n" +
-                               "Can also add up to 10 guaranteed potion effect that will last for 4 minutes!\n");
-
-        }
-
         public override void TrueSetDefaults()
         {
             item.width = 40;
@@ -52,14 +43,16 @@ namespace ROI.Items
 
         public override TagCompound Save()
         {
-            TagCompound tag = new TagCompound();
-            tag.Add("potionEffect", integratedBuff);
+            TagCompound tag = new TagCompound
+            {
+                [nameof(integratedBuff)] = integratedBuff
+            };
             return tag;
         }
 
         public override void Load(TagCompound tag)
         {
-            integratedBuff = tag.GetList<int>("potionEffect");
+            integratedBuff = tag.GetList<int>(nameof(integratedBuff));
         }
 
         public override bool CanRightClick()
@@ -101,21 +94,19 @@ namespace ROI.Items
             }
         }
 
-
-
         public override bool UseItem(Player player)
         {
-            ROIPlayer roi_player = player.GetModPlayer<ROIPlayer>();
+            ROIPlayer modPlayer = player.GetModPlayer<ROIPlayer>();
 
-            if (roi_player.voidItemCooldown == 0 && roi_player.VoidAffinityAmount > 50)
+            if (modPlayer.voidItemCooldown == 0 && modPlayer.VoidAffinityAmount > 50)
             {
                 foreach (var buffID in integratedBuff)
                 {
                     player.AddBuff(buffID, 60 * 60 * 4, false);
                 }
 
-                roi_player.voidItemCooldown = 60 * 60 * 5;
-                roi_player.AddVoidAffinity(-50);
+                modPlayer.voidItemCooldown = 60 * 60 * 5;
+                modPlayer.AddVoidAffinity(-50);
                 return true;
             }
 
@@ -143,9 +134,7 @@ namespace ROI.Items
             }
         }
 
-        private bool AddBuffRequirement(Item mouseItem)
-        {
-            return mouseItem.stack >= 30 && mouseItem.buffType != 0 && integratedBuff.Count != 10;
-        }
+        private bool AddBuffRequirement(Item mouseItem) =>
+            mouseItem.stack >= 30 && mouseItem.buffType != 0 && integratedBuff.Count != 10;
     }
 }

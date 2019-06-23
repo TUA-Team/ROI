@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
@@ -12,13 +7,11 @@ using Terraria;
 
 namespace ROI.GUI.VoidUI
 {
-
     /// <summary>
     /// I'm lazy, not doing my own UI state because I hate that system
     /// </summary>
     class VoidHeartHealthBar
     {
-
         private static Texture2D heartTexture;
 
         public static void Load()
@@ -43,7 +36,7 @@ namespace ROI.GUI.VoidUI
             player.MaxVoidHeartStatsExtra = 100;
 
             int LifePerHeart = 10;
-            int numberOfVoidHeart = player.MaxVoidHeartStats / 10;
+            int numberOfVoidHeart = (int)(player.MaxVoidHeartStats * .1);
 
             Vector2 drawingOffset = new Vector2(500, 6f);
 
@@ -51,18 +44,20 @@ namespace ROI.GUI.VoidUI
 
             LifePerHeart += additionalHealth / numberOfVoidHeart;
 
-            int numberOfHeartToDraw = player.MaxVoidHeartStatsExtra / LifePerHeart;
+            // int heartsToDraw = ROIUtils.LowClamp(player.MaxVoidHeartStatsExtra / LifePerHeart, 10);
 
-            if (numberOfHeartToDraw >= 10)
-            {
-                numberOfHeartToDraw = 10;
-            }
-
-            string text = $"Void HP {player.VoidHeartHP}/{player.MaxVoidHeartStatsExtra}";
+            string text = ROIUtils.GetLangValue("VoidHeartHealthBar", player.VoidHeartHP, player.MaxVoidHeartStatsExtra);
             Vector2 textSize = Main.fontMouseText.MeasureString(text);
 
-            sb.DrawString(Main.fontMouseText, text, new Vector2(drawingOffset.X + textSize.X, drawingOffset.Y), new Microsoft.Xna.Framework.Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor), 0f, new Vector2(Main.fontMouseText.MeasureString(Main.player[Main.myPlayer].statLife + "/" + Main.player[Main.myPlayer].statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
-            
+            sb.DrawString(Main.fontMouseText,
+                text, 
+                new Vector2(drawingOffset.X + textSize.X, drawingOffset.Y), 
+                new Color(Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor, Main.mouseTextColor), 
+                0f, 
+                new Vector2(Main.fontMouseText.MeasureString(Main.player[Main.myPlayer].statLife + "/" + Main.player[Main.myPlayer].statLifeMax2).X, 0f),
+                1f,  
+                SpriteEffects.None, 
+                0f);
 
             for (int i = 1; i < player.MaxVoidHeartStatsExtra / LifePerHeart + 1; i++)
             {
@@ -73,36 +68,31 @@ namespace ROI.GUI.VoidUI
                 if (player.VoidHeartHP >= i * LifePerHeart)
                 {
                     heartAlpha = 255;
-                    if (player.VoidHeartHP == i * LifePerHeart)
-                    {
-                        pulsatingEffect = true;
-                    }
+                    pulsatingEffect = player.VoidHeartHP == i * LifePerHeart;
                 }
                 else
                 {
-                    float individualHeartValue = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * LifePerHeart) / LifePerHeart;
-                    heartAlpha = (int)(30f + 225f * individualHeartValue);
-                    if (heartAlpha < 30)
-                    {
-                        heartAlpha = 30;
-                    }
-                    heartScale = individualHeartValue / 4f + 0.75f;
-                    if ((double)heartScale < 0.75)
-                    {
-                        heartScale = 0.75f;
-                    }
-                    if (individualHeartValue > 0f)
-                    {
-                        pulsatingEffect = true;
-                    }
+                    float individualHeartValue = (Main.player[Main.myPlayer].statLife - (float)(i - 1) * LifePerHeart) / LifePerHeart;
+                    heartAlpha = ROIUtils.LowClamp((int)(30 + 225 * individualHeartValue), 30);
+                    heartScale = ROIUtils.LowClamp(individualHeartValue * .25f + 0.75f, .75f);
+                    pulsatingEffect = individualHeartValue > 0f;
                 }
-
                 if (pulsatingEffect)
                 {
                     heartScale += Main.cursorScale - 1f;
                 }
-                int alpha = (int)((double)((float)heartAlpha) * 0.9);
-                Main.spriteBatch.Draw(heartTexture, new Vector2((float)(500 + 26 * (i - 1) + main_UIScreenAnchorX + heartTexture.Width / 2), 32f + ((float)heartTexture.Height - (float)heartTexture.Height * heartScale) / 2f + (float)(heartTexture.Height / 2)), new Microsoft.Xna.Framework.Rectangle?(new Microsoft.Xna.Framework.Rectangle(0, 0, heartTexture.Width, heartTexture.Height)), new Microsoft.Xna.Framework.Color(heartAlpha, heartAlpha, heartAlpha, alpha), 0f, new Vector2((float)(Main.heartTexture.Width / 2), (float)(Main.heartTexture.Height / 2)), heartScale, SpriteEffects.None, 0f);
+                int alpha = (int)(heartAlpha * 0.9);
+                Main.spriteBatch.Draw(heartTexture, 
+                    new Vector2(500 + 26 * (i - 1) + main_UIScreenAnchorX + heartTexture.Width * .5f, 
+                        // 32f + (heartTexture.Height - heartTexture.Height * heartScale) / 2f + heartTexture.Height / 2
+                        32 + heartTexture.Height * .5f), 
+                    new Rectangle(0, 0, heartTexture.Width, heartTexture.Height), 
+                    new Color(heartAlpha, heartAlpha, heartAlpha, alpha),
+                    0f,
+                    new Vector2(Main.heartTexture.Width * .5f, Main.heartTexture.Height * .5f), 
+                    heartScale, 
+                    SpriteEffects.None,
+                    0f);
             }
         }
     }

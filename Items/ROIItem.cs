@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ROI.Items
 {
-	/// <summary>
-	/// Base of any RoI item
-	/// </summary>
-	public abstract class ROIItem : ModItem
+    /// <summary>
+    /// Base of any RoI item
+    /// </summary>
+    public abstract class ROIItem : ModItem
 	{
 		/// <summary>
 		/// Override this to set it true in case it's a void item
