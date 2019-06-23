@@ -1,4 +1,4 @@
-﻿using ROI.Players;
+using ROI.Players;
 using Terraria;
 
 namespace ROI.Manager
