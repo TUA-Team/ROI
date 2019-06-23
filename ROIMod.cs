@@ -2,16 +2,18 @@ using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using ROI.Manager;
 using System;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI
 {
-    internal sealed partial class ROIMod : Mod
+    public sealed partial class ROIMod : Mod
 	{
         internal static string SAVE_PATH = "";
 		internal static ROIMod instance;
-        internal static bool dev;
+        public static bool dev;
+        internal static bool debug;
 
         #region Load and unload stuff
 
@@ -20,21 +22,27 @@ namespace ROI
 			GeneralLoad();
 			if (!Main.dedServ)
 			{
-				NonNetworkLoad();
+				ClientLoad();
 			}
 		}
 
-		private void NonNetworkLoad()
+		private void ClientLoad()
 		{
             VoidPillarHealthBar.Load();
             VoidUI.Load();
             VoidHeartHealthBar.Load();
+            Main.OnTick += DRPManager.Instance.Update;
 		}
 
 		private void GeneralLoad()
 		{
 			instance = this;
             DevManager.Instance.CheckDev();
+#if DEBUG
+            debug = true;
+#else
+            debug = false;
+#endif
         }
 
 		public override void Unload()
@@ -42,7 +50,7 @@ namespace ROI
 			GeneralUnload();
 			if (!Main.dedServ)
 			{
-				NonNetworkUnload();
+				ClientUnload();
 			}
 		}
 
@@ -51,14 +59,15 @@ namespace ROI
 			instance = null;
 		}
 
-		private void NonNetworkUnload()
+		private void ClientUnload()
 		{
             VoidPillarHealthBar.Unload();
             VoidUI.Unload();
             VoidHeartHealthBar.Unload();
-		}
+            Main.OnTick -= DRPManager.Instance.Update;
+        }
 
-		#endregion
+#endregion
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
@@ -93,5 +102,10 @@ namespace ROI
 	        }
 	        return null;
 	    }
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            NetworkManager.Instance.ReceivePacket(reader, whoAmI);
+        }
     }
 }

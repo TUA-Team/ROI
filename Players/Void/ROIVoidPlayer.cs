@@ -16,7 +16,7 @@ namespace ROI.Players
 
 		internal int VoidAffinityAmount
 		{
-			get => _voidAffinityAmount;
+			get => voidAffinityAmount;
 		}
 
         private void InitVoid()
@@ -31,14 +31,13 @@ namespace ROI.Players
 			int simulatedAmount = Math.Min(MaxVoidAffinity - VoidAffinityAmount, voidAffinity);
 			if (!simulate)
 			{
-				_voidAffinityAmount += simulatedAmount;
+				voidAffinityAmount += (short)simulatedAmount;
 			}
 			return simulatedAmount;
 		}
 
 		public void DamageVoidHeart(ref int damage)
-		{
-
+        {
 			if (VoidHeartHP >= 0)
 			{
 			    CombatText.NewText(

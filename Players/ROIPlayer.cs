@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -17,13 +15,14 @@ namespace ROI.Players
         private short voidAffinityAmount;
         public bool darkMind;
 	    public byte VoidTier { get; internal set; }
-        private short voidExposure;
+        // private short voidExposure;
 
         public override void Initialize()
         {
             voidAffinityAmount = 0;
             darkMind = false;
-            voidExposure = 0;
+            // voidExposure = 0;
+            InitVoid();
         }
 
 	    public int MaxVoidAffinity { get; internal set; }
@@ -44,21 +43,14 @@ namespace ROI.Players
 		{
 			return new TagCompound()
 			{
-				["VoidAffinity"] = voidAffinityAmount,
-				["VoidTier"] = VoidTier,
-                ["MaxVoidAffinity"] = MaxVoidAffinity,
-                ["VoidItemCooldown"] = voidItemCooldown,
-                ["VoidHeartHP"] = VoidHeartHP,
-                ["MaxVoidHeart"] = MaxVoidHeartStats
+				[nameof(voidAffinityAmount)] = voidAffinityAmount,
+				[nameof(VoidTier)] = VoidTier,
+                [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
+                [nameof(voidItemCooldown)] = voidItemCooldown,
+                [nameof(VoidHeartHP)] = VoidHeartHP,
+                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
             };
 		}
-
-        public List<LoreEntry> loreEntries;
-
-        public override void Initialize()
-        {
-            loreEntries = new List<LoreEntry>();
-        }
 
         public override void ResetEffects()
         {
@@ -67,9 +59,9 @@ namespace ROI.Players
 
         public override void Load(TagCompound tag)
 		{
-			voidAffinityAmount = tag.GetShort("VoidAffinity");
-			VoidTier = tag.GetByte("VoidTier");
-		    MaxVoidAffinity = tag.GetAsInt("MaxVoidAffinity");
+			voidAffinityAmount = tag.GetShort(nameof(voidAffinityAmount));
+			VoidTier = tag.GetByte(nameof(VoidTier));
+		    MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Buffs\Void\PillarPresence.cs" />
+    <Compile Include="Manager\DevManager.cs" />
     <Compile Include="ID\PillarShieldColor.cs" />
     <Compile Include="ID\ROINetworkMessage.cs" />
     <Compile Include="Buffs\Void\DarkMind.cs" />
@@ -46,7 +47,7 @@
     <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
     <Compile Include="Items\Interface\IVoidItem.cs" />
     <Compile Include="Items\ROIItem.cs" />
-    <Compile Include="LoreEntry.cs" />
+    <Compile Include="Manager\DRPManager.cs" />
     <Compile Include="Manager\UIManager.cs" />
     <Compile Include="GUI\VoidUI\VoidUI.cs" />
     <Compile Include="NPCs\Void\VoidPillar\VoidPillar.cs" />
@@ -54,12 +55,11 @@
     <Compile Include="Recipes\VoidRecipe.cs" />
     <Compile Include="ROIExtension.cs" />
     <Compile Include="ROIMod.cs" />
-    <Compile Include="Manager\BaseInstanceManager.cs" />
+    <Compile Include="Manager\AbstractManager.cs" />
     <Compile Include="Manager\VoidManager.cs" />
     <Compile Include="Players\ROIPlayer.cs" />
     <Compile Include="Manager\NetworkManager.cs" />
     <Compile Include="Players\Void\ROIVoidPlayer.cs" />
-    <Compile Include="ROISerializerUtils.cs" />
     <Compile Include="ROIUtils.cs" />
     <Compile Include="ROIWorld.cs" />
   </ItemGroup>
@@ -72,9 +72,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Dimlibs.dll</HintPath>
     </Reference>
-    <Reference Include="DiscordRPC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\DiscordRPC.dll</HintPath>
+    <Reference Include="DiscordRPC">
+      <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,13 +115,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MonoMod.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ReLogic.dll</HintPath>
     </Reference>
+    <Reference Include="ReLogicWindows">
+      <HintPath>..\..\..\..\tModLoader\references\ReLogicWindows.dll</HintPath>
+    </Reference>
     <Reference Include="Steamworks.NET, Version=9.1.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Steamworks.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Steamworks.NET.Windows">
+      <HintPath>..\..\..\..\tModLoader\references\Steamworks.NET.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="TerraEnergyLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -135,6 +143,9 @@
     <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\TerrariaHooks.dll</HintPath>
+    </Reference>
+    <Reference Include="TerrariaHooks.XNA">
+      <HintPath>..\..\..\..\tModLoader\references\TerrariaHooks.XNA.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,8 @@ namespace ROI.Manager
 {
     internal sealed class DevManager : AbstractManager<DevManager>
     {
+        public string curSteam;
+
         private static readonly string[] devIDs = new string[]
         {
             "76561198062217769", // Dradonhunter11
@@ -23,7 +25,7 @@ namespace ROI.Manager
 
         public bool CheckDev()
         {
-            string curSteam = (string)(typeof(ModLoader).GetProperty("SteamID64",
+            curSteam = (string)(typeof(ModLoader).GetProperty("SteamID64",
                 BindingFlags.Static | BindingFlags.NonPublic).GetAccessors(true)[0]
                 .Invoke(null, new object[] { }));
             for (int i = 0; i < 12; i++)
