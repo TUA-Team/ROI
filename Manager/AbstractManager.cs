@@ -1,13 +1,13 @@
 ﻿namespace ROI.Manager
 {
-    internal abstract class BaseInstanceManager<T> where T : new()
+    internal abstract class AbstractManager<T> where T : new()
     {
         private static T _instance;
 
         /// <summary>
-        /// Use this to initialize variable instead of overriding the constructor
+        /// Use this to initialize variables instead of overriding the constructor
         /// </summary>
-        public abstract void Initialize();
+        public virtual void Initialize() { }
 
         public static T Instance
         {
@@ -22,14 +22,17 @@
             }
         }
 
-        protected BaseInstanceManager()
+        protected AbstractManager()
         {
             Initialize();
         }
 
-        public void Unload()
+        ~AbstractManager()
         {
-            _instance = default(T);
+            Unload();
+            _instance = default;
         }
+
+        public virtual void Unload() { }
     }
 }

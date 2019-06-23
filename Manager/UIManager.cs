@@ -1,6 +1,6 @@
 ﻿namespace ROI.Manager
 {
-    internal class UIManager : BaseInstanceManager<UIManager>
+    internal class UIManager : AbstractManager<UIManager>
 	{
 		public override void Initialize()
 		{

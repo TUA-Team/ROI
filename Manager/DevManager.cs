@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
 using Terraria.ModLoader;
 
-namespace ROI
+namespace ROI.Manager
 {
-    static class DevManager
+    internal sealed class DevManager : AbstractManager<DevManager>
     {
         private static readonly string[] devIDs = new string[]
         {
@@ -21,7 +21,7 @@ namespace ROI
             "76561198843721841", // Skeletony
         };
 
-        public static bool CheckDev()
+        public bool CheckDev()
         {
             string curSteam = (string)(typeof(ModLoader).GetProperty("SteamID64",
                 BindingFlags.Static | BindingFlags.NonPublic).GetAccessors(true)[0]

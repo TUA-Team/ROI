@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
+using ROI.Manager;
 using System;
 using Terraria;
 using Terraria.ModLoader;
@@ -33,7 +34,7 @@ namespace ROI
 		private void GeneralLoad()
 		{
 			instance = this;
-            DevManager.CheckDev();
+            DevManager.Instance.CheckDev();
         }
 
 		public override void Unload()

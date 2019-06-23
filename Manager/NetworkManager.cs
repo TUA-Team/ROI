@@ -7,14 +7,8 @@ using Terraria.Localization;
 
 namespace ROI.Manager
 {
-    internal class NetworkManager : BaseInstanceManager<NetworkManager>
+    internal class NetworkManager : AbstractManager<NetworkManager>
     {
-
-        public override void Initialize()
-        {
-
-        }
-
         public void ReceivePacket(BinaryReader networkReader, int whoAmI)
         {
             ROINetworkMessage networkMessage = (ROINetworkMessage)networkReader.ReadByte();
@@ -28,10 +22,10 @@ namespace ROI.Manager
 
         public static void Chat(string s, Color color, bool sync = true)
         {
-            Chat(s, (byte)color.R, (byte)color.G, (byte)color.B, sync);
+            Chat(s, color.R, color.G, color.B, sync);
         }
 
-        public static void Chat(string s, byte colorR = (byte)255, byte colorG = (byte)255, byte colorB = (byte)255, bool sync = true)
+        public static void Chat(string s, byte colorR = 255, byte colorG = 255, byte colorB = 255, bool sync = true)
         {
             switch (Main.netMode)
             {

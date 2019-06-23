@@ -3,14 +3,8 @@ using Terraria;
 
 namespace ROI.Manager
 {
-	internal sealed class VoidManager : BaseInstanceManager<VoidManager>
+	internal sealed class VoidManager : AbstractManager<VoidManager>
 	{
-
-		public override void Initialize()
-		{
-
-		}
-
         public float Percent(ROIPlayer player) 
             => player.VoidAffinityAmount * 100f / player.MaxVoidAffinity;
 
@@ -119,6 +113,6 @@ namespace ROI.Manager
 
 		}
 
-		#endregion
-	}
+        #endregion
+    }
 }
