@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -25,6 +28,18 @@ namespace ROI.Players
 
 	    public int MaxVoidAffinity { get; internal set; }
 
+	    public int VoidHeartHP { get; internal set; }
+
+        /// <summary>
+        /// Original cap is 100, after that you need to use upgrade and and stuff
+        /// </summary>
+	    public int MaxVoidHeartStats { get; internal set; }
+
+        /// <summary>
+        /// For modders, use this one if you wanna add extra health
+        /// </summary>
+	    public int MaxVoidHeartStatsExtra { get; set; }
+
 	    public override TagCompound Save()
 		{
 			return new TagCompound()
@@ -32,9 +47,23 @@ namespace ROI.Players
 				["VoidAffinity"] = voidAffinityAmount,
 				["VoidTier"] = VoidTier,
                 ["MaxVoidAffinity"] = MaxVoidAffinity,
-                ["VoidItemCooldown"] = voidItemCooldown
+                ["VoidItemCooldown"] = voidItemCooldown,
+                ["VoidHeartHP"] = VoidHeartHP,
+                ["MaxVoidHeart"] = MaxVoidHeartStats
             };
 		}
+
+        public List<LoreEntry> loreEntries;
+
+        public override void Initialize()
+        {
+            loreEntries = new List<LoreEntry>();
+        }
+
+        public override void ResetEffects()
+        {
+            MaxVoidHeartStatsExtra = MaxVoidHeartStats;
+        }
 
         public override void Load(TagCompound tag)
 		{
@@ -66,5 +95,25 @@ namespace ROI.Players
 	            voidItemCooldown--;
 	        }
 	    }
+
+	    public override bool CanBeHitByNPC(NPC npc, ref int cooldownSlot)
+	    {
+	        return true;
+	    }
+
+	    public override bool CanBeHitByProjectile(Projectile proj)
+	    {
+	        return true;
+	    }
+
+	    public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+	    {
+	        DamageVoidHeart(ref damage);
+	    }
+
+	    public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+	    {
+	        DamageVoidHeart(ref damage);
+        }
 	}
 }
