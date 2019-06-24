@@ -7,4 +7,4 @@ includeResources = false
 includeCode = true
 includeSource = true
 
-dllReferences = DiscordRPC, Newtonsoft.Json
+dllReferences = DiscordRPC

@@ -1,185 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8298EAB6-0586-4BDA-9483-83624B66B13A}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ROI</RootNamespace>
-    <AssemblyName>ROI</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AssemblyName>Dummy</AssemblyName>
+    <TargetFramework>net45</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <Target Name="BuildMod" AfterTargets="Build">
+    <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="pushd $(ProjectDir)_scripts\&#xD;&#xA;&quot;tmlbuild.bat&quot; &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;&#xD;&#xA;popd" />
+  </Target>
   <ItemGroup>
-    <Compile Include="Buffs\Void\PillarPresence.cs" />
-    <Compile Include="Manager\DevManager.cs" />
-    <Compile Include="ID\PillarShieldColor.cs" />
-    <Compile Include="ID\ROINetworkMessage.cs" />
-    <Compile Include="Buffs\Void\DarkMind.cs" />
-    <Compile Include="Buffs\Void\VoidSlowness.cs" />
-    <Compile Include="ID\BossKillType.cs" />
-    <Compile Include="Globals\ROIGlobalItem.cs" />
-    <Compile Include="Globals\ROIGlobalNPC.cs" />
-    <Compile Include="GUI\CustomComponent\UIPanel.cs" />
-    <Compile Include="GUI\VoidUI\VoidHeartHealthBar.cs" />
-    <Compile Include="GUI\VoidUI\VoidPillarHealthBar.cs" />
-    <Compile Include="Items\Interface\IVoidItem.cs" />
-    <Compile Include="Items\ROIItem.cs" />
-    <Compile Include="Manager\DRPManager.cs" />
-    <Compile Include="Manager\UIManager.cs" />
-    <Compile Include="GUI\VoidUI\VoidUI.cs" />
-    <Compile Include="NPCs\Void\VoidPillar\VoidPillar.cs" />
-    <Compile Include="Items\Void.cs" />
-    <Compile Include="Recipes\VoidRecipe.cs" />
-    <Compile Include="ROIExtension.cs" />
-    <Compile Include="ROIMod.cs" />
-    <Compile Include="Manager\AbstractManager.cs" />
-    <Compile Include="Manager\VoidManager.cs" />
-    <Compile Include="Players\ROIPlayer.cs" />
-    <Compile Include="Manager\NetworkManager.cs" />
-    <Compile Include="Players\Void\ROIVoidPlayer.cs" />
-    <Compile Include="ROIUtils.cs" />
-    <Compile Include="ROIWorld.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="BiomeLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\BiomeLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Dimlibs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Dimlibs.dll</HintPath>
-    </Reference>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
-    <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Ionic.Zip.Reduced.dll</HintPath>
-    </Reference>
-    <Reference Include="LiquidAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LiquidAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Game\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Game.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Graphics\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Graphics.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xna.Framework.Xact, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_32\Microsoft.Xna.Framework.Xact\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Xact.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour, Version=18.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MonoMod.RuntimeDetour.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoMod.Utils, Version=18.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MonoMod.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="ReLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\ReLogic.dll</HintPath>
-    </Reference>
-    <Reference Include="ReLogicWindows">
-      <HintPath>..\..\..\..\tModLoader\references\ReLogicWindows.dll</HintPath>
-    </Reference>
-    <Reference Include="Steamworks.NET, Version=9.1.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Steamworks.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="Steamworks.NET.Windows">
-      <HintPath>..\..\..\..\tModLoader\references\Steamworks.NET.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="TerraEnergyLibrary, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\TerraEnergyLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Terraria">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\terraria\Terraria.exe</HintPath>
-    </Reference>
-    <Reference Include="TerrariaHooks, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\TerrariaHooks.dll</HintPath>
-    </Reference>
-    <Reference Include="TerrariaHooks.XNA">
-      <HintPath>..\..\..\..\tModLoader\references\TerrariaHooks.XNA.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dusts\" />
-    <Folder Include="GUI\Toolkit\" />
-    <Folder Include="Items\Relics\" />
-    <Folder Include="NPCs\Boss\" />
-    <Folder Include="Projectiles\" />
-    <Folder Include="Tiles\" />
-    <Folder Include="Walls\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Buffs\Void\DarkMind.png" />
-    <Content Include="Buffs\Void\EternalGrace.png" />
-    <Content Include="Buffs\Void\PillarPresence.png" />
-    <Content Include="Buffs\Void\VoidAffliction.png" />
-    <Content Include="Buffs\Void\VoidInfliction.png" />
-    <Content Include="Buffs\Void\VoidRage.png" />
-    <Content Include="Buffs\Void\VoidSlowness.png" />
-    <Content Include="Effects\RadialProgressSource.txt" />
-    <Content Include="Items\Void.png" />
-    <Content Include="Textures\UIElements\HealthBarBG.png" />
-    <Content Include="Textures\UIElements\HealthBarFG.png" />
-    <Content Include="Textures\UIElements\VoidMeterEmpty.png" />
-    <Content Include="Textures\UIElements\VoidMeterFull.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Effects\RadialProgress.xnb" />
-    <None Include="Localization\en-US.lang" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>pushd $(ProjectDir)_scripts\
-"tmlbuild.bat" "$(ProjectDir)\" -eac "$(TargetPath)"
-popd</PostBuildEvent>
-  </PropertyGroup>
 </Project>

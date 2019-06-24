@@ -12,17 +12,16 @@ namespace ROI.Players
     /// </summary>
     public sealed partial class ROIPlayer : ModPlayer
 	{
-        private short voidAffinityAmount;
+        private short _voidAffinityAmount;
         public bool darkMind;
 	    public byte VoidTier { get; internal set; }
         // private short voidExposure;
 
         public override void Initialize()
         {
-            voidAffinityAmount = 0;
+            _voidAffinityAmount = 0;
             darkMind = false;
             // voidExposure = 0;
-            InitVoid();
         }
 
 	    public int MaxVoidAffinity { get; internal set; }
@@ -43,7 +42,7 @@ namespace ROI.Players
 		{
 			return new TagCompound()
 			{
-				[nameof(voidAffinityAmount)] = voidAffinityAmount,
+				[nameof(_voidAffinityAmount)] = _voidAffinityAmount,
 				[nameof(VoidTier)] = VoidTier,
                 [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
                 [nameof(voidItemCooldown)] = voidItemCooldown,
@@ -59,7 +58,7 @@ namespace ROI.Players
 
         public override void Load(TagCompound tag)
 		{
-			voidAffinityAmount = tag.GetShort(nameof(voidAffinityAmount));
+			_voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
 			VoidTier = tag.GetByte(nameof(VoidTier));
 		    MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
 		}
@@ -75,7 +74,7 @@ namespace ROI.Players
 
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
-            voidAffinityAmount = reader.ReadInt16();
+			_voidAffinityAmount = reader.ReadInt16();
 			VoidTier = reader.ReadByte();
 		    voidItemCooldown = reader.ReadInt32();
 		}

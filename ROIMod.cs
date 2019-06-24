@@ -3,6 +3,11 @@ using ROI.GUI.VoidUI;
 using ROI.Manager;
 using System;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
+using ROI.GUI.VoidUI;
+using ROI.Manager;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -17,7 +22,11 @@ namespace ROI
 
         #region Load and unload stuff
 
-        public override void Load()
+		}
+
+		#region Load and unload stuff
+
+		public override void Load()
 		{
 			GeneralLoad();
 			if (!Main.dedServ)
@@ -31,6 +40,7 @@ namespace ROI
             VoidPillarHealthBar.Load();
             VoidUI.Load();
             VoidHeartHealthBar.Load();
+            
             Main.OnTick += DRPManager.Instance.Update;
 		}
 
@@ -64,6 +74,7 @@ namespace ROI
             VoidPillarHealthBar.Unload();
             VoidUI.Unload();
             VoidHeartHealthBar.Unload();
+            DRPManager.Instance.Unload();
             Main.OnTick -= DRPManager.Instance.Update;
         }
 

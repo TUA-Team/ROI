@@ -31,7 +31,7 @@ namespace ROI.Players
 			int simulatedAmount = Math.Min(MaxVoidAffinity - VoidAffinityAmount, voidAffinity);
 			if (!simulate)
 			{
-				voidAffinityAmount += (short)simulatedAmount;
+				_voidAffinityAmount += (short)simulatedAmount;
 			}
 			return simulatedAmount;
 		}
