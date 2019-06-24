@@ -1,8 +1,4 @@
-using Microsoft.Xna.Framework.Graphics;
-using ROI.GUI.VoidUI;
-using ROI.Manager;
-using System;
-using System.IO;
+using log4net;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using ROI.Manager;
@@ -20,9 +16,7 @@ namespace ROI
         public static bool dev;
         internal static bool debug;
 
-        #region Load and unload stuff
-
-		}
+        public static ILog Log => instance.Logger;
 
 		#region Load and unload stuff
 

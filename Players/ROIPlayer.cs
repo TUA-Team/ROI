@@ -66,7 +66,7 @@ namespace ROI.Players
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
 		{
 			ModPacket packet = mod.GetPacket(ushort.MaxValue);
-			packet.Write(voidAffinityAmount);
+			packet.Write(_voidAffinityAmount);
 			packet.Write(VoidTier);
             packet.Write(voidItemCooldown);
 			packet.Send(toWho, fromWho);

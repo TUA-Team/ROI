@@ -275,7 +275,6 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 npc.position.Y += 0.2f;
             }
-
         }
     }
 }

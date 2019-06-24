@@ -16,7 +16,7 @@ namespace ROI.Players
 
 		internal int VoidAffinityAmount
 		{
-			get => voidAffinityAmount;
+			get => _voidAffinityAmount;
 		}
 
         private void InitVoid()

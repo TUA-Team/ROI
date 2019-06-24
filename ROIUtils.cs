@@ -35,5 +35,19 @@ namespace ROI
             if (value.CompareTo(min) == -1) return min;
             return value;
         }
+
+        public static bool NPCAlive(int type, bool active = true, bool single = false)
+        {
+            int count = 0;
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
+                if (Main.npc[i].active == active && Main.npc[i].type == type)
+                {
+                    if (++count == 2 && single) return false;
+                    if (!single) return true;
+                }
+            }
+            return false;
+        }
     }
 }

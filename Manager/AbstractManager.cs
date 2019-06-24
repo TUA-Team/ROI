@@ -2,6 +2,7 @@
 {
     internal abstract class AbstractManager<T> where T : new()
     {
+        protected ROIMod Mod => ROIMod.instance;
         private static T _instance;
 
         /// <summary>
