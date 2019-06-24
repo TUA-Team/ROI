@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ROI.ID;
+﻿using ROI.ID;
 using ROI.Players;
 using Terraria;
 using Terraria.ModLoader;

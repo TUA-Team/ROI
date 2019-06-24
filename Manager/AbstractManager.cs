@@ -27,12 +27,12 @@
             Initialize();
         }
 
-        ~AbstractManager()
+        protected virtual void UnloadInternal() { }
+
+        public void Unload()
         {
-            Unload();
+            UnloadInternal();
             _instance = default;
         }
-
-        public virtual void Unload() { }
     }
 }

@@ -168,7 +168,7 @@ namespace ROI.Manager
             
         }
 
-        internal override void Unload()
+        protected override void UnloadInternal()
         {
             _client.UpdateEndTime(DateTime.UtcNow);
             _client.Dispose();
