@@ -2,24 +2,24 @@ using System;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
+using ROI.Manager;
+using System;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ROI
 {
-	internal sealed partial class ROIMod : Mod
+    public sealed partial class ROIMod : Mod
 	{
 		internal static string SAVE_PATH = "";
 
 		internal static ROIMod instance;
+        public static bool dev;
+        internal static bool debug;
 
 		public ROIMod()
-		{
-
-		}
-
-		public override void HandlePacket(BinaryReader reader, int whoAmI)
 		{
 
 		}
@@ -31,20 +31,28 @@ namespace ROI
 			GeneralLoad();
 			if (!Main.dedServ)
 			{
-				NonNetworkLoad();
+				ClientLoad();
 			}
 		}
 
-		private void NonNetworkLoad()
+		private void ClientLoad()
 		{
             VoidPillarHealthBar.Load();
             VoidUI.Load();
             VoidHeartHealthBar.Load();
+            
+            Main.OnTick += DRPManager.Instance.Update;
 		}
 
 		private void GeneralLoad()
 		{
 			instance = this;
+            DevManager.Instance.CheckDev();
+#if DEBUG
+            debug = true;
+#else
+            debug = false;
+#endif
         }
 
 		public override void Unload()
@@ -52,7 +60,7 @@ namespace ROI
 			GeneralUnload();
 			if (!Main.dedServ)
 			{
-				NonNetworkUnload();
+				ClientUnload();
 			}
 		}
 
@@ -61,13 +69,16 @@ namespace ROI
 			instance = null;
 		}
 
-		private void NonNetworkUnload()
+		private void ClientUnload()
 		{
             VoidPillarHealthBar.Unload();
             VoidUI.Unload();
             VoidHeartHealthBar.Unload();
-		}
-		#endregion
+            DRPManager.Instance.Unload();
+            Main.OnTick -= DRPManager.Instance.Update;
+        }
+
+#endregion
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
@@ -102,5 +113,10 @@ namespace ROI
 	        }
 	        return null;
 	    }
-	}
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI)
+        {
+            NetworkManager.Instance.ReceivePacket(reader, whoAmI);
+        }
+    }
 }

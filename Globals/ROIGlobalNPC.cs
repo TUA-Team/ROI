@@ -108,7 +108,7 @@ namespace ROI.Globals
             }
         }
 
-        private void RewardVoidTier(int tier)
+        private void RewardVoidTier(byte tier)
         {
             foreach (var player in Main.player)
             {

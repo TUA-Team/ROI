@@ -6,3 +6,5 @@ buildIgnore = .sln, .csproj, _scripts/, bin/, obj/, .gitattributes, .gitignore, 
 includeResources = false
 includeCode = true
 includeSource = true
+
+dllReferences = DiscordRPC

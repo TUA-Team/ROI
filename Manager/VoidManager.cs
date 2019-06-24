@@ -19,7 +19,7 @@ namespace ROI.Manager
 		/// <summary>
 		/// Unlock the player tier locally, then will send to the server, it's a global unlock anyway for everyone in the server
 		/// </summary>
-		public void UnlockTier(ROIPlayer player, int tier)
+		public void UnlockTier(ROIPlayer player, byte tier)
 		{
 		    if (player.VoidTier != tier - 1)
 		    {

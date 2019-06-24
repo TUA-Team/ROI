@@ -38,7 +38,7 @@ namespace ROI
             npc.AddBuff(type, time1, quiet);
         }
 
-        public static void UnlockVoidTier(this Player self, int tier)
+        public static void UnlockVoidTier(this Player self, byte tier)
         {
             VoidManager.Instance.UnlockTier(self.GetModPlayer<ROIPlayer>(), tier);
         }

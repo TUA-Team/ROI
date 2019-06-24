@@ -16,7 +16,7 @@ namespace ROI.Managers
 
         public void TriggerLoreEntry(int plr, short id)
         {
-            Main.player[plr].GetModPlayer<ROIPlayer>().loreEntries.Add(new LoreEntry(id));
+            //Main.player[plr].GetModPlayer<ROIPlayer>().loreEntries.Add(new LoreEntry(id));
 
             loreQueue.Enqueue(id);
         }

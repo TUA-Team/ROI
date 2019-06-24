@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -14,11 +12,17 @@ namespace ROI.Players
 	/// </summary>
 	public sealed partial class ROIPlayer : ModPlayer
 	{
-		private int _voidAffinityAmount = 0;
+        private short _voidAffinityAmount;
+        public bool darkMind;
+	    public byte VoidTier { get; internal set; }
+        // private short voidExposure;
 
-	    public bool darkMind = false;
-
-	    public int VoidTier { get; internal set; }
+        public override void Initialize()
+        {
+            _voidAffinityAmount = 0;
+            darkMind = false;
+            // voidExposure = 0;
+        }
 
 	    public int MaxVoidAffinity { get; internal set; }
 
@@ -38,21 +42,14 @@ namespace ROI.Players
 		{
 			return new TagCompound()
 			{
-				["VoidAffinity"] = _voidAffinityAmount,
-				["VoidTier"] = VoidTier,
-                ["MaxVoidAffinity"] = MaxVoidAffinity,
-                ["VoidItemCooldown"] = voidItemCooldown,
-                ["VoidHeartHP"] = VoidHeartHP,
-                ["MaxVoidHeart"] = MaxVoidHeartStats
+				[nameof(_voidAffinityAmount)] = _voidAffinityAmount,
+				[nameof(VoidTier)] = VoidTier,
+                [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
+                [nameof(voidItemCooldown)] = voidItemCooldown,
+                [nameof(VoidHeartHP)] = VoidHeartHP,
+                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
             };
 		}
-
-        public List<LoreEntry> loreEntries;
-
-        public override void Initialize()
-        {
-            loreEntries = new List<LoreEntry>();
-        }
 
         public override void ResetEffects()
         {
@@ -61,15 +58,9 @@ namespace ROI.Players
 
         public override void Load(TagCompound tag)
 		{
-			_voidAffinityAmount = tag.GetAsInt("VoidAffinity");
-			VoidTier = tag.GetAsInt("VoidTier");
-		    MaxVoidAffinity = tag.GetAsInt("MaxVoidAffinity");
-		    //IList<short> list = tag.GetList<short>("loreEntries");
-		    //for (int i = 0; i < list.Count; i++)
-		    //{
-		    //    short entry = list[i];
-		    //    loreEntries.Add(new LoreEntry(entry));
-		    //}
+			_voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
+			VoidTier = tag.GetByte(nameof(VoidTier));
+		    MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
 		}
 
 		public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -83,8 +74,8 @@ namespace ROI.Players
 
 		public void ReceiveNetworkData(BinaryReader reader)
 		{
-			_voidAffinityAmount = reader.ReadInt32();
-			VoidTier = reader.ReadInt32();
+			_voidAffinityAmount = reader.ReadInt16();
+			VoidTier = reader.ReadByte();
 		    voidItemCooldown = reader.ReadInt32();
 		}
 

@@ -27,9 +27,15 @@
             Initialize();
         }
 
-        public void Unload()
+        internal void UnloadInstance()
         {
             _instance = default(T);
+            Unload();
+        }
+
+        internal virtual void Unload()
+        {
+
         }
     }
 }
