@@ -175,6 +175,17 @@ namespace ROI.NPCs.Void.VoidPillar
                 default:
                     return Main.DiscoColor;
             }
+            /*
+            return ShieldColor switch
+            {
+                PillarShieldColor.Black => Color.Black,
+                PillarShieldColor.Blue => Color.Blue,
+                PillarShieldColor.Green => Color.Green,
+                PillarShieldColor.Purple => Color.Purple,
+                PillarShieldColor.Red => Color.Red,
+                _ => Color.Red
+            };
+            */
         }
 
         private void DecideAttack()
