@@ -21,6 +21,12 @@
     <Exec Command="pushd $(ProjectDir)_scripts\&#xD;&#xA;&quot;tmlbuild.bat&quot; &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot;&#xD;&#xA;popd" />
   </Target>
   <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+    <None Remove="Items\Void.png" />
+    <None Remove="README.MD" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>

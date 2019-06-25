@@ -8,29 +8,28 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.Items
 {
-    //Delete me later or give me the binding of isaac void sprite and some actual use
-    public class Void : ROIItem, IVoidItem
+    // Delete me later or give me the binding of isaac void sprite and some actual use - Dradon
+    // I think we should change this to "Sinister Elixir" and use the sprite for something else
+    public class Void : VoidItem
     {
         public override bool CloneNewInstances => false;
 
-        private IList<int> integratedBuff = new List<int>(10);
-        
+        private IList<int> integratedBuffs = new List<int>(10);
 
-        public int VoidTier { get; set; }
-        public int VoidCost { get; set; }
-
+        public override int VoidTier { get; set; }
+        public override int VoidCost { get; set; }
 
         public override ModItem Clone(Item item)
         {
             if (item.modItem is Void voidItem)
             {
-                voidItem.integratedBuff = this.integratedBuff;
+                voidItem.integratedBuffs = this.integratedBuffs;
             }
 
             return item.modItem;
         }
 
-        public override void TrueSetDefaults()
+        protected override void TrueSetDefaults()
         {
             item.width = 40;
             item.height = 40;
@@ -39,20 +38,22 @@ namespace ROI.Items
             item.useStyle = ItemUseStyleID.HoldingUp;
             item.value = 0;
             item.expert = true;
+
+            integratedBuffs = new List<int>(10);
         }
 
         public override TagCompound Save()
         {
             TagCompound tag = new TagCompound
             {
-                [nameof(integratedBuff)] = integratedBuff
+                [nameof(integratedBuffs)] = integratedBuffs
             };
             return tag;
         }
 
         public override void Load(TagCompound tag)
         {
-            integratedBuff = tag.GetList<int>(nameof(integratedBuff));
+            integratedBuffs = tag.GetList<int>(nameof(integratedBuffs));
         }
 
         public override bool CanRightClick()
@@ -60,13 +61,13 @@ namespace ROI.Items
             Item mouseItem = Main.mouseItem;
             if (AddBuffRequirement(mouseItem))
             {
-                integratedBuff.Add(mouseItem.buffType);
+                integratedBuffs.Add(mouseItem.buffType);
                 Main.mouseItem.TurnToAir();
             }
             return false;
         }
 
-        public void VoidTierEffect()
+        public override void VoidTierEffect()
         {
             switch (VoidTier)
             {
@@ -92,6 +93,18 @@ namespace ROI.Items
                     VoidCost = 5;
                     break;
             }
+            /*
+            VoidCost = VoidTier switch
+            {
+                0 => 50,
+                1 => 40,
+                2 => 30,
+                3 => 20,
+                4 => 15,
+                5 => 10,
+                6 => 5
+            };
+            */
         }
 
         public override bool UseItem(Player player)
@@ -100,12 +113,13 @@ namespace ROI.Items
 
             if (modPlayer.voidItemCooldown == 0 && modPlayer.VoidAffinityAmount > 50)
             {
-                foreach (var buffID in integratedBuff)
+                for (int i = 0; i < integratedBuffs.Count; i++)
                 {
+                    int buffID = integratedBuffs[i];
                     player.AddBuff(buffID, 60 * 60 * 4, false);
                 }
 
-                modPlayer.voidItemCooldown = 60 * 60 * 5;
+                modPlayer.voidItemCooldown = 18000;
                 modPlayer.AddVoidAffinity(-50);
                 return true;
             }
@@ -113,28 +127,21 @@ namespace ROI.Items
             return false;
         }
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        protected override void TrueModifyTooltips(List<TooltipLine> tooltips, int prevLnIndex)
         {
-            int expertToolTipIndex = tooltips.FindIndex(i => i.mod == "Terraria" && i.Name == "Expert");
-            if (expertToolTipIndex != -1)
+            if (integratedBuffs.Count != 0)
             {
-                TooltipLine voidCostLine = new TooltipLine(mod, $"VoidSpecification", $"Cost {VoidCost} [c/800080:void affinity point]");
-                tooltips.Insert(expertToolTipIndex - 1, voidCostLine);
-            }
-            if (integratedBuff.Count != 0)
-            {
-                int previousLineIndex = expertToolTipIndex;
-
-                for (int i = 0; i < integratedBuff.Count; i++)
+                for (int i = 0; i < integratedBuffs.Count; i++)
                 {
-                    TooltipLine line = new TooltipLine(mod, $"VoidPotion:{ROIUtils.GetBuffName(integratedBuff[i])}", $"[c/00ff00:- {ROIUtils.GetBuffName(integratedBuff[i])}]");
-                    tooltips.Insert(previousLineIndex - 1, line);
-                    previousLineIndex++;
+                    TooltipLine line = new TooltipLine(mod, 
+                        $"VoidPotion:{ROIUtils.GetBuffName(integratedBuffs[i])}",
+                        $"[c/00ff00:- {ROIUtils.GetBuffName(integratedBuffs[i])}]");
+                    tooltips.Insert(prevLnIndex - 1, line);
                 }
             }
         }
 
         private bool AddBuffRequirement(Item mouseItem) =>
-            mouseItem.stack >= 30 && mouseItem.buffType != 0 && integratedBuff.Count != 10;
+            mouseItem.stack >= 30 && mouseItem.buffType != 0 && integratedBuffs.Count != 10;
     }
 }

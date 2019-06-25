@@ -17,8 +17,13 @@ namespace ROI
 {
     class ROIWorld : ModWorld
     {
-        public bool strangePresenceDebuff { get; internal set; }
-        private int pillarSpawningTimer = 60 * 60 * 60;
+        public bool StrangePresenceDebuff { get; internal set; }
+        private int pillarSpawningTimer;
+
+        public override void Initialize()
+        {
+            pillarSpawningTimer = 216000;
+        }
 
         public override TagCompound Save()
         {
@@ -29,14 +34,13 @@ namespace ROI
 
         public override void Load(TagCompound tag)
         {
-            
             PillarLoading(tag);
         }
 
         private void PillarSaving(TagCompound tag)
         {
             bool isPillarPresent = Main.npc.Any(i => i.modNPC is VoidPillar);
-            tag.Add("strangePresenceDebuff", strangePresenceDebuff);
+            tag.Add("strangePresenceDebuff", StrangePresenceDebuff);
             tag.Add("pillarPresent", isPillarPresent);
             if (isPillarPresent)
             {
@@ -50,7 +54,7 @@ namespace ROI
 
         private void PillarLoading(TagCompound tag)
         {
-            strangePresenceDebuff = tag.GetBool("strangePresenceDebuff");
+            StrangePresenceDebuff = tag.GetBool("strangePresenceDebuff");
             if (!tag.GetBool("pillarPresent"))
             {
                 return;
@@ -65,30 +69,29 @@ namespace ROI
 
         public override void PreUpdate()
         {
-            if (strangePresenceDebuff)
+            if (StrangePresenceDebuff)
             {
-                pillarSpawningTimer--;
-                foreach (Player p in Main.player)
+                for (int i = 0; i < Main.player.Length; i++)
                 {
-                    p.AddBuff(mod.BuffType<PillarPresence>(), 1, true);
+                    Main.player[i].AddBuff(mod.BuffType<PillarPresence>(), 1, true);
                 }
 
-                if (pillarSpawningTimer == 0)
+                if (--pillarSpawningTimer == 0)
                 {
-                    pillarSpawningTimer = 60 * 60 * 60;
-                    strangePresenceDebuff = false;
+                    pillarSpawningTimer = 216000;
+                    StrangePresenceDebuff = false;
                 }
             }
         }
 
         public override void NetSend(BinaryWriter writer)
         {
-            writer.Write(strangePresenceDebuff);
+            writer.Write(StrangePresenceDebuff);
         }
 
         public override void NetReceive(BinaryReader reader)
         {
-            strangePresenceDebuff = reader.ReadBoolean();
+            StrangePresenceDebuff = reader.ReadBoolean();
         }
     }
 }

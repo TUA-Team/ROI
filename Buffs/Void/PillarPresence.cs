@@ -15,9 +15,9 @@ namespace ROI.Buffs.Void
         public override void Update(Player player, ref int buffIndex)
         {
             ROIWorld world = mod.GetModWorld<ROIWorld>();
-            if (world.strangePresenceDebuff)
+            if (world.StrangePresenceDebuff)
             {
-                world.strangePresenceDebuff = true;
+                world.StrangePresenceDebuff = true;
             }
         }
     }
