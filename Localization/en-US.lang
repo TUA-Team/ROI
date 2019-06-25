@@ -4,7 +4,7 @@ Common.VoidHeartHealthBar=Void HP: {0}/{1}
 ItemName.Void=The Void
 ItemTooltip.Void="The wielder of this mysterious item will be in true communion with the void"\n5 minute cooldown, grants a random void buff!\nStack up to 10 guaranteed effects that will last for 4 minutes!\nConsumes 50 void affinity points per use
 ItemName.Gnomed=Noggin Clontith
-ItemTooltip.Gnomed="I'm not a gnelf, I'm not a gnoblin, and you've been GNOMED!!"\nA testament to the idiocy of humanity
+ItemTooltip.Gnomed="I'm not a gnelf, I'm not a gnoblin, I'm a GNOME, and you've been GNOMED!!"\nA testament to the idiocy of humanity
 
 BuffName.DarkMind=Dark Mind
 BuffTooltip.DarkMind=You feel the darkness consuming your mind\n-50% damage overall\n+50% debuff duration
