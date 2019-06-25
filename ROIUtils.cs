@@ -28,7 +28,7 @@ namespace ROI
         /// <param name="args"></param>
         /// <returns></returns>
         public static string GetLangValue(string simplifiedKey, params object[] args)
-            => Language.GetTextValue("ROI.Common" + simplifiedKey, args: args);
+            => Language.GetTextValue("Mods.ROI.Common." + simplifiedKey, args: args);
 
         public static T LowClamp<T>(T value, T min) where T : IComparable
         {

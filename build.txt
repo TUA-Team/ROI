@@ -8,3 +8,5 @@ includeCode = true
 includeSource = true
 
 dllReferences = DiscordRPC
+
+includePDB = true
