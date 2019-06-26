@@ -10,7 +10,6 @@ namespace ROI.Items
             item.width = 30;
             item.height = 40;
             item.value = 2;
-            item.rare = ItemRarityID.White;
             // item.useStyle = ItemUseStyleID.HoldingUp;
             // item.useTime = 20;
             // item.useAnimation = 20;

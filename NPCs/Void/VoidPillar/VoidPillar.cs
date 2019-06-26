@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Enums;
+using ROI.ID;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics;

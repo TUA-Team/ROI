@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Interface
 {
-    public abstract class VoidItem : ROIItem
+    public abstract class VoidItem : ModItem
     {
         public abstract int VoidTier { get; set; }
         public abstract int VoidCost { get; set; }

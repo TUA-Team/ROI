@@ -3,7 +3,7 @@ using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
-using ROI.Enums;
+using ROI.ID;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.ModLoader;

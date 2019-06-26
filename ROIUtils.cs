@@ -36,6 +36,12 @@ namespace ROI
             return value;
         }
 
+        public static T HighClamp<T>(T value, T max) where T : IComparable
+        {
+            if (value.CompareTo(max) == 1) return max;
+            return value;
+        }
+
         public static bool NPCAlive(int type, bool active = true, bool single = false)
         {
             int count = 0;

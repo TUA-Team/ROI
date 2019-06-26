@@ -21,9 +21,16 @@
     <Exec Command="pushd $(ProjectDir)_scripts\tmlbuild.bat &quot;$(ProjectDir)&quot; -eac &quot;$(TargetPath)&quot;popd" />
   </Target>
   <ItemGroup>
+    <Compile Remove="lib\**" />
+    <EmbeddedResource Remove="lib\**" />
+    <None Remove="lib\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
     <None Remove="icon.png" />
+    <None Remove="Items\Gnomed.png" />
+    <None Remove="Items\Thrown\FireflyBomb.png" />
     <None Remove="Items\Void.png" />
     <None Remove="README.MD" />
   </ItemGroup>
@@ -31,5 +38,8 @@
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Items\Summon\" />
   </ItemGroup>
 </Project>

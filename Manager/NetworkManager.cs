@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.Enums;
-using ROI.Players;
+using ROI.ID;
 using System.IO;
 using Terraria;
 using Terraria.Localization;
@@ -9,13 +8,21 @@ namespace ROI.Manager
 {
     internal class NetworkManager : AbstractManager<NetworkManager>
     {
-        public void ReceivePacket(BinaryReader networkReader, int whoAmI)
+        public void ReceivePacket(BinaryReader reader, int whoAmI)
         {
-            ROINetworkMessage networkMessage = (ROINetworkMessage)networkReader.ReadByte();
+            NetworkMessage networkMessage = (NetworkMessage)reader.ReadByte();
             switch (networkMessage)
             {
-                case ROINetworkMessage.PlayerData:
-                    Main.player[whoAmI].GetModPlayer<ROIPlayer>().ReceiveNetworkData(networkReader);
+                case NetworkMessage.PlayerData:
+                    if (Main.netMode != 2)
+                    {
+                        Main.player[whoAmI].GetModPlayer<Players.ROIPlayer>().ReceiveNetworkData(reader);
+                    }
+                    break;
+                case NetworkMessage.FireflyStun:
+                    var npc = reader.ReadByte();
+                    Main.npc[npc].life -= 15;
+                    Main.npc[npc].GetGlobalNPC<NPCs.Globals.EffectNPC>().fireflyStunned = 45;
                     break;
             }
         }

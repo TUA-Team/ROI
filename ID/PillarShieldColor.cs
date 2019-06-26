@@ -1,4 +1,4 @@
-﻿namespace ROI.Enums
+﻿namespace ROI.ID
 {
     internal enum PillarShieldColor : byte
     {
