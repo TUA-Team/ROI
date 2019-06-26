@@ -9,7 +9,7 @@ using Terraria.ModLoader.IO;
 namespace ROI.Items.Void
 {
     // Delete me later or give me the binding of isaac void sprite and some actual use - Dradon
-    // I think we should change this to "Sinister Elixir" and use the sprite for something else
+    // I think we should change this to "Sinister Elixir" and use the sprite for something else - Agrair
     public class Void : VoidItem
     {
         public override bool CloneNewInstances => false;

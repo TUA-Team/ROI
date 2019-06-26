@@ -9,4 +9,4 @@ Also with multiplayer support :)
 [i:97] Introducing the void class, a class based entirely on buffs, click to watch the magic.
 [i:97] Introducing void affinity, collect void affinity by completing certain tasks and use it to craft rare relic that will help your in your journey.
 [i:97] Introducing the void tier, a mechanic related to void affinity, the higher tier you are, the more danger you get, but the more reward you get.
-[i:97] Introducing the void pillar, a boss that have a chance to spawn in the higher void tier, it is not related to the moon lord ;)
+[i:97] Introducing the void pillar, a boss that will spawn the higher your void affinity.
