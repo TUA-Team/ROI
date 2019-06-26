@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ROI.Items
+namespace ROI.Items.Void
 {
     // Delete me later or give me the binding of isaac void sprite and some actual use - Dradon
     // I think we should change this to "Sinister Elixir" and use the sprite for something else
@@ -23,7 +23,7 @@ namespace ROI.Items
         {
             if (item.modItem is Void voidItem)
             {
-                voidItem.integratedBuffs = this.integratedBuffs;
+                voidItem.integratedBuffs = integratedBuffs;
             }
 
             return item.modItem;
