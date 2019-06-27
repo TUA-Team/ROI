@@ -6,7 +6,7 @@ namespace ROI.Globals
     {
         internal byte fireflyStunned;
 
-        private void EffectSetDefaults(NPC npc)
+        private void EffectSetDefaults()
         {
             fireflyStunned = 0;
         }

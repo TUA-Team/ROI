@@ -85,7 +85,7 @@ namespace ROI.Manager
                 if (!Main.gameMenu)
                 {
                     _presence.Details = "Playing Terraria";
-                    if (NPCAlive(Mod.NPCType<NPCs.Void.VoidPillar.VoidPillar>()))
+                    if (NPCAlive(mod.NPCType<NPCs.Void.VoidPillar.VoidPillar>()))
                     {
                         _client.UpdateDetails("The void hallucination");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Void Pillar");

@@ -22,8 +22,8 @@ namespace ROI.GUI.VoidUI
 
         public static void Unload()
         {
-            BOSSHEALTH_BACKGROUND.Dispose();
-            BOSSHEALTH_FOREGROUND.Dispose();
+            BOSSHEALTH_BACKGROUND?.Dispose();
+            BOSSHEALTH_FOREGROUND?.Dispose();
         }
 
         public static void FindPillar()

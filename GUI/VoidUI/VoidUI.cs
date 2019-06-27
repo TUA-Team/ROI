@@ -24,8 +24,8 @@ namespace ROI.GUI.VoidUI
 
 	    public static void Unload()
 	    {
-	        voidMeterFilled.Dispose();
-	        voidMeterEmpty.Dispose();
+	        voidMeterFilled?.Dispose();
+	        voidMeterEmpty?.Dispose();
         }
 
 	    public static void Draw(SpriteBatch spriteBatch)

@@ -21,7 +21,7 @@ namespace ROI.GUI.VoidUI
 
         public static void Unload()
         {
-            heartTexture = null;
+            heartTexture?.Dispose();
         }
 
         public static void Draw(SpriteBatch sb)
