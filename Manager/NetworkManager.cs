@@ -22,7 +22,7 @@ namespace ROI.Manager
                 case NetworkMessage.FireflyStun:
                     var npc = reader.ReadByte();
                     Main.npc[npc].life -= 15;
-                    Main.npc[npc].GetGlobalNPC<NPCs.Globals.EffectNPC>().fireflyStunned = 45;
+                    Main.npc[npc].GetGlobalNPC<Globals.ROIGlobalNPC>().fireflyStunned = 45;
                     break;
             }
         }

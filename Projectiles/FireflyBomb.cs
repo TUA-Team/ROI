@@ -79,7 +79,7 @@ namespace ROI.Projectiles
                 if (Main.npc[i].DistanceSQ(projectile.position) < 50)
                 {
                     Main.npc[i].life -= 15;
-                    Main.npc[i].GetGlobalNPC<NPCs.Globals.EffectNPC>().fireflyStunned = 45;
+                    Main.npc[i].GetGlobalNPC<Globals.ROIGlobalNPC>().fireflyStunned = 45;
                     NetMessage.SendData(MessageID.StrikeNPC, -1, Main.myPlayer, null, i, 15, 2f,
                         Main.npc[i].position.X.CompareTo(projectile.position.X));
                     var p = mod.GetPacket();
