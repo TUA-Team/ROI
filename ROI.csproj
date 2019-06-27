@@ -22,8 +22,11 @@
   </Target>
   <ItemGroup>
     <Compile Remove="lib\**" />
+    <Compile Remove="_scripts\**" />
     <EmbeddedResource Remove="lib\**" />
+    <EmbeddedResource Remove="_scripts\**" />
     <None Remove="lib\**" />
+    <None Remove="_scripts\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove=".gitattributes" />
@@ -41,5 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Summon\" />
+    <Folder Include="NPCs\Globals\" />
   </ItemGroup>
 </Project>

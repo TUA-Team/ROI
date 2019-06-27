@@ -8,20 +8,20 @@ namespace ROI.Globals
         public override void SetDefaults(NPC npc)
         {
             VoidSetDefaults(npc);
-            EffectSetDefaults(npc);
+            EffectSetDefaults();
         }
 
         public override bool PreNPCLoot(NPC npc)
         {
-            bool flag;
-            flag = VoidPreNPCLoot(npc);
+            bool flag = false;
+            flag |= VoidPreNPCLoot(npc);
             return flag;
         }
 
         public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
         {
-            bool flag;
-            flag = EffectStrikeNPC(npc);
+            bool flag = false;
+            flag |= EffectStrikeNPC(npc);
             return flag;
         }
     }
