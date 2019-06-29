@@ -8,7 +8,7 @@ namespace ROI.Manager
     {
         private bool[] loreEntries;
 
-        public void TriggerLoreEntry(short id)
+        public void TriggerLoreEntry(ushort id)
         {
             if (loreEntries[id]) return;
             loreEntries[id] = true;
@@ -19,7 +19,7 @@ namespace ROI.Manager
         public void Load(TagCompound tag)
         {
             loreEntries = new bool[LoreID.Count];
-            var list = tag.GetList<short>(nameof(loreEntries));
+            var list = tag.GetList<ushort>(nameof(loreEntries));
             for (int i = 0; i < list.Count; i++)
             {
                 loreEntries[list[i]] = true;
@@ -28,15 +28,15 @@ namespace ROI.Manager
 
         public void Save(TagCompound tag)
         {
-            var list = new List<short>();
-            for (short i = 0; i < LoreID.Count; i++)
+            var list = new List<ushort>();
+            for (ushort i = 0; i < LoreID.Count; i++)
             {
                 if (loreEntries[i]) list.Add(i);
             }
             tag.Add(nameof(loreEntries), list);
         }
 
-        public void GetEntry(short id, out string Name, out string Desc, out string Author)
+        public void GetEntry(ushort id, out string Name, out string Desc, out string Author)
         {
             switch (id)
             {
