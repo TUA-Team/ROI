@@ -1,23 +1,30 @@
-﻿using Terraria;
-using Terraria.ModLoader;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria;
 
 namespace ROI.Buffs.Void
 {
-    class PillarPresence : ModBuff
+    class PillarPresence : ROIBuff
     {
+
+        protected PillarPresence(string displayName, string description) : base("Strange Presence...", "Something isn't right")
+        {
+        }
+
         public override void SetDefaults()
         {
-            canBeCleared = false;
-            longerExpertDebuff = true;
-            Main.persistentBuff[Type] = true;
+            this.canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
             ROIWorld world = mod.GetModWorld<ROIWorld>();
-            if (world.StrangePresenceDebuff)
+            if (world.strangePresenceDebuff)
             {
-                world.StrangePresenceDebuff = true;
+                world.strangePresenceDebuff = true;
             }
         }
     }

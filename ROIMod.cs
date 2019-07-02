@@ -1,4 +1,5 @@
-using log4net;
+using System;
+using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using ROI.Manager;
@@ -6,17 +7,22 @@ using System;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI
 {
     public sealed partial class ROIMod : Mod
 	{
-        internal static string SAVE_PATH = "";
+		internal static string SAVE_PATH = "";
+
 		internal static ROIMod instance;
         public static bool dev;
         internal static bool debug;
 
-        public static ILog Log => instance.Logger;
+		public ROIMod()
+		{
+
+		}
 
 		#region Load and unload stuff
 
@@ -103,7 +109,7 @@ namespace ROI
             }
 	        catch (Exception e)
 	        {
-                Logger.Error(e);
+                
 	        }
 	        return null;
 	    }

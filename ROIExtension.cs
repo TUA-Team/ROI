@@ -1,4 +1,9 @@
-﻿using log4net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using log4net;
 using ROI.Globals;
 using ROI.Manager;
 using ROI.Players;
@@ -21,14 +26,6 @@ namespace ROI
             for (int i = 0; i < self.Length; i++)
             {
                 self[i] = false;
-            }
-        }
-
-        public static void SetAll<T>(this T[] self, T obj)
-        {
-            for (int i = 0; i < self.Length; i++)
-            {
-                self[i] = obj;
             }
         }
 

@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.ID;
+using ROI.Enums;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics;
@@ -24,6 +24,11 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public int ShieldHealth { get; internal set; }
 
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Void Pillar");
+        }
+
         public override void SetDefaults()
         {
             npc.boss = true;
@@ -42,7 +47,7 @@ namespace ROI.NPCs.Void.VoidPillar
 
             movementTimer = 100;
             _movementUp = false;
-            _damageReduction = Main.expertMode ? 0.2f : 0; //Set red shield damage reduction here
+            _damageReduction = (Main.expertMode) ? 0.2f : 0; //Set red shield damage reduction here
             if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
             {
                 npc.ForceKill();
@@ -115,7 +120,10 @@ namespace ROI.NPCs.Void.VoidPillar
             Main.spriteBatch.Begin();
         }
 
-        public override bool CheckActive() => false;
+        public override bool CheckActive()
+        {
+            return false;
+        }
 
         private void DamageShield(int damage)
         {
@@ -175,17 +183,6 @@ namespace ROI.NPCs.Void.VoidPillar
                 default:
                     return Main.DiscoColor;
             }
-            /*
-            return ShieldColor switch
-            {
-                PillarShieldColor.Black => Color.Black,
-                PillarShieldColor.Blue => Color.Blue,
-                PillarShieldColor.Green => Color.Green,
-                PillarShieldColor.Purple => Color.Purple,
-                PillarShieldColor.Red => Color.Red,
-                _ => Color.Red
-            };
-            */
         }
 
         private void DecideAttack()
@@ -286,6 +283,7 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 npc.position.Y += 0.2f;
             }
+
         }
     }
 }

@@ -5,12 +5,12 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.Players
 {
-    /// <summary>
-    /// Use this to store the main player data, otherwise create a partial class
-    /// Web, decide on this one if it's internal or public,
-    /// I leave it public in case someone wanna do call in it but I only give them Get accessor
-    /// </summary>
-    public sealed partial class ROIPlayer : ModPlayer
+	/// <summary>
+	/// Use this to store the main player data, otherwise create a partial classà
+	/// Web, decide on this one if it's internal or public,
+	/// I leave it public in case someone wanna do call in it but I only give them Get accessor
+	/// </summary>
+	public sealed partial class ROIPlayer : ModPlayer
 	{
         private short _voidAffinityAmount;
         public bool darkMind;

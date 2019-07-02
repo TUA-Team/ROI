@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ROI.Items.Interface;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -8,50 +13,32 @@ namespace ROI
 {
     internal partial class ROIUtils
     {
-        public static string GetBuffName(int buffID) => buffID >= BuffID.Count ?
-                (BuffLoader.GetBuff(buffID)?.DisplayName
-                    .GetTranslation(LanguageManager.Instance.ActiveCulture) ?? "null")
-                : Lang.GetBuffName(buffID);
-
         /// <summary>
-        /// Modded only
+        /// Credit to jof on this snippet of code, coming from EvenMoreModifiers
         /// </summary>
-        /// <param name="simplifiedKey"></param>
+        /// <param name="buffID"></param>
         /// <returns></returns>
-        public static string GetLangValueEasy(string simplifiedKey)
-            => GetLangValue(simplifiedKey);
-
-        /// <summary>
-        /// Modded only
-        /// </summary>
-        /// <param name="simplifiedKey"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static string GetLangValue(string simplifiedKey, params object[] args)
-            => Language.GetTextValue("Mods.ROI.Common." + simplifiedKey, args: args);
-
-        public static T LowClamp<T>(T value, T min) where T : IComparable
+        public static string GetBuffName(int buffID)
         {
-            if (value.CompareTo(min) == -1) return min;
-            return value;
-        }
-
-        public static T HighClamp<T>(T value, T max) where T : IComparable
-        {
-            if (value.CompareTo(max) == 1) return max;
-            return value;
-        }
-
-        public static bool NPCAlive(int type, bool active = true, bool single = false)
-        {
-            int count = 0;
-            for (int i = 0; i < Main.npc.Length; i++)
+            if (buffID >= BuffID.Count)
             {
-                if (Main.npc[i].active == active && Main.npc[i].type == type)
-                {
-                    if (++count == 2 && single) return false;
-                    if (!single) return true;
-                }
+                return BuffLoader.GetBuff(buffID)?.DisplayName.GetTranslation(LanguageManager.Instance.ActiveCulture) ?? "null";
+            }
+            return Lang.GetBuffName(buffID);
+        }
+
+        /// <summary>
+        /// To increase void tier safely
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="tier"></param>
+        /// <returns></returns>
+        public static bool AddVoidTierToItem(IVoidItem item, int tier)
+        {
+            if (item.VoidTier == tier - 1)
+            {
+                item.VoidTier = tier;
+                return true;
             }
             return false;
         }

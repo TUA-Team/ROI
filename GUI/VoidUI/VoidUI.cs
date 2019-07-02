@@ -5,12 +5,16 @@ using ROI.Manager;
 using ROI.Players;
 using Terraria;
 using Terraria.Graphics.Shaders;
+using Terraria.UI;
 
 namespace ROI.GUI.VoidUI
 {
-    internal class VoidUI
+	internal class VoidUI
 	{
 		private static readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
+
+
+        
 	    private static Texture2D voidMeterFilled;
 	    private static Texture2D voidMeterEmpty;
 
@@ -24,8 +28,8 @@ namespace ROI.GUI.VoidUI
 
 	    public static void Unload()
 	    {
-	        voidMeterFilled?.Dispose();
-	        voidMeterEmpty?.Dispose();
+	        voidMeterFilled.Dispose();
+	        voidMeterEmpty.Dispose();
         }
 
 	    public static void Draw(SpriteBatch spriteBatch)
@@ -60,8 +64,8 @@ namespace ROI.GUI.VoidUI
 			Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
 			Color[] colorData = new Color[diameter * diameter];
 
-			float radius = diameter * .5f;
-			float radiusInterior = diameterInterior * .5f;
+			float radius = diameter / 2f;
+			float radiusInterior = diameterInterior / 2f;
 			float radiusSquared = radius * radius;
 			float radiusSquaredInterior = radiusInterior * radiusInterior;
 
@@ -69,15 +73,21 @@ namespace ROI.GUI.VoidUI
 			{
 				for (int y = 0; y < diameter; y++)
 				{
+
 					int index = x * diameter + y;
 					Vector2 pos = new Vector2(x - radius, y - radius);
 					float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
 					float angle = (float)Math.Atan2(pos.Y, pos.X);
 
-                    colorData[index] = (anglePercent > angle 
-                        && pos.LengthSquared() < radiusSquared 
-                        && pos.LengthSquared() > radiusSquaredInterior) ? Color.White : Color.Transparent;
-                }
+					if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
+					{
+						colorData[index] = Color.White;
+					}
+					else
+					{
+						colorData[index] = Color.Transparent;
+					}
+				}
 			}
 
 			texture.SetData(colorData);

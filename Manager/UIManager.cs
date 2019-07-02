@@ -6,7 +6,7 @@ using Terraria;
 
 namespace ROI.Manager
 {
-    internal class UIManager : AbstractManager<UIManager>
+    internal class UIManager : BaseInstanceManager<UIManager>
 	{
         private Queue<string> loreQueue;
         private ushort loreUIProgress;

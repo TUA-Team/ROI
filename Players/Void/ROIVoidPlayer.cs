@@ -19,12 +19,6 @@ namespace ROI.Players
 			get => _voidAffinityAmount;
 		}
 
-        private void InitVoid()
-        {
-            MaxVoidAffinity = 100;
-            // one minute cool down
-            voidEffectAttemptCooldown = 60 * 60;
-        }
 
 		public int AddVoidAffinity(int voidAffinity, bool simulate = false)
 		{

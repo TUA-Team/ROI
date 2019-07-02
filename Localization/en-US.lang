@@ -7,16 +7,10 @@ ItemTooltip.Void="The wielder of this mysterious item will be in true communion 
 ItemName.Gnomed=Noggin Clontith
 ItemTooltip.Gnomed="I'm not a gnelf, I'm not a gnoblin, I'm a GNOME, and you've been GNOMED!!"\nA testament to the idiocy of humanity
 
-Common.ResearchersTable=Researchers Table
-ItemName.ResearchersTable={$Mods.ROI.Common.ResearchersTable}
-ItemTooltip.ResearchersTable=Used to examine and utilize nature in a way never thought possible.
-
 BuffName.DarkMind=Dark Mind
 BuffTooltip.DarkMind=You feel the darkness consuming your mind\n-50% damage overall\n+50% debuff duration
-
 BuffName.PillarPresence=Strange Presence
 BuffTooltip.PillarPresence=Something isn't right
-
 BuffName.VoidSlowness=Void Slowness
 BuffTooltip.VoidSlowness=The void is dragging you down\n-75% movement speed
 

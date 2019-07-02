@@ -1,12 +1,10 @@
 author = TUA Team
 version = 0.1.0
 displayName = Realm of Infinity - Hunt for the Void
-buildIgnore = .sln, .csproj, _scripts/, bin/, obj/, .gitattributes, .gitignore, .git/, .vs/, README.md
+buildIgnore = .sln, .csproj, _scripts/, bin/, obj/, .gitattributes, .gitignore, .git/, .vs/
 
 includeResources = false
 includeCode = true
 includeSource = true
 
 dllReferences = DiscordRPC
-
-includePDB = true
