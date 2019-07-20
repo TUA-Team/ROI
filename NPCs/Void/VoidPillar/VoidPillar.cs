@@ -3,16 +3,18 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.ID;
+using ROI.NPCs.Interfaces;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics;
 using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI.NPCs.Void.VoidPillar
 {
-    internal sealed class VoidPillar : ModNPC
+    internal sealed partial class VoidPillar : ModNPC, ISavableEntity
     {
         public override string Texture => "Terraria/NPC_507";
 
@@ -43,10 +45,10 @@ namespace ROI.NPCs.Void.VoidPillar
             movementTimer = 100;
             _movementUp = false;
             _damageReduction = Main.expertMode ? 0.2f : 0; //Set red shield damage reduction here
-            if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
-            {
-                npc.ForceKill();
-            }
+            //if (Main.npc.Where(i => i.modNPC is VoidPillar).ToList().Count > 1)
+            //{
+            //    npc.ForceKill();
+            //}
         }
 
         public override void AI()
@@ -287,5 +289,21 @@ namespace ROI.NPCs.Void.VoidPillar
                 npc.position.Y += 0.2f;
             }
         }
+
+        public TagCompound Save()
+        {
+            TagCompound tag = new TagCompound();
+            tag.Add("shieldPhase", (byte)ShieldColor);
+            tag.Add("shieldHealth", ShieldHealth);
+            return tag;
+        }
+
+        public void Load(TagCompound data)
+        {
+            ShieldColor = (PillarShieldColor) data.GetByte("shieldPhase");
+            ShieldHealth = data.GetAsInt("shieldHealth");
+        }
+
+        public bool SaveHP => true;
     }
 }

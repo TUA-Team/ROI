@@ -33,7 +33,7 @@
         public void Unload()
         {
             UnloadInternal();
-            _instance = default;
+            _instance = default(T);
         }
     }
 }

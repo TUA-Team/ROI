@@ -1,9 +1,11 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
 using ROI.ID;
+using ROI.NPCs.Interfaces;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.ModLoader;
@@ -16,51 +18,62 @@ namespace ROI
         public bool StrangePresenceDebuff { get; internal set; }
         private int pillarSpawningTimer;
 
-        public override void Initialize()
-        {
-            pillarSpawningTimer = 216000;
-        }
-
         public override TagCompound Save()
         {
-            TagCompound tag = new TagCompound();
-            PillarSaving(tag);
-            return tag;
+            return new TagCompound()
+            {
+                ["modNPCData"] = SaveModNPCData(),
+                [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
+            };
+        }
+
+        private static List<TagCompound> SaveModNPCData()
+        {
+            List<TagCompound> npcList = new List<TagCompound>();
+            foreach (NPC i in Main.npc)
+            {
+                if (i.modNPC is ISavableEntity entity)
+                {
+                    
+                    TagCompound currentEntityTag = entity.Save();
+                    currentEntityTag["position"] = i.position;
+                    currentEntityTag["name"] = i.modNPC.Name;
+                    currentEntityTag["mod"] = i.modNPC.mod.Name;
+                    if (entity.SaveHP)
+                    {
+                        currentEntityTag["Health"] = i.life;
+                    }
+                    LogManager.GetLogger("I don't care").Info(i.modNPC.npc + " : " + i.modNPC.mod.Name);
+                    npcList.Add(currentEntityTag);
+                }
+            }
+
+            return npcList;
         }
 
         public override void Load(TagCompound tag)
         {
-            PillarLoading(tag);
+            LoadModNPCData(tag);
+            StrangePresenceDebuff = tag.GetBool(nameof(StrangePresenceDebuff));
         }
 
-        private void PillarSaving(TagCompound tag)
+        private static void LoadModNPCData(TagCompound tag)
         {
-            bool isPillarPresent = Main.npc.Any(i => i.modNPC is VoidPillar);
-            tag.Add("strangePresenceDebuff", StrangePresenceDebuff);
-            tag.Add("pillarPresent", isPillarPresent);
-            if (isPillarPresent)
+            List<TagCompound> modNPCData = tag.Get<List<TagCompound>>("modNPCData");
+            foreach (TagCompound tagCompound in modNPCData)
             {
-                VoidPillar pillar = Main.npc.First(i => i.modNPC is VoidPillar).modNPC as VoidPillar;
-                tag.Add("shieldPhase", (byte)pillar.ShieldColor);
-                tag.Add("shieldHealth", pillar.ShieldHealth);
-                tag.Add("voidPillarX", pillar.npc.position.X);
-                tag.Add("voidPillarY", pillar.npc.position.Y);
+                Vector2 position = tagCompound.Get<Vector2>("position");
+                int instanceNPCID = NPC.NewNPC((int) position.X, (int) position.Y, ModLoader.GetMod(tagCompound.GetString("mod")).NPCType(tagCompound.GetString("name")));
+                if (Main.npc[instanceNPCID].modNPC is ISavableEntity entity)
+                {
+                    entity.Load(tagCompound);
+                }
+                LogManager.GetLogger("I actually care").Info(tagCompound.GetString("name") + " : " + tagCompound.GetString("mod"));
+                if (tag.ContainsKey("Health"))
+                {
+                    Main.npc[instanceNPCID].life = tag.GetAsInt("Health");
+                }
             }
-        }
-
-        private void PillarLoading(TagCompound tag)
-        {
-            StrangePresenceDebuff = tag.GetBool("strangePresenceDebuff");
-            if (!tag.GetBool("pillarPresent"))
-            {
-                return;
-            }
-            Point position = new Point((int)tag.GetFloat("voidPillarX"), (int)tag.GetFloat("voidPillarY"));
-            LogManager.GetLogger("Pillar Loading").Info($"Pillar Position [{position.X}, {position.Y}]");
-            int npcID = NPC.NewNPC(position.X, position.Y, mod.NPCType<VoidPillar>());
-            VoidPillar newVoidPillar = Main.npc[npcID].modNPC as VoidPillar;
-            newVoidPillar.ShieldColor = (PillarShieldColor) tag.GetByte("shieldPhase");
-            newVoidPillar.ShieldHealth = tag.GetInt("shieldHealth");
         }
 
         public override void PreUpdate()
