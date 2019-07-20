@@ -1,12 +1,20 @@
-using ROI.Players;
+﻿using ROI.Players;
 using Terraria;
 
 namespace ROI.Manager
 {
-	internal sealed class VoidManager : AbstractManager<VoidManager>
+	internal sealed class VoidManager : BaseInstanceManager<VoidManager>
 	{
-        public float Percent(ROIPlayer player) 
-            => player.VoidAffinityAmount * 100f / player.MaxVoidAffinity;
+
+		public override void Initialize()
+		{
+
+		}
+
+		public float Percent(ROIPlayer player)
+		{
+			return player.VoidAffinityAmount * 100f / player.MaxVoidAffinity;
+		}
 
 		/// <summary>
 		/// Unlock the player tier locally, then will send to the server, it's a global unlock anyway for everyone in the server
@@ -70,8 +78,7 @@ namespace ROI.Manager
 
 	    private static bool VoidPillarRequirement(ROIPlayer target)
 	    {
-	        return target.VoidAffinityAmount == target.MaxVoidAffinity 
-                && target.VoidTier == 6;
+	        return target.VoidAffinityAmount == target.MaxVoidAffinity && target.VoidTier == 6;
 	    }
 
 	    private bool Tier1Effect(ROIPlayer target)
@@ -112,7 +119,7 @@ namespace ROI.Manager
 		{
 
 		}
+		#endregion
 
-        #endregion
-    }
+	}
 }

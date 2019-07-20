@@ -22,8 +22,8 @@ namespace ROI.GUI.VoidUI
 
         public static void Unload()
         {
-            BOSSHEALTH_BACKGROUND?.Dispose();
-            BOSSHEALTH_FOREGROUND?.Dispose();
+            BOSSHEALTH_BACKGROUND.Dispose();
+            BOSSHEALTH_FOREGROUND.Dispose();
         }
 
         public static void FindPillar()
@@ -43,13 +43,16 @@ namespace ROI.GUI.VoidUI
 
         public static void Draw(SpriteBatch sb)
         {
-            if (pillar == null) return;
+            if (pillar == null)
+            {
+                return;
+            }
 
-            string name = ROIUtils.GetLangValue("VoidPillarHealthBar", pillar.ShieldColor.ToString());
+            string name = "Void Pillar - " + pillar.ShieldColor.ToString() + " Shield";
             string health = pillar.npc.life + "/" + pillar.npc.lifeMax;
             var color = pillar.GetShieldColor();
 
-            Vector2 offset = new Vector2(Main.screenWidth * .5f, Main.screenHeight - 100);
+            Vector2 offset = new Vector2(Main.screenWidth / 2, Main.screenHeight - 100);
             if (Terraria.ModLoader.ModLoader.GetMod("HEROsMod") != null
                 || Terraria.ModLoader.ModLoader.GetMod("CheatSheet") != null)
             {
@@ -58,49 +61,19 @@ namespace ROI.GUI.VoidUI
             Vector2 textSize = Main.fontDeathText.MeasureString(name) * 0.5f;
             Vector2 healthTextSize = Main.fontDeathText.MeasureString(health) * 0.5f;
 
-            sb.Draw(BOSSHEALTH_BACKGROUND, 
-                new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41), 
-                new Rectangle(0, 0, 20, 41), 
-                color * 0.5f);
-            sb.Draw(BOSSHEALTH_BACKGROUND, 
-                new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41),
-                new Rectangle(23, 0, 24, 41), 
-                color * 0.5f);
-            sb.Draw(BOSSHEALTH_BACKGROUND, 
-                new Rectangle((int)offset.X - 250 + 480, (int)offset.Y + 41, 20, 41), 
-                new Rectangle(51, 0, 20, 41),
-                color * 0.5f);
+            sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41), new Rectangle(0, 0, 20, 41), color * 0.5f);
+            sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41), new Rectangle(23, 0, 24, 41), color * 0.5f);
+            sb.Draw(BOSSHEALTH_BACKGROUND, new Rectangle((int)offset.X - 250 + 480, (int)offset.Y + 41, 20, 41), new Rectangle(51, 0, 20, 41), color * 0.5f);
 
-            float barProgress = pillar.ShieldHealth / (Main.expertMode ? 25000f : 20000f);
+            float barProgress = pillar.ShieldHealth / ((Main.expertMode) ? 25000f : 20000f);
             int width = (int)(500 * barProgress);
-            Rectangle barArea = new Rectangle((int)offset.X - 250 + 2, 
-                (int)offset.Y + 41, 
-                width, 
-                41);
+            Rectangle barArea = new Rectangle((int)offset.X - 250 + 2, (int)offset.Y + 41, width, 41);
 
-            sb.Draw(BOSSHEALTH_FOREGROUND, 
-                barArea, 
-                new Rectangle(23, 0, 24, 41), 
-                color);
+            sb.Draw(BOSSHEALTH_FOREGROUND, barArea, new Rectangle(23, 0, 24, 41), color);
 
-            Terraria.Utils.DrawBorderStringFourWay(sb,
-                Main.fontDeathText, 
-                name, 
-                (int)offset.X - textSize.X * .5f, 
-                offset.Y,
-                Color.Purple,
-                Color.MediumPurple,
-                Vector2.Zero,
-                0.5f);
-            Terraria.Utils.DrawBorderStringFourWay(sb,
-                Main.fontDeathText, 
-                health,
-                (int)offset.X - healthTextSize.X * .5f, 
-                offset.Y + healthTextSize.Y + 10,
-                Color.LightGray,
-                Color.DimGray,
-                Vector2.Zero,
-                0.5f);
+            Utils.DrawBorderStringFourWay(sb, Main.fontDeathText, name, (int)offset.X - textSize.X / 2, offset.Y, Color.Purple, Color.MediumPurple, Vector2.Zero, 0.5f);
+            Utils.DrawBorderStringFourWay(sb, Main.fontDeathText, health, (int)offset.X - healthTextSize.X / 2, offset.Y + healthTextSize.Y + 10, Color.LightGray, Color.DimGray, Vector2.Zero, 0.5f);
         }
     }
 }
+

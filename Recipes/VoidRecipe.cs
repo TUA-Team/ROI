@@ -1,4 +1,8 @@
-﻿using ROI.ID;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ROI.Players;
 using Terraria;
 using Terraria.ModLoader;
@@ -36,7 +40,7 @@ namespace ROI.Recipes
 
         public void SetVoidTier(int tier)
         {
-            if (tier >= VoidTier.ALPHA_TIER && tier <= VoidTier.ZETA_TIER)
+            if (tier >= ROIConst.ALPHA_TIER && tier <= ROIConst.ZETA_TIER)
             {
                 this._voidTier = tier;
             }

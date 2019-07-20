@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Manager
 {
-    internal sealed class DevManager : AbstractManager<DevManager>
+    internal sealed class DevManager : BaseInstanceManager<DevManager>
     {
         public string curSteam;
 
@@ -33,6 +33,11 @@ namespace ROI.Manager
                 if (devIDs[i] == curSteam) return true;
             }
             return false;
+        }
+
+        public override void Initialize()
+        {
+            
         }
     }
 }

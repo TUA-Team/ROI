@@ -1,38 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.ID;
+using ROI.Enums;
+using ROI.Players;
 using System.IO;
 using Terraria;
 using Terraria.Localization;
 
 namespace ROI.Manager
 {
-    internal class NetworkManager : AbstractManager<NetworkManager>
+    internal class NetworkManager : BaseInstanceManager<NetworkManager>
     {
-        public void ReceivePacket(BinaryReader reader, int whoAmI)
+
+        public override void Initialize()
         {
-            NetworkMessage networkMessage = (NetworkMessage)reader.ReadByte();
+
+        }
+
+        public void ReceivePacket(BinaryReader networkReader, int whoAmI)
+        {
+            ROINetworkMessage networkMessage = (ROINetworkMessage)networkReader.ReadByte();
             switch (networkMessage)
             {
-                case NetworkMessage.PlayerData:
-                    if (Main.netMode != 2)
-                    {
-                        Main.player[whoAmI].GetModPlayer<Players.ROIPlayer>().ReceiveNetworkData(reader);
-                    }
-                    break;
-                case NetworkMessage.FireflyStun:
-                    var npc = reader.ReadByte();
-                    Main.npc[npc].life -= 15;
-                    Main.npc[npc].GetGlobalNPC<Globals.ROIGlobalNPC>().fireflyStunned = 45;
+                case ROINetworkMessage.PlayerData:
+                    Main.player[whoAmI].GetModPlayer<ROIPlayer>().ReceiveNetworkData(networkReader);
                     break;
             }
         }
 
         public static void Chat(string s, Color color, bool sync = true)
         {
-            Chat(s, color.R, color.G, color.B, sync);
+            Chat(s, (byte)color.R, (byte)color.G, (byte)color.B, sync);
         }
 
-        public static void Chat(string s, byte colorR = 255, byte colorG = 255, byte colorB = 255, bool sync = true)
+        public static void Chat(string s, byte colorR = (byte)255, byte colorG = (byte)255, byte colorB = (byte)255, bool sync = true)
         {
             switch (Main.netMode)
             {

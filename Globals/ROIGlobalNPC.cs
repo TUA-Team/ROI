@@ -1,28 +1,125 @@
-﻿using Terraria;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using log4net;
+using ROI.Manager;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ROI.Globals
 {
     internal partial class ROIGlobalNPC : GlobalNPC
     {
+        public override bool InstancePerEntity => true;
+
+        internal bool forcedKill = false;
+
         public override void SetDefaults(NPC npc)
         {
-            VoidSetDefaults(npc);
-            EffectSetDefaults();
+            switch (npc.type)
+            {
+                case NPCID.MoonLordCore:
+                    npc.value = Item.buyPrice(0, 50, 0 , 0);
+                    break;
+                case NPCID.DukeFishron:
+                    npc.value = Item.buyPrice(0, 25, 0, 0); ;
+                    break;
+                case NPCID.BrainofCthulhu:
+                    npc.value = Item.buyPrice(0, 3, 0, 0); ;
+                    break;
+                case NPCID.QueenBee:
+                    npc.value = Item.buyPrice(0, 5, 0, 0); ;
+                    break;
+                case NPCID.Golem:
+                    npc.value = Item.buyPrice(0, 15, 0, 0); ;
+                    break;
+                case NPCID.CultistBoss:
+                    npc.value = Item.buyPrice(0, 20, 0, 0); ;
+                    break;
+            }
         }
 
         public override bool PreNPCLoot(NPC npc)
         {
-            bool flag = false;
-            flag |= VoidPreNPCLoot(npc);
-            return flag;
+            LogManager.GetLogger("Void logger").Info($"Void Reward : {npc.FullName} - {npc.value} NPC value");
+
+            switch (npc.type)
+            {
+                case NPCID.EyeofCthulhu:
+                    RewardVoidTier(1);
+                    break;
+                case NPCID.SkeletronHead:
+                    RewardVoidTier(2);
+                    break;
+                case NPCID.WallofFlesh:
+                    RewardVoidTier(3);
+                    break;
+                case NPCID.Plantera:
+                    RewardVoidTier(4);
+                    break;
+                case NPCID.CultistBoss:
+                    RewardVoidTier(5);
+                    break;
+                case NPCID.MoonLordCore:
+                    RewardVoidTier(6);
+                    break;
+            }
+
+            if (npc.boss)
+            {
+                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
+                {
+                    return false;
+                }
+                RewardVoidAffinity(npc);
+            }
+            return base.PreNPCLoot(npc);
         }
 
-        public override bool StrikeNPC(NPC npc, ref double damage, int defense, ref float knockback, int hitDirection, ref bool crit)
+        /*
+        public override bool SpecialNPCLoot(NPC npc)
         {
-            bool flag = false;
-            flag |= EffectStrikeNPC(npc);
-            return flag;
+
+            if (npc.boss)
+            {
+                if (npc.type == NPCID.EaterofWorldsHead && Main.npc.Count(i => i.type == NPCID.EaterofWorldsBody) > 1)
+                {
+                    return true;
+                }
+                RewardVoidAffinity(npc);
+                return false;
+            }
+
+            return base.SpecialNPCLoot(npc);
+        }*/
+
+        public void RewardVoidAffinity(NPC npc)
+        {
+            foreach (var player in Main.player)
+            {
+                if (player.name == "")
+                {
+                    continue;
+                }
+                player.RewardVoidAffinityTroughNPC(npc);
+            }
         }
+
+        private void RewardVoidTier(byte tier)
+        {
+            foreach (var player in Main.player)
+            {
+                if (player.name == "")
+                {
+                    continue;
+                }
+                player.UnlockVoidTier(tier);
+            }
+        }
+
+
     }
 }
