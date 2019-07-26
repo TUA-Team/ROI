@@ -1,4 +1,6 @@
+using System.IO;
 using log4net;
+using ROI.Networking;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -34,6 +36,9 @@ namespace ROI
                 UnloadClient();
             }
         }
+
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI) => NetworkPacketManager.Instance.HandlePacket(reader, whoAmI);
 
 
         public static ROIMod Instance { get; private set; }

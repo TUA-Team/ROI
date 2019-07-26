@@ -6,9 +6,9 @@ namespace ROI.Buffs
     public abstract class ROIBuff : ModBuff
     {
         private readonly string _displayName, _tooltip;
-        private readonly bool _hideTime, _save, _persistent, _canBeCleared;
+        private readonly bool _hideTime, _save, _persistent, _canBeCleared, _longerExpertDebuff;
 
-        protected ROIBuff(string displayName, string tooltip, bool hideTime = false, bool save = false, bool persistent = false, bool canBeCleared = true)
+        protected ROIBuff(string displayName, string tooltip, bool hideTime = false, bool save = false, bool persistent = false, bool canBeCleared = true, bool longerExpertDebuff = false)
         {
             _displayName = displayName;
             _tooltip = tooltip;
@@ -16,6 +16,8 @@ namespace ROI.Buffs
             _hideTime = hideTime;
             _save = save;
             _persistent = persistent;
+            _canBeCleared = canBeCleared;
+            _longerExpertDebuff = longerExpertDebuff;
         }
 
         public override void SetDefaults()
@@ -30,6 +32,7 @@ namespace ROI.Buffs
             Main.persistentBuff[Type] = _persistent;
 
             canBeCleared = _canBeCleared;
+            longerExpertDebuff = _longerExpertDebuff;
         }
     }
 }
