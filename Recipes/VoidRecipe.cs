@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ROI.Players;
 using Terraria;
 using Terraria.ModLoader;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.Recipes
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ROI.Worlds;
 using Terraria;
 
 namespace ROI.Buffs.Void
@@ -22,9 +23,9 @@ namespace ROI.Buffs.Void
         public override void Update(Player player, ref int buffIndex)
         {
             ROIWorld world = mod.GetModWorld<ROIWorld>();
-            if (world.strangePresenceDebuff)
+            if (world.StrangePresenceDebuff)
             {
-                world.strangePresenceDebuff = true;
+                world.StrangePresenceDebuff = true;
             }
         }
     }

@@ -1,11 +1,8 @@
-﻿using ROI.Manager;
-using ROI.Players;
-using System.Collections.Generic;
-using Terraria;
+﻿using System.Collections.Generic;
 
-namespace ROI.Managers
+namespace ROI.Manager
 {
-    internal class LoreManager : BaseInstanceManager<LoreManager>
+    internal partial class LoreManager : AbstractManager<LoreManager>
     {
         private Queue<short> loreQueue;
 

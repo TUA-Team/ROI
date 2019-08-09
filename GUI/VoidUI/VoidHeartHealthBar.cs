@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using ROI.Players;
 using Terraria;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.GUI.VoidUI
 {

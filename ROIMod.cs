@@ -5,7 +5,11 @@ using ROI.GUI.VoidUI;
 using ROI.Manager;
 using System;
 using System.IO;
+using Microsoft.Xna.Framework;
+using ROI.Backgrounds.Underworld;
+using ROI.Effects;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -19,7 +23,9 @@ namespace ROI
         public static bool dev;
         internal static bool debug;
 
-		public ROIMod()
+	    internal static FilterManager roiFilterManager;
+
+        public ROIMod()
 		{
 
 		}
@@ -37,10 +43,14 @@ namespace ROI
 
 		private void ClientLoad()
 		{
+		    roiFilterManager = new FilterManager();
+
             VoidPillarHealthBar.Load();
             VoidUI.Load();
             VoidHeartHealthBar.Load();
-            
+            UnderworldDarkness.Load();            
+            Wasteland_Background.Load();
+            DRPManager.Instance.Initialize();
             Main.OnTick += DRPManager.Instance.Update;
 		}
 
@@ -48,6 +58,7 @@ namespace ROI
 		{
 			instance = this;
             DevManager.Instance.CheckDev();
+            ROIModSupport.Load();
 #if DEBUG
             debug = true;
 #else
@@ -55,7 +66,12 @@ namespace ROI
 #endif
         }
 
-		public override void Unload()
+	    public override void PostAddRecipes()
+	    {
+	        ROITreeHookLoader.Load();
+        }
+
+        public override void Unload()
 		{
 			GeneralUnload();
 			if (!Main.dedServ)
@@ -75,10 +91,15 @@ namespace ROI
             VoidUI.Unload();
             VoidHeartHealthBar.Unload();
             DRPManager.Instance.Unload();
+		    roiFilterManager = null;
             Main.OnTick -= DRPManager.Instance.Update;
         }
-
 #endregion
+
+	    public override void UpdateUI(GameTime gameTime)
+	    {
+	        roiFilterManager.Update(gameTime);
+	    }
 
 	    public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
@@ -90,6 +111,8 @@ namespace ROI
                 VoidUI.Draw(spriteBatch);
 	        }
 	    }
+
+	    
 
 	    public override object Call(params object[] args)
 	    {
@@ -118,5 +141,16 @@ namespace ROI
         {
             NetworkManager.Instance.ReceivePacket(reader, whoAmI);
         }
-    }
+
+	    public override void ModifyLightingBrightness(ref float scale)
+	    {
+	        if (Main.ActiveWorldFileData.HasCrimson && (Main.LocalPlayer.position.Y / 16) > Main.maxTilesY - 200)
+	        {
+	            scale = 0.7f;
+	        }
+	        base.ModifyLightingBrightness(ref scale);
+	    }
+
+        
+	}
 }

@@ -1,0 +1,44 @@
+#if OPENGL
+    #define SV_POSITION POSITION
+    #define VS_SHADERMODEL vs_3_0
+    #define PS_SHADERMODEL ps_3_0
+#else
+    #define VS_SHADERMODEL vs_4_0_level_9_1
+    #define PS_SHADERMODEL ps_4_0_level_9_1
+#endif
+
+sampler Sampler : register(s0);
+float progress;
+
+float4 MainPS(float2 coords : TEXCOORD0) : COLOR
+{
+    //this is the center of the sprite, coords work from 0 - 1
+    float2 center = float2(0.5, 0.5);
+    //get the vector between them
+    float2 between = coords - center;
+    //get the length
+    float newLength = length(between);
+    //get the new angle that we want it to be at, as otherwise it works from the left
+    float newAngle = atan2(between.y, between.x) - 1.57079633;
+    //calculate the angle based on the new vector
+    float angle = atan2(sin(newAngle) * newLength, cos(newAngle) * newLength);
+    //shift angle to between 0 and 2 pi
+    angle += 3.14159265; 
+    //get the progress of the angle
+    float anglePercent = angle / 6.28318531;
+
+    //if we are below the progress point, return the pixel at the coords specified
+    if (anglePercent < progress)
+        return tex2D(Sampler, coords);
+
+    //otherwise, return transparent pixel
+    return float4(0, 0, 0, 0);
+}
+
+technique SpriteDrawing
+{
+    pass P0
+    {
+        PixelShader = compile PS_SHADERMODEL MainPS();
+    }
+};

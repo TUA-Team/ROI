@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Manager
 {
-    internal sealed class DevManager : BaseInstanceManager<DevManager>
+    internal sealed class DevManager : AbstractManager<DevManager>
     {
         public string curSteam;
 

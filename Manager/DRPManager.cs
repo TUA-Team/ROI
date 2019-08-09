@@ -9,7 +9,7 @@ using Terraria.Utilities;
 
 namespace ROI.Manager
 {
-    internal sealed class DRPManager : BaseInstanceManager<DRPManager>
+    internal sealed class DRPManager : AbstractManager<DRPManager>
     {
         private RichPresence _presence;
 

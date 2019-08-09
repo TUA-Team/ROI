@@ -4,7 +4,7 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.Manager
 {
-    internal class LoreManager : AbstractManager<LoreManager>
+    internal partial class LoreManager : AbstractManager<LoreManager>
     {
         private bool[] loreEntries;
 

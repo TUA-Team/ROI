@@ -25,6 +25,10 @@
         /// <summary>
         /// Will spawn random boss before plantera, final phase of the boss, still unsure
         /// </summary>
-        Rainbow = 5
+        Rainbow = 5,
+        /// <summary>
+        /// Final phase
+        /// </summary>
+        none = 6
     }
 }

@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
-using ROI.ID;
 using ROI.NPCs.Interfaces;
-using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ROI
+namespace ROI.Worlds
 {
-    class ROIWorld : ModWorld
+    partial class ROIWorld : ModWorld
     {
         public bool StrangePresenceDebuff { get; internal set; }
         private int pillarSpawningTimer;
@@ -43,7 +40,6 @@ namespace ROI
                     {
                         currentEntityTag["Health"] = i.life;
                     }
-                    LogManager.GetLogger("I don't care").Info(i.modNPC.npc + " : " + i.modNPC.mod.Name);
                     npcList.Add(currentEntityTag);
                 }
             }
@@ -102,5 +98,7 @@ namespace ROI
         {
             StrangePresenceDebuff = reader.ReadBoolean();
         }
+
+        
     }
 }

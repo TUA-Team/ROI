@@ -43,6 +43,23 @@ namespace ROI
             return false;
         }
 
+        /// <summary>
+        /// Modded only
+        /// </summary>
+        /// <param name="simplifiedKey"></param>
+        /// <returns></returns>
+        public static string GetLangValueEasy(string simplifiedKey)
+            => GetLangValue(simplifiedKey);
+
+        /// <summary>
+        /// Modded only
+        /// </summary>
+        /// <param name="simplifiedKey"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static string GetLangValue(string simplifiedKey, params object[] args)
+            => Language.GetTextValue("Mods.ROI.Common." + simplifiedKey, args: args);
+
         public static void Swap<T>(ref T first, ref T second)
         {
             var temp = first;

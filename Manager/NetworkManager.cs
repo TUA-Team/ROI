@@ -4,10 +4,11 @@ using ROI.Players;
 using System.IO;
 using Terraria;
 using Terraria.Localization;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.Manager
 {
-    internal class NetworkManager : BaseInstanceManager<NetworkManager>
+    internal class NetworkManager : AbstractManager<NetworkManager>
     {
 
         public override void Initialize()

@@ -8,6 +8,7 @@ using ROI.Globals;
 using ROI.Manager;
 using ROI.Players;
 using Terraria;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI
 {

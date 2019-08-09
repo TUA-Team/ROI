@@ -1,9 +1,10 @@
 ﻿using ROI.Players;
 using Terraria;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.Manager
 {
-	internal sealed class VoidManager : BaseInstanceManager<VoidManager>
+	internal sealed class VoidManager : AbstractManager<VoidManager>
 	{
 
 		public override void Initialize()

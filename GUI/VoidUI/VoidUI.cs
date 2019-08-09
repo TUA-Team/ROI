@@ -6,6 +6,7 @@ using ROI.Players;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.UI;
+using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.GUI.VoidUI
 {
@@ -13,8 +14,6 @@ namespace ROI.GUI.VoidUI
 	{
 		private static readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
 
-
-        
 	    private static Texture2D voidMeterFilled;
 	    private static Texture2D voidMeterEmpty;
 

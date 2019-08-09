@@ -6,7 +6,7 @@ using Terraria;
 
 namespace ROI.Manager
 {
-    internal class UIManager : BaseInstanceManager<UIManager>
+    internal class UIManager : AbstractManager<UIManager>
 	{
         private Queue<string> loreQueue;
         private ushort loreUIProgress;
@@ -21,15 +21,17 @@ namespace ROI.Manager
         private Texture2D loreEnds;
         private Texture2D loreBG;
 
+
+
         public override void Initialize()
 		{
             loreQueue = new Queue<string>();
             loreUIProgress = 0;
-            loreEnds = mod.GetTexture("Textures/" + nameof(loreEnds));
-            loreBG = mod.GetTexture("Textures/" + nameof(loreBG));
+            loreEnds = ROIMod.instance.GetTexture("Textures/" + nameof(loreEnds));
+            loreBG = ROIMod.instance.GetTexture("Textures/" + nameof(loreBG));
 		}
 
-        protected override void UnloadInternal()
+        internal override void Unload()
         {
             loreEnds?.Dispose();
         }

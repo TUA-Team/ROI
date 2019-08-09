@@ -1,6 +1,6 @@
 ﻿namespace ROI.Manager
 {
-    internal abstract class BaseInstanceManager<T> where T : new()
+    internal abstract class AbstractManager<T> where T : new()
     {
         private static T _instance;
 
@@ -22,7 +22,7 @@
             }
         }
 
-        protected BaseInstanceManager()
+        protected AbstractManager()
         {
             Initialize();
         }

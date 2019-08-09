@@ -21,7 +21,7 @@ namespace ROI.NPCs.Interfaces
         /// <param name="data"></param>
         void Load(TagCompound data);
         /// <summary>
-        /// Decide if you wanna save ModNPC health, could be useful for the final boss?
+        /// Decide if you wanna save ModNPC health
         /// </summary>
         bool SaveHP { get; }
     }
