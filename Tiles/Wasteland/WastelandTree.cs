@@ -43,7 +43,7 @@ namespace ROI.Tiles.Wasteland
                 _brightness = 1f;
 
 
-            _brightness -= (_glowing) ? 0.0001f : -0.001f;
+            _brightness -= (_glowing) ? 0.001f : -0.01f;
             sb.Draw(mod.GetTexture("Textures/Tree/Wasteland_Tree_Top_Glowmask"), position, sourceRectangle, Color.White * _brightness, 0f, origin, 1f, SpriteEffects.None, 1f);
         }
     }

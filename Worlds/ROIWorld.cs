@@ -74,6 +74,11 @@ namespace ROI.Worlds
 
         public override void PreUpdate()
         {
+            Main.bottomWorld = (Main.maxTilesY * 16) + 400;
+            Main.topWorld = 0;
+            Main.leftWorld = 0;
+            Main.rightWorld = Main.maxTilesX * 16;
+
             if (StrangePresenceDebuff)
             {
                 for (int i = 0; i < Main.player.Length; i++)
