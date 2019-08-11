@@ -8,6 +8,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using ROI.Backgrounds.Underworld;
 using ROI.Effects;
+using ROI.Worlds.Underworld;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -20,7 +21,11 @@ namespace ROI
 		internal static string SAVE_PATH = "";
 
 		internal static ROIMod instance;
-        public static bool dev;
+#if DEBUG
+        public const bool dev = true;
+#else
+        public const bool dev = false;
+#endif
         internal static bool debug;
 
 	    internal static FilterManager roiFilterManager;
@@ -30,7 +35,7 @@ namespace ROI
 
 		}
 
-		#region Load and unload stuff
+#region Load and unload stuff
 
 		public override void Load()
 		{
@@ -69,7 +74,7 @@ namespace ROI
 	    public override void PostAddRecipes()
 	    {
 	        ROITreeHookLoader.Load();
-        }
+	    }
 
         public override void Unload()
 		{

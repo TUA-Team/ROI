@@ -98,7 +98,7 @@ namespace ROI.Worlds
         {
             StrangePresenceDebuff = reader.ReadBoolean();
         }
-
-        
     }
+
+
 }

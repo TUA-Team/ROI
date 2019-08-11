@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -15,6 +16,8 @@ namespace ROI.Tiles.Wasteland
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][mod.TileType("Wasteland_Dirt")] = true;
+            AddMapEntry(new Color(64, 47, 73));
+            minPick = 65;
             drop = mod.ItemType("Wasteland_Rock");
         }
 

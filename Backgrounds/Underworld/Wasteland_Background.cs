@@ -23,6 +23,11 @@ namespace ROI.Backgrounds.Underworld
 
         public static void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
+            if (Main.ActiveWorldFileData.HasCorruption)
+            {
+                orig(instance, flat);
+                return;
+            }
             for (int i = 0; i < texture.Length; i++)
             {
                 texture[i] = Terraria.ModLoader.ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
