@@ -16,11 +16,12 @@ namespace ROI.Tiles.Wasteland
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][mod.TileType("Wasteland_Dirt")] = true;
-            AddMapEntry(new Color(64, 47, 73));
+            AddMapEntry(new Color(68, 74, 100));
             minPick = 65;
             drop = mod.ItemType("Wasteland_Rock");
         }
 
+        //Broken?
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             //Following part need to moved into a seperate class

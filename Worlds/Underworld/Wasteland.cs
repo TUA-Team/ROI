@@ -1,5 +1,6 @@
 ﻿using ROI.Worlds.Underworld;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
@@ -28,6 +29,7 @@ namespace ROI.Worlds
             TerrainBottom(progress);
             SpreadingGrass(progress);
             GenerateCavern(progress);
+            
             //GrowingTree(progress);
             
         }
@@ -44,7 +46,21 @@ namespace ROI.Worlds
                 {
                     if (Main.tile[i, j].type == dirtType && !Main.tile[i, j - 1].active())
                     {
+                        Main.tile[i, j].wall = 0;
                         WorldGen.SpreadGrass(i, j, dirtType, grassType, true);
+                    }
+                }
+            }
+
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                float percent = (float)(i / Main.maxTilesX);
+                progress.Set(percent);
+                for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
+                {
+                    if (Main.tile[i, j].type == grassType)
+                    {
+                        Main.tile[i, j].wall = 0;
                     }
                 }
             }
@@ -61,9 +77,10 @@ namespace ROI.Worlds
                 progress.Set(percent);
                 int type = -1;
                 
-                ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(20, 50), type);
+                ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(5, 10), WorldGen.genRand.Next(50, 100), type);
                 ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(20, 50), mod.TileType("Wasteland_Dirt"));
             }
+            
         }
 
         internal void TerrainTop(GenerationProgress progress)
@@ -92,7 +109,6 @@ namespace ROI.Worlds
                         Main.tile[i, j].wall = 0;
                         Main.tile[i, j].slope(0);
                     }
-
                 }
             }
         }
@@ -190,6 +206,7 @@ namespace ROI.Worlds
                     Main.tile[i, j].active(true);
                     Main.tile[i, j].slope(0);
                     Main.tile[i, j].type = (ushort)mod.TileType("Wasteland_Dirt");
+                    Main.tile[i, j].wall = (ushort)mod.WallType("Wasteland_Dirt_Wall");
                 }
 
                 for (int j = wastelandRock; j < Main.maxTilesY; j++)
@@ -197,6 +214,7 @@ namespace ROI.Worlds
                     Main.tile[i, j].active(true);
                     Main.tile[i, j].slope(0);
                     Main.tile[i, j].type = (ushort)mod.TileType("Wasteland_Rock");
+                    Main.tile[i, j].wall = (ushort)mod.WallType("Wasteland_Rock_Wall");
                 }
             }
         }

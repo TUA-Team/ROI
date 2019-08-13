@@ -13,7 +13,7 @@ namespace ROI.Worlds.Underworld
     internal class ROIWorldHelper
     {
 
-        public static void TileRunner(int i, int j, double strength, int steps, int type, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
+        public static void TileRunner(int i, int j, double strength, int steps, int type, int wallType = 0, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
         {
             double num = strength;
             float num2 = (float)steps;
@@ -116,6 +116,11 @@ namespace ROI.Worlds.Underworld
                                         //TODO: Introduce ichor lava
                                         break;
                                 }
+
+                                if (wallType != 0)
+                                {
+                                    Main.tile[k, l].wall = (ushort)wallType;
+                                }
                                 Main.tile[k, l].active(false);
                             }
                             else
@@ -213,6 +218,7 @@ namespace ROI.Worlds.Underworld
                                     if (!flag3)
                                     {
                                         tile.type = (ushort)type;
+                                        tile.wall = (ushort)wallType;
                                         break;
                                     }
                                     flag3 = true;
