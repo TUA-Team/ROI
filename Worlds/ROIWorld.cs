@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using log4net;
 using Microsoft.Xna.Framework;
@@ -14,13 +15,21 @@ namespace ROI.Worlds
     {
         public bool StrangePresenceDebuff { get; internal set; }
         private int pillarSpawningTimer;
+        
+        /// <summary>
+        /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
+        /// </summary>
+        private Version version = new Version(0, 0, 0, 0);
+
+        private bool popout = false;
 
         public override TagCompound Save()
         {
             return new TagCompound()
             {
                 ["modNPCData"] = SaveModNPCData(),
-                [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
+                [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff,
+                [nameof(version)] = version,
             };
         }
 
@@ -51,6 +60,14 @@ namespace ROI.Worlds
         {
             LoadModNPCData(tag);
             StrangePresenceDebuff = tag.GetBool(nameof(StrangePresenceDebuff));
+            if (tag.ContainsKey(nameof(version)))
+            {
+                version = tag.Get<Version>(nameof(version));
+            }
+            else
+            {
+                version = new Version(0, 0, 0, 0);
+            }
         }
 
         private static void LoadModNPCData(TagCompound tag)
@@ -103,7 +120,10 @@ namespace ROI.Worlds
         {
             StrangePresenceDebuff = reader.ReadBoolean();
         }
+
+        public override void PostWorldGen()
+        {
+            version = ROIMod.instance.Version;
+        }
     }
-
-
 }

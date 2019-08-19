@@ -1,4 +1,4 @@
-﻿using ROI.Worlds.Underworld;
+﻿using ROI.Worlds.Structures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -29,9 +29,32 @@ namespace ROI.Worlds
             TerrainBottom(progress);
             SpreadingGrass(progress);
             GenerateCavern(progress);
-            
+            GeneratingRuins(progress);
+            //GeneratingTheLab(progress);
             //GrowingTree(progress);
-            
+            WorldGen.EveryTileFrame();
+        }
+
+        private void GeneratingRuins(GenerationProgress progress)
+        {
+            int nextHouseCooldown = 0;
+            for (int i = (int) (Main.maxTilesX * 0.30); i < Main.maxTilesX * 0.70; i++)
+            {
+                if (nextHouseCooldown <= 0 && WorldGen.genRand.Next(5) == 0)
+                {
+                    for (int j = Main.maxTilesY - 120; j < Main.maxTilesY - 20; j++)
+                    {
+                        if (Main.tile[i, j].type == mod.TileType("Wasteland_Dirt"))
+                        {
+                            nextHouseCooldown = WorldGen.genRand.Next(100, 150);
+                            WastelandRuins.PlaceHouse(i, j);
+                            break;
+                        }
+                    }
+                    
+                }
+                nextHouseCooldown--;
+            }
         }
 
         private void SpreadingGrass(GenerationProgress progress)
@@ -77,7 +100,7 @@ namespace ROI.Worlds
                 progress.Set(percent);
                 int type = -1;
                 
-                ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(5, 10), WorldGen.genRand.Next(50, 100), type);
+                ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(50, 70), type);
                 ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(20, 50), mod.TileType("Wasteland_Dirt"));
             }
             

@@ -16,7 +16,7 @@ namespace ROI.Tiles.Wasteland
 
         public override int DropWood()
         {
-            return -1;
+            return mod.ItemType("Irrawood");
         }
 
         public override Texture2D GetBranchTextures(int i, int j, int trunkOffset, ref int frame)

@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Placeable.Wasteland
 {
+    //TODO: MP for this
     class Wasteland_Grass_Seed : ModItem
     {
         public override void SetStaticDefaults()

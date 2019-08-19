@@ -20,6 +20,7 @@ namespace ROI.Tiles.Wasteland
             Main.tileLighted[Type] = true;
             TileID.Sets.Grass[Type] = true;
             Main.tileMerge[Type][mod.TileType("Wasteland_Dirt")] = true;
+            Main.tileMerge[Type][mod.TileType("Wasteland_Rock")] = true;
             AddMapEntry(new Color(127, 125, 87));
             SetModTree(new WastelandTree());
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
+using Microsoft.Xna.Framework;
 using ROI.Manager;
 using Terraria;
 using Terraria.ID;
@@ -120,6 +121,23 @@ namespace ROI.Globals
             }
         }
 
+        //TODO:Rewrite this entirely so it spawn from the side of hell instead
+        public static void SpawnWoF(On.Terraria.NPC.orig_SpawnWOF orig, Vector2 position)
+        {
+            if (Main.ActiveWorldFileData.HasCrimson)
+            {
+                SpawnWastelandCore();
+            }
+            
+            orig(position);
+        }
+
+        internal static void SpawnWastelandCore()
+        {
+            
+        }
         
+        
+       
     }
 }

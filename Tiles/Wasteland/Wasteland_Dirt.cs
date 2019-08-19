@@ -20,6 +20,7 @@ namespace ROI.Tiles.Wasteland
             Main.tileMerge[Type][mod.TileType("Wasteland_Rock")] = true;
             drop = mod.ItemType("Wasteland_Dirt");
             AddMapEntry(new Color(130, 114, 109));
+
         }
 
         public override void RandomUpdate(int i, int j)

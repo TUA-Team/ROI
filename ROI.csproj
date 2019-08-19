@@ -38,10 +38,12 @@
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Debug\" />
     <Folder Include="Items\Summon\" />
     <Folder Include="NPCs\Globals\" />
+    <Folder Include="NPCs\Wasteland\" />
   </ItemGroup>
 </Project>

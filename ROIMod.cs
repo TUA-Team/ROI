@@ -8,7 +8,6 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using ROI.Backgrounds.Underworld;
 using ROI.Effects;
-using ROI.Worlds.Underworld;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -57,6 +56,7 @@ namespace ROI
             Wasteland_Background.Load();
             DRPManager.Instance.Initialize();
             Main.OnTick += DRPManager.Instance.Update;
+            
 		}
 
 		private void GeneralLoad()
@@ -64,6 +64,7 @@ namespace ROI
 			instance = this;
             DevManager.Instance.CheckDev();
             ROIModSupport.Load();
+		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
 #if DEBUG
             debug = true;
 #else
