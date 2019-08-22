@@ -33,14 +33,13 @@ namespace ROI.NPCs
         private void RewardVoidTier(VoidTiers tier)
         {
             for (int i = 0; i < Main.player.Length; i++)
-            {
-                Player player = Main.player[i];
+                ROIPlayer.Get(Main.player[i]).UnlockVoidTier(tier);
+        }
 
-                if (player.name == "") // TODO Check if this is necessary.
-                    continue;
-
-                ROIPlayer.Get(player).UnlockVoidTier(tier);
-            }
+        private void RewardVoidAffinity(NPC npc)
+        {
+            for (int i = 0; i < Main.ActivePlayersCount; i++)
+                ROIPlayer.Get(Main.player[i]).RewardVoidAffinityThroughNPC(npc);
         }
 
 
