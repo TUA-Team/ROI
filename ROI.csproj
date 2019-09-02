@@ -15,7 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Managers\" />
-    <Folder Include="UI\" />
+    <Folder Include="Walls\" />
     <Folder Include="Recipes\" />
     <Folder Include="Tiles\" />
   </ItemGroup>

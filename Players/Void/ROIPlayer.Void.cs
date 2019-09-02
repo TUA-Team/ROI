@@ -1,19 +1,50 @@
-﻿using ROI.Void;
+﻿using Microsoft.Xna.Framework;
+using ROI.Void;
+using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ROI.Players
 {
     public sealed partial class ROIPlayer : ModPlayer
     {
+        public const int AFFINITY_STANDARD_LIMIT = 50;
+
+
         public void UnlockVoidTier(VoidTiers tier)
         {
             if (VoidTier != tier - 1) // Player cannot skip tiers.
                 return;
 
             VoidTier = tier;
-            MaxVoidAffinity = 
+            MaxVoidAffinity = VoidMath.GetMaxVoidAffinity(VoidTier);
         }
-        
+
+        public void RewardAffinity(ushort amount, ushort limit = AFFINITY_STANDARD_LIMIT) =>
+            AddVoidAffinity(amount > limit ? limit : amount);
+
+        public void RewardAffinity(NPC npc, ushort limit = AFFINITY_STANDARD_LIMIT) =>
+            RewardAffinity((ushort) (npc.value / Item.buyPrice(gold: 1)), limit);
+
+        public ushort AddVoidAffinity(ushort amount) => VoidAffinity += amount;
+
+        public void AttemptDamageVoidHeart(ref int damage)
+        {
+            int postNullificationDamage = damage - VoidHeartHP;
+
+            if (postNullificationDamage <= 0)
+            {
+                CombatText.NewText(new Rectangle((int) player.position.X, (int) player.position.Y, player.width, player.height), Color.Black, damage, true, true);
+
+                VoidHeartHP -= damage;
+            }
+
+            if (postNullificationDamage > 0)
+                damage = postNullificationDamage;
+            else
+                damage = 0;
+        }
+
 
         private void InitializeVoid()
         {
@@ -33,11 +64,25 @@ namespace ROI.Players
             MaxVoidHearts2 = MaxVoidHearts;
         }
 
-        
+        private void PostUpdateVoid()
+        {
+            if (VoidItemCooldown > 0)
+                VoidItemCooldown--;
+
+            VoidExposure += VoidAffinity; // What
+        }
+
+        private void ModifyHitByNPCVoid(NPC npc, ref int damage, ref bool crit) =>
+            AttemptDamageVoidHeart(ref damage);
+
+        private void ModifyHitByProjectileVoid(NPC npc, ref int damage, ref bool crit) =>
+            AttemptDamageVoidHeart(ref damage);
+
+
         // TODO Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
 
-        public ushort VoidAffinity { get; private set; }
+        public ushort VoidAffinity { get; set; }
         public ushort MaxVoidAffinity { get; set; }
 
         public VoidTiers VoidTier { get; internal set; }

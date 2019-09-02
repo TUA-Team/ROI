@@ -39,7 +39,8 @@ namespace ROI.NPCs
         private void RewardVoidAffinity(NPC npc)
         {
             for (int i = 0; i < Main.ActivePlayersCount; i++)
-                ROIPlayer.Get(Main.player[i]).RewardVoidAffinityThroughNPC(npc);
+                if (Main.player[i].active)
+                    ROIPlayer.Get(Main.player[i]).RewardAffinity(npc);
         }
 
 
@@ -58,7 +59,7 @@ namespace ROI.NPCs
 
             mod.Logger.Info($"Void Reward: {npc.FullName} ;; NPC Value: {npc.value}");
 
-            if (_bossTiers.TryGetValue((short) npc.type, out VoidTiers tier))
+            if (_bossTiers.TryGetValue((short)npc.type, out VoidTiers tier))
                 RewardVoidTier(tier);
 
             if (npc.boss)
@@ -74,7 +75,7 @@ namespace ROI.NPCs
 
         private void SetDefaultsVoid(NPC npc)
         {
-            if (_bossValues.TryGetValue((short) npc.type, out int value))
+            if (_bossValues.TryGetValue((short)npc.type, out int value))
                 npc.value = value;
         }
     }

@@ -1,16 +1,14 @@
 ﻿using ROI.Spawning.Wasteland;
+using ROI.Spawning.Wasteland.Walls;
+using Terraria.ModLoader;
 
 namespace ROI.Spawning
 {
     public abstract class SpawnCondition
     {
-        public static readonly WastelandSpawnCondition wasteland = new WastelandSpawnCondition();
-        public static UnsafeWastelandDirtWall unsafeWastelandDirtWall = new UnsafeWastelandDirtWall();
-        public static unsafeWastelandRockWall unsafeWastelandRockWall = new unsafeWastelandRockWall();
-
-
         public abstract bool Active(int x, int y);
 
+        public Mod Mod { get; internal set; }
 
         public abstract float SpawnChance { get; }
     }

@@ -7,9 +7,10 @@ namespace ROI.Backgrounds.Underworld
 {
     public class WastelandBackground : Background
     {
-        private static readonly Texture2D[] _texture = new Texture2D[5];
+        private readonly Texture2D[] _texture = new Texture2D[5];
 
-        public static void Load()
+
+        public WastelandBackground()
         {
             for (int i = 0; i < _texture.Length; i++)
                 ROIMod.Instance.GetTexture("Backgrounds/Underworld/WastelandBackground" + i);
@@ -17,7 +18,8 @@ namespace ROI.Backgrounds.Underworld
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
         }
 
-        public static void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
+
+        public void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
             if (Main.ActiveWorldFileData.HasCorruption)
             {
@@ -57,7 +59,7 @@ namespace ROI.Backgrounds.Underworld
                     case 1:
                         {
                             int num4 = (int)(Main.GlobalTime * 8f) % 4;
-                            value3 = new Microsoft.Xna.Framework.Rectangle((num4 >> 1) * (texture2D.Width >> 1), num4 % 2 * (texture2D.Height >> 1), texture2D.Width >> 1, texture2D.Height >> 1);
+                            value3 = new Rectangle((num4 >> 1) * (texture2D.Width >> 1), num4 % 2 * (texture2D.Height >> 1), texture2D.Width >> 1, texture2D.Height >> 1);
                             vector *= 0.5f;
                             zero.Y += 75f;
                             break;
@@ -91,11 +93,11 @@ namespace ROI.Backgrounds.Underworld
                 {
                     Vector2 value4 = new Vector2((float)j * num3 * ((float)value3.Width / value2.X), (float)(Main.maxTilesY - 200) * 16f) + vector;
                     Vector2 position = (value4 - value) * value2 + value - Main.screenPosition - vector + zero;
-                    Main.spriteBatch.Draw(texture2D, position, new Microsoft.Xna.Framework.Rectangle?(value3), /*Microsoft.Xna.Framework.Color.White*/Microsoft.Xna.Framework.Color.Cyan, 0f, Vector2.Zero, num3, SpriteEffects.None, 0f);
+                    Main.spriteBatch.Draw(texture2D, position, new Rectangle?(value3), /*Microsoft.Xna.Framework.Color.White*/Color.Cyan, 0f, Vector2.Zero, num3, SpriteEffects.None, 0f);
                     if (i == 0)
                     {
                         int num8 = (int)(position.Y + (float)value3.Height * num3);
-                        Main.spriteBatch.Draw(Main.blackTileTexture, new Microsoft.Xna.Framework.Rectangle((int)position.X, num8, (int)((float)value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Microsoft.Xna.Framework.Color(11, 3, 7));
+                        Main.spriteBatch.Draw(Main.blackTileTexture, new Rectangle((int)position.X, num8, (int)((float)value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Color(11, 3, 7));
                     }
                 }
             }

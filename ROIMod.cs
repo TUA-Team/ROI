@@ -1,6 +1,9 @@
 using System.IO;
 using log4net;
+using ROI.Backgrounds;
 using ROI.Networking;
+using ROI.Spawning;
+using ROI.Spawning.Wasteland;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,17 +22,19 @@ namespace ROI
         {
             base.Load();
 
+            SpawnConditionLoader.Load();
+
             if (!Main.dedServ)
             {
                 LoadClient();
             }
-
-
         }
 
         public override void Unload()
         {
             base.Unload();
+
+            SpawnConditionLoader.Unload();
 
             if (!Main.dedServ)
             {

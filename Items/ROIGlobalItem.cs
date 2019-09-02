@@ -7,7 +7,7 @@ namespace ROI.Items
     {
         public override void OnHitNPC(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            OnHitNPCLore(item, player, target, damage knockBack, crit);
+            OnHitNPCLore(item, player, target, damage, knockBack, crit);
         }
     }
 }

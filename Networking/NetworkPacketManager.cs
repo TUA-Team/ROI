@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using ROI.Networking.Packets;
 
 namespace ROI.Networking
 {
@@ -14,10 +15,13 @@ namespace ROI.Networking
 
         internal void DefaultInitialize()
         {
-
+            PlayerSync = Add(new PlayerSyncPacket()) as PlayerSyncPacket;
 
             Initialized = true;
         }
+
+
+        public PlayerSyncPacket PlayerSync { get; private set; }
 
 
         public NetworkPacket Add<T>(T networkPacket) where T : NetworkPacket

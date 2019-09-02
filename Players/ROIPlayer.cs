@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ROI.Networking;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -6,6 +7,7 @@ namespace ROI.Players
 {
     public sealed partial class ROIPlayer : ModPlayer
     {
+        public static ROIPlayer Get() => Get(Main.LocalPlayer);
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
 
@@ -52,6 +54,36 @@ namespace ROI.Players
             base.ResetEffects();
 
             ResetEffectsVoid();
+        }
+
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            if (fromWho == Main.myPlayer)
+                NetworkPacketManager.Instance.PlayerSync.SendPacketToAllClients(Main.myPlayer, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
+
+            base.SyncPlayer(toWho, fromWho, newPlayer);
+        }
+
+
+        public override void PostUpdate()
+        {
+            PostUpdateVoid();
+        }
+
+
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
+            ModifyHitByNPCVoid(npc, ref damage, ref crit);
+
+            base.ModifyHitByNPC(npc, ref damage, ref crit);
+        }
+
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
+            ModifyHitByProjectile(proj, ref damage, ref crit);
+
+            base.ModifyHitByProjectile(proj, ref damage, ref crit);
         }
 
 

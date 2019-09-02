@@ -8,6 +8,8 @@ namespace ROI.NPCs
         public override bool PreNPCLoot(NPC npc)
         {
             if (!PreNPCLootVoid(npc)) return false;
+
+            return true;
         }
 
         public override void SetDefaults(NPC npc)

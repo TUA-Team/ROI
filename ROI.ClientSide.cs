@@ -1,4 +1,6 @@
-﻿using ROI.Helpers;
+﻿using ROI.Backgrounds;
+using ROI.Backgrounds.Underworld;
+using ROI.Helpers;
 
 namespace ROI
 {
@@ -7,12 +9,15 @@ namespace ROI
         private void LoadClient()
         {
             UserHelper.Initialize(this);
+
+            BackgroundLoader.Load();
         }
 
 
         private void UnloadClient()
         {
             // No point in uninitializing the UserHelper since its so small. Might add it later.
+            BackgroundLoader.Unload();
         }
     }
 }
