@@ -35,7 +35,7 @@ namespace ROI.Items.Armors.Irrawood
                               "Slightly reduced effect against radiation in the wasteland\n" +
                               "Liquid waste have reduced effect";
             player.statDefense += 3;
-            player.GetModPlayer<RoIPlayerArmor>().irrawoodSet = true;
+            player.GetModPlayer<ROIPlayer>().irrawoodSet = true;
         }
 
         public override void AddRecipes()

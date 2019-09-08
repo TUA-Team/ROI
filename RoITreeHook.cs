@@ -14,12 +14,6 @@ namespace ROI
     /// All tree hook related thing added by ROI
     /// TODO: Add PostDrawTreeTrunk and PostDrawTreeBranch
     /// </summary>
-    internal interface IROITreeHook
-    {
-        void PostDrawTreeTop(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin);
-    }
-
-    
 
     internal class ROITreeHookLoader
     {
@@ -98,7 +92,7 @@ namespace ROI
 
         public static void PostDrawTreeTop(int type, SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin)
         {
-            if (trees.ContainsKey(type) && trees[type] is IROITreeHook tree)
+            if (trees.ContainsKey(type) && trees[type] is ITreeHook tree)
             {
                 tree.PostDrawTreeTop(sb, position, sourceRectangle, origin);
             }

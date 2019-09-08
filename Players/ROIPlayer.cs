@@ -24,6 +24,9 @@ namespace ROI.Players
         public int VoidTier { get; internal set; }
         // private short voidExposure;
 
+		//Radiation in precent
+	    public float radiationLevel = 0;
+
         public override void Initialize()
         {
             _voidAffinityAmount = 0;
@@ -54,7 +57,8 @@ namespace ROI.Players
                 [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
                 [nameof(voidItemCooldown)] = voidItemCooldown,
                 [nameof(VoidHeartHP)] = VoidHeartHP,
-                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
+                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats,
+				[nameof(radiationLevel)] = radiationLevel
             };
         }
 
@@ -68,11 +72,11 @@ namespace ROI.Players
             _voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
             VoidTier = tag.GetAsInt(nameof(VoidTier));
             MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
-
-            /*deathReasonList.Add("error", new PlayerDeathReason()
-            {
-                SourceCustomReason = player.name + " has got a suspîcious death."
-            });*/
+	        radiationLevel = tag.GetFloat(nameof(radiationLevel));
+	        /*deathReasonList.Add("error", new PlayerDeathReason()
+	        {
+	            SourceCustomReason = player.name + " has got a suspîcious death."
+	        });*/
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -81,6 +85,9 @@ namespace ROI.Players
             packet.Write(_voidAffinityAmount);
             packet.Write(VoidTier);
             packet.Write(voidItemCooldown);
+			packet.Write(radiationLevel);
+			packet.Write(_removeRadiationTimer);
+			packet.Write(_radiationTimer);
             packet.Send(toWho, fromWho);
         }
 
@@ -89,6 +96,9 @@ namespace ROI.Players
             _voidAffinityAmount = reader.ReadInt16();
             VoidTier = reader.ReadByte();
             voidItemCooldown = reader.ReadInt32();
+	        radiationLevel = reader.ReadSingle();
+	        _removeRadiationTimer = reader.ReadInt32();
+	        _radiationTimer = reader.ReadInt32();
         }
 
         public override void PostUpdate()
@@ -97,17 +107,19 @@ namespace ROI.Players
             {
                 voidItemCooldown--;
             }
+
+			UpdateRadiation();
         }
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
         {
-            player.Hurt(deathReasonList["error"], 0, -1);
+            //player.Hurt(deathReasonList["error"], 0, -1);
             DamageVoidHeart(ref damage);
         }
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
-            player.Hurt(deathReasonList["error"], 0, -1);
+            //player.Hurt(deathReasonList["error"], 0, -1);
             DamageVoidHeart(ref damage);
         }
 

@@ -11,7 +11,6 @@ namespace ROI.Players
 		/// 1 minute cooldown
 		/// </summary>
 		public int voidEffectAttemptCooldown = 60 * 60;
-
 		public int voidItemCooldown = 60 * 60 * 5;
 
 		internal int VoidAffinityAmount

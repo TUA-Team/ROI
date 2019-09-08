@@ -7,11 +7,8 @@ using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed class RoIPlayerArmor : ModPlayer
-    {
+	public sealed partial class ROIPlayer : ModPlayer
+	{
         internal bool irrawoodSet = false;
-
-        
-
     }
 }

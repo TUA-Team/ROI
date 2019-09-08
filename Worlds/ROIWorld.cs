@@ -19,7 +19,7 @@ namespace ROI.Worlds
         /// <summary>
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
-        private Version version = new Version(0, 0, 0, 0);
+        internal Version version = new Version(0, 0, 0, 0);
 
         private bool popout = false;
 

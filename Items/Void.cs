@@ -34,9 +34,9 @@ namespace ROI.Items
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("The void");
-            Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the void\"\n" +
-                               "5 minutes cooldown, gives a random buff from the void!\n" +
-                               "Can also add up to 10 guaranteed potion effect that will last for 4 minutes!\n");
+            Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the Void\"\n" +
+							   "Gives a random buff from the Void at a 5 minute cooldown\n" +
+							   "Can also grant up to 10 guaranteed potion effects that will last for 4 minutes.");
 
         }
 

@@ -7,7 +7,7 @@ namespace ROI.Tiles.Wasteland
     /// <summary>
     /// To be used in 0.2
     /// </summary>
-    internal class WastelandTree : ModTree, IROITreeHook
+    internal class WastelandTree : ModTree, ITreeHook
     {
         private static float _brightness = 1f;
         private static bool _glowing = false;

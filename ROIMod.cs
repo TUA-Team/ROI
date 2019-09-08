@@ -4,14 +4,19 @@ using Microsoft.Xna.Framework.Graphics;
 using ROI.GUI.VoidUI;
 using ROI.Manager;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using ROI.Backgrounds.Underworld;
 using ROI.Effects;
+using ROI.GUI.Radiation_Meter;
 using Terraria;
 using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.UI;
+using Terraria.Utilities;
 
 namespace ROI
 {
@@ -29,9 +34,14 @@ namespace ROI
 
 	    internal static FilterManager roiFilterManager;
 
+		internal UnifiedRandom rng;
+
+		internal UserInterface radiationInterface;
+		internal Radiation_Meter radiationMeter;
+
         public ROIMod()
 		{
-
+			rng = new UnifiedRandom();
 		}
 
 #region Load and unload stuff
@@ -55,7 +65,18 @@ namespace ROI
             UnderworldDarkness.Load();            
             Wasteland_Background.Load();
             DRPManager.Instance.Initialize();
-            Main.OnTick += DRPManager.Instance.Update;
+
+			Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
+			Filters.Scene["ROI:UnderworldFilter"].Load();
+
+			Filters.Scene["ROI:ShockwaveColor"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/ShockwaveColorEffect")), "ShockwaveColoured"), EffectPriority.VeryHigh);
+			Filters.Scene["ROI:ShockwaveColor"].Load();
+
+
+			Filters.Scene["ROI:Shockwave"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/Shockwave")), "Shockwave"), EffectPriority.VeryHigh);
+			Filters.Scene["ROI:Shockwave"].Load();
+
+			Main.OnTick += DRPManager.Instance.Update;
             
 		}
 
@@ -65,6 +86,9 @@ namespace ROI
             DevManager.Instance.CheckDev();
             ROIModSupport.Load();
 		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
+			radiationInterface = new UserInterface();
+			radiationMeter = new Radiation_Meter();
+			radiationInterface.SetState(radiationMeter);
 #if DEBUG
             debug = true;
 #else
@@ -89,6 +113,7 @@ namespace ROI
 		private void GeneralUnload()
 		{
 			instance = null;
+			rng = null;
 		}
 
 		private void ClientUnload()
@@ -104,10 +129,31 @@ namespace ROI
 
 	    public override void UpdateUI(GameTime gameTime)
 	    {
-	        roiFilterManager.Update(gameTime);
+		    if (radiationInterface.IsVisible)
+		    {
+				radiationInterface.Update(gameTime);
+		    }
 	    }
 
-	    public override void PostDrawInterface(SpriteBatch spriteBatch)
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+		{
+			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
+			if (mouseTextIndex != 1)
+			{
+				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
+					"ROI : Radiation Meter",
+					delegate
+					{
+						if (radiationInterface.IsVisible)
+						{
+							radiationInterface.CurrentState.Draw(Main.spriteBatch);
+						}
+						return true;
+					}));
+			}
+		}
+
+		public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
 	        VoidPillarHealthBar.FindPillar();
             VoidPillarHealthBar.Draw(spriteBatch);

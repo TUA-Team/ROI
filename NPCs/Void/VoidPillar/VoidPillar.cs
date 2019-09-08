@@ -14,17 +14,27 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.NPCs.Void.VoidPillar
 {
-    internal sealed partial class VoidPillar : ModNPC, ISavableEntity
-    {
+	/// <summary>
+	/// npc.ai[0] = Movement AI Phase
+	/// </summary>
+    internal sealed partial class VoidPillar : ModNPC, ISavableEntity, ICamerable, IMobCamerable<VoidPillar>
+	{
         public override string Texture => "Terraria/NPC_507";
 
         private int movementTimer;
         private bool _movementUp;
         private float _damageReduction;
+		private Vector2 _originalPosition;
 
         public PillarShieldColor ShieldColor { get; internal set; }
 
         public int ShieldHealth { get; internal set; }
+
+		private float MovementAIPhase
+		{
+			get => npc.ai[0];
+			set => npc.ai[0] = value;
+		}
 
         public override void SetStaticDefaults()
         {
@@ -54,12 +64,19 @@ namespace ROI.NPCs.Void.VoidPillar
             //{
             //    npc.ForceKill();
             //}
+	        _originalPosition = npc.position;
         }
 
         public override void AI()
         {
-            PillarMovement();
-            DecideAttack();
+			MovementAI();
+	        StandardPillarMovement();
+			if (AnimationAI())
+	        {
+		        return;
+	        }
+            
+			Shockwave();
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -67,6 +84,8 @@ namespace ROI.NPCs.Void.VoidPillar
             writer.Write(ShieldHealth);
             writer.Write((byte)ShieldColor);
             writer.Write(movementTimer);
+			writer.Write(_shockwaveTimer);
+			writer.Write(_animationTimeLeft);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -74,6 +93,8 @@ namespace ROI.NPCs.Void.VoidPillar
             ShieldHealth = reader.ReadInt32();
             ShieldColor = (PillarShieldColor)reader.ReadByte();
             movementTimer = reader.Read();
+	        _shockwaveTimer = reader.ReadInt32();
+	        _animationTimeLeft = reader.ReadInt32();
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
@@ -115,8 +136,8 @@ namespace ROI.NPCs.Void.VoidPillar
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
             Vector2 center = npc.Center - Main.screenPosition;
             DrawData drawingData = new DrawData(TextureManager.Load("Images/Misc/Perlin"), center - new Vector2(0, 10), new Rectangle(0, 0, 600, 600), GetShieldColor(), npc.rotation, new Vector2(300, 300), Vector2.One, SpriteEffects.None, 0);
-            GameShaders.Misc["ForceField"].UseColor(Main.DiscoColor);
-            GameShaders.Misc["ForceField"].Apply(drawingData);
+            GameShaders.Misc["ForceField"].UseColor(GetShieldColor());
+			GameShaders.Misc["ForceField"].Apply(drawingData);
             drawingData.Draw(Main.spriteBatch);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin();
@@ -142,6 +163,7 @@ namespace ROI.NPCs.Void.VoidPillar
 
         private void SwitchShieldColor()
         {
+	        npc.netUpdate = true;
             switch (ShieldColor)
             {
                 case PillarShieldColor.Red:
@@ -189,110 +211,18 @@ namespace ROI.NPCs.Void.VoidPillar
 
         private void DecideAttack()
         {
-            switch (ShieldColor)
-            {
-                case PillarShieldColor.Red:
-                    DebuffRed();
-                    break;
-                case PillarShieldColor.Purple:
-                    DebuffPurple();
-                    break;
-                case PillarShieldColor.Black:
-                    DebuffBlack();
-                    break;
-                case PillarShieldColor.Green:
-                    break;
-                case PillarShieldColor.Blue:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        #region Pillar debuff
-
-        /// <summary>
-        /// Red color shield, will drain health from the player directly
-        /// </summary>
-        private void DebuffRed()
-        {
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                if (Main.player[i].name == "")
-                {
-                    continue;
-                }
-                PlayerDeathReason death = PlayerDeathReason.ByCustomReason(Main.player[i].name + " life was consumed by his avatar from the void.");
-                Main.player[i].Hurt(death, (Main.expertMode) ? 50 : 25, 0, false, true, false, 5);
-                Main.player[i].lifeRegen = 0;
-            }
-        }
-
-        /// <summary>
-        /// Purple color shield, weaken the player by 75%
-        /// </summary>
-        private void DebuffPurple()
-        {
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                if (Main.player[i] == null)
-                {
-                    continue;
-                }
-
-                Main.player[i].allDamage /= 0.75f;
-            }
-        }
-
-        /// <summary>
-        /// Black shield color, the player 
-        /// </summary>
-        private void DebuffBlack()
-        {
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                if (Main.player[i] == null)
-                {
-                    continue;
-                }
-
-                Main.player[i].headcovered = true;
-                
-                if (Main.rand.Next(1000) == 0)
-                {
-                    Main.player[i].AddBuff(BuffID.Suffocation, (Main.expertMode) ? 60 * 5 : 60 * 10, false);
-                }
-
-            }
-        }
-
-        #endregion
-
-        private void PillarMovement()
-        {
-            movementTimer--;
-            if (movementTimer == 0)
-            {
-                movementTimer = 100;
-                _movementUp = !_movementUp;
-            }
-
-            if (_movementUp)
-            {
-                npc.position.Y -= 0.2f;
-            }
-            else
-            {
-                npc.position.Y += 0.2f;
-            }
 
         }
+
+		
 
         public TagCompound Save()
         {
             TagCompound tag = new TagCompound();
             tag.Add("shieldPhase", (byte)ShieldColor);
             tag.Add("shieldHealth", ShieldHealth);
+			tag.Add("originalPosition", _originalPosition);
+			tag.Add("movementPhase", MovementAIPhase);
             return tag;
         }
 
@@ -300,6 +230,16 @@ namespace ROI.NPCs.Void.VoidPillar
         {
             ShieldColor = (PillarShieldColor) data.GetByte("shieldPhase");
             ShieldHealth = data.GetAsInt("shieldHealth");
+	        if (data.ContainsKey("originalPosition"))
+	        {
+		        _originalPosition = data.Get<Vector2>("originalPosition");
+		        npc.position = _originalPosition;
+	        }
+
+	        if (data.ContainsKey("movementPhase"))
+	        {
+		        MovementAIPhase = data.GetFloat("movementPhase");
+	        }
         }
 
         public bool SaveHP => true;

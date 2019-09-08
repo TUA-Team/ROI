@@ -33,7 +33,7 @@ namespace ROI.GUI.CustomComponent
 			base.SetPadding((float)CORNER_SIZE);
 		}
 
-		public UIPanel(Texture2D texture)
+		public UIPanel(Texture2D texture = null)
 		{
 			if (_backgroundTexture == null)
 			{
@@ -138,10 +138,12 @@ namespace ROI.GUI.CustomComponent
 
 		protected override void DrawSelf(SpriteBatch spriteBatch)
 		{
-			if (isVisible)
+			if (isVisible && _backgroundTexture != null)
 			{
 				this.DrawPanel(spriteBatch, _backgroundTexture, Color.Gray);
+				return;
 			}
+			DrawSelf(spriteBatch);
 		}
 	}
 }

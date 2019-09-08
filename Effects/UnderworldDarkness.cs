@@ -17,8 +17,7 @@ namespace ROI.Effects
         {
             //GameShaders.["ROI:UnderworldFilter"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/UnderworldFilter")), "underworld");
 
-            Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
-            Filters.Scene["ROI:UnderworldFilter"].Load();
+            
 
 
             Main.graphics.PreparingDeviceSettings += Draw;
