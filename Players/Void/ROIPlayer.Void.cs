@@ -75,7 +75,7 @@ namespace ROI.Players
         private void ModifyHitByNPCVoid(NPC npc, ref int damage, ref bool crit) =>
             AttemptDamageVoidHeart(ref damage);
 
-        private void ModifyHitByProjectileVoid(NPC npc, ref int damage, ref bool crit) =>
+        private void ModifyHitByProjectileVoid(Projectile projectile, ref int damage, ref bool crit) =>
             AttemptDamageVoidHeart(ref damage);
 
 

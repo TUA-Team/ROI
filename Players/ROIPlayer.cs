@@ -81,7 +81,7 @@ namespace ROI.Players
 
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
-            ModifyHitByProjectile(proj, ref damage, ref crit);
+            ModifyHitByProjectileVoid(proj, ref damage, ref crit);
 
             base.ModifyHitByProjectile(proj, ref damage, ref crit);
         }
