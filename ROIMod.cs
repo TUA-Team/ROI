@@ -37,7 +37,7 @@ namespace ROI
 		internal UnifiedRandom rng;
 
 		internal UserInterface radiationInterface;
-		internal Radiation_Meter radiationMeter;
+		internal RadiationMeter radiationMeter;
 
         public ROIMod()
 		{
@@ -87,7 +87,7 @@ namespace ROI
             ROIModSupport.Load();
 		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
 			radiationInterface = new UserInterface();
-			radiationMeter = new Radiation_Meter();
+			radiationMeter = new RadiationMeter();
 			radiationInterface.SetState(radiationMeter);
 #if DEBUG
             debug = true;

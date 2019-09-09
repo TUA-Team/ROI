@@ -13,23 +13,19 @@ namespace ROI.Worlds
 {
     partial class ROIWorld : ModWorld
     {
-        public bool StrangePresenceDebuff { get; internal set; }
-        private int pillarSpawningTimer;
+        private int _pillarSpawningTimer;
         
         /// <summary>
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
         internal Version version = new Version(0, 0, 0, 0);
 
-        private bool popout = false;
-
         public override TagCompound Save()
         {
             return new TagCompound()
             {
                 ["modNPCData"] = SaveModNPCData(),
-                [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff,
-                [nameof(version)] = version,
+                [nameof(version)] = version
             };
         }
 
@@ -59,7 +55,6 @@ namespace ROI.Worlds
         public override void Load(TagCompound tag)
         {
             LoadModNPCData(tag);
-            StrangePresenceDebuff = tag.GetBool(nameof(StrangePresenceDebuff));
             if (tag.ContainsKey(nameof(version)))
             {
                 version = tag.Get<Version>(nameof(version));
@@ -96,29 +91,14 @@ namespace ROI.Worlds
             Main.leftWorld = 0;
             Main.rightWorld = Main.maxTilesX * 16;
 
-            if (StrangePresenceDebuff)
-            {
-                for (int i = 0; i < Main.player.Length; i++)
-                {
-                    Main.player[i].AddBuff(mod.BuffType<PillarPresence>(), 1, true);
-                }
-
-                if (--pillarSpawningTimer == 0)
-                {
-                    pillarSpawningTimer = 216000;
-                    StrangePresenceDebuff = false;
-                }
-            }
         }
 
         public override void NetSend(BinaryWriter writer)
         {
-            writer.Write(StrangePresenceDebuff);
         }
 
         public override void NetReceive(BinaryReader reader)
         {
-            StrangePresenceDebuff = reader.ReadBoolean();
         }
 
         public override void PostWorldGen()

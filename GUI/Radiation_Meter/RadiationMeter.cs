@@ -13,7 +13,7 @@ using Terraria.UI;
 
 namespace ROI.GUI.Radiation_Meter
 {
-	class Radiation_Meter : UIState
+	class RadiationMeter : UIState
 	{
 		private static readonly Texture2D backTexture = ROIMod.instance.GetTexture("Textures/UIElements/Radiation_Meter");
 		private static readonly Texture2D frontTexture = ROIMod.instance.GetTexture("Textures/UIElements/Radiation_Bar");

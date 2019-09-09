@@ -49,6 +49,7 @@ namespace ROI.Projectiles.ShockwaveProjectiles
 				{
 					Dust.NewDust(proj.position, proj.width, proj.height, DustID.Fire, -proj.velocity.X / 100, -proj.velocity.Y / 100, 255, ShockwaveColor, 2f);
 					proj.active = false;
+					proj.netUpdate = true;
 				}
 			}
 

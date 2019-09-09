@@ -126,7 +126,7 @@ namespace ROI.Players
         public override void UpdateBiomeVisuals()
         {
             Vector2 playerPosition = Main.LocalPlayer.position / 16;
-            if (playerPosition.Y > Main.maxTilesY - 300)
+            if (playerPosition.Y > Main.maxTilesY - 200 && WorldGen.crimson)
             {
 
 
