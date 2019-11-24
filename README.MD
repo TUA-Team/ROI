@@ -1,11 +1,11 @@
-# Realm of Infinity, amod brought to you by the TUA Team!
+# Realm of Infinity, a mod brought to you by the TUA Team!
 
-Realm of infinity is a mod that been going on for 4 years on different name but only the first iteration was released. 
-This mod feature stuff like:
-- Dimension
-- Modded liquid
-- New biomes
-- New biome alternative
-- Unique mechanic that will give you a progression, not jsut the class beat a boss, get equipement and fight the next one.
+Realms of Infinity is a mod that's been going on for 4 years under different names but only the first iteration was released. 
+This mod features stuff like:
+- Dimension (planned)
+- Modded liquid (planned)
+- New biomes (planned)
+- Biome alternatives
+- Unique mechanics that will give you progression, not just basic vanilla.
 
 And a tons more stuff that will make you want to play and replay this over and over!

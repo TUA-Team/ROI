@@ -1,0 +1,30 @@
+[i:121] Realms of Infinity [i:368]
+After a long period of development, it's finally here!
+
+Changelog found at the bottom.
+
+[i:109] Credits [i:109]
+Dradonhunter11 - Owner
+Rartrin - Owner
+Webmilio - Coder
+HumanGamer - Coder (former)
+Agrar - Coder
+Skeletony - Spriter
+Minku Sama - Spriter
+Yuyutsu - Spriter
+Darkpuppey - Spriter (former)
+Moon Bee - Spriter (former)
+Nvar - Spriter (former)
+2grufs - Spriter (former)
+Precautious - Music producer
+void resident - Music producer (former)
+
+[i:109] Changelog [i:109]
+0.1.0 - Hunt for the Void:
+[i:97] Enable Wasteland spawning in mod config
+	[i:97] Crimson worlds only
+	[i:97] The Wasteland replaces the Underworld
+	[i:97] Slowly inflicts Radiation debuff
+	[i:97] Custom trees, dirt
+	[i:97] Custom background
+	[i:97] Soundtrack with configurations

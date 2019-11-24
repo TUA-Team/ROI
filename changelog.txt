@@ -1,0 +1,8 @@
+﻿0.1.0 - Hunt for the Void:
+Enable Wasteland spawning in mod config
+	Crimson worlds only
+	The Wasteland replaces the Underworld
+	Slowly inflicts Radiation debuff
+	Custom trees, dirt
+	Custom background
+	Soundtrack with configurations
