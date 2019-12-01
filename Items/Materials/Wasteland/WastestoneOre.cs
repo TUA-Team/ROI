@@ -2,7 +2,7 @@
 
 namespace ROI.Items.Materials.Wasteland
 {
-    class WastestoneOre : ModItem
+    internal class WastestoneOre : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -6,9 +6,9 @@ using Terraria.World.Generation;
 
 namespace ROI.Worlds
 {
-    internal partial class ROIWorld : ModWorld
+    internal sealed partial class ROIWorld : ModWorld
     {
-        internal void WastelandGeneration(GenerationProgress progress)
+        public void WastelandGeneration(GenerationProgress progress)
         {
             progress.Message = "Spreading radioactivity";
             //actual world gen
@@ -91,7 +91,7 @@ namespace ROI.Worlds
             }
         }
 
-        internal void TerrainTop()
+        public void TerrainTop()
         {
             //Create the top of the wasteland
             for (int i = 0; i < Main.maxTilesX; i++)
@@ -121,7 +121,7 @@ namespace ROI.Worlds
             }
         }
 
-        internal void TerrainBottom()
+        public void TerrainBottom()
         {
             int MAX_WASTELAND_HEIGHT = Main.maxTilesY - 130;
             int MIN_WASTELAND_HEIGHT = Main.maxTilesY - 90;

@@ -21,7 +21,7 @@ namespace ROI.Players
             {
                 if (ZoneWasteland && radiationLevel != 1)
                 {
-                    GUI.RadiationMeter.RadiationMeter.visible = true;
+                    GUI.RadiationMeter.visible = true;
                     radiationLevel += 0.01f;
                     SetRadiationTimer();
                 }
@@ -30,7 +30,7 @@ namespace ROI.Players
                     radiationLevel -= 0.01f;
                     SetRadiationRemovalTimer();
                 }
-                if ((radiationLevel = Utils.Clamp(radiationLevel, 0, 1)) == 0) GUI.RadiationMeter.RadiationMeter.visible = false;
+                if ((radiationLevel = Utils.Clamp(radiationLevel, 0, 1)) == 0) GUI.RadiationMeter.visible = false;
                 if (_radiationTimer < 0) _radiationTimer = 0;
             }
 

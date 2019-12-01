@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Tiles.Wasteland
 {
-    class WastelandDirt : ModTile
+    internal class WastelandDirt : ModTile
     {
         public override void SetDefaults()
         {

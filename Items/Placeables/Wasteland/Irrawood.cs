@@ -2,7 +2,7 @@
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class Irrawood : ModItem
+    internal class Irrawood : ModItem
     {
         public override void SetStaticDefaults()
         {

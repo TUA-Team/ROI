@@ -2,12 +2,12 @@
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class WastelandRock : ModItem
+    internal class WastelandRock : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Radioactive Rock");
-            Tooltip.SetDefault("Probably too dangerous to hold.");
+            Tooltip.SetDefault("Probably too dangerous to hold");
         }
 
         public override void SetDefaults()

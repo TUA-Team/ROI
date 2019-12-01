@@ -4,7 +4,7 @@ using Terraria.ModLoader.Config;
 namespace ROI.Configs
 {
     [Label("Music")]
-    public class MusicConfig : ModConfig
+    public sealed class MusicConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ClientSide;
 

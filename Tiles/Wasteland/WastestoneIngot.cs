@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Tiles.Wasteland
 {
-    class WastestoneIngot : LegacyIngot
+    internal class WastestoneIngot : LegacyIngot
     {
         public override Color MapEntryColor => new Color(68, 74, 100);
         public override string MapNameLegend => "Wastestone Ingot";

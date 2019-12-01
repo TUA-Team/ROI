@@ -5,6 +5,7 @@ using System.IO;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Players
 {
@@ -18,12 +19,24 @@ namespace ROI.Players
         public override void Initialize()
         {
             radiationLevel = 0;
+            VAInit();
             WastelandInit();
         }
 
-        public override void PostUpdate()
+        public override void PreUpdate()
         {
+            VAUpdate();
             WastelandUpdate();
+        }
+
+        public override TagCompound Save() => new TagCompound
+            {
+                { "VA", VASave() }
+            };
+
+        public override void Load(TagCompound tag)
+        {
+            VALoad(tag.GetCompound("VA"));
         }
 
         public override void UpdateBiomes()

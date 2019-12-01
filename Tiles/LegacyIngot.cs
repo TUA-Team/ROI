@@ -5,7 +5,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Tiles
 {
-    abstract class LegacyIngot : ModTile
+    internal abstract class LegacyIngot : ModTile
     {
         public abstract Color MapEntryColor { get; }
         public abstract string MapNameLegend { get; }

@@ -3,12 +3,12 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Misc
 {
-    class IrradiatedKey : ModItem
+    internal class IrradiatedKey : ModItem
     {
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Irradiated Key");
-            Tooltip.SetDefault("Use to open Irradiated Chests.");
+            Tooltip.SetDefault("Use to open Irradiated Chests");
         }
 
         public override void SetDefaults()

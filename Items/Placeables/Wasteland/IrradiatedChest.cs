@@ -2,7 +2,7 @@
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class IrradiatedChest : ModItem
+    internal class IrradiatedChest : ModItem
     {
         public override void SetStaticDefaults()
         {

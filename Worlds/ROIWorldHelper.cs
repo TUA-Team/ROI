@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ROI.Worlds
 {
-    internal class ROIWorldHelper
+    internal static class ROIWorldHelper
     {
         public static void TileMergeAttempt(ushort self, ushort merge, int i, int j)
         {

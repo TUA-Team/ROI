@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class WastelandRockWall : ModItem
+    internal class WastelandRockWall : ModItem
     {
         public override void SetStaticDefaults()
         {

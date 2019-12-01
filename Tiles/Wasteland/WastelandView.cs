@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Tiles.Wasteland
 {
-    class WastelandView : ModTile
+    internal class WastelandView : ModTile
     {
         public override void SetDefaults()
         {

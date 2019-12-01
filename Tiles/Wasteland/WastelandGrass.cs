@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Tiles.Wasteland
 {
-    class WastelandGrass : ModTile
+    internal class WastelandGrass : ModTile
     {
         public override void SetDefaults()
         {

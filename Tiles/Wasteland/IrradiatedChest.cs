@@ -11,7 +11,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Tiles.Wasteland
 {
-    class IrradiatedChest : ModTile
+    internal class IrradiatedChest : ModTile
     {
         public override void SetDefaults()
         {

@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Backgrounds.Underworld
 {
-    class WastelandBackground
+    internal class WastelandBackground
     {
         private readonly Texture2D[] texture = new Texture2D[5];
 
@@ -19,7 +19,8 @@ namespace ROI.Backgrounds.Underworld
 
         private void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
-            if (Main.ActiveWorldFileData.HasCorruption && !Main.ActiveWorldFileData.HasCrimson)
+            if (Main.ActiveWorldFileData.HasCorruption && !Main.ActiveWorldFileData.HasCrimson
+                && !ModContent.GetInstance<Configs.DebugConfig>().GenWasteland)
             {
                 orig(instance, flat);
                 return;

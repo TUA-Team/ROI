@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Backgrounds.Underworld;
 using ROI.Configs;
 using ROI.Effects;
-using ROI.GUI.RadiationMeter;
+using ROI.GUI;
 using ROI.Players;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -33,6 +32,10 @@ namespace ROI
 
         private void ClientLoad()
         {
+            AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terra"), 
+                ModContent.ItemType<Items.Misc.TerraMusicBox>(), 
+                ModContent.TileType<Tiles.TerraMusicBox>());
+
             UnderworldDarkness.Load();
             loadFilter("UnderworldFilter");
 
@@ -40,6 +43,7 @@ namespace ROI
             radState.Activate();
             radInterface = new UserInterface();
             radInterface.SetState(radState);
+            VoidAffinity.Load();
 
             MusicConfig = ModContent.GetInstance<MusicConfig>();
 
@@ -54,6 +58,7 @@ namespace ROI
 
         private void ClientUnload()
         {
+            VoidAffinity.Unload();
         }
 
 
@@ -90,6 +95,13 @@ namespace ROI
                         {
                             radInterface.Draw(Main.spriteBatch, _lastGameTime);
                         }
+                        return true;
+                    }, InterfaceScaleType.UI));
+                layers.Insert(index, new LegacyGameInterfaceLayer(
+                    "ROI: Void Affinity",
+                    delegate
+                    {
+                        VoidAffinity.Draw(Main.spriteBatch);
                         return true;
                     }, InterfaceScaleType.UI));
             }

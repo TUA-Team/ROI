@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Tiles.Wasteland
 {
-    class WastelandRock : ModTile
+    internal class WastelandRock : ModTile
     {
         public override void SetDefaults()
         {
@@ -20,7 +20,7 @@ namespace ROI.Tiles.Wasteland
             TileID.Sets.ChecksForMerge[Type] = true;
         }
 
-        //Broken?
+        //TODO: Broken?
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             //Following part need to moved into a seperate class

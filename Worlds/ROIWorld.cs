@@ -1,12 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using ROI.Players;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
 namespace ROI.Worlds
 {
-    internal partial class ROIWorld : ModWorld
+    internal sealed partial class ROIWorld : ModWorld
     {
+        public override void ResetNearbyTileEffects()
+        {
+            var plr = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
+            plr.lunarAmassMax = 0;
+            plr.lunarAmassMin = 0;
+        }
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             if (ModContent.GetInstance<Configs.DebugConfig>().GenWasteland)

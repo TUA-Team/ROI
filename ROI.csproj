@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
@@ -18,9 +18,8 @@
       <Content Include="Textures\UIElements\Radiation_Bar.png" />
       <Content Include="Textures\UIElements\Radiation_Meter.png" />
       <Content Include="Textures\UIElements\Radiation_Symbol.png" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="GUI\" />
+      <Content Include="Textures\UIElements\VoidMeterEmpty.png" />
+      <Content Include="Textures\UIElements\VoidMeterFull.png" />
     </ItemGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />

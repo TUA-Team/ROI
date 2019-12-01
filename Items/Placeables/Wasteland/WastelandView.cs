@@ -2,7 +2,7 @@
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class WastelandView : ModItem
+    internal class WastelandView : ModItem
     {
         public override void SetStaticDefaults()
         {

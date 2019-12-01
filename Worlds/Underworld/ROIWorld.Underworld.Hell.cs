@@ -8,7 +8,7 @@ namespace ROI.Worlds
     //Contains refactored hell world gen, for later use
     internal partial class ROIWorld : ModWorld
     {
-        internal void OriginalUnderworldGeneration(GenerationProgress progress)
+        public void OriginalUnderworldGeneration(GenerationProgress progress)
         {
             progress.Message = Language.GetTextValue("LegacyWorldGen.18");
             progress.Set(0f);
