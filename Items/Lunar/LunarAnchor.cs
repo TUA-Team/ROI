@@ -9,16 +9,11 @@ namespace ROI.Items.Lunar
     {
         protected abstract int AnchorValue { get; }
 
-        public sealed override void UpdateInventory(Player player)
-		{
+        public override void UpdateInventory(Player player)
+        {
             var plr = player.GetModPlayer<ROIPlayer>();
-			SafeUpdateInventory(player, plr);
             plr.lunarAmassMax = System.Math.Max(plr.lunarAmassMax, AnchorValue);
         }
-		
-		protected virtual void SafeUpdateInventory(Player player, ROIPlayer plr)
-		{
-		}
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {

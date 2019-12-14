@@ -20,7 +20,7 @@ namespace ROI.Backgrounds.Underworld
         private void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
             if (Main.ActiveWorldFileData.HasCorruption && !Main.ActiveWorldFileData.HasCrimson
-                && !ModContent.GetInstance<Configs.DebugConfig>().GenWasteland)
+                && !ROIMod.DebugConfig.GenWasteland)
             {
                 orig(instance, flat);
                 return;
@@ -29,7 +29,7 @@ namespace ROI.Backgrounds.Underworld
             if (Main.screenPosition.Y + Main.screenHeight < (Main.maxTilesY - 220) * 16f)
                 return;
 
-            Vector2 value = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
+            Vector2 pos = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
             float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
 
             for (int i = 4; i >= 0; i--)
@@ -73,21 +73,21 @@ namespace ROI.Backgrounds.Underworld
 
                 zero.Y -= num;
                 float num5 = num3 * value3.Width;
-                float num6 = (value.X * value2.X) - vector.X + zero.X - (Main.screenWidth >> 1);
+                float num6 = (pos.X * value2.X) - vector.X + zero.X - (Main.screenWidth >> 1);
                 int num7 = (int)(num6 / num5);
 
                 for (int j = num7 - 2; j < num7 + 4 + (int)(Main.screenWidth / num5); j++)
                 {
                     Main.spriteBatch.Draw(texture2D,
-                        (new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - value) * value2 + value - Main.screenPosition - vector + zero,
+                        (new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero,
                         new Rectangle?(value3), Color.Cyan, 0f, Vector2.Zero, num3, SpriteEffects.None, 0f);
                     if (i == 0)
                     {
                         int num8 = (int)(((new Vector2(j
                             * num3
-                            * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - value) * value2 + value - Main.screenPosition - vector + zero).Y + value3.Height * num3);
+                            * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero).Y + value3.Height * num3);
                         Main.spriteBatch.Draw(Main.blackTileTexture,
-                            new Rectangle((int)((new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - value) * value2 + value - Main.screenPosition - vector + zero).X,
+                            new Rectangle((int)((new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero).X,
                             num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Color(11, 3, 7));
                     }
                 }

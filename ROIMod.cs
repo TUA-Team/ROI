@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Configs;
@@ -15,7 +17,8 @@ namespace ROI
 {
     public class ROIMod : Mod
     {
-        public MusicConfig MusicConfig;
+        public static MusicConfig MusicConfig;
+        public static DebugConfig DebugConfig;
 
         public UserInterface radInterface;
         internal RadiationMeter radState;
@@ -46,6 +49,23 @@ namespace ROI
             VoidAffinity.Load();
 
             MusicConfig = ModContent.GetInstance<MusicConfig>();
+            DebugConfig = ModContent.GetInstance<DebugConfig>();
+
+
+            if (DebugConfig.Nightly)
+            {
+                var path = Path.Combine(Main.SavePath, "ROI-beta-version.txt");
+                if (File.Exists(path))
+                {
+                    var data = File.ReadAllText(path);
+                    Helpers.NightlyHelper.CheckForNightly(DateTime.Parse(data));
+                }
+                else
+                {
+                    var data = Helpers.NightlyHelper.CheckForNightly(DateTime.MinValue);
+                    if (data != null) File.WriteAllText(path, data);
+                }
+            }
 
 
             void loadFilter(string name, EffectPriority priority = EffectPriority.VeryHigh)
@@ -59,6 +79,9 @@ namespace ROI
         private void ClientUnload()
         {
             VoidAffinity.Unload();
+
+            MusicConfig = null;
+            DebugConfig = null;
         }
 
 

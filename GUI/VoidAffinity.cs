@@ -33,9 +33,6 @@ namespace ROI.GUI
         public static void Draw(SpriteBatch spriteBatch)
         {
             ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
-            if (player.voidAffinity == 0) return;
-
-            spriteBatch.Draw(voidMeterEmpty, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
 
             var percent = player.voidAffinity / (float)player.maxVoidAffinity;
             if (oldPercent != percent)
@@ -44,19 +41,20 @@ namespace ROI.GUI
                 else oldPercent += oldPercent < percent ? 0.01f : -0.01f;
                 tex = DrawPercent(oldPercent);
             }
-            spriteBatch.Draw(tex, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
-
-            Rectangle textureBound = new Rectangle((int)Offset.X, (int)Offset.Y, voidMeterEmpty.Width, voidMeterFilled.Height);
-
-            if (textureBound.Contains(Main.MouseScreen.ToPoint()))
+            if (player.voidAffinity != 0)
             {
-                var text = $"Affinity: {player.voidAffinity}/{player.maxVoidAffinity}";
-                Main.spriteBatch.DrawString(Main.fontMouseText, text,
-                    Main.MouseScreen - new Vector2(0, Main.fontMouseText.MeasureString(text).Y), Color.White);
-            }
+                spriteBatch.Draw(voidMeterEmpty, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+                spriteBatch.Draw(tex, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 
-            spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+                Rectangle rect = new Rectangle((int)Offset.X, (int)Offset.Y, voidMeterFilled.Width, voidMeterFilled.Height);
+
+                if (rect.Contains(Main.MouseScreen.ToPoint()))
+                {
+                    var text = $"Affinity: {player.voidAffinity}/{player.maxVoidAffinity}";
+                    Main.spriteBatch.DrawString(Main.fontMouseText, text,
+                        Main.MouseScreen - new Vector2(0, Main.fontMouseText.MeasureString(text).Y), Color.White);
+                }
+            }
         }
 
         public static Texture2D DrawPercent(float percent)

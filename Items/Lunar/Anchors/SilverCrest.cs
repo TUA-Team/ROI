@@ -12,8 +12,8 @@
 		
 		public override void SetDefaults()
 		{
-            item.width = 34;
-            item.height = 40;
+            item.width = 22;
+            item.height = 32;
             item.value = 100 * 100;
             item.rare = Terraria.ID.ItemRarityID.Blue;
         }

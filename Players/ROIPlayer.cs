@@ -23,7 +23,7 @@ namespace ROI.Players
             WastelandInit();
         }
 
-        public override void PreUpdate()
+        public override void PostUpdate()
         {
             VAUpdate();
             WastelandUpdate();

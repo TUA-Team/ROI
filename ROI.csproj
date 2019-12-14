@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\references\tModLoader.targets" />
   <PropertyGroup>
@@ -8,8 +8,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
     <ItemGroup>
-	<None Remove="**\*.png" />
-  </ItemGroup>
+	  <None Remove="**\*.png" />
+	</ItemGroup>
     <ItemGroup>
       <Content Include="Textures\Tree\Wasteland_Tree.png" />
       <Content Include="Textures\Tree\Wasteland_Tree_Branch.png" />
@@ -20,6 +20,9 @@
       <Content Include="Textures\UIElements\Radiation_Symbol.png" />
       <Content Include="Textures\UIElements\VoidMeterEmpty.png" />
       <Content Include="Textures\UIElements\VoidMeterFull.png" />
+    </ItemGroup>
+	    <ItemGroup>
+      <Reference Include="System.Net.Http" />
     </ItemGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />

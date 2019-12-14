@@ -11,7 +11,7 @@ namespace ROI.Commands
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
-            if (!ModContent.GetInstance<Configs.DebugConfig>().DebugCommmand) return;
+            if (!ROIMod.DebugConfig.DebugCommmand) return;
             var plr = caller.Player.GetModPlayer<Players.ROIPlayer>();
             if (plr.maxVoidAffinity == 0) plr.maxVoidAffinity = 50;
             plr.voidAffinity = Convert.ToInt32(args[0]);

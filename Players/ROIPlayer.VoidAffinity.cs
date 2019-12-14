@@ -30,17 +30,26 @@ namespace ROI.Players
             maxVoidAffinity = tag.GetInt(nameof(maxVoidAffinity));
         }
 
+        //TODO: MP sync
+
         private void VAUpdate()
         {
             if (Main.dayTime) return;
-            if ((Main.time % 1) != 0) return;
+            //check every 30 seconds
+            if ((Main.time % 3000) != 0) return;
             if (Main.netMode == 1) return;
             if (lunarAmassMax == 0) return;
-            if (Main.rand.Next(540) == 0)
+            if (voidAffinity == maxVoidAffinity) return;
+            //30 30 second cycles every night
+            //9 * 60 seconds a night
+            if (Main.rand.Next(18) == 0)
             {
                 if (maxVoidAffinity == 0) maxVoidAffinity = 50;
                 voidAffinity += Main.rand.Next(lunarAmassMin, lunarAmassMax);
+                if (voidAffinity > maxVoidAffinity) voidAffinity = maxVoidAffinity;
             }
+            lunarAmassMax = 0;
+            lunarAmassMin = 0;
         }
     }
 }
