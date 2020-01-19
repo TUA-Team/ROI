@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
@@ -33,7 +33,6 @@ namespace ROI.Players
                 if ((radiationLevel = Utils.Clamp(radiationLevel, 0, 1)) == 0) GUI.RadiationMeter.visible = false;
                 if (_radiationTimer < 0) _radiationTimer = 0;
             }
-
             else if (_radiationTimer >= 1)
             {
                 _radiationTimer--;
@@ -86,8 +85,7 @@ namespace ROI.Players
 
         private string GetRadiationDeath()
         {
-            string[] deathReason =
-            {
+            string[] deathReason = {
                 "didn't check their radiation level",
                 "tried to become the Hulk but failed miserably",
                 "didn't know how to survive to extreme radiation",

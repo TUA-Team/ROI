@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 
@@ -403,7 +403,6 @@ namespace ROI.Worlds
             Tile tile = Main.tile[i, j];
 
             WorldGen.TileMergeAttempt(tile.type, Main.tileMerge[current], ref up, ref down, ref left, ref right, ref upLeft, ref upRight, ref downLeft, ref downRight);
-
 
             if (tile.frameX != -1 && tile.frameY != -1 && (current > -1 && TileID.Sets.ChecksForMerge[current]))
             {

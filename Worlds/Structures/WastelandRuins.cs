@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using ROI.Tiles.Wasteland;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using ROI.Tiles.Wasteland;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

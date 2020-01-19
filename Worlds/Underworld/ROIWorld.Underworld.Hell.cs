@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
@@ -107,7 +107,6 @@ namespace ROI.Worlds
                 }
             }
         }
-
 
         private static void ToDetermineLater()
         {

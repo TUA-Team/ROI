@@ -6,3 +6,16 @@ Enable Wasteland spawning in mod config
 	Custom trees, dirt
 	Custom background
 	Soundtrack with configurations
+Basic void stuff
+	UI with animation
+	Anchors
+		Silver crest
+	Void consumables
+		Sinister elixir - unfinished
+		Ascendant blood - unfinished
+NPCs
+	Slime conglomerate
+Dev items
+	Tesla launcher
+Other
+	New overworld music box

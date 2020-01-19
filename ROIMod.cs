@@ -35,8 +35,8 @@ namespace ROI
 
         private void ClientLoad()
         {
-            AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terra"), 
-                ModContent.ItemType<Items.Misc.TerraMusicBox>(), 
+            AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terra"),
+                ModContent.ItemType<Items.Misc.TerraMusicBox>(),
                 ModContent.TileType<Tiles.TerraMusicBox>());
 
             UnderworldDarkness.Load();
@@ -50,7 +50,6 @@ namespace ROI
 
             MusicConfig = ModContent.GetInstance<MusicConfig>();
             DebugConfig = ModContent.GetInstance<DebugConfig>();
-
 
             if (DebugConfig.Nightly)
             {
@@ -66,7 +65,6 @@ namespace ROI
                     if (data != null) File.WriteAllText(path, data);
                 }
             }
-
 
             void loadFilter(string name, EffectPriority priority = EffectPriority.VeryHigh)
             {
@@ -84,14 +82,13 @@ namespace ROI
             DebugConfig = null;
         }
 
-
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
 
             // Make sure your logic here goes from lowest priority to highest so your intended priority is maintained.
-            if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland
-                && MusicConfig.WastelandMusic != WastelandMusicType.Vanilla)
+            if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland &&
+                MusicConfig.WastelandMusic != WastelandMusicType.Vanilla)
             {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Wasteland_" + MusicConfig.WastelandMusic);
                 priority = MusicPriority.Environment;

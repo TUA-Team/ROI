@@ -1,4 +1,4 @@
-﻿using Terraria;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -18,11 +18,8 @@ namespace ROI.Players
             maxVoidAffinity = 50;
         }
 
-        private TagCompound VASave() => new TagCompound
-            {
-                { nameof(voidAffinity), voidAffinity },
-                { nameof(maxVoidAffinity), maxVoidAffinity }
-            };
+        private TagCompound VASave() => new TagCompound { { nameof (voidAffinity), voidAffinity }, { nameof (maxVoidAffinity), maxVoidAffinity }
+        };
 
         private void VALoad(TagCompound tag)
         {

@@ -1,11 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil.Cil;
-using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using Terraria.ModLoader;
 
 namespace ROI
@@ -21,7 +21,7 @@ namespace ROI
         public static void Load()
         {
             trees = (typeof(TileLoader).GetField("trees", BindingFlags.NonPublic | BindingFlags.Static)
-                .GetValue(null) as Dictionary<int, ModTree>)
+                    .GetValue(null) as Dictionary<int, ModTree>)
                 .Where(x => x.Value is ITreeHook)
                 .Select(x => new { K = x.Key, V = x.Value as ITreeHook })
                 .ToDictionary(x => x.K, x => x.V);
@@ -36,33 +36,33 @@ namespace ROI
             int storeForLater = 0;
 
             if (c.TryGotoNext(
-                i => i.MatchCall(out _),
-                i => i.MatchLdfld(out _),
-                i => i.MatchLdloc(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloc(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloca(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloca(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloca(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloca(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchLdloca(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchCall(out _),
-                i => i.MatchStloc(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop()))
+                    i => i.MatchCall(out _),
+                    i => i.MatchLdfld(out _),
+                    i => i.MatchLdloc(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloc(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloca(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloca(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloca(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloca(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchLdloca(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchCall(out _),
+                    i => i.MatchStloc(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop()))
             {
                 c.Index += 2;
                 c.Emit(OpCodes.Dup);
@@ -73,13 +73,13 @@ namespace ROI
             }
 
             if (c.TryGotoNext(
-                i => i.MatchCallvirt(typeof(SpriteBatch), "Draw"),
-                i => i.MatchBr(out _), i => i.MatchLdloc(out _),
-                i => i.MatchNop(),
-                i => i.MatchNop(),
-                i => i.MatchCallvirt(out _),
-                i => i.MatchLdcI4(out _),
-                i => i.MatchBle(out _)))
+                    i => i.MatchCallvirt(typeof(SpriteBatch), "Draw"),
+                    i => i.MatchBr(out _), i => i.MatchLdloc(out _),
+                    i => i.MatchNop(),
+                    i => i.MatchNop(),
+                    i => i.MatchCallvirt(out _),
+                    i => i.MatchLdcI4(out _),
+                    i => i.MatchBle(out _)))
             {
                 c.Remove();
                 c.EmitDelegate<Action<SpriteBatch, Texture2D, Vector2, Rectangle?, Color, float, Vector2, float, SpriteEffects, float>>((spritebatch, texture, position, sourceRectangle, color, rotation, origin, scale, effect, layerDept) =>

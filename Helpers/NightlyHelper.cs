@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
+using Newtonsoft.Json.Linq;
 
 namespace ROI.Helpers
 {
@@ -68,17 +68,12 @@ namespace ROI.Helpers
             ServicePointManager.ServerCertificateValidationCallback += SCVC;
 
             string json = string.Empty;
-            string url = @"https://api.github.com/repos/TUA-Team/ROI/issues/3/comments";
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Accept = "application/vnd.github.v3+json";
-            request.UserAgent = "RealmsOfInfinity";
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (var stream = response.GetResponseStream())
-            using (var reader = new StreamReader(stream))
+            using (var client = new HttpClient())
             {
-                json = reader.ReadToEnd();
+                client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
+                client.DefaultRequestHeaders.Add("User-Agent", "RealmsOfInfinityNightly");
+                var response = client.GetAsync("https://api.github.com/repos/TUA-Team/ROI/issues/3/comments").Result;
+                json = response.Content.ReadAsStringAsync().Result;
             }
 
             ServicePointManager.SecurityProtocol = oldProtocol;

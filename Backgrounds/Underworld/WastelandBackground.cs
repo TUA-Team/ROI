@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -19,8 +19,8 @@ namespace ROI.Backgrounds.Underworld
 
         private void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
-            if (Main.ActiveWorldFileData.HasCorruption && !Main.ActiveWorldFileData.HasCrimson
-                && !ROIMod.DebugConfig.GenWasteland)
+            if (Main.ActiveWorldFileData.HasCorruption && !Main.ActiveWorldFileData.HasCrimson &&
+                !ROIMod.DebugConfig.GenWasteland)
             {
                 orig(instance, flat);
                 return;
@@ -83,12 +83,12 @@ namespace ROI.Backgrounds.Underworld
                         new Rectangle?(value3), Color.Cyan, 0f, Vector2.Zero, num3, SpriteEffects.None, 0f);
                     if (i == 0)
                     {
-                        int num8 = (int)(((new Vector2(j
-                            * num3
-                            * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero).Y + value3.Height * num3);
+                        int num8 = (int)(((new Vector2(j *
+                            num3 *
+                            (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero).Y + value3.Height * num3);
                         Main.spriteBatch.Draw(Main.blackTileTexture,
                             new Rectangle((int)((new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector - pos) * value2 + pos - Main.screenPosition - vector + zero).X,
-                            num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Color(11, 3, 7));
+                                num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Color(11, 3, 7));
                     }
                 }
             }

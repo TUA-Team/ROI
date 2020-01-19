@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+using System.IO;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Effects;
-using System.IO;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
@@ -29,10 +29,8 @@ namespace ROI.Players
             WastelandUpdate();
         }
 
-        public override TagCompound Save() => new TagCompound
-            {
-                { "VA", VASave() }
-            };
+        public override TagCompound Save() => new TagCompound { { "VA", VASave () }
+        };
 
         public override void Load(TagCompound tag)
         {

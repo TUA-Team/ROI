@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,8 +10,8 @@ namespace ROI.Items.Weapons.Dev
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Tesla Launcher");
-            Tooltip.SetDefault("Developer item"
-                + "\n<right> to despawn orbs");
+            Tooltip.SetDefault("Developer item" +
+                "\n<right> to despawn orbs");
         }
 
         public override void SetDefaults()
@@ -38,8 +38,8 @@ namespace ROI.Items.Weapons.Dev
             for (int k = 0; k < 1000; k++)
             {
                 Projectile proj = Main.projectile[k];
-                if (proj.type == mod.ProjectileType("TeslaOrb") && proj.active
-                    && proj.owner == player.whoAmI)
+                if (proj.type == mod.ProjectileType("TeslaOrb") && proj.active &&
+                    proj.owner == player.whoAmI)
                 {
                     proj.Kill();
                 }
@@ -53,8 +53,8 @@ namespace ROI.Items.Weapons.Dev
             for (int k = 0; k < 1000; k++)
             {
                 Projectile proj = Main.projectile[k];
-                if (proj.type == mod.ProjectileType("TeslaOrb") && proj.active
-                    && proj.owner == player.whoAmI)
+                if (proj.type == mod.ProjectileType("TeslaOrb") && proj.active &&
+                    proj.owner == player.whoAmI)
                 {
                     if (count++ == 9)
                     {

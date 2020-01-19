@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -15,8 +15,7 @@ namespace ROI.Tiles.Wasteland
             TileObjectData.newTile.Width = 6;
             TileObjectData.newTile.Height = 4;
             TileObjectData.newTile.Origin = new Point16(2, 2);
-            TileObjectData.newTile.CoordinateHeights = new int[]
-            {
+            TileObjectData.newTile.CoordinateHeights = new int[] {
                 16,
                 16,
                 16,

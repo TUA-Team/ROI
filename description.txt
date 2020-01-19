@@ -1,7 +1,7 @@
 [i:121] Realms of Infinity [i:368]
 After a long period of development, it's finally here!
 
-Changelog found at the bottom.
+Changelog found at the bottom. A link to a secondary, more detailed changelog can be found on the homepage.
 
 [i:109] Credits [i:109]
 Dradonhunter11 - Owner
@@ -21,10 +21,4 @@ void resident - Music producer (former)
 
 [i:109] Changelog [i:109]
 0.1.0 - Hunt for the Void:
-[i:97] Enable Wasteland spawning in mod config
-	[i:97] Crimson worlds only
-	[i:97] The Wasteland replaces the Underworld
-	[i:97] Slowly inflicts Radiation debuff
-	[i:97] Custom trees, dirt
-	[i:97] Custom background
-	[i:97] Soundtrack with configurations
+[i:97] Enable the experimental Wasteland biome in the config, a new alternative to the Underworld

@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using ROI.Players;
-using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -28,20 +28,20 @@ namespace ROI.GUI
             voidMeterEmpty?.Dispose();
         }
 
-        static float oldPercent;
+        static float drawPercent;
         static Texture2D tex;
         public static void Draw(SpriteBatch spriteBatch)
         {
             ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
 
             var percent = player.voidAffinity / (float)player.maxVoidAffinity;
-            if (oldPercent != percent)
+            if (drawPercent != percent)
             {
-                if (Math.Abs(percent - oldPercent) <= 0.1f) oldPercent = percent;
-                else oldPercent += oldPercent < percent ? 0.01f : -0.01f;
-                tex = DrawPercent(oldPercent);
+                if (Math.Abs(percent - drawPercent) <= 0.1f) drawPercent = percent;
+                else drawPercent += drawPercent < percent ? 0.01f : -0.01f;
+                tex = DrawPercent(drawPercent);
             }
-            if (player.voidAffinity != 0)
+            if (drawPercent != 0)
             {
                 spriteBatch.Draw(voidMeterEmpty, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
                 spriteBatch.Draw(tex, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
@@ -76,7 +76,7 @@ namespace ROI.GUI
                     var pos = center + new Point16(
                         Utils.Clamp((int)(unit.X * k), -center.X, center.X - 1),
                         Utils.Clamp((int)(unit.Y * k), -center.Y, center.Y - 1)
-                        );
+                    );
                     var index = pos.Y * voidMeterFilled.Width + pos.X;
                     colorData[index] = refTex[index];
                 }
