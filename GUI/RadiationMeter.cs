@@ -27,12 +27,6 @@ namespace ROI.GUI
             front = ModContent.GetTexture("ROI/Textures/UIElements/Radiation_Bar");
         }
 
-        public void Unload()
-        {
-            back?.Dispose();
-            front?.Dispose();
-        }
-
         public override void OnInitialize()
         {
             panel = new UIElement

@@ -9,6 +9,7 @@ using Terraria.ModLoader;
 
 namespace ROI.GUI
 {
+    //TODO: make the move to UIState
     internal sealed class VoidAffinity
     {
         private static Vector2 Offset => Main.playerInventory ? new Vector2(30, 270) : new Vector2(30, 130);

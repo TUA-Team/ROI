@@ -7,3 +7,5 @@ includeResources = false
 includeCode = true
 includeSource = true
 includePDB = true
+
+dllReferences = DiscordRPC

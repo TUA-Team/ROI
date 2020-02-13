@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Void
 {
+    //TODO: do all the void item stubs
     internal abstract class VoidItem : ModItem
     {
         protected abstract int Affinity { get; }

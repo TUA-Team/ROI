@@ -8,8 +8,14 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
     <ItemGroup>
+	  <Compile Remove="lib\**" />
+	  <EmbeddedResource Remove="lib\**" />
 	  <None Remove="**\*.png" />
+	  <None Remove="lib\**" />
 	</ItemGroup>
+    <ItemGroup>
+      <None Remove="Effects\UnderworldFilter.xnb" />
+    </ItemGroup>
     <ItemGroup>
       <Content Include="Textures\Tree\Wasteland_Tree.png" />
       <Content Include="Textures\Tree\Wasteland_Tree_Branch.png" />
@@ -22,8 +28,14 @@
       <Content Include="Textures\UIElements\VoidMeterFull.png" />
     </ItemGroup>
 	    <ItemGroup>
+      <Reference Include="DiscordRPC">
+        <HintPath>lib\DiscordRPC.dll</HintPath>
+      </Reference>
       <Reference Include="System.Net.Http" />
     </ItemGroup>
+	    <ItemGroup>
+	      <Folder Include="Buffs\Void\" />
+	    </ItemGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>

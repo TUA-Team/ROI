@@ -1,0 +1,1 @@
+DiscordRPC - https://github.com/TUA-Team/discord-rpc-csharp : Release > net35

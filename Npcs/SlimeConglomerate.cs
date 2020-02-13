@@ -1,15 +1,16 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using ROI.Helpers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Npcs
+namespace ROI.NPCs
 {
     internal class SlimeConglomerate : ModNPC
     {
-        private static readonly IDictionary<int, Color> SlimeCodes = new Dictionary<int, Color> { { 1, new Color (0, 80, 255, 100) }, // blue
+        private static readonly IDictionary<int, Color> SlimeCodes = new Dictionary<int, Color> {
+            { 1, new Color (0, 80, 255, 100) }, // blue
             {-3, new Color (0, 220, 40, 100) }, // green
             {-4, new Color (250, 30, 90, 90) }, // pinky
             {-6, new Color (0, 0, 0, 50) }, // black

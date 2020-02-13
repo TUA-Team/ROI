@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Worlds.Structures
 {
-    class WastelandRuins
+    internal class WastelandRuins
     {
         public static void PlaceHouse(int x, int y)
         {

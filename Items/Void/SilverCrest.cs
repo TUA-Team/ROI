@@ -1,7 +1,8 @@
 namespace ROI.Items.Void
 {
-    internal class SilverCrest : LunarAnchor
+    internal class SilverCrest : VoidItem
     {
+        //TODO: give this an actual use
         protected override int Affinity => 10;
 
         public override void SetStaticDefaults()

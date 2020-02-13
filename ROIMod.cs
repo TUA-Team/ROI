@@ -22,6 +22,8 @@ namespace ROI
 
         public UserInterface radInterface;
         internal RadiationMeter radState;
+        public UserInterface buffListInterface;
+        internal VoidBuffList buffListState;
 
         public override void Load()
         {
@@ -46,6 +48,12 @@ namespace ROI
             radState.Activate();
             radInterface = new UserInterface();
             radInterface.SetState(radState);
+
+            buffListState = new VoidBuffList();
+            buffListState.Activate();
+            buffListInterface = new UserInterface();
+            buffListInterface.SetState(buffListState);
+
             VoidAffinity.Load();
 
             MusicConfig = ModContent.GetInstance<MusicConfig>();
@@ -53,7 +61,7 @@ namespace ROI
 
             if (DebugConfig.Nightly)
             {
-                var path = Path.Combine(Main.SavePath, "ROI-beta-version.txt");
+                var path = Path.Combine(Main.SavePath, "ROI-beta-timestamp.txt");
                 if (File.Exists(path))
                 {
                     var data = File.ReadAllText(path);
@@ -98,8 +106,10 @@ namespace ROI
         private GameTime _lastGameTime;
         public override void UpdateUI(GameTime gameTime)
         {
+            _lastGameTime = gameTime;
             if (RadiationMeter.visible)
-                radInterface.Update(_lastGameTime = gameTime);
+                radInterface.Update(_lastGameTime);
+            buffListInterface.Update(_lastGameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -125,6 +135,13 @@ namespace ROI
                         return true;
                     }, InterfaceScaleType.UI));
             }
+            layers.Add(new LegacyGameInterfaceLayer(
+                "ROI: Void Buff List",
+                delegate
+                {
+                    buffListInterface.Draw(Main.spriteBatch, _lastGameTime);
+                    return true;
+                }, InterfaceScaleType.UI));
         }
 
         public override void PostAddRecipes()

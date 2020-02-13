@@ -1,0 +1,39 @@
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace ROI.Items.Misc
+{
+    internal class Poutine : ModItem
+    {
+        public override void SetStaticDefaults()
+        {
+            DisplayName.SetDefault("Poutine");
+            Tooltip.SetDefault("A purely awesome meal from the Canadians\n" +
+                "Heals 500 HP");
+        }
+
+        public override void SetDefaults()
+        {
+            item.width = 30;
+            item.height = 30;
+            item.useStyle = 1;
+            item.useTime = 10;
+            item.useAnimation = 20;
+            item.rare = 99;
+            item.lavaWet = true;
+            item.consumable = true;
+            item.maxStack = 30;
+        }
+
+        public override bool UseItem(Player player)
+        {
+            if (player.HasBuff(BuffID.PotionSickness)) return false;
+
+            player.HealEffect(500, true);
+            player.AddBuff(BuffID.PotionSickness, 1800, true);
+
+            return true;
+        }
+    }
+}
