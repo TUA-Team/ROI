@@ -33,9 +33,6 @@
       </Reference>
       <Reference Include="System.Net.Http" />
     </ItemGroup>
-	    <ItemGroup>
-	      <Folder Include="Buffs\Void\" />
-	    </ItemGroup>
   <Target Name="BuildMod" AfterTargets="Build">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>

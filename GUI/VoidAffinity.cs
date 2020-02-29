@@ -1,8 +1,8 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using ROI.Players;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -12,7 +12,7 @@ namespace ROI.GUI
     //TODO: make the move to UIState
     internal sealed class VoidAffinity
     {
-        private static Vector2 Offset => Main.playerInventory ? new Vector2(30, 270) : new Vector2(30, 130);
+        private static Vector2 Offset => Main.playerInventory ? new Vector2(30, 270) : new Vector2(30, Main.LocalPlayer.buffTime[9] > 0 ? 185 : 130);
 
         private static Texture2D voidMeterFilled;
         private static Texture2D voidMeterEmpty;

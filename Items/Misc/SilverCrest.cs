@@ -1,9 +1,10 @@
+using Terraria.ModLoader;
+
 namespace ROI.Items.Void
 {
-    internal class SilverCrest : VoidItem
+    internal class SilverCrest : ModItem
     {
         //TODO: give this an actual use
-        protected override int Affinity => 10;
 
         public override void SetStaticDefaults()
         {

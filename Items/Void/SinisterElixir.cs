@@ -3,10 +3,10 @@ using Terraria.ID;
 
 namespace ROI.Items.Void
 {
-    internal abstract class SinisterElixir : VoidItem
+    internal class SinisterElixir : VoidItem
     {
-        //TODO: more invincibility frames at the cost of regen
         protected override int Affinity => 30;
+        protected override int BuffTime => 5400;
 
         public override void SetStaticDefaults()
         {
@@ -17,19 +17,15 @@ namespace ROI.Items.Void
 
         public override void SetDefaults()
         {
-            //item.width =
-            //item.height =
+            item.width = 44;
+            item.height = 32;
             item.useStyle = ItemUseStyleID.EatingUsing;
-            item.useAnimation = 2;
-            item.useTime = 2;
-            item.useTurn = true;
-            item.UseSound = SoundID.Item3;
+            item.useAnimation = 15;
+            item.useTime = 15;
+            item.UseSound = SoundID.Item2;
             item.maxStack = 30;
-            item.consumable = true;
             item.rare = 3;
             item.value = Item.buyPrice(gold: 1);
-            //item.buffType = ModContent.BuffType<Buffs.SinisterElixir>();
-            item.buffTime = 5400;
         }
     }
 }

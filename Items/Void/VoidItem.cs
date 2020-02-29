@@ -1,15 +1,12 @@
-using System.Collections.Generic;
 using ROI.Players;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Items.Void
 {
-    //TODO: do all the void item stubs
     internal abstract class VoidItem : ModItem
     {
-        protected abstract int Affinity { get; }
-
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             tooltips.Add(new TooltipLine(mod, "VoidAffinity", $"{Affinity} void affinity")
@@ -18,12 +15,23 @@ namespace ROI.Items.Void
             });
         }
 
-        public override bool ConsumeItem(Player player)
+        public override bool CanUseItem(Player player)
         {
-            var plr = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
-            if (plr.voidAffinity < Affinity) return false;
-            plr.voidAffinity -= Affinity;
-            return true;
+            var plr = player.GetModPlayer<ROIPlayer>();
+            if (plr.voidAffinity >= Affinity)
+            {
+                plr.voidAffinity -= Affinity;
+                if (--item.stack == 0) item.TurnToAir();
+                plr.AddVoidBuff(BuffType, BuffTime);
+                return true;
+            }
+            return false;
         }
+
+
+        protected abstract int Affinity { get; }
+
+        protected virtual string BuffType => Name;
+        protected abstract int BuffTime { get; }
     }
 }

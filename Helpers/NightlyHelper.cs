@@ -1,9 +1,9 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
-using Newtonsoft.Json.Linq;
 
 namespace ROI.Helpers
 {

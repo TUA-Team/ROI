@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Configs;
 using ROI.Effects;
 using ROI.GUI;
 using ROI.Players;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -109,7 +109,6 @@ namespace ROI
             _lastGameTime = gameTime;
             if (RadiationMeter.visible)
                 radInterface.Update(_lastGameTime);
-            buffListInterface.Update(_lastGameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -134,14 +133,14 @@ namespace ROI
                         VoidAffinity.Draw(Main.spriteBatch);
                         return true;
                     }, InterfaceScaleType.UI));
+                layers.Insert(index, new LegacyGameInterfaceLayer(
+                    "ROI: Void Buff List",
+                    delegate
+                    {
+                        buffListInterface.Draw(Main.spriteBatch, _lastGameTime);
+                        return true;
+                    }, InterfaceScaleType.UI));
             }
-            layers.Add(new LegacyGameInterfaceLayer(
-                "ROI: Void Buff List",
-                delegate
-                {
-                    buffListInterface.Draw(Main.spriteBatch, _lastGameTime);
-                    return true;
-                }, InterfaceScaleType.UI));
         }
 
         public override void PostAddRecipes()

@@ -7,15 +7,16 @@ Enable Wasteland spawning in mod config
 	Custom background
 	Soundtrack with configurations
 Basic void stuff
-	UI with animation
-	Anchors
-		Silver crest
+	Affinity UI with animation
+	Buff list - unfinished
 	Void consumables
 		Sinister elixir - unfinished
-		Ascendant blood - unfinished
+		Ascendant serum - unfinished
 NPCs
 	Slime conglomerate
-Dev items
-	Tesla launcher
+Items
+	Dev
+		Tesla launcher
+	Silver crest
 Other
 	New overworld music box

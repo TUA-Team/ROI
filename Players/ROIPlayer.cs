@@ -1,9 +1,8 @@
-using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Effects;
+using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -26,7 +25,7 @@ namespace ROI.Players
 
         public override void PostUpdate()
         {
-            VAUpdate();
+            //VAUpdate();
             WastelandUpdate();
         }
 
