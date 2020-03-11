@@ -4,12 +4,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class WastelandRock : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Radioactive Rock");
-            Tooltip.SetDefault("Probably too dangerous to hold");
-        }
-
         public override void SetDefaults()
         {
             item.maxStack = 9999;

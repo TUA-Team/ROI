@@ -25,7 +25,7 @@ namespace ROI.Players
 
         public override void PostUpdate()
         {
-            //VAUpdate();
+            VAUpdate();
             WastelandUpdate();
         }
 

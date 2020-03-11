@@ -5,12 +5,6 @@ namespace ROI.Items.Misc
 {
     internal class IrradiatedKey : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Irradiated Key");
-            Tooltip.SetDefault("Use to open Irradiated Chests");
-        }
-
         public override void SetDefaults()
         {
             item.width = 14;

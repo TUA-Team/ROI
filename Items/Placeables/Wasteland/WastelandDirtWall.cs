@@ -5,12 +5,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class WastelandDirtWall : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Irradiated Dirt Wall");
-            Tooltip.SetDefault("Won't spawn any mobs");
-        }
-
         public override void SetDefaults()
         {
             item.width = 16;

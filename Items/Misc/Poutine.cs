@@ -6,13 +6,6 @@ namespace ROI.Items.Misc
 {
     internal class Poutine : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Poutine");
-            Tooltip.SetDefault("A purely awesome meal from the Canadians\n" +
-                "Heals 500 HP");
-        }
-
         public override void SetDefaults()
         {
             item.width = 30;

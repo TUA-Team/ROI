@@ -8,12 +8,6 @@ namespace ROI.Items.Placeables.Wasteland
     //TODO: MP for this
     internal class WastelandGrassSeed : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Toxified Seed");
-            Tooltip.SetDefault("\"What the heck is this even gonna grow?!\"");
-        }
-
         public override void SetDefaults()
         {
             item.maxStack = 9999;

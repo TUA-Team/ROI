@@ -4,12 +4,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class WastelandDirt : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Irradiated Dirt");
-            Tooltip.SetDefault("\"Is it even safe to touch it?\"");
-        }
-
         public override void SetDefaults()
         {
             item.maxStack = 9999;

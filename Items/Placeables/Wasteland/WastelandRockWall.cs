@@ -5,12 +5,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class WastelandRockWall : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Radioactive Rock Wall");
-            Tooltip.SetDefault("Won't spawn any mobs");
-        }
-
         public override void SetDefaults()
         {
             item.width = 16;

@@ -4,11 +4,6 @@ namespace ROI.Items.Materials.Wasteland
 {
     internal class WastestoneOre : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Toxic Ore");
-        }
-
         public override void SetDefaults()
         {
             item.width = 16;

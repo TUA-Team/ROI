@@ -5,15 +5,7 @@ namespace ROI.Items.Void
 {
     internal class SinisterElixir : VoidItem
     {
-        protected override int Affinity => 30;
         protected override int BuffTime => 5400;
-
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Sinister Elixir");
-            Tooltip.SetDefault("Greatly increases length of invincibility after taking damage\n" +
-                "Decreases the speed of health regeneration");
-        }
 
         public override void SetDefaults()
         {

@@ -5,8 +5,6 @@ namespace ROI.Items.Void
 {
     internal abstract class AscendantSerum : VoidItem
     {
-        protected override int Affinity => 20;
-
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Serum of Ascendance");

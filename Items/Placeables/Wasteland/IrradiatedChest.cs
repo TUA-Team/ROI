@@ -4,11 +4,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class IrradiatedChest : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Irradiated Chest");
-        }
-
         public override void SetDefaults()
         {
             item.width = 26;

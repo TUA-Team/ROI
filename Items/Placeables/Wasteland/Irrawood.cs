@@ -4,12 +4,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class Irrawood : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Irrawood");
-            Tooltip.SetDefault("It glows from the inside");
-        }
-
         public override void SetDefaults()
         {
             item.maxStack = 9999;

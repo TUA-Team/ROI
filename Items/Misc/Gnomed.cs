@@ -5,13 +5,6 @@ namespace ROI.Items.Misc
 {
     public class Gnomed : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Noggin Clontith");
-            Tooltip.SetDefault("\"I'm not a gnelf, I'm not a gnoblin, and you've been GNOMED!!\"" +
-                "\nA testament to the idiocy of humanity");
-        }
-
         public override void SetDefaults()
         {
             item.width = 30;

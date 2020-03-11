@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Void
 {
+    //essentially archived for now, until we figure out a real use for it
     internal abstract class VoidItem : ModItem
     {
         public override void ModifyTooltips(List<TooltipLine> tooltips)
@@ -18,14 +19,9 @@ namespace ROI.Items.Void
         public override bool CanUseItem(Player player)
         {
             var plr = player.GetModPlayer<ROIPlayer>();
-            if (plr.voidAffinity >= Affinity)
-            {
-                plr.voidAffinity -= Affinity;
-                if (--item.stack == 0) item.TurnToAir();
-                plr.AddVoidBuff(BuffType, BuffTime);
-                return true;
-            }
-            return false;
+
+            plr.AddVoidBuff(BuffType, BuffTime);
+            return true;
         }
 
 

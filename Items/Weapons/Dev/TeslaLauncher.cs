@@ -7,13 +7,6 @@ namespace ROI.Items.Weapons.Dev
 {
     internal class TeslaLauncher : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Tesla Launcher");
-            Tooltip.SetDefault("Developer item" +
-                "\n<right> to despawn orbs");
-        }
-
         public override void SetDefaults()
         {
             item.damage = 100;

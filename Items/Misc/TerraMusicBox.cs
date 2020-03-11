@@ -4,11 +4,6 @@ namespace ROI.Items.Misc
 {
     public class TerraMusicBox : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Music Box (Realms of Inf Terra)");
-        }
-
         public override void SetDefaults()
         {
             item.useStyle = 1;

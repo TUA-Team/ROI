@@ -46,7 +46,7 @@ namespace ROI.GUI
                 spriteBatch.DrawString(Main.fontItemStack, text, pos + new Vector2(0, 32), color);
                 if (new Rectangle((int)pos.X, (int)pos.Y, 32, 32).Contains(new Point(Main.mouseX, Main.mouseY)))
                 {
-                    if (buffAlpha[i] < 1) buffAlpha[i] += 0.01f;
+                    if (buffAlpha[i] < 1) buffAlpha[i] += 0.1f;
                     bool flag = Main.mouseRight && Main.mouseRightRelease;
                     if (PlayerInput.UsingGamepad)
                     {
@@ -70,15 +70,12 @@ namespace ROI.GUI
                     }
                     else
                     {
-                        //TODO: make VoidBuff localizable with proper ModTranslation stuff
-                        text = $"{buff.DisplayName.GetDefault()}\n{buff.Description.GetDefault()}";
-                        spriteBatch.DrawString(Main.fontItemStack, text, Main.MouseScreen, Color.White);
+                        text = $"{Language.GetTextValue($"Mods.ROI.VoidBuff.DisplayName.{buff.Name}")}\n" +
+                            $"{Language.GetTextValue($"Mods.ROI.VoidBuff.Description.{buff.Name}")}";
+                        Main.instance.MouseTextHackZoom(text);
                     }
                 }
-                else
-                {
-                    if (buffAlpha[i] > 0.4) buffAlpha[i] -= 0.05f;
-                }
+                else if (buffAlpha[i] > 0.4) buffAlpha[i] -= 0.05f;
             }
         }
     }

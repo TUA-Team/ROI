@@ -9,9 +9,12 @@
   </PropertyGroup>
     <ItemGroup>
 	  <Compile Remove="lib\**" />
+	  <Compile Remove="Localization\**" />
 	  <EmbeddedResource Remove="lib\**" />
+	  <EmbeddedResource Remove="Localization\**" />
 	  <None Remove="**\*.png" />
 	  <None Remove="lib\**" />
+	  <None Remove="Localization\**" />
 	</ItemGroup>
     <ItemGroup>
       <None Remove="Effects\UnderworldFilter.xnb" />

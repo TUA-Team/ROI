@@ -64,8 +64,8 @@ namespace ROI.Players
             Array.Copy(buffTime, 0, buffTime, 1, 9);
             buffTime[0] = time;
         }
-
-        //TODO: MP sync
+        
+        //TODO: MP sync for void affinity, make sure client side UI triggers affect server player state
 
         private void VAUpdate()
         {

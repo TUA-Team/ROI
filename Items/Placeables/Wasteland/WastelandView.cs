@@ -4,12 +4,6 @@ namespace ROI.Items.Placeables.Wasteland
 {
     internal class WastelandView : ModItem
     {
-        public override void SetStaticDefaults()
-        {
-            DisplayName.SetDefault("Nuclear Catastrophe");
-            Tooltip.SetDefault("\"Dradon\"");
-        }
-
         public override void SetDefaults()
         {
             item.maxStack = 99;

@@ -23,7 +23,6 @@ namespace ROI.NPCs
 
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Blue Slime");
             Main.npcFrameCount[npc.type] = 2;
         }
 
