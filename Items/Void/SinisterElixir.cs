@@ -5,6 +5,8 @@ namespace ROI.Items.Void
 {
     internal class SinisterElixir : VoidItem
     {
+        protected override int Affinity => 30;
+
         protected override int BuffTime => 5400;
 
         public override void SetDefaults()

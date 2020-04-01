@@ -37,6 +37,22 @@ namespace ROI.Players
             VALoad(tag.GetCompound("VA"));
         }
 
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            var p = mod.GetPacket();
+            p.Write((byte)ROIModPacketType.PlayerSync);
+            p.Write((byte)player.whoAmI);
+            p.Write(voidAffinity);
+            p.Write(maxVoidAffinity);
+            p.Send();
+            for (int i = 0; i < 10; i++)
+            {
+                p.Write(buffType[i]);
+                p.Write(buffTime[i]);
+            }
+            p.Send();
+        }
+
         public override void UpdateBiomes()
         {
             Vector2 pos = player.position / 16;

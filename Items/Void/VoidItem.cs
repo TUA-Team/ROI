@@ -16,7 +16,7 @@ namespace ROI.Items.Void
             });
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool UseItem(Player player)
         {
             var plr = player.GetModPlayer<ROIPlayer>();
 

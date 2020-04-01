@@ -24,5 +24,10 @@ namespace ROI.Globals
                 nextSlot++;
             }
         }
+
+        public override void NPCLoot(NPC npc)
+        {
+            //Item.NewItem(npc.getRect(), );
+        }
     }
 }

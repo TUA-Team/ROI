@@ -6,12 +6,14 @@ using ROI.Players;
 using System;
 using Terraria;
 using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ROI.GUI
 {
+    //basically archived
     internal sealed class VoidBuffList : UIState
     {
         private static readonly Vector2 Offset = new Vector2(30, 220);
@@ -66,6 +68,14 @@ namespace ROI.GUI
                         if (i != 9)
                         {
                             Array.Copy(plr.buffType, i + 1, plr.buffType, i, 9 - i);
+                            if (Main.netMode == NetmodeID.MultiplayerClient)
+                            {
+                                var p = ModContent.GetInstance<ROIMod>().GetPacket();
+                                p.Write((byte)ROIModPacketType.VoidBuffCancelled);
+                                p.Write((byte)Main.myPlayer);
+                                p.Write((byte)i);
+                                p.Send();
+                            }
                         }
                     }
                     else

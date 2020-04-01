@@ -2,7 +2,7 @@
 
 namespace ROI.Buffs.Void
 {
-    internal class SinisterElixir : VoidBuff
+    internal abstract class SinisterElixir : VoidBuff
     {
         public override void Update(Player player)
         {

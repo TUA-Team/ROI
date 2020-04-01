@@ -14,6 +14,8 @@ namespace ROI.Players
         public string[] buffType;
         public int[] buffTime;
 
+        public bool voidCollector;
+
         private void VAInit()
         {
             voidAffinity = 0;
@@ -22,9 +24,14 @@ namespace ROI.Players
             buffType = new string[10];
             for (int i = 0; i < 10; i++)
             {
-                buffType[i] = "nil"; 
+                buffType[i] = "nil";
             }
             buffTime = new int[10];
+        }
+
+        public override void ResetEffects()
+        {
+            voidCollector = false;
         }
 
         private TagCompound VASave()
@@ -64,8 +71,6 @@ namespace ROI.Players
             Array.Copy(buffTime, 0, buffTime, 1, 9);
             buffTime[0] = time;
         }
-        
-        //TODO: MP sync for void affinity, make sure client side UI triggers affect server player state
 
         private void VAUpdate()
         {

@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Helpers
 {
+    //TODO: set this up properly
     public static class DiscordHelper
     {
         private static RichPresence _presence = new RichPresence();
