@@ -35,8 +35,8 @@ namespace ROI.Items.Void
         {
             Frame = 0;
             FrameCounter = 0;
-            FrameCount = 12;
-            TicksPerFrame = 5;
+            FrameCount = 15;
+            TicksPerFrame = 6;
             increment = 1;
         }
 
@@ -66,13 +66,11 @@ namespace ROI.Items.Void
                     Frame += increment;
                     if (Frame == 8)
                     {
-                        Frame = 0;
                         increment = 1;
                     }
-                    else if (Frame == 11)
+                    else if (Frame == 14)
                     {
-                        Frame = 10;
-                        increment = -1;
+                        Frame = 0;
                     }
                 }
             }
