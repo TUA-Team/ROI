@@ -20,6 +20,14 @@
       <None Remove="Effects\UnderworldFilter.xnb" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Items\Armors\Irrawood\IrrawoodChestplate.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodChestplate_Arms.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodChestplate_Body.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodChestplate_Female.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodHelmet.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodHelmet_Head.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodLeggings.png" />
+      <Content Include="Items\Armors\Irrawood\IrrawoodLeggings_Legs.png" />
       <Content Include="Textures\Tree\Wasteland_Tree.png" />
       <Content Include="Textures\Tree\Wasteland_Tree_Branch.png" />
       <Content Include="Textures\Tree\Wasteland_Tree_Top.png" />

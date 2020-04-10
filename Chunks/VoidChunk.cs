@@ -1,9 +1,7 @@
 ﻿using InfinityCore.API.Chunks;
 using InfinityCore.Worlds.Chunk;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ROI.Chunks
