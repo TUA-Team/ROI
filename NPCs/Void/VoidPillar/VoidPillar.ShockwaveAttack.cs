@@ -23,12 +23,12 @@ namespace ROI.NPCs.Void.VoidPillar
 				return;
 			}
 
-			_shockwaveTimer = 300;
+			_shockwaveTimer = 500;
 
 			switch (ShieldColor)
 			{
 				case PillarShieldColor.Red:
-					Projectile.NewProjectile(npc.Center, Vector2.Zero, mod.ProjectileType("VoidPillarRedShockwave"), 10, 0.5f);
+					Projectile.NewProjectileDirect(npc.Center, Vector2.Zero, mod.ProjectileType("VoidPillarTeleportationShockwave"), 10, 0.5f, Main.myPlayer, 1f, 0f);
 					break;
 			}
 		}

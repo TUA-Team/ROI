@@ -1,13 +1,12 @@
-using ROI.Items.Interface;
-using ROI.Players;
 using System.Collections.Generic;
+using ROI.Items.Interface;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
-namespace ROI.Items
+namespace ROI.Items.Tools
 {
     //Delete me later or give me the binding of isaac void sprite and some actual use
     public class Void : ROIItem, IVoidItem

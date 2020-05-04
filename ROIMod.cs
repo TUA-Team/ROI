@@ -7,8 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using ROI.Backgrounds.Underworld;
 using ROI.Effects;
+using ROI.Effects.CustomSky;
 using ROI.GUI.Radiation_Meter;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -39,7 +41,10 @@ namespace ROI
 		internal UserInterface radiationInterface;
 		internal RadiationMeter radiationMeter;
 
-        public ROIMod()
+
+		public override uint ExtraPlayerBuffSlots => 255 - 22;
+
+		public ROIMod()
 		{
 			rng = new UnifiedRandom();
 		}
@@ -55,8 +60,11 @@ namespace ROI
 			}
 		}
 
+		
+
 		private void ClientLoad()
 		{
+
 		    roiFilterManager = new FilterManager();
 
             VoidPillarHealthBar.Load();
@@ -65,6 +73,9 @@ namespace ROI
             UnderworldDarkness.Load();            
             Wasteland_Background.Load();
             DRPManager.Instance.Initialize();
+			radiationInterface = new UserInterface();
+			radiationMeter = new RadiationMeter();
+			radiationInterface.SetState(radiationMeter);
 
 			Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
 			Filters.Scene["ROI:UnderworldFilter"].Load();
@@ -72,9 +83,13 @@ namespace ROI
 			Filters.Scene["ROI:ShockwaveColor"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/ShockwaveColorEffect")), "ShockwaveColoured"), EffectPriority.VeryHigh);
 			Filters.Scene["ROI:ShockwaveColor"].Load();
 
+			for (int i = 0; i < 10; i++)
+			{
+				Filters.Scene[$"ROI:Shockwave{i}"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/Shockwave")), "Shockwave"), EffectPriority.VeryHigh);
+				Filters.Scene[$"ROI:Shockwave{i}"].Load();
+			}
 
-			Filters.Scene["ROI:Shockwave"] = new Filter(new ScreenShaderData(new Ref<Effect>(GetEffect("Effects/Shockwave")), "Shockwave"), EffectPriority.VeryHigh);
-			Filters.Scene["ROI:Shockwave"].Load();
+			SkyManager.Instance["ROI:VoidSky"] = new VoidSky();
 
 			Main.OnTick += DRPManager.Instance.Update;
             
@@ -82,13 +97,11 @@ namespace ROI
 
 		private void GeneralLoad()
 		{
+			
 			instance = this;
             DevManager.Instance.CheckDev();
             ROIModSupport.Load();
 		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
-			radiationInterface = new UserInterface();
-			radiationMeter = new RadiationMeter();
-			radiationInterface.SetState(radiationMeter);
 #if DEBUG
             debug = true;
 #else
@@ -96,7 +109,7 @@ namespace ROI
 #endif
         }
 
-	    public override void PostAddRecipes()
+		public override void PostAddRecipes()
 	    {
 	        ROITreeHookLoader.Load();
 	    }

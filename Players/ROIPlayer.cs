@@ -2,6 +2,8 @@
 using ROI.Effects;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
@@ -11,9 +13,7 @@ using Terraria.ModLoader.IO;
 namespace ROI.Players
 {
     /// <summary>
-    /// Use this to store the main player data, otherwise create a partial classà
-    /// Web, decide on this one if it's internal or public,
-    /// I leave it public in case someone wanna do call in it but I only give them Get accessor
+    /// Use this to store the main player data, otherwise create a partial class
     /// </summary>
     public sealed partial class ROIPlayer : ModPlayer
     {
@@ -65,6 +65,7 @@ namespace ROI.Players
         public override void ResetEffects()
         {
             MaxVoidHeartStatsExtra = MaxVoidHeartStats;
+			ResetArmorEffect();
         }
 
         public override void Load(TagCompound tag)
@@ -73,10 +74,6 @@ namespace ROI.Players
             VoidTier = tag.GetAsInt(nameof(VoidTier));
             MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
 	        radiationLevel = tag.GetFloat(nameof(radiationLevel));
-	        /*deathReasonList.Add("error", new PlayerDeathReason()
-	        {
-	            SourceCustomReason = player.name + " has got a suspîcious death."
-	        });*/
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -88,6 +85,13 @@ namespace ROI.Players
 			packet.Write(radiationLevel);
 			packet.Write(_removeRadiationTimer);
 			packet.Write(_radiationTimer);
+			packet.Write(irrawoodSet);
+			packet.Write(irradiatedSet);
+			packet.Write(irradiatedHood);
+			packet.Write(irradiatedHornedHelmet);
+			packet.Write(irradiatedMask);
+			packet.Write(irradiatedHat);
+			packet.Write(irradiatedHelmet);
             packet.Send(toWho, fromWho);
         }
 
@@ -99,7 +103,14 @@ namespace ROI.Players
 	        radiationLevel = reader.ReadSingle();
 	        _removeRadiationTimer = reader.ReadInt32();
 	        _radiationTimer = reader.ReadInt32();
-        }
+	        irrawoodSet = reader.ReadBoolean();
+	        irradiatedSet = reader.ReadBoolean();
+	        irradiatedHood = reader.ReadBoolean();
+	        irradiatedHornedHelmet = reader.ReadBoolean();
+	        irradiatedMask = reader.ReadBoolean();
+			irradiatedHat = reader.ReadBoolean();
+	        irradiatedHelmet = reader.ReadBoolean();
+		}
 
         public override void PostUpdate()
         {
@@ -145,6 +156,18 @@ namespace ROI.Players
                     Filters.Scene["ROI:UnderworldFilter"].Deactivate();
                 }
             }
+
+	        bool isPillarPresent = Main.npc.Any(i => i.modNPC is VoidPillar);
+	        if (isPillarPresent)
+	        {
+				SkyManager.Instance.Activate("ROI:VoidSky", player.position);
+	        }
+	        else
+	        {
+		        SkyManager.Instance.Deactivate("ROI:VoidSky");
+			}
         }
+
+		
     }
 }

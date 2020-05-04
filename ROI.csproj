@@ -18,10 +18,13 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Items\Summon\**" />
     <Compile Remove="lib\**" />
     <Compile Remove="_scripts\**" />
+    <EmbeddedResource Remove="Items\Summon\**" />
     <EmbeddedResource Remove="lib\**" />
     <EmbeddedResource Remove="_scripts\**" />
+    <None Remove="Items\Summon\**" />
     <None Remove="lib\**" />
     <None Remove="_scripts\**" />
   </ItemGroup>
@@ -42,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Items\Debug\" />
-    <Folder Include="Items\Summon\" />
     <Folder Include="NPCs\Globals\" />
     <Folder Include="NPCs\Wasteland\" />
   </ItemGroup>

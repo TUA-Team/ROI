@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Projectiles.ShockwaveProjectiles
+namespace ROI.Projectiles
 {
+	/// <summary>
+	/// Projectile.ai[0] = is MainWave 0 = false, 1 = true
+	/// Projectile.ai[1] = Wave number
+	/// </summary>
 	abstract class BaseShockwave : ModProjectile
 	{
 		public sealed override string Texture => "ROI/Projectiles/BlankProjectile";
@@ -22,11 +21,15 @@ namespace ROI.Projectiles.ShockwaveProjectiles
 
 		public override bool CloneNewInstances => false;
 
-		private int rippleCount = 3;
-		private int rippleSize = 5;
-		private int rippleSpeed = 15;
-		private float distortStrength = 100f;
-		
+		protected virtual int RippleCount { get; } = 3;
+		protected virtual int RippleSize { get; } = 5;
+		protected virtual int RippleSpeed { get; } = 15;
+		protected virtual float DistortStrength { get; } = 100f;
+
+		protected virtual int WaveAmount { get; set; } = 2;
+
+		protected virtual int MaxTimerBetweenWave { get; } = 180;
+		private int _timer;
 
 		public override void SetDefaults()
 		{
@@ -39,6 +42,7 @@ namespace ROI.Projectiles.ShockwaveProjectiles
 			projectile.timeLeft = 300;
 			projectile.penetrate = 900;
 			projectile.tileCollide = false;
+			_timer = MaxTimerBetweenWave;
 		}
 
 		public override void AI()
@@ -60,21 +64,36 @@ namespace ROI.Projectiles.ShockwaveProjectiles
 			projectile.height += 8;
 			projectile.position.X = projectile.position.X - (float)(projectile.width / 2);
 			projectile.position.Y = projectile.position.Y - (float)(projectile.height / 2);
-			
-			if (!Filters.Scene["ROI:Shockwave"].IsActive())
+
+			if (Main.netMode != 2)
 			{
-				Filters.Scene.Activate("ROI:Shockwave", projectile.Center).GetShader().UseColor(2, rippleSize, 6).UseTargetPosition(projectile.Center).UseSecondaryColor(2f, 2f, 2f);
+				if (!Filters.Scene[$"ROI:Shockwave{projectile.ai[1]}"].IsActive())
+				{
+					Filters.Scene.Activate($"ROI:Shockwave{projectile.ai[1]}", projectile.Center).GetShader().UseColor(RippleCount, RippleSize, RippleSpeed).UseTargetPosition(projectile.Center).UseSecondaryColor(2f, 2f, 2f);
+				}
+
+				float progress = (300f - projectile.timeLeft) / 60f;
+				Filters.Scene[$"ROI:Shockwave{projectile.ai[1]}"].GetShader().UseProgress(progress).UseOpacity(DistortStrength * (1 - progress / 3f)).UseColor(2, 5, 6).UseTargetPosition(projectile.Center);
 			}
 
-			float progress = (300f - projectile.timeLeft) / 60f;
-			Filters.Scene["ROI:Shockwave"].GetShader().UseProgress(progress).UseOpacity(100f * (1 - progress / 3f)).UseColor(2,  5, 6).UseTargetPosition(projectile.Center);
+			if (WaveAmount == 0)
+			{
+				projectile.ai[1] = 9f; //Use the last shockwave slot instead
+			}
 
-			
+			_timer--;
+			if (_timer == 0 && projectile.ai[0] == 1f && WaveAmount != 0)
+			{
+				Projectile.NewProjectileDirect(projectile.Center, projectile.velocity, mod.ProjectileType(this.GetType().Name), projectile.damage, projectile.knockBack, projectile.owner, WaveAmount, 0).ai[0] = WaveAmount;
+				WaveAmount--;
+				_timer = MaxTimerBetweenWave;
+				projectile.netUpdate = true;
+			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Filters.Scene["ROI:Shockwave"].Deactivate();
+			Filters.Scene[$"ROI:Shockwave{projectile.ai[1]}"].Deactivate();
 		}
 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)

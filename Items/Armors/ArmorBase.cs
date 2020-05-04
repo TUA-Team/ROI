@@ -51,7 +51,7 @@ namespace ROI.Items.Armors
     //    {
     //        if (DevSet(out string dev))
     //        {
-    //            tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Terraria Ultra Apocalypse! - {dev}"));
+    //            tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Realm of Infinity! - {dev}"));
     //        }
     //    }
     }

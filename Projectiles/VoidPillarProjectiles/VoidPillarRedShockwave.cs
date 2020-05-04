@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.DataStructures;
 
-namespace ROI.Projectiles.ShockwaveProjectiles
+namespace ROI.Projectiles.VoidPillarProjectiles
 {
 	class VoidPillarRedShockwave : BaseShockwave
 	{
@@ -24,7 +19,7 @@ namespace ROI.Projectiles.ShockwaveProjectiles
 		public override void OnHitPlayer(Player target, int damage, bool crit)
 		{
 			target.Hurt(PlayerDeathReason.ByCustomReason(target.name + " got struck by temporal shockwave from the void pillar"), 5, 0, false, false, false, 10);
-			target.AddBuff(mod.BuffType<VoidSlowness>(), 300);
+			target.AddBuff(mod.BuffType("VoidSlowness"), 300);
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

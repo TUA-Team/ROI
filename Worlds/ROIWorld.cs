@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
 using ROI.NPCs.Interfaces;
+using ROI.NPCs.Void.VoidPillar;
 using Terraria;
+using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -90,7 +93,6 @@ namespace ROI.Worlds
             Main.topWorld = 0;
             Main.leftWorld = 0;
             Main.rightWorld = Main.maxTilesX * 16;
-
         }
 
         public override void NetSend(BinaryWriter writer)

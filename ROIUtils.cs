@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using ROI.Items.Interface;
 using Terraria;
 using Terraria.ID;
@@ -66,5 +67,19 @@ namespace ROI
             first = second;
             second = temp;
         }
-    }
+
+	    public static Vector2 RotateVector(Vector2 originalVector, Vector2 centerPoint, double angle)
+	    {
+		    Vector2 vector = new Vector2(originalVector.X, originalVector.Y);
+			angle = angle * (Math.PI / 180);
+			float cosTheta = (float) Math.Cos(angle);
+		    float sinTheta = (float) Math.Sin(angle);
+
+		    vector.X = (cosTheta * (vector.X - centerPoint.X) -
+		                       sinTheta * (vector.Y - centerPoint.Y) + centerPoint.X);
+		    vector.Y = (sinTheta * (vector.X - centerPoint.X) +
+		                       cosTheta * (vector.Y - centerPoint.Y) + centerPoint.Y);
+		    return vector;
+	    }
+	}
 }

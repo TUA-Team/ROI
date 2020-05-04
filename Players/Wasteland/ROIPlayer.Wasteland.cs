@@ -46,7 +46,7 @@ namespace ROI.Players
 
 		internal bool WastelandCheck()
 		{
-			return Main.ActiveWorldFileData.HasCrimson && player.position.Y / 16 > Main.maxTilesY - 200 && (ROIMod.dev) || (mod.GetModWorld<ROIWorld>().version > new Version(0, 1));
+			return Main.ActiveWorldFileData.HasCrimson && player.position.Y / 16 > Main.maxTilesY - 200 && (ROIMod.dev) || (ModContent.GetInstance<ROIWorld>().version > new Version(0, 1));
 		}
 
 		internal void SetRadiationTimer()
@@ -54,7 +54,11 @@ namespace ROI.Players
 			_radiationTimer = 60 * 2;
 			if (this.irrawoodSet)
 			{
-				_radiationTimer += 60 * 2;
+				_radiationTimer = 60 * 4;
+			}
+			if (this.irradiatedSet)
+			{
+				_radiationTimer = 60 * 10;
 			}
 		}
 
