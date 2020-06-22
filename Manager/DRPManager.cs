@@ -46,7 +46,7 @@ namespace ROI.Manager
                     Max = Main.maxNetPlayers
                 };
             }
-            _client = new DiscordRpcClient("528086919670792233", DevManager.Instance.curSteam, true, -1);
+            _client = new DiscordRpcClient("528086919670792233");
             _client.OnError += (sender, args) =>
             {
                 ROIMod.instance.Logger.ErrorFormat("Rich Presence failed. Code {1}, {0}", args.Message, args.Code);

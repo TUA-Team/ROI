@@ -18,12 +18,15 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define $(DefineConstants) -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Items\Debug\**" />
     <Compile Remove="Items\Summon\**" />
     <Compile Remove="lib\**" />
     <Compile Remove="_scripts\**" />
+    <EmbeddedResource Remove="Items\Debug\**" />
     <EmbeddedResource Remove="Items\Summon\**" />
     <EmbeddedResource Remove="lib\**" />
     <EmbeddedResource Remove="_scripts\**" />
+    <None Remove="Items\Debug\**" />
     <None Remove="Items\Summon\**" />
     <None Remove="lib\**" />
     <None Remove="_scripts\**" />
@@ -41,10 +44,13 @@
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
     </Reference>
+    <Reference Include="LiquidAPI">
+      <HintPath>..\LiquidAPI\bin\Debug\net45\LiquidAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Items\Debug\" />
+    <Folder Include="Liquids\" />
     <Folder Include="NPCs\Globals\" />
     <Folder Include="NPCs\Wasteland\" />
   </ItemGroup>

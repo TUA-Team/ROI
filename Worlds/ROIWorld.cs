@@ -11,6 +11,7 @@ using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.World.Generation;
 
 namespace ROI.Worlds
 {
@@ -101,6 +102,11 @@ namespace ROI.Worlds
 
         public override void NetReceive(BinaryReader reader)
         {
+        }
+
+        public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
+        {
+            
         }
 
         public override void PostWorldGen()

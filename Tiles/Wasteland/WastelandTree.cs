@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ROI.Tiles.Wasteland
@@ -37,6 +39,9 @@ namespace ROI.Tiles.Wasteland
 
         public void PostDrawTreeTop(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin)
         {
+            if(Main.rand.Next(100) == 0)
+                Dust.NewDust(position, sourceRectangle.Value.Width, sourceRectangle.Value.Height, DustID.GrassBlades, 0f, 0.2f, 255, Color.GreenYellow, 0.5f);
+            
             if (_brightness >= 1f || _brightness <= 0f)
                 _glowing = !_glowing;
             if (_brightness >= 1f)

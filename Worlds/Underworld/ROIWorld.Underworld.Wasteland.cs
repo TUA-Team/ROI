@@ -1,4 +1,6 @@
-﻿using ROI.Worlds.Structures;
+﻿using System;
+using System.Collections.Generic;
+using ROI.Worlds.Structures;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,12 +11,91 @@ namespace ROI.Worlds
     //Contain wasteland world gen
     internal partial class ROIWorld : ModWorld
     {
+
+        internal static Dictionary<int, int> SurfaceLevel;
+        internal static int HighestLevel = 300;
+
+        public static int[] GetPerlinDisplacements(int displacementCount, float frequency, int maxLimit, float multiplier, int seed)
+        {
+            FastNoise noise = new FastNoise(seed);
+            noise.SetNoiseType(FastNoise.NoiseType.Perlin);
+            noise.SetFrequency(frequency);
+
+            int[] displacements = new int[displacementCount];
+
+            for (int x = 0; x < displacementCount; x++)
+                displacements[x] = (int)Math.Floor(noise.GetNoise(x, x) * maxLimit * multiplier);
+
+            return displacements;
+        }
+
+        internal void Fill(int x, int startingY, int one, int depth, ushort tile)
+        {
+            for (int i = startingY; i < startingY + depth; i++)
+            {
+                WorldGen.PlaceTile(x, i, tile, false, true);
+            }
+        }
+
+        internal void FillAir(int x, int depth, int one, int startingY)
+        {
+            for (int i = startingY; i < startingY + depth; i++)
+            {
+                Main.tile[x, i].active(false);
+            }
+        }
+
         internal void WastelandGeneration(GenerationProgress progress)
         {
-            
-            progress.Message = "Dropping the nuke in the underworld";
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                for (int j = Main.maxTilesY -200; j < Main.maxTilesY; j++)
+                {
+                    Main.tile[i, j].active(false);
+                }
+            }
+            float[] freq = new float[] { 0.00077f, 0.00021f, 0.022f };;
+            float[] limit = new float[] { 0.3f, 0.05f, 0.02f };
+            int[][] displacements = new int[freq.Length][];
+            for (int i = 0; i < freq.Length; i++)
+            {
+                displacements[i] = GetPerlinDisplacements(Main.maxTilesX, freq[i], Main.maxTilesY - 150, limit[i], WorldGen._lastSeed);
+            }
+
+            int[] totalDisplacements = new int[Main.maxTilesX];
+
+            for (int i = 0; i < displacements.Length; i++)
+            {
+                for (int j = 0; j < Main.maxTilesX; j++)
+                {
+                    totalDisplacements[j] += displacements[i][j];
+                }
+            }
+
+            SurfaceLevel = new Dictionary<int, int>();
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                totalDisplacements[i] = (int) (totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 125));
+                SurfaceLevel[i] = totalDisplacements[i];
+
+                if (totalDisplacements[i] < HighestLevel || HighestLevel == 0)
+                {
+                    HighestLevel = totalDisplacements[i];
+                }
+
+                int dirtDepth = WorldGen.genRand.Next(10, 15);
+                Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
+                Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort) mod.TileType("Wasteland_Rock"));
+                FillAir(i, 0, 1, totalDisplacements[i]);
+            }
+            for (int i = 0; i < Main.maxTilesX; i++)
+            {
+                if (WorldGen.genRand.Next(20) == 0)
+                    WorldGen.TileRunner(i, SurfaceLevel[i] + WorldGen.genRand.Next(20, 50), WorldGen.genRand.Next(14, 20), WorldGen.genRand.Next(20, 28), -1, true);
+            }
+            progress.Message = "Accumulating waste";
             //actual world gen
-            if (WorldGen.gen)
+            /*if (WorldGen.gen)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -25,13 +106,14 @@ namespace ROI.Worlds
             else
             {
                 TerrainTop(progress);
-            }
-            TerrainBottom(progress);
+            }*/
+            //TerrainBottom(progress);
             SpreadingGrass(progress);
             GenerateCavern(progress);
             GeneratingRuins(progress);
-            //GeneratingTheLab(progress);
             //GrowingTree(progress);
+            //GenerateWasteLake(progress);
+            //GenerateMysteriousGrotto(progress);
             WorldGen.EveryTileFrame();
         }
 

@@ -2,8 +2,8 @@
   "profiles": {
     "ROI": {
       "commandName": "Executable",
-      "executablePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Terraria\\Terraria.exe",
-      "workingDirectory": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Terraria\\"
+      "executablePath": "D:\\steam game\\steamapps\\steamapps\\common\\tModLoader\\tModLoader.exe",
+      "workingDirectory": "D:\\steam game\\steamapps\\steamapps\\common\\tModLoader"
     }
   }
 }

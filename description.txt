@@ -1,4 +1,4 @@
-[i:121] It's finally here! The sequal to Terraria Apocalypse [i:368]
+[i:121] It's finally here! Realm of Infinity, brought to you by the creator of tmodloader 64bit and the infinity team![i:368]
 In this mod you can expect what you'll never be expecting.
 Alternate dimensions? We got it! Custom liquids? Buckets full of them! Explore new biomes with all the adventure!
 Realm of Infinity is a mod that aims to set a standard for mods with it's never seen before features.
@@ -10,3 +10,5 @@ Also with multiplayer support :)
 [i:97] Introducing void affinity, collect void affinity by completing certain tasks and use it to craft rare relic that will help your in your journey.
 [i:97] Introducing the void tier, a mechanic related to void affinity, the higher tier you are, the more danger you get, but the more reward you get.
 [i:97] Introducing the void pillar, a boss that have a chance to spawn in the higher void tier, it is not related to the moon lord ;)
+[i:97] Introducing the void rift, a new mini game in the game that get access when you defeat the void pillar!
+[i:97] Introducing the wasteland... A very dangerous biome that only generate in crimson world... Be aware, it's lethal.

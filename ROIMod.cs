@@ -32,7 +32,7 @@ namespace ROI
 #else
         public const bool dev = false;
 #endif
-        internal static bool debug;
+        internal static bool debug = dev;
 
 	    internal static FilterManager roiFilterManager;
 

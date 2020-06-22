@@ -32,7 +32,7 @@ namespace ROI.Items.Weapons.Solar
 			item.useTime = 20;
 			item.useAnimation = 20;
 			item.useStyle = 5;
-			item.noMelee = true; //so the item's animation doesn't do damage
+			item.noMelee = true;
 			item.knockBack = 4;
 			item.value = 10000;
 			item.rare = 2;

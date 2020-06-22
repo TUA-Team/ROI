@@ -105,8 +105,8 @@ namespace ROI.Worlds.Structures
                 {
                     Main.tile[x, i].active(true);
                     Main.tile[x + width - 1, i].active(true);
-                    Main.tile[x, i].type = TileID.CobaltBrick;
-                    Main.tile[x + width - 1, i].type = TileID.CobaltBrick;
+                    Main.tile[x, i].type = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[x + width - 1, i].type = (ushort) mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareTileFrame(x, i);
                     //WorldGen.SquareTileFrame(x + width - 1, i);
                     
@@ -120,7 +120,7 @@ namespace ROI.Worlds.Structures
                     if (WorldGen.genRand.Next(10) == 0)
                         continue;
                     Main.tile[i, j].active(false);
-                    Main.tile[i, j].wall = WallID.CobaltBrick;
+                    Main.tile[i, j].wall = (ushort) mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareWallFrame(i, j);
                 }
             }
@@ -132,19 +132,19 @@ namespace ROI.Worlds.Structures
                 if (currentFloor == 0)
                 {
                     Main.tile[i, y + height - 1].active(true);
-                    Main.tile[i, y + height - 1].type = TileID.CobaltBrick;
+                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
                     continue;
                 }
                 if(WorldGen.genRand.Next(8) == 0)
                     continue;
                 Main.tile[i, y + height - 1].active(true);
 
-                if (Main.tile[i, y + height - 1].type == TileID.CobaltBrick)
+                if (Main.tile[i, y + height - 1].type == (ushort) mod.TileType("Wasteland_Brick"))
                     hitBrick = true;
                 if (!hitBrick)
                     Main.tile[i, y + height - 1].type = TileID.Platforms;
                 else
-                    Main.tile[i, y + height - 1].type = TileID.CobaltBrick;
+                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
                 //WorldGen.SquareTileFrame(i, y + height);
             }
 
@@ -154,7 +154,7 @@ namespace ROI.Worlds.Structures
                 if (WorldGen.genRand.Next(20) == 0)
                 {
                     Main.tile[i, y].active(true);
-                    Main.tile[i, y].type = TileID.CobaltBrick;
+                    Main.tile[i, y].type = (ushort) mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareTileFrame(i, y);
                 }
 

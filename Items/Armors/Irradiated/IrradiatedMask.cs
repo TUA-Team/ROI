@@ -32,8 +32,7 @@ namespace ROI.Items.Armors.Irradiated
 		public override void UpdateArmorSet(Player player)
 		{
 			player.setBonus = "+25 maximum health max\n" +
-			                  "Gain a special shield that will reduce damage taken until it break, have a 5 minute cooldown\n" +
-			                  "Gain radiation slower in the wasteland\n" +
+                              "Gain radiation slower in the wasteland\n" +
 			                  "Liquid waste have even more reduced effect\n" +
 			                  "Balanced?";
 			player.statLifeMax2 += 25;

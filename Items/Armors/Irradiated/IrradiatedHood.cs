@@ -23,8 +23,7 @@ namespace ROI.Items.Armors.Irradiated
 		{
 			base.SetDefaults();
 			item.defense = 2;
-
-		}
+        }
 
 		public override bool IsArmorSet(Item head, Item body, Item legs)
 		{

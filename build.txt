@@ -1,6 +1,6 @@
-author = TUA Team
+author = The Infinity Team
 version = 0.1.0
-displayName = Realm of Infinity - Hunt for the Void
+displayName = Realm of Infinity
 buildIgnore = .sln, .csproj, _scripts/, bin/, obj/, .gitattributes, .gitignore, .git/, .vs/
 
 includeResources = false
@@ -8,3 +8,5 @@ includeCode = true
 includeSource = true
 
 dllReferences = DiscordRPC
+
+modReferences = LiquidAPI
