@@ -43,8 +43,6 @@ namespace ROI.Worlds.Structures.Wasteland
                         ushort tilePlace2 = (ushort) ((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
                         ushort tilePlace3 = (ushort) ((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
                         WorldGen.PlaceTile(x + i, y + j, tilePlace);
-                       
-
                     }
                     else
                     {
