@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Items.Placeable.Wasteland
 {
-    class WastelandView : ModItem
+    class Wasteland_View : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -92,6 +92,8 @@ namespace ROI
 			SkyManager.Instance["ROI:VoidSky"] = new VoidSky();
 
 			Main.OnTick += DRPManager.Instance.Update;
+
+			ROITextureCache.Initialize();
             
 		}
 
@@ -137,6 +139,7 @@ namespace ROI
             DRPManager.Instance.Unload();
 		    roiFilterManager = null;
             Main.OnTick -= DRPManager.Instance.Update;
+			ROITextureCache.Unload();
         }
 #endregion
 
