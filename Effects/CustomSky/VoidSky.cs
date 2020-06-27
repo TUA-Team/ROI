@@ -94,6 +94,9 @@ namespace ROI.Effects.CustomSky
 			{
 				_fadeOpacity += 0.05f;
 			}
+
+            if (!Main.npc.Any(i => i.modNPC is VoidPillar)) return;
+
 			ModNPC npc = Main.npc.FirstOrDefault(i => i.modNPC is VoidPillar).modNPC;
 			if (npc != null)
 			{

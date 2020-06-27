@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using ROI.Tiles.Furniture;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.World.Generation;
 
 namespace ROI.Worlds.Structures
@@ -68,7 +70,7 @@ namespace ROI.Worlds.Structures
                             WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 2);
                             WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 3);
                             WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 4);
-                            WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, TileID.ClosedDoor);
+                            WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, mod.TileType("Wastebrick_Door_Closed"));
                             
                         }
                     }
@@ -142,7 +144,7 @@ namespace ROI.Worlds.Structures
                 if (Main.tile[i, y + height - 1].type == (ushort) mod.TileType("Wasteland_Brick"))
                     hitBrick = true;
                 if (!hitBrick)
-                    Main.tile[i, y + height - 1].type = TileID.Platforms;
+                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Platform");
                 else
                     Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
                 //WorldGen.SquareTileFrame(i, y + height);
@@ -168,7 +170,7 @@ namespace ROI.Worlds.Structures
                     if (WorldGen.genRand.Next(20) == 0)
                     {
                         Main.tile[i, y].active(true);
-                        Main.tile[i, y].type = TileID.Platforms;
+                        Main.tile[i, y].type = (ushort) ModContent.TileType<Wastebrick_Platform>();
                         //WorldGen.SquareTileFrame(i, y);
                     }
 

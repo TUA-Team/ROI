@@ -78,7 +78,7 @@ namespace ROI.Tiles.Furniture
             for (int num263 = 0; num263 < 7; num263++) {
                 float num264 = (float)Utils.RandomInt(ref seed, -10, 11) * 0.15f;
                 float num265 = (float)Utils.RandomInt(ref seed, -10, 1) * 0.35f;
-                spriteBatch.Draw(ROITextureCache.ChandelierFlameTexture["Wastebrick_Torch"], new Vector2((float)(j * 16 - (int)Main.screenPosition.X) - ((float)width - 16f) / 2f + num264, (float)(i * 16 - (int)Main.screenPosition.Y + offsetY) + num265) + zero, new Microsoft.Xna.Framework.Rectangle(frameX, frameY, width, height), new Microsoft.Xna.Framework.Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(ROITextureCache.ChandelierFlameTexture["Wastebrick_Chandelier"], new Vector2((float)(j * 16 - (int)Main.screenPosition.X) - ((float)width - 16f) / 2f + num264, (float)(i * 16 - (int)Main.screenPosition.Y + offsetY) + num265) + zero, new Microsoft.Xna.Framework.Rectangle(frameX, frameY, width, height), new Microsoft.Xna.Framework.Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
             }
         }
     }

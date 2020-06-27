@@ -33,11 +33,19 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public int ShieldHealth { get; internal set; }
 
+        public float[] extraAI = new float[1];
+
 		private float MovementAIPhase
 		{
 			get => npc.ai[0];
 			set => npc.ai[0] = value;
 		}
+
+        private float MovementPillarState
+        {
+            get => extraAI[0];
+            set => extraAI[0] = value;
+        }
 
         public override void SetStaticDefaults()
         {

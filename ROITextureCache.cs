@@ -38,7 +38,7 @@ namespace ROI
         {
             return new Dictionary<string, Texture2D>()
             {
-                ["Wastebrick_Torch"] = ROIMod.instance.GetTexture("Tiles/Furniture/Wastebrick_Chandelier_Flame")
+                ["Wastebrick_Chandelier"] = ROIMod.instance.GetTexture("Tiles/Furniture/Wastebrick_Chandelier_Flame")
             };
         }
     }

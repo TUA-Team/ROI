@@ -39,28 +39,28 @@ namespace ROI.NPCs.Void.VoidPillar
 
 		private void StandardPillarMovement()
 		{
-			movementTimer--;
-			if (movementTimer == 0)
-			{
-				movementTimer = 275;
-				_movementUp = !_movementUp;
-				npc.netUpdate = true;
-				_standardMovementSpeed = 0.21f;
-			}
-
-			if (_movementUp)
-			{
-				npc.position.Y -= _standardMovementSpeed;
-			}
-			else
-			{
-				npc.position.Y += _standardMovementSpeed;
-			}
-
-			_standardMovementSpeed -= 0.0005f;
+            if (extraAI[0] == 0)
+            {
+                npc.velocity.Y += 0.002f;
+                if (npc.velocity.Y > .1f)
+                {
+                    extraAI[0] = 1f;
+                    npc.netUpdate = true;
+                }
+            }
+            else
+            if (extraAI[0] == 1)
+            {
+                npc.velocity.Y -= 0.002f;
+                if (npc.velocity.Y < -.1f)
+                {
+                    extraAI[0] = 0f;
+                    npc.netUpdate = true;
+                }
+            }
 		}
 
-		//in this mouvement phase, the pillar will act as a rocket and will also shoot stuff, this phase will start at the purple shield and will have a chance to happen in any phase
+		//in this movement phase, the pillar will act as a rocket and will also shoot stuff, this phase will start at the purple shield and will have a chance to happen in any phase
 		//do note that during this phase it might shoot laser or black hole
 		private void OffensiveMovement()
 		{
