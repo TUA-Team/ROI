@@ -12,6 +12,7 @@ using ROI.Backgrounds.Underworld;
 using ROI.Effects;
 using ROI.Effects.CustomSky;
 using ROI.GUI.Radiation_Meter;
+using ROI.Patches;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -103,6 +104,7 @@ namespace ROI
 			instance = this;
             DevManager.Instance.CheckDev();
             ROIModSupport.Load();
+			Patch.Load();
 		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
 #if DEBUG
             debug = true;
@@ -129,6 +131,7 @@ namespace ROI
 		{
 			instance = null;
 			rng = null;
+            Patch.Unload();
 		}
 
 		private void ClientUnload()

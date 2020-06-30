@@ -5,6 +5,7 @@ using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
+using ROI.NPCs.HeartOfTheWasteland;
 using ROI.NPCs.Interfaces;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
@@ -23,6 +24,8 @@ namespace ROI.Worlds
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
         internal Version version = new Version(0, 0, 0, 0);
+
+        public static int activeHotWID;
 
         public override TagCompound Save()
         {
@@ -94,6 +97,10 @@ namespace ROI.Worlds
             Main.topWorld = 0;
             Main.leftWorld = 0;
             Main.rightWorld = Main.maxTilesX * 16;
+            if (!NPC.AnyNPCs(ModContent.NPCType<HeartOfTheWasteland>()))
+            {
+                activeHotWID = -1;
+            }
         }
 
         public override void NetSend(BinaryWriter writer)

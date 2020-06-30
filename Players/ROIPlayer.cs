@@ -3,6 +3,8 @@ using ROI.Effects;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Xna.Framework.Graphics;
+using ROI.NPCs.HeartOfTheWasteland;
 using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.DataStructures;
@@ -21,6 +23,12 @@ namespace ROI.Players
 
         private short _voidAffinityAmount;
         public bool darkMind;
+        public bool grasped;
+        public bool horrified;
+
+        //Temp
+        private Texture2D chain = Main.chain12Texture;
+
         public int VoidTier { get; internal set; }
         // private short voidExposure;
 
@@ -112,11 +120,37 @@ namespace ROI.Players
 	        irradiatedHelmet = reader.ReadBoolean();
 		}
 
+        public override void PreUpdateBuffs()
+        {
+            bool isHotWAlive = NPC.AnyNPCs(ModContent.NPCType<HeartOfTheWasteland>());
+            if (!isHotWAlive)
+            {
+                //if (player.HasBuff(ModContent.BuffType<Tongued>())) { player.DelBuff(ModContent.BuffType<Tongued>());}
+                //if (player.HasBuff(ModContent.BuffType<Horrified>())) { player.DelBuff(ModContent.BuffType<Horrified>());}
+            }
+        }
+
         public override void PostUpdate()
         {
             if (voidItemCooldown != 0)
             {
                 voidItemCooldown--;
+            }
+
+            if (ROI.Worlds.ROIWorld.activeHotWID >= 0)
+            {
+                if (player.position.Y / 16 > Main.maxTilesY - 250)
+                {
+                    player.AddBuff(mod.BuffType("Horrified"), 1);
+                }
+
+                if (Main.npc[ROI.Worlds.ROIWorld.activeHotWID].ai[0] == 1 && 
+                    player.position.X / 16 > Main.npc[ROI.Worlds.ROIWorld.activeHotWID].position.X / 16 - 300 ||
+                    player.position.X / 16 < Main.npc[ROI.Worlds.ROIWorld.activeHotWID].position.X / 16 + 300)
+                {
+                    grasped = true;
+                    player.AddBuff(mod.BuffType("Grasped"), 60);
+                }
             }
 
 			UpdateRadiation();
@@ -146,7 +180,7 @@ namespace ROI.Players
                 {
                     Filters.Scene.Activate("ROI:UnderworldFilter", Main.LocalPlayer.Center).GetShader().UseColor(UnderworldDarkness.hell).UseIntensity(percent).UseOpacity(percent);
                 }
-                Filters.Scene["ROI:UnderworldFilter"].GetShader().UseColor(0f, 0f, 1f).UseIntensity(0.5f).UseOpacity(1f);
+                Filters.Scene["ROI:UnderworldFilter"].GetShader().UseColor(0f, 0f, 1f).UseIntensity(0.2f).UseOpacity(1f);
 
             }
             else
@@ -168,6 +202,6 @@ namespace ROI.Players
 			}
         }
 
-		
+        
     }
 }

@@ -3,6 +3,8 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Helpers;
+using ROI.Players;
+using ROI.Worlds;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -12,9 +14,9 @@ using Terraria.ModLoader;
 namespace ROI.NPCs.HeartOfTheWasteland
 {
     /// <summary>
-    /// ai[0] = searching player timer
-    /// ai[1] =
-    /// ai[2] =
+    /// ai[0] = AI mode
+    /// ai[1] = searching player timer
+    /// ai[2] = If Moving, Laser charge left
     /// ai[3] =
     /// </summary>
     [AutoloadBossHead]
@@ -29,11 +31,15 @@ namespace ROI.NPCs.HeartOfTheWasteland
         private Vector2 _topBlock;
         private Vector2[] _VinePosition = new Vector2[] { Vector2.Zero, Vector2.Zero, Vector2.Zero };
         private int nextVineToModify = 0;
-        
+
+
+        private int _nextSmallLaserCooldown = 100;
+        private int _nextLaserAmount = 5;
+        private int _previouslySpawnedLaserAmount = 0;
 
         /// <summary>
         /// [0] = Movement Countdown <br />
-        /// [1] = Next movement position
+        /// [1] = Next movement position <br />
         /// </summary>
         private float[] internalAI = new float[2];
 
@@ -51,7 +57,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
 
         public bool Enrage
         {
-            get { return TargetPlayer.DistanceSQ(npc.Center) > 16 * 100; }
+            get { return TargetPlayer.Distance(npc.Center) > 16 * 200; }
         }
 
         public override string BossHeadTexture => "ROI/NPCs/HeartOfTheWasteland/HeartOfTheWasteland_head0";
@@ -67,8 +73,8 @@ namespace ROI.NPCs.HeartOfTheWasteland
 
         public override void SetDefaults()
         {
-            npc.width = (int) (158);
-            npc.height = (int) (222);
+            npc.width = (int)(158);
+            npc.height = (int)(222);
             npc.lifeMax = 9000;
             npc.damage = 60;
             npc.defense = 20;
@@ -78,7 +84,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
             npc.lavaImmune = true;
             npc.noTileCollide = true;
             npc.boss = true;
-            npc.immortal = true;
+            //npc.immortal = true;
             npc.noGravity = true;
             npc.aiStyle = -1;
             npc.scale = 2f;
@@ -93,6 +99,15 @@ namespace ROI.NPCs.HeartOfTheWasteland
 
         public override bool PreAI()
         {
+            if (ROIWorld.activeHotWID == -1)
+            {
+                ROIWorld.activeHotWID = npc.whoAmI;
+            }
+            if (ROIWorld.activeHotWID != npc.whoAmI)
+            {
+                npc.active = false;
+                return false;
+            }
             if (_VinePosition[0] == Vector2.Zero && _VinePosition[1] == Vector2.Zero && _VinePosition[2] == Vector2.Zero)
             {
                 for (int i = 0; i < 3; i++)
@@ -114,48 +129,125 @@ namespace ROI.NPCs.HeartOfTheWasteland
             {
                 return;
             }*/
-
-            npc.ai[0]--;
-            internalAI[0]--;
-
-            if (npc.ai[0] <= 0)
+            npc.ai[0] = (float) HotWAiPhase.Moving;
+            //npc.velocity = Vector2.Zero;
+            switch ((HotWAiPhase)npc.ai[0])
             {
-                npc.ai[0] = 3600;
-                npc.TargetClosest(false);
+                case HotWAiPhase.Moving:
+                    npc.ai[1]--;
+                    internalAI[0]--;
+
+                    if (npc.ai[1] <= 0)
+                    {
+                        npc.ai[0] = 3600;
+                        npc.TargetClosest(false);
+                    }
+
+                    if (internalAI[0] <= 0)
+                    {
+                        MoveVine();
+                    }
+
+                    if (Enrage)
+                    {
+                        _nextSmallLaserCooldown -= 3;
+                        ROIAIHelper.MoveToPoint(npc, ROIMathHelper.GetMiddleOfTriangle(_VinePosition[0], _VinePosition[1], _VinePosition[2]), 50f, 1.2f);
+                    }
+                    else
+                    {
+                        ROIAIHelper.MoveToPoint(npc, ROIMathHelper.GetMiddleOfTriangle(_VinePosition[0], _VinePosition[1], _VinePosition[2]), MovingSpeed());
+                    }
+
+                    _nextSmallLaserCooldown--;
+                    if (_nextSmallLaserCooldown < 0)
+                    {
+                        _nextSmallLaserCooldown = 15;
+
+                        Vector2 spawn = new Vector2(npc.position.X + npc.width / 2, npc.position.Y + npc.height / 2);
+                        float rotation = (float)Math.Atan2(TargetPlayer.Center.Y - spawn.Y, TargetPlayer.Center.X - spawn.X);
+
+                        Projectile.NewProjectile(spawn, rotation.ToRotationVector2() * 6, ProjectileID.EyeLaser, 100, 0.2f);
+
+                        _previouslySpawnedLaserAmount++;
+                        if (_previouslySpawnedLaserAmount >= _nextLaserAmount)
+                        {
+                            MovingLaser();
+                            _previouslySpawnedLaserAmount = 0;
+                        }
+                    }
+                    break;
+                case HotWAiPhase.Stalling:
+                    //Insert laser and mob spawning stuff here
+                    npc.ai[0] = (float) HotWAiPhase.Moving;
+                    break;
             }
 
-            if (internalAI[0] <= 0)
-            {
-                MoveVine();
-            }
+        }
 
-            if (Enrage)
+        private void MovingLaser()
+        {
+            if (npc.life > npc.lifeMax * 0.9)
             {
-                ROIAIHelper.MoveToPoint(npc, ROIMathHelper.GetMiddleOfTriangle(_VinePosition[0], _VinePosition[1], _VinePosition[2]), 50f, 1.2f);
+                _nextLaserAmount = 1;
+                _nextSmallLaserCooldown = 200;
+            }
+            else if (npc.life > npc.lifeMax * 0.7)
+            {
+                _nextLaserAmount = Main.rand.Next(1, 2);
+                _nextSmallLaserCooldown = 180;
+            }
+            else if (npc.life > npc.lifeMax * 0.5)
+            {
+                _nextLaserAmount = Main.rand.Next(2, 3);
+                _nextSmallLaserCooldown = 150;
+            }
+            else if (!Main.expertMode)
+            {
+                if (npc.life > npc.lifeMax * 0.3)
+                {
+                    _nextLaserAmount = Main.rand.Next(2, 4);
+                    _nextSmallLaserCooldown = 125;
+                }
+                else if (npc.life > npc.lifeMax * 0.1)
+                {
+                    _nextLaserAmount = Main.rand.Next(3, 5);
+                    _nextSmallLaserCooldown = 125;
+                }
+                else
+                {
+                    _nextLaserAmount = 5;
+                    _nextSmallLaserCooldown = 100;
+                }
+            }
+        }
+
+        private float MovingSpeed()
+        {
+            if (npc.life > npc.lifeMax * 0.9)
+            {
+                return 1f;
+            }
+            else if (npc.life > npc.lifeMax * 0.7)
+            {
+                return 2f;
+            }
+            else if (npc.life > npc.lifeMax * 0.5)
+            {
+                return 3f;
+            }
+            else if (npc.life > npc.lifeMax * 0.3)
+            {
+                return 5f;
+            }
+            else if (npc.life > npc.lifeMax * 0.1)
+            {
+                return 10f;
             }
             else
             {
-                ROIAIHelper.MoveToPoint(npc, ROIMathHelper.GetMiddleOfTriangle(_VinePosition[0], _VinePosition[1], _VinePosition[2]));
+                return 30f;
             }
-            
-            return;
-            for (int i = 0; i < Main.player.Length; i++)
-            {
-                Player player = Main.player[i];
-                if (player.DistanceSQ(npc.position) < 22500) // 150 tiles
-                {
-                    if (!Main.dedServ) Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAway{Main.rand.Next(4)}", npc.GivenName),
-                        new Color(66, 244, 116));
-                    player.position = npc.position +=
-                        new Vector2(Main.rand.Next(-15, 15), Main.rand.Next(-15, 15));
-                    var point = player.position.ToTileCoordinates();
-                    if (!Main.dedServ && Main.tile[point.X, point.Y].nactive())
-                        Main.NewText(Language.GetTextValue($"Mods.{mod.Name}.HotWFarAway{Main.rand.Next(4)}", npc.GivenName),
-                            new Color(66, 244, 116));
-                    // Item6 is magic mirror
-                    if (!Main.dedServ) Main.PlaySound(SoundID.Item6, npc.position);
-                }
-            }
+
         }
 
         private void MoveVine()
@@ -185,8 +277,8 @@ namespace ROI.NPCs.HeartOfTheWasteland
         private Vector2 SearchTopBlock()
         {
             Tile tile = Main.tile[(int)(npc.Center.X / 16), (int)(npc.Center.Y / 16)];
-            int y = (int) (npc.Center.Y / 16);
-            int x = (int) (npc.Center.X / 16);
+            int y = (int)(npc.Center.Y / 16);
+            int x = (int)(npc.Center.X / 16);
             do
             {
                 y--;
@@ -205,15 +297,15 @@ namespace ROI.NPCs.HeartOfTheWasteland
             {
                 Vector2 collisionResult = Collision.TileCollision(newVineLocation, rotationSearch, 16, 16);
                 newVineLocation += rotationSearch;
-                if (!WorldGen.InWorld((int) newVineLocation.X, (int) newVineLocation.Y))
+                if (!WorldGen.InWorld((int)newVineLocation.X, (int)newVineLocation.Y))
                 {
                     return npc.Center / 16;
                 }
-            } while (!Main.tile[(int) newVineLocation.X, (int) newVineLocation.Y].active());
+            } while (!Main.tile[(int)newVineLocation.X, (int)newVineLocation.Y].active());
 
             return newVineLocation;
-            
-        } 
+
+        }
 
         public override bool CheckActive()
         {
@@ -257,40 +349,66 @@ namespace ROI.NPCs.HeartOfTheWasteland
             base.ReceiveExtraAI(reader);
         }
 
+        public override void NPCLoot()
+        {
+            ROIWorld.activeHotWID = -1;
+        }
+
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Vector2 startingPoint = new Vector2(_VinePosition[i].X + (float) (_tentacle.Width / 2), _VinePosition[i].Y + (float) (_tentacle.Height / 2));
+                Vector2 startingPoint = new Vector2(_VinePosition[i].X + (float)(_tentacle.Width / 2), _VinePosition[i].Y + (float)(_tentacle.Height / 2));
                 float num7 = npc.Center.X - startingPoint.X;
                 float num8 = npc.Center.Y - startingPoint.Y;
-                float rotation2 = (float) Math.Atan2(num8, num7) - 1.57f;
+                float rotation2 = (float)Math.Atan2(num8, num7) - 1.57f;
                 bool flag3 = true;
                 while (flag3)
                 {
                     int num9 = 102;
                     int num10 = 222;
-                    float num11 = (float) Math.Sqrt(num7 * num7 + num8 * num8);
-                    if (num11 < (float) num10)
+                    float num11 = (float)Math.Sqrt(num7 * num7 + num8 * num8);
+                    if (num11 < (float)num10)
                     {
-                        num9 = (int) num11 - num10 + num9;
+                        num9 = (int)num11 - num10 + num9;
                         flag3 = false;
                     }
 
-                    num11 = (float) num9 / num11;
+                    num11 = (float)num9 / num11;
                     num7 *= num11;
                     num8 *= num11;
                     startingPoint.X += num7;
                     startingPoint.Y += num8;
                     num7 = npc.Center.X - startingPoint.X;
                     num8 = npc.Center.Y - startingPoint.Y;
-                    Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int) startingPoint.X / 16, (int) (startingPoint.Y / 16f));
-                    spriteBatch.Draw(_tentacle, new Vector2(startingPoint.X - Main.screenPosition.X, startingPoint.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, _tentacle.Width, num9), color2, rotation2, new Vector2((float) _tentacle.Width * 0.5f, (float) _tentacle.Height * 0.5f), 1f, SpriteEffects.None, 0f);
+                    Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)startingPoint.X / 16, (int)(startingPoint.Y / 16f));
+                    spriteBatch.Draw(_tentacle, new Vector2(startingPoint.X - Main.screenPosition.X, startingPoint.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, _tentacle.Width, num9), color2, rotation2, new Vector2((float)_tentacle.Width * 0.5f, (float)_tentacle.Height * 0.5f), 1f, SpriteEffects.None, 0f);
                 }
             }
 
             return true;
+        }
+
+
+
+        private enum HotWAiPhase : byte
+        {
+            Spawning = 0,
+            Stalling = 1,
+            Moving = 2
+        }
+
+        private enum HotWAiStallingPhase : byte
+        {
+            FollowingDeathRay = 0,
+            SpinningDeathRay = 1
+        }
+
+        private enum HotWAiMovingPhase : byte
+        {
+            LaserSpam = 0,
+            DeathRay = 1
         }
     }
 }

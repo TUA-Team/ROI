@@ -136,8 +136,5 @@ namespace ROI.Globals
         {
             
         }
-        
-        
-       
     }
 }
