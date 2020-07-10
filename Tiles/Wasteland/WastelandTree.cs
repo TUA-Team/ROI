@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using InfinityCore.API.Interface;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
@@ -50,6 +51,15 @@ namespace ROI.Tiles.Wasteland
 
             _brightness -= (_glowing) ? 0.001f : -0.01f;
             sb.Draw(mod.GetTexture("Textures/Tree/Wasteland_Tree_Top_Glowmask"), position, sourceRectangle, Color.White * _brightness, 0f, origin, 1f, SpriteEffects.None, 1f);
+        }
+
+        public void PostDrawTreeBranch(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin)
+        {
+            if(Main.rand.Next(100) == 0)
+                Dust.NewDust(position, sourceRectangle.Value.Width, sourceRectangle.Value.Height, DustID.GrassBlades, 0f, 0.2f, 255, Color.GreenYellow, 5f);
+
+            //_brightness -= (_glowing) ? 0.001f : -0.01f;
+            //sb.Draw(mod.GetTexture("Textures/Tree/Wasteland_Tree_Top_Glowmask"), position, sourceRectangle, Color.White * _brightness, 0f, origin, 1f, SpriteEffects.None, 1f);
         }
     }
 }

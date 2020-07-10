@@ -15,7 +15,7 @@ namespace ROI.Worlds.Structures
 {
     class WastelandRuins
     {
-        internal static ROIMod mod => ROIMod.instance;  
+        internal static ROIMod mod => ROIMod.instance;
 
         public static void PlaceHouse(int x, int y)
         {
@@ -44,11 +44,11 @@ namespace ROI.Worlds.Structures
                 }
             }
 
-            for(int i = 0; i < roomLocation.Count; i++)
+            for (int i = 0; i < roomLocation.Count; i++)
             {
-                if(i < roomLocation.Count - 2)
+                if (i < roomLocation.Count - 2)
                     GenerateDoor(roomLocation[i], roomLocation[i + 1]);
-                
+
             }
 
             for (int i = 0; i < roomLocation.Count; i++)
@@ -59,22 +59,20 @@ namespace ROI.Worlds.Structures
 
         public static void GenerateDoor(Rectangle roomLocation, Rectangle nextRoom)
         {
-
-
-                if (nextRoom.Intersects(roomLocation))
+            if (nextRoom.Intersects(roomLocation))
+            {
+                for (int i = roomLocation.Y; i < roomLocation.Y + roomLocation.Height; i++)
                 {
-                    for (int i = roomLocation.Y; i < roomLocation.Y + roomLocation.Height; i++)
+                    if (nextRoom.Contains(roomLocation.X, roomLocation.Y + roomLocation.Height - 3))
                     {
-                        if (nextRoom.Contains(roomLocation.X, roomLocation.Y + roomLocation.Height - 3))
-                        {
-                            WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 2);
-                            WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 3);
-                            WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 4);
-                            WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, mod.TileType("Wastebrick_Door_Closed"));
-                            
-                        }
+                        WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 2);
+                        WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 3);
+                        WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 4);
+                        WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, mod.TileType("Wastebrick_Door_Closed"));
+
                     }
                 }
+            }
 
         }
 
@@ -87,7 +85,7 @@ namespace ROI.Worlds.Structures
                     //Chest
                     if (ROIWorldHelper.CanPlaceTile(i, j, 2, 2) && WorldGen.genRand.Next(20) == 0)
                     {
-                        int chestID = WorldGen.PlaceChest(i, j, (ushort) mod.TileType("Irradiated_Chest"), false, 1);
+                        int chestID = WorldGen.PlaceChest(i, j, (ushort)mod.TileType("Irradiated_Chest"), false, 1);
                         if (chestID != -1)
                         {
                             //TODO: Proper loot
@@ -107,11 +105,11 @@ namespace ROI.Worlds.Structures
                 {
                     Main.tile[x, i].active(true);
                     Main.tile[x + width - 1, i].active(true);
-                    Main.tile[x, i].type = (ushort) mod.TileType("Wasteland_Brick");
-                    Main.tile[x + width - 1, i].type = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[x, i].type = (ushort)mod.TileType("Wasteland_Brick");
+                    Main.tile[x + width - 1, i].type = (ushort)mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareTileFrame(x, i);
                     //WorldGen.SquareTileFrame(x + width - 1, i);
-                    
+
                 }
             }
 
@@ -122,7 +120,7 @@ namespace ROI.Worlds.Structures
                     if (WorldGen.genRand.Next(10) == 0)
                         continue;
                     Main.tile[i, j].active(false);
-                    Main.tile[i, j].wall = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[i, j].wall = (ushort)mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareWallFrame(i, j);
                 }
             }
@@ -134,19 +132,19 @@ namespace ROI.Worlds.Structures
                 if (currentFloor == 0)
                 {
                     Main.tile[i, y + height - 1].active(true);
-                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Brick");
                     continue;
                 }
-                if(WorldGen.genRand.Next(8) == 0)
+                if (WorldGen.genRand.Next(8) == 0)
                     continue;
                 Main.tile[i, y + height - 1].active(true);
 
-                if (Main.tile[i, y + height - 1].type == (ushort) mod.TileType("Wasteland_Brick"))
+                if (Main.tile[i, y + height - 1].type == (ushort)mod.TileType("Wasteland_Brick"))
                     hitBrick = true;
                 if (!hitBrick)
-                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Platform");
+                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Platform");
                 else
-                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Brick");
                 //WorldGen.SquareTileFrame(i, y + height);
             }
 
@@ -156,7 +154,7 @@ namespace ROI.Worlds.Structures
                 if (WorldGen.genRand.Next(20) == 0)
                 {
                     Main.tile[i, y].active(true);
-                    Main.tile[i, y].type = (ushort) mod.TileType("Wasteland_Brick");
+                    Main.tile[i, y].type = (ushort)mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareTileFrame(i, y);
                 }
 
@@ -166,11 +164,11 @@ namespace ROI.Worlds.Structures
             {
                 for (int i = x + 1; i < x + width - 1; i++)
                 {
-                   
+
                     if (WorldGen.genRand.Next(20) == 0)
                     {
                         Main.tile[i, y].active(true);
-                        Main.tile[i, y].type = (ushort) ModContent.TileType<Wastebrick_Platform>();
+                        Main.tile[i, y].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
                         //WorldGen.SquareTileFrame(i, y);
                     }
 

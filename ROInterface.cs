@@ -9,11 +9,12 @@ using Terraria.ModLoader;
 
 namespace ROI
 {
+	/*
 	public interface ITreeHook
 	{
 		void PostDrawTreeTop(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin);
 	}
-
+	*/
 	public interface ICamerable
 	{
 		bool CurrentlyExecuting { get; set; }

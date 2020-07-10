@@ -42,8 +42,11 @@ namespace ROI
 		internal UserInterface radiationInterface;
 		internal RadiationMeter radiationMeter;
 
+        public static bool EnableInfinityCoreStaticLoader = true;
 
-		public override uint ExtraPlayerBuffSlots => 255 - 22;
+        public static GameTime gameTime;
+
+        public override uint ExtraPlayerBuffSlots => 255 - 22;
 
 		public ROIMod()
 		{
@@ -94,7 +97,7 @@ namespace ROI
 
 			Main.OnTick += DRPManager.Instance.Update;
 
-			ROITextureCache.Initialize();
+			TextureCache.Initialize();
             
 		}
 
@@ -104,7 +107,7 @@ namespace ROI
 			instance = this;
             DevManager.Instance.CheckDev();
             ROIModSupport.Load();
-			Patch.Load();
+			//Patch.Load();
 		    Terraria.ModLoader.IO.TagSerializer.AddSerializer(new ROISerializer.VersionSerializer());
 #if DEBUG
             debug = true;
@@ -112,11 +115,6 @@ namespace ROI
             debug = false;
 #endif
         }
-
-		public override void PostAddRecipes()
-	    {
-	        ROITreeHookLoader.Load();
-	    }
 
         public override void Unload()
 		{
@@ -131,7 +129,7 @@ namespace ROI
 		{
 			instance = null;
 			rng = null;
-            Patch.Unload();
+            //Patch.Unload();
 		}
 
 		private void ClientUnload()
@@ -142,12 +140,13 @@ namespace ROI
             DRPManager.Instance.Unload();
 		    roiFilterManager = null;
             Main.OnTick -= DRPManager.Instance.Update;
-			ROITextureCache.Unload();
+			TextureCache.Unload();
         }
 #endregion
 
 	    public override void UpdateUI(GameTime gameTime)
-	    {
+        {
+            ROIMod.gameTime = gameTime;
 		    if (radiationInterface.IsVisible)
 		    {
 				radiationInterface.Update(gameTime);

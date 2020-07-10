@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Wasteland
+namespace ROI.Items.Placeables.Wasteland
 {
     class Wasteland_Dirt : ModItem
     {

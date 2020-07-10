@@ -1,12 +1,12 @@
 ﻿using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Wasteland
+namespace ROI.Items.Placeables.Wasteland
 {
-    class Wastebrick : ModItem
+    class Wasteland_Waste : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick");
+            DisplayName.SetDefault("Solidified Waste");
         }
 
         public override void SetDefaults()
@@ -16,11 +16,13 @@ namespace ROI.Items.Placeable.Wasteland
             item.maxStack = 999;
             item.consumable = true;
             item.useTurn = true;
-            item.useAnimation = 15; 
+            item.useAnimation = 15;
             item.useTime = 10;
             item.useStyle = 1;
             item.autoReuse = true;
-            item.createTile = mod.TileType("Wasteland_Brick");
+            item.createTile = mod.TileType("Wasteland_Waste");
         }
+
+        
     }
 }

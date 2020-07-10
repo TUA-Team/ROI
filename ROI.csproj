@@ -19,15 +19,12 @@
   </Target>
   <ItemGroup>
     <Compile Remove="Items\Debug\**" />
-    <Compile Remove="Items\Summon\**" />
     <Compile Remove="lib\**" />
     <Compile Remove="_scripts\**" />
     <EmbeddedResource Remove="Items\Debug\**" />
-    <EmbeddedResource Remove="Items\Summon\**" />
     <EmbeddedResource Remove="lib\**" />
     <EmbeddedResource Remove="_scripts\**" />
     <None Remove="Items\Debug\**" />
-    <None Remove="Items\Summon\**" />
     <None Remove="lib\**" />
     <None Remove="_scripts\**" />
   </ItemGroup>
@@ -53,5 +50,11 @@
     <Folder Include="Liquids\" />
     <Folder Include="NPCs\Globals\" />
     <Folder Include="NPCs\Wasteland\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InfinityCore\InfinityCore.csproj" />
   </ItemGroup>
 </Project>

@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
+﻿using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Wasteland
+namespace ROI.Items.Placeables.Wasteland
 {
-    class Wasteland_Dirt_Wall : ModItem
+    class Wasteland_Rock_Wall : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Irradiated dirt wall");
+            DisplayName.SetDefault("Irradiated rock wall");
             Tooltip.SetDefault("Won't spawn any mob");
         }
 
@@ -26,13 +21,13 @@ namespace ROI.Items.Placeable.Wasteland
             item.useStyle = 1;
             item.useTime = 10;
             item.consumable = true;
-            item.createWall = mod.WallType("Wasteland_Dirt_Wall");
+            item.createWall = mod.WallType("Wasteland_Rock_Wall");
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(mod.ItemType("Wasteland_Dirt"), 1);
+            recipe.AddIngredient(mod.ItemType("Wasteland_Rock"), 1);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this, 4);
             recipe.AddRecipe();

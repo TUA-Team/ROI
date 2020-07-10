@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Wasteland
+namespace ROI.Items.Placeables.Wasteland
 {
     //TODO: MP for this
     class Wasteland_Grass_Seed : ModItem

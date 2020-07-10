@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Furniture
+namespace ROI.Items.Placeables.Furniture
 {
-    class Wastebrick_Door : ModItem
+    class Wastebrick_Bookcase : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick Door");
+            DisplayName.SetDefault("Wastebrick Bookcase");
         }
 
         public override void SetDefaults()
@@ -26,7 +21,7 @@ namespace ROI.Items.Placeable.Furniture
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = mod.TileType("Wastebrick_Door_Closed");
+            item.createTile = mod.TileType("Wastebrick_Bookcase");
         }
     }
 }

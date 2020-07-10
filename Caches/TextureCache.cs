@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ROI
 {
-    public static class ROITextureCache
+    public static class TextureCache
     {
         public static Dictionary<string, Texture2D> TorchFlameTexture;
         public static Dictionary<string, Texture2D> ChandelierFlameTexture;

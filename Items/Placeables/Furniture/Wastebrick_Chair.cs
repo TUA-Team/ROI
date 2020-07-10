@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
-namespace ROI.Items.Placeable.Furniture
+namespace ROI.Items.Placeables.Furniture
 {
-    class Wastebrick_Platform : ModItem
+    class Wastebrick_Chair : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick Platform");
+            DisplayName.SetDefault("Wastebrick Chair");
         }
 
         public override void SetDefaults()
@@ -26,7 +21,7 @@ namespace ROI.Items.Placeable.Furniture
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = mod.TileType("Wastebrick_Platform");
+            item.createTile = mod.TileType("Wastebrick_Chair");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace ROI
     /// All tree hook related thing added by ROI
     /// TODO: Add PostDrawTreeTrunk and PostDrawTreeBranch
     /// </summary>
-
+    /*
     internal class ROITreeHookLoader
     {
 
@@ -99,5 +99,5 @@ namespace ROI
         }
     }
 
-
+    */
 }

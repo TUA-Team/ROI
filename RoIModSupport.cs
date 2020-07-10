@@ -15,7 +15,7 @@ namespace ROI
     {
         internal static void Load()
         {
-            CalamityModHook.Load();
+            //CalamityModHook.Load();
         }
 
         //I could make an actual injection dedicated class, but I'm lazy
