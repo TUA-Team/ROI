@@ -17,7 +17,7 @@ namespace ROI.Projectiles.HeartOfTheWasteland
     /// <summary>
     /// ai[0] = projectile owner <br \>
     /// ai[1] = projectile mode
-    /// localAI[0] = Distance 
+    /// localAI[0] = Rotation
     /// </summary>
     class HotWTracingLaser : ModProjectile
     {
@@ -39,12 +39,13 @@ namespace ROI.Projectiles.HeartOfTheWasteland
         {
             projectile.hostile = true;
             projectile.friendly = false;
-            projectile.timeLeft = 2400;
+            projectile.timeLeft = 300;
             projectile.width = 10;
             projectile.height = 10;
-            projectile.penetrate = -1;
+            projectile.penetrate = 1;
             projectile.tileCollide = true;
             projectile.hide = true;
+            projectile.aiStyle = 84;
         }
 
         /*
