@@ -80,7 +80,7 @@ namespace ROI.Globals.ProjectileAIStyle
                 amount = 0.75f;
 
             projectile.localAI[1] = MathHelper.Lerp(projectile.localAI[1], distanceBetweenBeamAndTargetPoint, amount);
-            TBDLater3(projectile);
+            LaserBeamDustSpawning(projectile);
 
             if (projectile.type != ProjectileID.LastPrismLaser || !(Math.Abs(projectile.localAI[1] - distanceBetweenBeamAndTargetPoint) < 100f) || !(projectile.scale > 0.15f))
                 return;
@@ -187,7 +187,7 @@ namespace ROI.Globals.ProjectileAIStyle
             return distanceBetweenBeamAndTargetPoint;
         }
 
-        private static void TBDLater3(Projectile projectile)
+        private static void LaserBeamDustSpawning(Projectile projectile)
         {
             switch (projectile.type)
             {

@@ -108,6 +108,8 @@ namespace ROI.Worlds
                 TerrainTop(progress);
             }*/
             //TerrainBottom(progress);
+            StructureMap map = new StructureMap();
+            
             SpreadingGrass(progress);
             GenerateCavern(progress);
             GeneratingRuins(progress);

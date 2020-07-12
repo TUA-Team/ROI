@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using LiquidAPI;
 using LiquidAPI.LiquidMod;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json.Linq;
+using ROI.Helpers;
+using ROI.Tiles.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -16,7 +19,7 @@ namespace ROI.Worlds.Structures.Wasteland
     {
         internal static void Generate(Vector2 fromEntityPosition)
         {
-            Generate((int) (fromEntityPosition.X / 16), (int) (fromEntityPosition.Y / 16));
+            Generate((int)(fromEntityPosition.X / 16), (int)(fromEntityPosition.Y / 16));
         }
 #if DEBUG
         internal static void Generate(Point16 position)
@@ -30,38 +33,36 @@ namespace ROI.Worlds.Structures.Wasteland
             x = Math.Abs(x);
             y = Math.Abs(y);
             float curveModifier = WorldGen.genRand.NextFloat(-0.01f, -0.03f);
-            int xModifier = WorldGen.genRand.Next(20, 25);
-            int maxY = ParabolaEquation(curveModifier, WorldGen.genRand.Next(10, 15), xModifier);
-            for (int i = -xModifier; i < xModifier; i++)
+            int xModifier = WorldGen.genRand.Next(40, 55);
+            //int maxY = ParabolaEquation(curveModifier, WorldGen.genRand.Next(30, 55), xModifier);
+            int maxY = y + xModifier / 2 * xModifier / 2 / 25 * -1;
+            //y += (y + 0 * 0 / 25 * -1) - maxY;
+            for (int i = -(xModifier) / 2; i < (xModifier ) / 2; i++)
             {
-                int minY = ParabolaEquation(curveModifier, 5, i);
-                for (int j = maxY; j > minY; j--)
-                {
-                    if (j > minY + 2)
-                    {
-                        ushort tilePlace = (ushort) ((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
-                        ushort tilePlace2 = (ushort) ((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
-                        ushort tilePlace3 = (ushort) ((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
-                        WorldGen.PlaceTile(x + i, y + j, tilePlace);
-                    }
-                    else
-                    {
-                        LiquidRef liquid = LiquidWorld.grid[x + i, y + j];
-                        liquid.Amount = 255;
-                        liquid.Type = LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste");
-                        Main.tile[x + i, y + j].wall = (ushort) ROIMod.instance.WallType("Wasteland_Rock_Wall");
-                        WorldGen.SquareTileFrame(x + i, y + j, true);
-                    }
-                    
-                }
+                Point point = new Point(x + i, y + i * i / 25 * -1);
+                ushort tilePlace = (ushort)((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
+                WorldGen.TileRunner(point.X, point.Y, 8f, 3, ROIMod.instance.TileType("Wasteland_Rock"), true);
+            }
+
+            for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)
+            {
+                Point point = new Point(x + i, y + i * i / 25 * -1);
+                ROIWorldGenHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] {(ushort) ModContent.TileType<Wasteland_Rock>(), (ushort) ModContent.TileType<Wasteland_Waste>()}, new ushort[] {4, 2}, true);
+            }
+
+            for (int i = -(xModifier - 5) / 2; i < (xModifier - 5) / 2; i++)
+            {
+                Point point = new Point(x + i, y + i * i / 25 * -1);
+                ROIWorldGenHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
             }
         }
 
+        
 
         //TO DO : Move in Math Helper
         internal static int ParabolaEquation(float curveModifier, float heightModifier, int x)
         {
-            return (int) (curveModifier * (x * x) + heightModifier);
+            return (int)(curveModifier * (x * x) + heightModifier);
         }
 
     }
