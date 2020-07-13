@@ -120,7 +120,7 @@ namespace ROI.Worlds.Structures
                     if (WorldGen.genRand.Next(10) == 0)
                         continue;
                     Main.tile[i, j].active(false);
-                    Main.tile[i, j].wall = (ushort)mod.TileType("Wasteland_Brick");
+                    Main.tile[i, j].wall = (ushort)mod.WallType("WastestoneBrickWall");
                     //WorldGen.SquareWallFrame(i, j);
                 }
             }
@@ -142,7 +142,7 @@ namespace ROI.Worlds.Structures
                 if (Main.tile[i, y + height - 1].type == (ushort)mod.TileType("Wasteland_Brick"))
                     hitBrick = true;
                 if (!hitBrick)
-                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Platform");
+                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wastebrick_Platform");
                 else
                     Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Brick");
                 //WorldGen.SquareTileFrame(i, y + height);

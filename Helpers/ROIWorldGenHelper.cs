@@ -63,5 +63,16 @@ namespace ROI.Helpers
                 }
             }
         }
+
+        public static void FillAir(int i, int j, int width, int height)
+        {
+            for (int x = i; x < i + width; x++)
+            {
+                for (int y = j; y < j + height; y++)
+                {
+                    Main.tile[x, y].active(false);
+                }
+            }
+        }
     }
 }

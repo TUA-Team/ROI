@@ -28,7 +28,14 @@ namespace ROI.Globals
 		    return base.UseItem(item, player);
 	    }
 
-	    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
+
+        public override void PostUpdate(Item item)
+        {
+
+            base.PostUpdate(item);
+        }
+
+        public override void ModifyTooltips(Item item, List<TooltipLine> tooltips)
 	    {
 		    if (item.type == ItemID.DemonHeart)
 		    {

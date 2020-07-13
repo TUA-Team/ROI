@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using ROI.Tiles.Wasteland;
 using ROI.Worlds.Structures;
+using ROI.Worlds.Structures.Wasteland;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
@@ -14,6 +17,27 @@ namespace ROI.Worlds
 
         internal static Dictionary<int, int> SurfaceLevel;
         internal static int HighestLevel = 300;
+
+        internal static int AmountOfBigLakePerWorld
+        {
+            get
+            {
+                switch (Main.maxTilesX)
+                {
+                    case 4200:
+                        return 2;
+                    case 6400:
+                        return 3;
+                    case 8400:
+                        return 3;
+                    case 16800:
+                        return 5;
+                    default:
+                        return 1;
+
+                }
+            }
+        }
 
         public static int[] GetPerlinDisplacements(int displacementCount, float frequency, int maxLimit, float multiplier, int seed)
         {
@@ -33,6 +57,10 @@ namespace ROI.Worlds
         {
             for (int i = startingY; i < startingY + depth; i++)
             {
+                if (!WorldGen.InWorld(x, i))
+                {
+                    return;
+                }
                 WorldGen.PlaceTile(x, i, tile, false, true);
             }
         }
@@ -52,6 +80,8 @@ namespace ROI.Worlds
                 for (int j = Main.maxTilesY -200; j < Main.maxTilesY; j++)
                 {
                     Main.tile[i, j].active(false);
+                    Main.tile[i, j].liquid = 0;
+                    Main.tile[i, j].wall = 0;
                 }
             }
             float[] freq = new float[] { 0.00077f, 0.00021f, 0.022f };;
@@ -112,11 +142,69 @@ namespace ROI.Worlds
             
             SpreadingGrass(progress);
             GenerateCavern(progress);
+            GenerateWasteLake(progress);
             GeneratingRuins(progress);
             //GrowingTree(progress);
-            //GenerateWasteLake(progress);
+            
             //GenerateMysteriousGrotto(progress);
             WorldGen.EveryTileFrame();
+        }
+
+        private void GenerateWasteLake(GenerationProgress progress)
+        {
+            int smallLake = 0;
+            int bigLake = 0;
+
+            for (int i = 0; i < 25; i++)
+            {
+                int x = Main.rand.Next(200, Main.maxTilesX - 200);
+                int yGen = 0;
+                if (Scan(x, Main.maxTilesY - 175, out yGen, (tile =>
+                {
+                    if(tile.type != ModContent.TileType<Wasteland_Dirt>() || tile.liquid > 0)
+                        return false;
+                    return true;
+                })))
+                {
+                    if (bigLake != AmountOfBigLakePerWorld)
+                    {
+                        WastelandLake.Generate(x, yGen, 40, 55, 8f, 3, 3, false);
+                        bigLake++;
+                        continue;
+                    }
+                    WastelandLake.Generate(x, yGen, 20, 24, 5f, 3, 3, true);
+                    
+                }
+            }
+        }
+
+        
+
+        private bool Scan(int x, int y, out int yGen, Func<Tile, bool> condition = null)
+        {
+            for (int i = y; i < Main.maxTilesX; i++)
+            {
+                if (!WorldGen.InWorld(x, i))
+                {
+                    yGen = 0;
+                    return false;
+                }
+                if (!Main.tile[x, i].active() && Main.tile[x, i].liquid == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (condition.Invoke(Main.tile[x, i]))
+                    {
+                        yGen = i;
+                        return true;
+                    }
+                }
+            }
+
+            yGen = -1;
+            return false;
         }
 
         private void GeneratingRuins(GenerationProgress progress)

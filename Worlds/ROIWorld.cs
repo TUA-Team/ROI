@@ -5,6 +5,7 @@ using System.Linq;
 using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
+using ROI.Crafting;
 using ROI.NPCs.HeartOfTheWasteland;
 using ROI.NPCs.Interfaces;
 using ROI.NPCs.Void.VoidPillar;
@@ -101,6 +102,8 @@ namespace ROI.Worlds
             {
                 activeHotWID = -1;
             }
+
+            LiquidCrafting.RecipeMatch(Main.item.Where(i => i.type != 0).ToArray());
         }
 
         public override void NetSend(BinaryWriter writer)
