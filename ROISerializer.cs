@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader.IO;
 
 namespace ROI
@@ -19,10 +15,14 @@ namespace ROI
                 ["Major"] = value.Major,
                 ["Minor"] = value.Minor,
                 ["Build"] = value.Build,
-                ["Revision"] = value.Revision
+                ["Revision"] = value.Revision < 0 ? 0 : value.Revision
             };
 
-            public override Version Deserialize(TagCompound tag) => new Version(tag.GetAsInt("Major"), tag.GetAsInt("Minor"), tag.GetAsInt("Build"), tag.GetAsInt("Revision"));
+            public override Version Deserialize(TagCompound tag) => new Version(
+                tag.GetAsInt("Major"),
+                tag.GetAsInt("Minor"),
+                tag.GetAsInt("Build"),
+                tag.GetAsInt("Revision") < 0 ? 0 : tag.GetAsInt("Revision"));
         }
     }
 }

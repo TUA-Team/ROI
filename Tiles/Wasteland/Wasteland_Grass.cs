@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using ROI.Worlds;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -31,7 +25,7 @@ namespace ROI.Tiles.Wasteland
         {
             if (Main.tile[i, j - 1].lava())
             {
-                Main.tile[i, j].type = (ushort) mod.TileType("Wasteland_Dirt");
+                Main.tile[i, j].type = (ushort)mod.TileType("Wasteland_Dirt");
                 WorldGen.SquareTileFrame(i, j, true);
                 return;
             }
@@ -64,25 +58,29 @@ namespace ROI.Tiles.Wasteland
             int downLeft = -1;
             int down = -1;
             int downRight = -1;
-            if (tile10 != null && tile10.active()) {
+            if (tile10 != null && tile10.active())
+            {
                 left = (Main.tileStone[tile10.type] ? 1 : tile10.type);
                 if (tile10.slope() == 1 || tile10.slope() == 3)
                     left = -1;
             }
 
-            if (tile11 != null && tile11.active()) {
+            if (tile11 != null && tile11.active())
+            {
                 right = (Main.tileStone[tile11.type] ? 1 : tile11.type);
                 if (tile11.slope() == 2 || tile11.slope() == 4)
                     right = -1;
             }
 
-            if (tile16 != null && tile16.active()) {
+            if (tile16 != null && tile16.active())
+            {
                 up = (Main.tileStone[tile16.type] ? 1 : tile16.type);
                 if (tile16.slope() == 3 || tile16.slope() == 4)
                     up = -1;
             }
 
-            if (tile17 != null && tile17.active()) {
+            if (tile17 != null && tile17.active())
+            {
                 down = (Main.tileStone[tile17.type] ? 1 : tile17.type);
                 if (tile17.slope() == 1 || tile17.slope() == 2)
                     down = -1;
@@ -99,11 +97,11 @@ namespace ROI.Tiles.Wasteland
 
             if (tile13 != null && tile13.active())
                 downRight = (Main.tileStone[tile13.type] ? 1 : tile13.type);
-            
+
             WorldGen.TileMergeAttempt(mod.TileType("Wasteland_Dirt"), Type, ref up, ref down, ref left, ref right, ref upLeft, ref upRight, ref downLeft, ref downRight);
             //ROIWorldHelper.SpecialTileMerge(i, j, mod.TileType("Wasteland_Dirt"));
-            
-            
+
+
             return true;
         }
 

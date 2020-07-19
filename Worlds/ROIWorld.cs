@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using log4net;
+﻿using log4net;
 using Microsoft.Xna.Framework;
-using ROI.Buffs.Void;
 using ROI.Crafting;
 using ROI.NPCs.HeartOfTheWasteland;
 using ROI.NPCs.Interfaces;
-using ROI.NPCs.Void.VoidPillar;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
-using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
@@ -20,7 +17,7 @@ namespace ROI.Worlds
     partial class ROIWorld : ModWorld
     {
         private int _pillarSpawningTimer;
-        
+
         /// <summary>
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
@@ -44,7 +41,7 @@ namespace ROI.Worlds
             {
                 if (i.modNPC is ISavableEntity entity)
                 {
-                    
+
                     TagCompound currentEntityTag = entity.Save();
                     currentEntityTag["position"] = i.position;
                     currentEntityTag["name"] = i.modNPC.Name;
@@ -79,7 +76,7 @@ namespace ROI.Worlds
             foreach (TagCompound tagCompound in modNPCData)
             {
                 Vector2 position = tagCompound.Get<Vector2>("position");
-                int instanceNPCID = NPC.NewNPC((int) position.X, (int) position.Y, ModLoader.GetMod(tagCompound.GetString("mod")).NPCType(tagCompound.GetString("name")));
+                int instanceNPCID = NPC.NewNPC((int)position.X, (int)position.Y, ModLoader.GetMod(tagCompound.GetString("mod")).NPCType(tagCompound.GetString("name")));
                 if (Main.npc[instanceNPCID].modNPC is ISavableEntity entity)
                 {
                     entity.Load(tagCompound);
@@ -116,7 +113,7 @@ namespace ROI.Worlds
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            
+
         }
 
         public override void PostWorldGen()

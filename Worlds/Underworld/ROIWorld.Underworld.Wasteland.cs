@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ROI.Tiles.Wasteland;
+﻿using ROI.Tiles.Wasteland;
 using ROI.Worlds.Structures;
 using ROI.Worlds.Structures.Wasteland;
+using System;
+using System.Collections.Generic;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
@@ -77,14 +75,14 @@ namespace ROI.Worlds
         {
             for (int i = 0; i < Main.maxTilesX; i++)
             {
-                for (int j = Main.maxTilesY -200; j < Main.maxTilesY; j++)
+                for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
                     Main.tile[i, j].active(false);
                     Main.tile[i, j].liquid = 0;
                     Main.tile[i, j].wall = 0;
                 }
             }
-            float[] freq = new float[] { 0.00077f, 0.00021f, 0.022f };;
+            float[] freq = new float[] { 0.00077f, 0.00021f, 0.022f }; ;
             float[] limit = new float[] { 0.3f, 0.05f, 0.02f };
             int[][] displacements = new int[freq.Length][];
             for (int i = 0; i < freq.Length; i++)
@@ -105,7 +103,7 @@ namespace ROI.Worlds
             SurfaceLevel = new Dictionary<int, int>();
             for (int i = 0; i < Main.maxTilesX; i++)
             {
-                totalDisplacements[i] = (int) (totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 125));
+                totalDisplacements[i] = (int)(totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 125));
                 SurfaceLevel[i] = totalDisplacements[i];
 
                 if (totalDisplacements[i] < HighestLevel || HighestLevel == 0)
@@ -114,8 +112,8 @@ namespace ROI.Worlds
                 }
 
                 int dirtDepth = WorldGen.genRand.Next(10, 15);
-                Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
-                Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort) mod.TileType("Wasteland_Rock"));
+                Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort)mod.TileType("Wasteland_Dirt"));
+                Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort)mod.TileType("Wasteland_Rock"));
                 FillAir(i, 0, 1, totalDisplacements[i]);
             }
             for (int i = 0; i < Main.maxTilesX; i++)
@@ -138,33 +136,32 @@ namespace ROI.Worlds
                 TerrainTop(progress);
             }*/
             //TerrainBottom(progress);
-            StructureMap map = new StructureMap();
-            
+            //StructureMap map = new StructureMap();
+
             SpreadingGrass(progress);
+            TerrainTop(progress);
             GenerateCavern(progress);
             GenerateWasteLake(progress);
             GeneratingRuins(progress);
             //GrowingTree(progress);
-            
+
             //GenerateMysteriousGrotto(progress);
             WorldGen.EveryTileFrame();
         }
 
         private void GenerateWasteLake(GenerationProgress progress)
         {
-            int smallLake = 0;
             int bigLake = 0;
 
             for (int i = 0; i < 25; i++)
             {
                 int x = Main.rand.Next(200, Main.maxTilesX - 200);
-                int yGen = 0;
-                if (Scan(x, Main.maxTilesY - 175, out yGen, (tile =>
-                {
-                    if(tile.type != ModContent.TileType<Wasteland_Dirt>() || tile.liquid > 0)
-                        return false;
-                    return true;
-                })))
+                if (Scan(x, Main.maxTilesY - 175, out int yGen, (tile =>
+                 {
+                     if (tile.type != ModContent.TileType<Wasteland_Dirt>() || tile.liquid > 0)
+                         return false;
+                     return true;
+                 })))
                 {
                     if (bigLake != AmountOfBigLakePerWorld)
                     {
@@ -173,12 +170,10 @@ namespace ROI.Worlds
                         continue;
                     }
                     WastelandLake.Generate(x, yGen, 20, 24, 5f, 3, 3, true);
-                    
+
                 }
             }
         }
-
-        
 
         private bool Scan(int x, int y, out int yGen, Func<Tile, bool> condition = null)
         {
@@ -210,7 +205,7 @@ namespace ROI.Worlds
         private void GeneratingRuins(GenerationProgress progress)
         {
             int nextHouseCooldown = 0;
-            for (int i = (int) (Main.maxTilesX * 0.30); i < Main.maxTilesX * 0.70; i++)
+            for (int i = (int)(Main.maxTilesX * 0.30); i < Main.maxTilesX * 0.70; i++)
             {
                 if (nextHouseCooldown <= 0 && WorldGen.genRand.Next(5) == 0)
                 {
@@ -223,7 +218,7 @@ namespace ROI.Worlds
                             break;
                         }
                     }
-                    
+
                 }
                 nextHouseCooldown--;
             }
@@ -231,8 +226,8 @@ namespace ROI.Worlds
 
         private void SpreadingGrass(GenerationProgress progress)
         {
-            ushort dirtType = (ushort) mod.TileType("Wasteland_Dirt");
-            ushort grassType = (ushort) mod.TileType("Wasteland_Grass");
+            ushort dirtType = (ushort)mod.TileType("Wasteland_Dirt");
+            ushort grassType = (ushort)mod.TileType("Wasteland_Grass");
             for (int i = 0; i < Main.maxTilesX; i++)
             {
                 float percent = (float)(i / Main.maxTilesX);
@@ -268,27 +263,38 @@ namespace ROI.Worlds
             progress.Message = "Digging the wasteland for research";
             for (int i = 0; i < Main.maxTilesX * 0.15; i++)
             {
-                float percent = (float) (i / Main.maxTilesX * 0.15);
+                float percent = (float)(i / Main.maxTilesX * 0.15);
                 progress.Set(percent);
                 int type = -1;
-                
+
                 ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(5, 8), WorldGen.genRand.Next(50, 70), type);
                 ROIWorldHelper.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(MAX_WASTELAND_HEIGHT, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 5), WorldGen.genRand.Next(20, 50), mod.TileType("Wasteland_Dirt"));
             }
-            
         }
 
         internal void TerrainTop(GenerationProgress progress)
         {
             //Create the top of the wasteland
-            for (int i = 0; i < Main.maxTilesX; i++)
+            for (int currentX = 0; currentX < Main.maxTilesX; currentX++)
             {
-                for (int j = Main.maxTilesY - 200; j < Main.maxTilesY - 195; j++)
+                if (WorldGen.genRand.Next(50) == 0)
                 {
-                    if (WorldGen.genRand.Next(20) == 0)
+                    int y = Main.maxTilesY - 65;
+                    while (!Main.tile[currentX, y].active() && y > Main.maxTilesY - 135)
                     {
-                        WorldGen.TileRunner(i, j, (double)WorldGen.genRand.Next(4, 6), 50, mod.TileType("Wasteland_Rock"), true);
+                        y--;
                     }
+
+                    WorldGen.TileRunner(
+                        i: WorldGen.genRand.Next(0, Main.maxTilesX),
+                        j: y + WorldGen.genRand.Next(20, 50),
+                        strength: WorldGen.genRand.Next(15, 20),
+                        steps: 1000,
+                        type: ModContent.TileType<Wasteland_Rock>(),
+                        addTile: true,
+                        speedX: 0f,
+                        speedY: WorldGen.genRand.Next(1, 3),
+                        noYChange: true);
                 }
             }
 
@@ -331,7 +337,7 @@ namespace ROI.Worlds
                     nextModifierCoolDown = WorldGen.genRand.Next(20, 50);
                     if (heightModifierBasedOnXAxis == 0)
                     {
-                        nextModifierCoolDown = (int) (WorldGen.genRand.Next(20, 50) * 0.5);
+                        nextModifierCoolDown = (int)(WorldGen.genRand.Next(20, 50) * 0.5);
                     }
                 }
 

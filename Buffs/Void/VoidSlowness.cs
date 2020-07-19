@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Buffs.Void
@@ -16,15 +11,15 @@ namespace ROI.Buffs.Void
 
         public override void SetDefaults()
         {
-	        DisplayName.SetDefault("Void Slowness");
-	        Description.SetDefault("You feel like being a snail");
-	        Main.debuff[Type] = true;
-			this.canBeCleared = false;
+            DisplayName.SetDefault("Void Slowness");
+            Description.SetDefault("You feel like being a snail");
+            Main.debuff[Type] = true;
+            this.canBeCleared = false;
         }
 
         public override void Update(Player player, ref int buffIndex)
         {
-	        player.moveSpeed *= 1 - 0.75f;
+            player.moveSpeed *= 1 - 0.75f;
 
         }
     }

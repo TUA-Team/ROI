@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -14,7 +9,8 @@ namespace ROI.Tiles.Furniture
 {
     class Wastebrick_Chair : ModTile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = true;
@@ -36,11 +32,13 @@ namespace ROI.Tiles.Furniture
             adjTiles = new int[] { TileID.Chairs };
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num) {
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
             Item.NewItem(i * 16, j * 16, 16, 32, mod.ItemType("Wastebrick_Chair"));
         }
     }
