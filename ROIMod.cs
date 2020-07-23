@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ROI.Backgrounds.Underworld;
 using ROI.Effects;
 using ROI.Effects.CustomSky;
-using ROI.GUI.Radiation_Meter;
+using ROI.GUI;
 using ROI.GUI.VoidUI;
 using ROI.Manager;
 using System;
@@ -67,7 +67,7 @@ namespace ROI
             roiFilterManager = new FilterManager();
 
             VoidPillarHealthBar.Load();
-            VoidUI.Load();
+            VoidAffinity.Load();
             VoidHeartHealthBar.Load();
             UnderworldDarkness.Load();
             Wasteland_Background.Load();
@@ -130,7 +130,7 @@ namespace ROI
         private void ClientUnload()
         {
             VoidPillarHealthBar.Unload();
-            VoidUI.Unload();
+            VoidAffinity.Unload();
             VoidHeartHealthBar.Unload();
             DRPManager.Instance.Unload();
             roiFilterManager = null;
@@ -173,7 +173,7 @@ namespace ROI
             VoidHeartHealthBar.Draw(spriteBatch);
             if (!Main.playerInventory)
             {
-                VoidUI.Draw(spriteBatch);
+                VoidAffinity.Draw(spriteBatch);
             }
         }
 
