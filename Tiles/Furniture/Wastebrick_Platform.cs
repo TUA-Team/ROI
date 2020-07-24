@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,7 +8,8 @@ namespace ROI.Tiles.Furniture
 {
     class Wastebrick_Platform : ModTile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileSolidTop[Type] = true;
@@ -38,11 +34,13 @@ namespace ROI.Tiles.Furniture
             adjTiles = new int[] { TileID.Platforms };
         }
 
-        public override void PostSetDefaults() {
+        public override void PostSetDefaults()
+        {
             Main.tileNoSunLight[Type] = false;
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num) {
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
             num = fail ? 1 : 3;
         }
     }

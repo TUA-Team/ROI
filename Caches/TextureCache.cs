@@ -1,9 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ROI
 {
@@ -20,8 +16,8 @@ namespace ROI
 
         public static void Unload()
         {
-            TorchFlameTexture.Clear();
-            ChandelierFlameTexture.Clear();
+            TorchFlameTexture?.Clear();
+            ChandelierFlameTexture?.Clear();
             TorchFlameTexture = null;
             ChandelierFlameTexture = null;
         }

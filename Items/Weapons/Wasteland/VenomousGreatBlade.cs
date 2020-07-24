@@ -26,7 +26,7 @@ namespace ROI.Items.Weapons.Wasteland
             item.useAnimation = 20;
             item.useStyle = 1;
             item.autoReuse = false;
-            
+
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)

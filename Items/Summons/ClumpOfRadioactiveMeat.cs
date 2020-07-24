@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Items.Summons
@@ -32,7 +27,7 @@ namespace ROI.Items.Summons
         {
             if (player.position.Y / 16 > Main.maxTilesY - 200)
             {
-                Projectile.NewProjectile(player.position, (player.Center - Main.MouseWorld) / 10, ModContent.ProjectileType<Projectiles.HeartOfTheWasteland.ClumpOfRadioactiveMeat>(), 0 , 0);
+                Projectile.NewProjectile(player.position, (player.Center - Main.MouseWorld) / 10, ModContent.ProjectileType<Projectiles.HeartOfTheWasteland.ClumpOfRadioactiveMeat>(), 0, 0);
                 return true;
             }
             return false;

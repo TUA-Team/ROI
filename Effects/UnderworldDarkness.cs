@@ -1,11 +1,6 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.Graphics.Effects;
-using Terraria.Graphics.Shaders;
 
 namespace ROI.Effects
 {
@@ -17,7 +12,7 @@ namespace ROI.Effects
         {
             //GameShaders.["ROI:UnderworldFilter"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/UnderworldFilter")), "underworld");
 
-            
+
 
 
             Main.graphics.PreparingDeviceSettings += Draw;

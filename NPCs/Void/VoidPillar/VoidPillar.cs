@@ -1,45 +1,42 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using ROI.Effects.CustomSky;
 using ROI.Enums;
 using ROI.NPCs.Interfaces;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.Graphics;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ROI.NPCs.Void.VoidPillar
 {
-	/// <summary>
-	/// npc.ai[0] = Movement AI Phase
-	/// </summary>
+    /// <summary>
+    /// npc.ai[0] = Movement AI Phase
+    /// </summary>
     internal sealed partial class VoidPillar : ModNPC, ISavableEntity, ICamerable, IMobCamerable<VoidPillar>
-	{
+    {
         public override string Texture => "Terraria/NPC_507";
 
         private int movementTimer;
         private bool _movementUp;
         private float _damageReduction;
-		private Vector2 _originalPosition;
+        private Vector2 _originalPosition;
 
-		private bool _isCurrentlyTeleporting = false;
+        private bool _isCurrentlyTeleporting = false;
 
-		public PillarShieldColor ShieldColor { get; internal set; }
+        public PillarShieldColor ShieldColor { get; internal set; }
 
         public int ShieldHealth { get; internal set; }
 
         public float[] extraAI = new float[1];
 
-		private float MovementAIPhase
-		{
-			get => npc.ai[0];
-			set => npc.ai[0] = value;
-		}
+        private float MovementAIPhase
+        {
+            get => npc.ai[0];
+            set => npc.ai[0] = value;
+        }
 
         private float MovementPillarState
         {
@@ -50,8 +47,8 @@ namespace ROI.NPCs.Void.VoidPillar
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Void Pillar");
-	        NPCID.Sets.TrailingMode[npc.type] = 3;
-	        NPCID.Sets.TrailCacheLength[npc.type] = 8;
+            NPCID.Sets.TrailingMode[npc.type] = 3;
+            NPCID.Sets.TrailCacheLength[npc.type] = 8;
         }
 
         public override void SetDefaults()
@@ -77,30 +74,30 @@ namespace ROI.NPCs.Void.VoidPillar
             {
                 npc.ForceKill();
             }
-	        _originalPosition = npc.position;
+            _originalPosition = npc.position;
         }
 
         public override void AI()
         {
-			MovementAI();
-	        StandardPillarMovement();
-			if (AnimationAI())
-	        {
-		        return;
-	        }
+            MovementAI();
+            StandardPillarMovement();
+            if (AnimationAI())
+            {
+                return;
+            }
 
-	        if (MovementAIPhase != 1f && Main.netMode != NetmodeID.MultiplayerClient)
-	        {
-		        Shockwave();
-			}
+            if (MovementAIPhase != 1f && Main.netMode != NetmodeID.MultiplayerClient)
+            {
+                Shockwave();
+            }
 
-	        if (MovementAIPhase == 0f)
-	        {
-		        if (Main.rand.Next(1000) == 0 && ShieldColor == PillarShieldColor.none)
-		        {
-			        MovementAIPhase = 1f;
-		        }
-	        }
+            if (MovementAIPhase == 0f)
+            {
+                if (Main.rand.Next(1000) == 0 && ShieldColor == PillarShieldColor.none)
+                {
+                    MovementAIPhase = 1f;
+                }
+            }
         }
 
         public override void SendExtraAI(BinaryWriter writer)
@@ -108,8 +105,8 @@ namespace ROI.NPCs.Void.VoidPillar
             writer.Write(ShieldHealth);
             writer.Write((byte)ShieldColor);
             writer.Write(movementTimer);
-			writer.Write(_shockwaveTimer);
-			writer.Write(_animationTimeLeft);
+            writer.Write(_shockwaveTimer);
+            writer.Write(_animationTimeLeft);
         }
 
         public override void ReceiveExtraAI(BinaryReader reader)
@@ -117,8 +114,8 @@ namespace ROI.NPCs.Void.VoidPillar
             ShieldHealth = reader.ReadInt32();
             ShieldColor = (PillarShieldColor)reader.ReadByte();
             movementTimer = reader.Read();
-	        _shockwaveTimer = reader.ReadInt32();
-	        _animationTimeLeft = reader.ReadInt32();
+            _shockwaveTimer = reader.ReadInt32();
+            _animationTimeLeft = reader.ReadInt32();
         }
 
         public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
@@ -151,12 +148,12 @@ namespace ROI.NPCs.Void.VoidPillar
 
         public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
         {
-	        if (ShieldColor == PillarShieldColor.none)
-	        {
-		        return true;
-	        }
+            if (ShieldColor == PillarShieldColor.none)
+            {
+                return true;
+            }
 
-	        return false;
+            return false;
         }
 
         public override bool CheckActive()
@@ -179,7 +176,7 @@ namespace ROI.NPCs.Void.VoidPillar
 
         private void SwitchShieldColor()
         {
-	        npc.netUpdate = true;
+            npc.netUpdate = true;
             switch (ShieldColor)
             {
                 case PillarShieldColor.Red:
@@ -199,37 +196,37 @@ namespace ROI.NPCs.Void.VoidPillar
                     npc.immortal = false;
                     break;
             }
-			ChangeDamageReduction();
+            ChangeDamageReduction();
         }
 
-		private void ChangeDamageReduction()
-		{
-			npc.netUpdate = true;
-			if (_isCurrentlyTeleporting)
-			{
-				_damageReduction = 0.95f;
-				return;
-			}
-			switch (ShieldColor)
-			{
-				case PillarShieldColor.Red:
-					_damageReduction = 0.2f;
-					break;
-				case PillarShieldColor.Purple:
-					_damageReduction = 0.9f;
-					break;
-				case PillarShieldColor.Black:
-					_damageReduction = 0.2f;
-					break;
-				case PillarShieldColor.Green:
-					_damageReduction = 0.5f;
-					break;
-				case PillarShieldColor.Blue:
-					_damageReduction = 0.8f;
-					break;
-			}
+        private void ChangeDamageReduction()
+        {
+            npc.netUpdate = true;
+            if (_isCurrentlyTeleporting)
+            {
+                _damageReduction = 0.95f;
+                return;
+            }
+            switch (ShieldColor)
+            {
+                case PillarShieldColor.Red:
+                    _damageReduction = 0.2f;
+                    break;
+                case PillarShieldColor.Purple:
+                    _damageReduction = 0.9f;
+                    break;
+                case PillarShieldColor.Black:
+                    _damageReduction = 0.2f;
+                    break;
+                case PillarShieldColor.Green:
+                    _damageReduction = 0.5f;
+                    break;
+                case PillarShieldColor.Blue:
+                    _damageReduction = 0.8f;
+                    break;
+            }
 
-		}
+        }
 
         public Color GetShieldColor()
         {
@@ -250,38 +247,38 @@ namespace ROI.NPCs.Void.VoidPillar
             }
         }
 
-		public override bool CheckDead()
-		{
-			if (ShieldColor == PillarShieldColor.none)
-			{
-				return true;
-			}
+        public override bool CheckDead()
+        {
+            if (ShieldColor == PillarShieldColor.none)
+            {
+                return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
 
-		public TagCompound Save()
+        public TagCompound Save()
         {
             TagCompound tag = new TagCompound();
             tag.Add("shieldPhase", (byte)ShieldColor);
             tag.Add("shieldHealth", ShieldHealth);
-			tag.Add("originalPosition", _originalPosition);
-			tag.Add("movementPhase", MovementAIPhase);
+            tag.Add("originalPosition", _originalPosition);
+            tag.Add("movementPhase", MovementAIPhase);
             return tag;
         }
 
         public void Load(TagCompound data)
         {
-            ShieldColor = (PillarShieldColor) data.GetByte("shieldPhase");
+            ShieldColor = (PillarShieldColor)data.GetByte("shieldPhase");
             ShieldHealth = data.GetAsInt("shieldHealth");
 
-	        if (data.ContainsKey("movementPhase"))
-	        {
-		        MovementAIPhase = data.GetFloat("movementPhase");
-	        }
+            if (data.ContainsKey("movementPhase"))
+            {
+                MovementAIPhase = data.GetFloat("movementPhase");
+            }
 
-	        VoidSky.GenerateCrack(true);
+            VoidSky.GenerateCrack(true);
         }
 
         public bool SaveHP => true;

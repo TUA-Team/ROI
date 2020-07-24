@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Enums;
-using ROI.Players;
 using System.IO;
 using Terraria;
 using Terraria.Localization;
@@ -41,13 +40,13 @@ namespace ROI.Manager
                     Main.NewText(s, colorR, colorG, colorB);
                     break;
                 default:
-                {
-                    if (sync && Main.netMode == 2)
                     {
-                        NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(s), new Color(colorR, colorG, colorB), -1);
+                        if (sync && Main.netMode == 2)
+                        {
+                            NetMessage.BroadcastChatMessage(NetworkText.FromLiteral(s), new Color(colorR, colorG, colorB), -1);
+                        }
+                        break;
                     }
-                    break;
-                }
             }
         }
     }

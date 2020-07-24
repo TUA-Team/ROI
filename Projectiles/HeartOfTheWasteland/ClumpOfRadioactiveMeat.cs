@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ROI.Projectiles.HeartOfTheWasteland
@@ -41,7 +37,7 @@ namespace ROI.Projectiles.HeartOfTheWasteland
         /// </summary>
         public override void AI()
         {
-            
+
             if (projectile.position.Y / 16 < Main.maxTilesY - 200)
             {
                 ConvertBackToItem();
@@ -57,7 +53,7 @@ namespace ROI.Projectiles.HeartOfTheWasteland
             if (projectile.velocity.X < 0.2f && projectile.velocity.X < 0.2f && !NPC.AnyNPCs(mod.NPCType("HeartOfTheWasteland")))
             {
                 ModNPC bossInfo = mod.GetNPC("HeartOfTheWasteland");
-                NPC.NewNPC((int) (projectile.position.X + bossInfo.npc.width / 2 - 55), (int) (projectile.position.Y + bossInfo.npc.height - 28), bossInfo.npc.type, 0, 0, 0, projectile.whoAmI);
+                NPC.NewNPC((int)(projectile.position.X + bossInfo.npc.width / 2 - 55), (int)(projectile.position.Y + bossInfo.npc.height - 28), bossInfo.npc.type, 0, 0, 0, projectile.whoAmI);
             }
             else
             {
@@ -74,7 +70,7 @@ namespace ROI.Projectiles.HeartOfTheWasteland
 
         public override void OnHitPlayer(Player target, int damage, bool crit)
         {
-            if(projectile.velocity.X > 0.2f && projectile.velocity.Y > 0.2f)
+            if (projectile.velocity.X > 0.2f && projectile.velocity.Y > 0.2f)
                 ConvertBackToItem();
         }
 

@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using ROI.Players;
+using System.Reflection;
 using Terraria;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
@@ -29,7 +23,7 @@ namespace ROI.GUI.VoidUI
 
         public static void Unload()
         {
-            heartTexture = null;
+            heartTexture?.Dispose();
         }
 
         public static void Draw(SpriteBatch sb)
@@ -67,7 +61,11 @@ namespace ROI.GUI.VoidUI
             string text = $"Void HP {player.VoidHeartHP}/{player.MaxVoidHeartStatsExtra}";
             Vector2 textSize = Main.fontMouseText.MeasureString(text);
 
+<<<<<<< HEAD
             sb.DrawString(Main.fontMouseText, text, new Vector2(drawingOffset.X + textSize.X, drawingOffset.Y), new Microsoft.Xna.Framework.Color((int) Main.mouseTextColor, (int) Main.mouseTextColor, (int) Main.mouseTextColor, (int) Main.mouseTextColor), 0f, new Vector2(Main.fontMouseText.MeasureString(Main.player[Main.myPlayer].statLife + "/" + Main.player[Main.myPlayer].statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
+=======
+            sb.DrawString(Main.fontMouseText, text, new Vector2(drawingOffset.X + textSize.X, drawingOffset.Y), new Microsoft.Xna.Framework.Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor), 0f, new Vector2(Main.fontMouseText.MeasureString(Main.player[Main.myPlayer].statLife + "/" + Main.player[Main.myPlayer].statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
+>>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
 
 
             for (int i = 1; i < player.MaxVoidHeartStatsExtra / LifePerHeart + 1; i++)

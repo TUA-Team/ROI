@@ -8,7 +8,8 @@ namespace ROI.Tiles.Furniture
 {
     class Wastebrick_Table : ModTile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -25,11 +26,13 @@ namespace ROI.Tiles.Furniture
             adjTiles = new int[] { TileID.Tables };
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num) {
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("Wastebrick_Table"));
         }
     }

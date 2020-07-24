@@ -31,28 +31,28 @@ namespace ROI.Items.Armors
             return false;
         }
 
-    //    public override void UpdateEquip(Player player)
-    //    {
-    //        if (DevSet(out var _) && !SteamID64Checker.Instance.VerifyDevID())
-    //        {
-    //            DevSetPenalty(player);
-    //        }
-    //    }
+        //    public override void UpdateEquip(Player player)
+        //    {
+        //        if (DevSet(out var _) && !SteamID64Checker.Instance.VerifyDevID())
+        //        {
+        //            DevSetPenalty(player);
+        //        }
+        //    }
 
-    //    private bool DevSet(out string dev)
-    //    {
-    //        dev = "";
-    //        return false;
-    //    }
+        //    private bool DevSet(out string dev)
+        //    {
+        //        dev = "";
+        //        return false;
+        //    }
 
-    //    protected virtual void DevSetPenalty(Player plr) { plr.statLife--; }
+        //    protected virtual void DevSetPenalty(Player plr) { plr.statLife--; }
 
-    //    public override void ModifyTooltips(List<TooltipLine> tooltips)
-    //    {
-    //        if (DevSet(out string dev))
-    //        {
-    //            tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Realm of Infinity! - {dev}"));
-    //        }
-    //    }
+        //    public override void ModifyTooltips(List<TooltipLine> tooltips)
+        //    {
+        //        if (DevSet(out string dev))
+        //        {
+        //            tooltips.Add(new TooltipLine(mod, "DevSet", $"Thanks for supporting Realm of Infinity! - {dev}"));
+        //        }
+        //    }
     }
 }

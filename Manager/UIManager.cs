@@ -1,13 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Graphics;
 using System.Collections.Generic;
 using Terraria;
 
 namespace ROI.Manager
 {
     internal class UIManager : AbstractManager<UIManager>
-	{
+    {
         private Queue<string> loreQueue;
         private ushort loreUIProgress;
         private bool loreOpen;
@@ -24,12 +23,12 @@ namespace ROI.Manager
 
 
         public override void Initialize()
-		{
+        {
             loreQueue = new Queue<string>();
             loreUIProgress = 0;
             loreEnds = ROIMod.instance.GetTexture("Textures/" + nameof(loreEnds));
             loreBG = ROIMod.instance.GetTexture("Textures/" + nameof(loreBG));
-		}
+        }
 
         internal override void Unload()
         {
@@ -58,7 +57,7 @@ namespace ROI.Manager
                 {
                     spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f,
                         loreUIProgress - loreEnds.Height), Color.White);
-                    spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f, 
+                    spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f,
                         loreUIProgress - loreEnds.Height), null, Color.White, 0, loreEnds.Size() * .5f,
                         0, SpriteEffects.FlipHorizontally, 0);
                     if (loreUIProgress == 15 + loreEnds.Height)
@@ -75,7 +74,7 @@ namespace ROI.Manager
                     spriteBatch.Draw(loreBG, new Rectangle((int)(Main.screenWidth * .5f) - loreUIProgress,
                         loreEnds.Height - loreBG.Height + 15, loreUIProgress * 2, loreBG.Height), Color.White);
                     spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f + loreUIProgress, 15), Color.White);
-                    spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f - loreUIProgress, 15), null, 
+                    spriteBatch.Draw(loreEnds, new Vector2(Main.screenWidth * .5f - loreUIProgress, 15), null,
                         Color.White, 0, loreEnds.Size() * .5f, 0, SpriteEffects.FlipHorizontally, 0);
                     if (loreUIProgress == loreBannerSize)
                     {
