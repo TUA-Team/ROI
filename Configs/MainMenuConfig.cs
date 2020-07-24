@@ -25,7 +25,7 @@ namespace ROI.Configs
 
         public override void OnLoaded()
         {
-            ROIMod.instance.menu = this;
+            ROIMod.menu = this;
         }
     }
 }
