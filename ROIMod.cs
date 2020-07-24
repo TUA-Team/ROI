@@ -173,12 +173,12 @@ namespace ROI
 
 		public override void PostDrawInterface(SpriteBatch spriteBatch)
 	    {
-	        VoidPillarHealthBar.FindPillar();
-            VoidPillarHealthBar.Draw(spriteBatch);
-	        VoidHeartHealthBar.Draw(spriteBatch);
+	        //VoidPillarHealthBar.FindPillar();
+            //VoidPillarHealthBar.Draw(spriteBatch);
+	        //VoidHeartHealthBar.Draw(spriteBatch);
 	        if (!Main.playerInventory)
 	        {
-                VoidUI.Draw(spriteBatch);
+                //VoidUI.Draw(spriteBatch);
 	        }
 	    }
 

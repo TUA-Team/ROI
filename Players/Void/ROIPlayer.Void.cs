@@ -13,6 +13,8 @@ namespace ROI.Players
 		public int voidEffectAttemptCooldown = 60 * 60;
 		public int voidItemCooldown = 60 * 60 * 5;
 
+        public bool voidHeartBuff = false;
+
 		internal int VoidAffinityAmount
 		{
 			get => _voidAffinityAmount;
@@ -39,6 +41,12 @@ namespace ROI.Players
 				VoidHeartHP -= damage;
 				damage = 0;
 			}
+
+            if (VoidHeartHP <= 0)
+            {
+                voidHeartBuff = false;
+				
+            }
 		}
 	}
 }

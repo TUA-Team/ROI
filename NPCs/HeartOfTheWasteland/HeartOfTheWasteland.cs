@@ -418,34 +418,32 @@ namespace ROI.NPCs.HeartOfTheWasteland
             for (int i = 0; i < 3; i++)
             {
                 Vector2 startingPoint = new Vector2(_VinePosition[i].X, _VinePosition[i].Y);
-                float num7 = npc.Center.X - startingPoint.X;
-                float num8 = npc.Center.Y - startingPoint.Y;
-                float rotation2 = (float) Math.Atan2(num8, num7) - 1.57f;
-                bool flag3 = true;
-                while (flag3)
-                {
-                    int textureWidth = 102;
-                    int textureHeight = 222;
-                    float num11 = (float) Math.Sqrt(num7 * num7 + num8 * num8);
-                    if (num11 < (float) textureHeight)
-                    {
-                        textureWidth = (int) num11 - textureHeight + textureWidth;
-                        flag3 = false;
-                    }
-
-                    num11 = (float) textureWidth / num11;
-                    num7 *= num11;
-                    num8 *= num11;
-                    startingPoint.X += num7;
-                    startingPoint.Y += num8;
-                    num7 = npc.Center.X - startingPoint.X;
-                    num8 = npc.Center.Y - startingPoint.Y;
-                    Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int) startingPoint.X / 16, (int) (startingPoint.Y / 16f));
-                    spriteBatch.Draw(_tentacle, new Vector2(startingPoint.X - Main.screenPosition.X,startingPoint.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, _tentacle.Width, textureWidth), color2, rotation2, new Vector2((float) _tentacle.Width * 0.5f, (float) _tentacle.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-                }
+                DrawRepeatingTexture(spriteBatch, startingPoint, npc.Center, _tentacle, Color.White);
             }
         }
 
+        private void DrawRepeatingTexture(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Texture2D texture, Color color)
+        {
+            Vector2 direction = end - start;
+            float dist = direction.Length();
+            direction.Normalize();
+            float rotation = MathHelper.PiOver2 + (float)Math.Atan2(direction.Y, direction.X);
+            int height = texture.Height;
+            
+            void DrawSection(int drawHeight)
+            {
+                spriteBatch.Draw(texture, start - (direction * (height - drawHeight)), new Rectangle(0, height - drawHeight, texture.Width, drawHeight), color, rotation, new Vector2(texture.Width * 0.5f, height), 1f, SpriteEffects.None, 0f);
+            }
+
+            while (dist > height)
+            {
+                DrawSection(height);
+                dist -= height;
+                start += direction * height;
+            }
+
+            DrawSection((int)dist);
+        }
 
         private enum HotWAiPhase : byte
         {

@@ -65,8 +65,7 @@ namespace ROI.Players
                 [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
                 [nameof(voidItemCooldown)] = voidItemCooldown,
                 [nameof(VoidHeartHP)] = VoidHeartHP,
-                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats,
-				[nameof(radiationLevel)] = radiationLevel
+                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
             };
         }
 
@@ -81,7 +80,6 @@ namespace ROI.Players
             _voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
             VoidTier = tag.GetAsInt(nameof(VoidTier));
             MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
-	        radiationLevel = tag.GetFloat(nameof(radiationLevel));
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -165,7 +163,8 @@ namespace ROI.Players
         public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
         {
             //player.Hurt(deathReasonList["error"], 0, -1);
-            DamageVoidHeart(ref damage);
+            if(voidHeartBuff) 
+                DamageVoidHeart(ref damage);
         }
 
         public override void UpdateBiomeVisuals()

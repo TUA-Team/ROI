@@ -13,6 +13,7 @@ namespace ROI.Tiles.Wasteland
             Main.tileBlockLight[Type] = true;
             ModTranslation tileTranslation = CreateMapEntryName();
             tileTranslation.SetDefault("Wasteland Brick");
+            drop = ModContent.ItemType<ROI.Items.Placeables.Wasteland.Wastebrick>();
             AddMapEntry(new Color(173, 255, 47));
         }
     }

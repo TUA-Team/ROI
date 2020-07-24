@@ -117,9 +117,10 @@ namespace ROI.Worlds.Structures
             {
                 for (int j = y + 1; j < y + height - 1; j++)
                 {
+                    Main.tile[i, j].active(false);
                     if (WorldGen.genRand.Next(10) == 0)
                         continue;
-                    Main.tile[i, j].active(false);
+                    
                     Main.tile[i, j].wall = (ushort)mod.WallType("WastestoneBrickWall");
                     //WorldGen.SquareWallFrame(i, j);
                 }
@@ -142,9 +143,9 @@ namespace ROI.Worlds.Structures
                 if (Main.tile[i, y + height - 1].type == (ushort)mod.TileType("Wasteland_Brick"))
                     hitBrick = true;
                 if (!hitBrick)
-                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wastebrick_Platform");
+                    WorldGen.PlaceTile(i, y + height - 1, mod.TileType("Wastebrick_Platform"), true, true);
                 else
-                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Brick");
+                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
                 //WorldGen.SquareTileFrame(i, y + height);
             }
 
