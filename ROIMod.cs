@@ -9,6 +9,7 @@ using ROI.Manager;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ROI.Configs;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
@@ -34,9 +35,14 @@ namespace ROI
 
         internal UnifiedRandom rng;
 
+        //UI
         internal UserInterface radiationInterface;
         internal RadiationMeter radiationMeter;
 
+        //Config
+        internal MainMenuConfig menu;
+
+        //Infinity core static loader
         public static bool EnableInfinityCoreStaticLoader = true;
 
         public static GameTime gameTime;
@@ -94,6 +100,38 @@ namespace ROI
 
             TextureCache.Initialize();
 
+
+            Main.OnTick += delegate
+            {
+                if (!Main.gameMenu)
+                {
+                    return;
+                }
+                Main.worldSurface = 565;
+                string currentBackgroundSetting = menu.NewMainMenuTheme;
+                switch (currentBackgroundSetting)
+                {
+                    case "Vanilla" :
+                        return;
+                    default:
+                        if (Filters.Scene[menu.NewMainMenuTheme] != null)
+                        {
+                            Filters.Scene.Activate(menu.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
+                        if (SkyManager.Instance[menu.NewMainMenuTheme] != null)
+                        {
+                            SkyManager.Instance.Activate(menu.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
+                        if (Overlays.Scene[menu.NewMainMenuTheme] != null)
+                        {
+                            Overlays.Scene.Activate(menu.NewMainMenuTheme,
+                                Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                        }
+                        break;
+                }
+            };
         }
 
         private void GeneralLoad()
@@ -142,57 +180,7 @@ namespace ROI
         public override void UpdateUI(GameTime gameTime)
         {
             ROIMod.gameTime = gameTime;
-<<<<<<< HEAD
-		    if (radiationInterface.IsVisible)
-		    {
-				radiationInterface.Update(gameTime);
-		    }
-	    }
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-		{
-			int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
-			if (mouseTextIndex != 1)
-			{
-				layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-					"ROI : Radiation Meter",
-					delegate
-					{
-						if (radiationInterface.IsVisible)
-						{
-							radiationInterface.CurrentState.Draw(Main.spriteBatch);
-						}
-						return true;
-					}));
-			}
-		}
-
-		public override void PostDrawInterface(SpriteBatch spriteBatch)
-	    {
-	        //VoidPillarHealthBar.FindPillar();
-            //VoidPillarHealthBar.Draw(spriteBatch);
-	        //VoidHeartHealthBar.Draw(spriteBatch);
-	        if (!Main.playerInventory)
-	        {
-                //VoidUI.Draw(spriteBatch);
-	        }
-	    }
-
-	    
-
-	    public override object Call(params object[] args)
-	    {
-	        string command = (string) args[0];
-	        try
-	        {
-	            switch (command)
-	            {
-	                case "DarkMind":
-	                    int npcID = (int) args[1]; 
-	                    int buffType = (int)args[2];
-	                    int buffLength = (int) args[3];
-	                    bool quiet = (bool) args[4];
-=======
             if (radiationInterface.IsVisible)
             {
                 radiationInterface.Update(gameTime);
@@ -228,7 +216,7 @@ namespace ROI
             }
         }
 
-
+        
 
         public override object Call(params object[] args)
         {
@@ -242,7 +230,6 @@ namespace ROI
                         int buffType = (int)args[2];
                         int buffLength = (int)args[3];
                         bool quiet = (bool)args[4];
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
                         Main.npc[npcID].AddBuff(buffType, buffLength, true, quiet);
                         break;
                 }
@@ -267,8 +254,5 @@ namespace ROI
             }
             base.ModifyLightingBrightness(ref scale);
         }
-
-
-
     }
 }

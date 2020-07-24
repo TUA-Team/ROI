@@ -8,11 +8,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Terraria;
-<<<<<<< HEAD
 using Terraria.GameContent.Generation;
 using Terraria.Graphics.Effects;
-=======
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
@@ -125,7 +122,6 @@ namespace ROI.Worlds
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-<<<<<<< HEAD
             int hellGen = tasks.FindIndex(i => i.Name == "Underworld");
             int hellForgeGen = tasks.FindIndex(i => i.Name == "Hellforge");
             if (hellGen != -1)
@@ -152,8 +148,6 @@ namespace ROI.Worlds
                     return;
                 });
             }
-=======
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
 
         }
 

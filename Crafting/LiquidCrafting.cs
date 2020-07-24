@@ -57,11 +57,7 @@ namespace ROI.Crafting
             {
                 foreach (Item item in ingredient)
                 {
-<<<<<<< HEAD
                     Point16 itemPositionInWorld = ((item.BottomLeft - new Vector2(0, 2)) / 16).ToPoint16();
-=======
-                    Point16 itemPositionInWorld = (item.BottomLeft / 16).ToPoint16();
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
                     Tile tile = Main.tile[itemPositionInWorld.X, itemPositionInWorld.Y];
 
                     if (tile.liquid > 100)

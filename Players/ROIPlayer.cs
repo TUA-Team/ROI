@@ -67,12 +67,8 @@ namespace ROI.Players
                 [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
                 [nameof(voidItemCooldown)] = voidItemCooldown,
                 [nameof(VoidHeartHP)] = VoidHeartHP,
-<<<<<<< HEAD
-                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
-=======
                 [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats,
                 [nameof(radiationLevel)] = radiationLevel
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
             };
         }
 
@@ -87,10 +83,6 @@ namespace ROI.Players
             _voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
             VoidTier = tag.GetAsInt(nameof(VoidTier));
             MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
-<<<<<<< HEAD
-=======
-            radiationLevel = tag.GetFloat(nameof(radiationLevel));
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)

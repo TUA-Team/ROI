@@ -416,9 +416,6 @@ namespace ROI.NPCs.HeartOfTheWasteland
             for (int i = 0; i < 3; i++)
             {
                 Vector2 startingPoint = new Vector2(_VinePosition[i].X, _VinePosition[i].Y);
-<<<<<<< HEAD
-                DrawRepeatingTexture(spriteBatch, startingPoint, npc.Center, _tentacle, Color.White);
-=======
                 float num7 = npc.Center.X - startingPoint.X;
                 float num8 = npc.Center.Y - startingPoint.Y;
                 float rotation2 = (float)Math.Atan2(num8, num7) - 1.57f;
@@ -444,7 +441,6 @@ namespace ROI.NPCs.HeartOfTheWasteland
                     Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int)startingPoint.X / 16, (int)(startingPoint.Y / 16f));
                     spriteBatch.Draw(_tentacle, new Vector2(startingPoint.X - Main.screenPosition.X, startingPoint.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, _tentacle.Width, textureWidth), color2, rotation2, new Vector2((float)_tentacle.Width * 0.5f, (float)_tentacle.Height * 0.5f), 1f, SpriteEffects.None, 0f);
                 }
->>>>>>> 93055d08c4298f520ee2b67f37961dd6c4805bd5
             }
         }
 
