@@ -103,5 +103,10 @@ namespace ROI
             }
             return false;
         }
+
+        public static T GetField<T>(this object parent, string name, BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance)
+        {
+            return (T)parent.GetType().GetField(name, flags).GetValue(parent);
+        }
     }
 }
