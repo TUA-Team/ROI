@@ -17,8 +17,8 @@ namespace ROI.Items.Weapons.Wasteland
 			item.useTime = 22;
 			item.shootSpeed = 6f;
 			item.knockBack = 5f;
-			item.width = 40;
-			item.height = 40;
+			item.width = 46;
+			item.height = 54;
 			item.damage = 29;
 			item.scale = 1.1f;
 			item.UseSound = SoundID.Item1;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using ROI.Globals;
 using ROI.Manager;
+using System.Reflection;
 using Terraria;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
