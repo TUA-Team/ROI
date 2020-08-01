@@ -172,7 +172,7 @@ namespace ROI.Manager
         internal override void Unload()
         {
             _client.UpdateEndTime(DateTime.UtcNow);
-            _client.Dispose();
+            _client?.Dispose();
         }
     }
 }
