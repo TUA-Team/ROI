@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using ROI.Items.Interface;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +14,7 @@ namespace ROI.Items.Tools
         public override bool CloneNewInstances => false;
 
         private IList<int> integratedBuff = new List<int>(10);
-        
+
 
         public int VoidTier { get; set; }
         public int VoidCost { get; set; }
@@ -34,8 +34,8 @@ namespace ROI.Items.Tools
         {
             DisplayName.SetDefault("The void");
             Tooltip.SetDefault("\"The wielder of this legendary item will be in true communion with the Void\"\n" +
-							   "Gives a random buff from the Void at a 5 minute cooldown\n" +
-							   "Can also grant up to 10 guaranteed potion effects that will last for 4 minutes.");
+                               "Gives a random buff from the Void at a 5 minute cooldown\n" +
+                               "Can also grant up to 10 guaranteed potion effects that will last for 4 minutes.");
 
         }
 

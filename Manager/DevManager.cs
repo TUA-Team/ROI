@@ -37,7 +37,7 @@ namespace ROI.Manager
 
         public override void Initialize()
         {
-            
+
         }
     }
 }

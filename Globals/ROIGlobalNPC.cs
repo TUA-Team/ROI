@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net;
+﻿using log4net;
 using Microsoft.Xna.Framework;
-using ROI.Manager;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -23,7 +18,7 @@ namespace ROI.Globals
             switch (npc.type)
             {
                 case NPCID.MoonLordCore:
-                    npc.value = Item.buyPrice(0, 50, 0 , 0);
+                    npc.value = Item.buyPrice(0, 50, 0, 0);
                     break;
                 case NPCID.DukeFishron:
                     npc.value = Item.buyPrice(0, 25, 0, 0); ;
@@ -128,13 +123,13 @@ namespace ROI.Globals
             {
                 SpawnWastelandCore();
             }
-            
+
             orig(position);
         }
 
         internal static void SpawnWastelandCore()
         {
-            
+
         }
     }
 }

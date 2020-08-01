@@ -1,8 +1,6 @@
-﻿using System;
-using System.Deployment.Internal;
+﻿using DiscordRPC;
+using System;
 using System.Linq;
-using DiscordRPC;
-using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.ID;
 using Terraria.Utilities;
@@ -84,71 +82,72 @@ namespace ROI.Manager
                     }
                     if (NPC.LunarApocalypseIsUp)
                     {
-                        _client.UpdateDetails( "The moon is dark tonight");
+                        _client.UpdateDetails("The moon is dark tonight");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Celestial Pillars");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.MoonLordCore))
                     {
-                        _client.UpdateDetails( "Upon the final frontier");
+                        _client.UpdateDetails("Upon the final frontier");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Moon Lord");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.CultistBoss))
                     {
-                        _client.UpdateDetails( "The Psychotic Ritual");
+                        _client.UpdateDetails("The Psychotic Ritual");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Lunatic Cultist");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Golem))
                     {
-                        _client.UpdateDetails( "The Lizhard Divinity");
+                        _client.UpdateDetails("The Lizhard Divinity");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Golem");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Plantera))
                     {
-                        _client.UpdateDetails( "The Jungle Terror");
+                        _client.UpdateDetails("The Jungle Terror");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting Plantera");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.TheDestroyer))
                     {
-                        _client.UpdateDetails( "The Mechanical Worm");
+                        _client.UpdateDetails("The Mechanical Worm");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the destroyer");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.Retinazer) || (Main.npc.Any(i => i.type == NPCID.Spazmatism)))
                     {
-                        _client.UpdateDetails( "The Hallowed Eyes");
+                        _client.UpdateDetails("The Hallowed Eyes");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Twins");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.SkeletronPrime))
                     {
-                        _client.UpdateDetails( "The Steel Skeleton");
+                        _client.UpdateDetails("The Steel Skeleton");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting Skeletron Prime");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.WallofFlesh))
                     {
-                        _client.UpdateDetails( "The Lord of Hell");
+                        _client.UpdateDetails("The Lord of Hell");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Wall of Flesh");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.SkeletronHead))
                     {
-                        _client.UpdateDetails( "The Cursed Man");
+                        _client.UpdateDetails("The Cursed Man");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting Skeletron");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.QueenBee))
                     {
-                        _client.UpdateDetails( "NOT THE BEES");
+                        _client.UpdateDetails("NOT THE BEES");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Queen Bee");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.EaterofWorldsHead))
                     {
-                        _client.UpdateDetails( "The Corrupted Abomination");
+                        _client.UpdateDetails("The Corrupted Abomination");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Eater of the World");
                     }
                     else if (Main.npc.Any(i => i.type == NPCID.BrainofCthulhu))
                     {
-                        _client.UpdateDetails( "The Bodiless Brain");
+                        _client.UpdateDetails("The Bodiless Brain");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Brain of Cthulhu");
-                    } else if (Main.npc.Any(i => i.type == NPCID.EyeofCthulhu))
+                    }
+                    else if (Main.npc.Any(i => i.type == NPCID.EyeofCthulhu))
                     {
-                        _client.UpdateDetails( "The Bodiless Brain");
+                        _client.UpdateDetails("The Bodiless Brain");
                         _client.UpdateState(Main.LocalPlayer.name + " is fighting the Brain of Cthulhu");
                     }
 
@@ -166,7 +165,7 @@ namespace ROI.Manager
                 }
                 _client.SetPresence(_presence);
             }
-            
+
         }
 
         internal override void Unload()

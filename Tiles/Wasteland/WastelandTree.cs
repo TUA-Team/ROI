@@ -40,9 +40,9 @@ namespace ROI.Tiles.Wasteland
 
         public void PostDrawTreeTop(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin)
         {
-            if(Main.rand.Next(100) == 0)
+            if (Main.rand.Next(100) == 0)
                 Dust.NewDust(position, sourceRectangle.Value.Width, sourceRectangle.Value.Height, DustID.GrassBlades, 0f, 0.2f, 255, Color.GreenYellow, 0.5f);
-            
+
             if (_brightness >= 1f || _brightness <= 0f)
                 _glowing = !_glowing;
             if (_brightness >= 1f)
@@ -55,7 +55,7 @@ namespace ROI.Tiles.Wasteland
 
         public void PostDrawTreeBranch(SpriteBatch sb, Vector2 position, Rectangle? sourceRectangle, Vector2 origin)
         {
-            if(Main.rand.Next(100) == 0)
+            if (Main.rand.Next(100) == 0)
                 Dust.NewDust(position, sourceRectangle.Value.Width, sourceRectangle.Value.Height, DustID.GrassBlades, 0f, 0.2f, 255, Color.GreenYellow, 5f);
 
             //_brightness -= (_glowing) ? 0.001f : -0.01f;

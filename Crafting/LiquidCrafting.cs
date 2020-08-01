@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiquidAPI;
+﻿using LiquidAPI;
 using LiquidAPI.LiquidMod;
 using ROI.Items.Placeables.Wasteland;
 using ROI.Items.Summons;
+using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -20,7 +17,7 @@ namespace ROI.Crafting
 
         internal static void Load()
         {
-            
+
         }
 
         internal static void Unload()
@@ -59,7 +56,7 @@ namespace ROI.Crafting
             {
                 foreach (Item item in ingredient)
                 {
-                    Point16 itemPositionInWorld = (item.BottomLeft/ 16).ToPoint16();
+                    Point16 itemPositionInWorld = (item.BottomLeft / 16).ToPoint16();
                     Tile tile = Main.tile[itemPositionInWorld.X, itemPositionInWorld.Y];
 
                     if (tile.liquid > 100)
@@ -70,7 +67,7 @@ namespace ROI.Crafting
                             Item[] items = Main.item.Where(index => (index.BottomLeft / 16).ToPoint16() == itemPositionInWorld).ToArray();
                             foreach (var confusion in items)
                             {
-                                if(!ingredientDictionary.ContainsKey(item.type))
+                                if (!ingredientDictionary.ContainsKey(item.type))
                                     ingredientDictionary.Add(item.type, item.stack);
                             }
 

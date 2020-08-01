@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiquidAPI;
-using LiquidAPI.LiquidMod;
+﻿using LiquidAPI;
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json.Linq;
 using ROI.Helpers;
 using ROI.Tiles.Wasteland;
+using System;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -37,7 +31,7 @@ namespace ROI.Worlds.Structures.Wasteland
             //int maxY = ParabolaEquation(curveModifier, WorldGen.genRand.Next(30, 55), xModifier);
             int maxY = y + xModifier / 2 * xModifier / 2 / 25 * -1;
             y += (y + 0 * 0 / 25 * -1) - maxY;
-            
+
             for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)
             {
                 Point point = new Point(x + i, y + i * i / 25 * -1);
@@ -48,7 +42,7 @@ namespace ROI.Worlds.Structures.Wasteland
             {
                 Point point = new Point(x + i, y + i * i / 25 * -1);
                 ushort tilePlace = (ushort)((WorldGen.genRand.Next(4) == 0) ? ROIMod.instance.TileType("Wasteland_Waste") : ROIMod.instance.TileType("Wasteland_Rock"));
-                if(!dirt)
+                if (!dirt)
                     WorldGen.TileRunner(point.X, point.Y, strengh, steps, ROIMod.instance.TileType("Wasteland_Rock"), true);
             }
 

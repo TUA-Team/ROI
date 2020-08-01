@@ -25,7 +25,7 @@ namespace ROI.Items.Placeables.Wasteland
             item.useTime = 10;
             item.useStyle = 1;
             item.useTurn = true;
-            
+
         }
 
         public override bool UseItem(Player player)
@@ -41,6 +41,6 @@ namespace ROI.Items.Placeables.Wasteland
             return false;
         }
 
-        
+
     }
 }

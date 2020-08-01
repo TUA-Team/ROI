@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ROI.Projectiles.HeartOfTheWasteland;
+using System;
 using Terraria;
 using Terraria.GameContent.Shaders;
 using Terraria.Graphics.Effects;
@@ -26,7 +22,7 @@ namespace ROI.Globals.ProjectileAIStyle
     /// </summary>
     public partial class ProjectileAIStyle
     {
-        
+
         public static void DeathRayAIStyle(Projectile projectile)
         {
             Vector2? centerPoint = null;
@@ -93,15 +89,15 @@ namespace ROI.Globals.ProjectileAIStyle
             float laserAlphaMultiplier = 0f;
             float lastPrismHue = projectile.GetPrismHue(projectile.ai[0]);
             Color lastPrismColorWithoutAlphaSet = Main.hslToRgb(lastPrismHue, 1f, laserLuminance);
-            lastPrismColorWithoutAlphaSet.A = (byte) ((float) (int) lastPrismColorWithoutAlphaSet.A * laserAlphaMultiplier);
+            lastPrismColorWithoutAlphaSet.A = (byte)((float)(int)lastPrismColorWithoutAlphaSet.A * laserAlphaMultiplier);
             Color lastPrismColor = lastPrismColorWithoutAlphaSet;
             Vector2 dustPosition = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14.5f * projectile.scale);
             float x3 = Main.rgbToHsl(new Color(Main.DiscoR, Main.DiscoG, Main.DiscoB)).X;
             for (int i = 0; i < 2; i++)
             {
-                float rawDustSpeed = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? (-1f) : 1f) * ((float) Math.PI / 2f);
-                float rawDustSpeedModifier = (float) Main.rand.NextDouble() * 0.8f + 1f;
-                Vector2 dustSpeed = new Vector2((float) Math.Cos(rawDustSpeed) * rawDustSpeedModifier, (float) Math.Sin(rawDustSpeed) * rawDustSpeedModifier);
+                float rawDustSpeed = projectile.velocity.ToRotation() + ((Main.rand.Next(2) == 1) ? (-1f) : 1f) * ((float)Math.PI / 2f);
+                float rawDustSpeedModifier = (float)Main.rand.NextDouble() * 0.8f + 1f;
+                Vector2 dustSpeed = new Vector2((float)Math.Cos(rawDustSpeed) * rawDustSpeedModifier, (float)Math.Sin(rawDustSpeed) * rawDustSpeedModifier);
 
                 //This might ber for all dust actually
                 Dust initialLastPrismDust = Dust.NewDustDirect(dustPosition, 0, 0, 267, dustSpeed.X, dustSpeed.Y);
@@ -128,20 +124,20 @@ namespace ROI.Globals.ProjectileAIStyle
 
             if (Main.rand.Next(5) == 0)
             {
-                Vector2 value34 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float) Main.rand.NextDouble() - 0.5f) * projectile.width;
+                Vector2 value34 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
                 Dust secondaryDust = Dust.NewDustDirect(dustPosition + value34 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default(Color), 1.5f);
                 secondaryDust.velocity *= 0.5f;
                 secondaryDust.velocity.Y = 0f - Math.Abs(secondaryDust.velocity.Y);
             }
 
             DelegateMethods.v3_1 = lastPrismColorWithoutAlphaSet.ToVector3() * 0.3f;
-            float drippleColorModifier = 0.1f * (float) Math.Sin(ROIMod.gameTime.TotalGameTime.TotalSeconds % 3600.0 * 20f);
-            Vector2 size = new Vector2(projectile.velocity.Length() * projectile.localAI[1], (float) projectile.width * projectile.scale);
+            float drippleColorModifier = 0.1f * (float)Math.Sin(ROIMod.gameTime.TotalGameTime.TotalSeconds % 3600.0 * 20f);
+            Vector2 size = new Vector2(projectile.velocity.Length() * projectile.localAI[1], (float)projectile.width * projectile.scale);
             float prjectileVelocityToRotation = projectile.velocity.ToRotation();
             if (Main.netMode != 2)
-                ((WaterShaderData) Filters.Scene["WaterDistortion"].GetShader()).QueueRipple(projectile.position + new Vector2(size.X * 0.5f, 0f).RotatedBy(prjectileVelocityToRotation), new Color(0.5f, 0.1f * (float) Math.Sign(drippleColorModifier) + 0.5f, 0f, 1f) * Math.Abs(drippleColorModifier), size, RippleShape.Square, prjectileVelocityToRotation);
+                ((WaterShaderData)Filters.Scene["WaterDistortion"].GetShader()).QueueRipple(projectile.position + new Vector2(size.X * 0.5f, 0f).RotatedBy(prjectileVelocityToRotation), new Color(0.5f, 0.1f * (float)Math.Sign(drippleColorModifier) + 0.5f, 0f, 1f) * Math.Abs(drippleColorModifier), size, RippleShape.Square, prjectileVelocityToRotation);
 
-            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float) projectile.width * projectile.scale, DelegateMethods.CastLight);
+            Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], (float)projectile.width * projectile.scale, DelegateMethods.CastLight);
         }
 
         private static void SamplesSize(Projectile projectile, ref float samplesSize, ref float samplingWidth)

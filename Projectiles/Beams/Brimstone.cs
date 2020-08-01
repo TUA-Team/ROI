@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
 using Terraria;
 
 namespace ROI.Projectiles.Beams
 {
-	/// <summary>
-	/// ai[0] = dunno
-	/// ai[1] = angle 
-	/// </summary>
-	class Brimstone : BaseCurvingBeam
-	{
-		public bool turn;
+    /// <summary>
+    /// ai[0] = dunno
+    /// ai[1] = angle 
+    /// </summary>
+    class Brimstone : BaseCurvingBeam
+    {
+        public bool turn;
 
-		public Vector2 middlePoint;
-		public Vector2 finalPoint;
-		public float _angle;
+        public Vector2 middlePoint;
+        public Vector2 finalPoint;
+        public float _angle;
 
-		public override void SetDefaults()
-		{
-			base.SetDefaults();
-			
-		}
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
 
-		public override void AI()
-		{
+        }
 
-			ModifyBeamVelocity(_angle);
-			/*
+        public override void AI()
+        {
+
+            ModifyBeamVelocity(_angle);
+            /*
 			switch (projectile.ai[0])
 			{
 				case 0f:
@@ -51,52 +47,52 @@ namespace ROI.Projectiles.Beams
 					}
 					break;
 			}*/
-		}
+        }
 
-		internal void ModifyBeamVelocity(double angleInDegree)
-		{
-			int count = 180;
+        internal void ModifyBeamVelocity(double angleInDegree)
+        {
+            int count = 180;
 
-			//set start angle to base angle
-			float currentAngle = projectile.ai[1];
-			float perCurve = MathHelper.TwoPi / count;
+            //set start angle to base angle
+            float currentAngle = projectile.ai[1];
+            float perCurve = MathHelper.TwoPi / count;
 
-			//parameters for you to change
-			float length = 900f;
-			float tangentLength = 900f;
+            //parameters for you to change
+            float length = 900f;
+            float tangentLength = 900f;
 
-			currentAngle += perCurve;
+            currentAngle += perCurve;
 
-			if (currentAngle > MathHelper.TwoPi)
-			{
-				currentAngle = 0;
-			}
-
-
-			Vector2 perp = new Vector2((float)Math.Cos(currentAngle), (float)Math.Sin(currentAngle));
-			Vector2 tang = new Vector2(perp.Y, -perp.X);
-
-			
-			curve = new BaseCurvingBeam.BezierCurve(
-				projectile.position,
-				projectile.position + perp * length * 0.75f,
-				projectile.position + perp * length + tang * tangentLength * 0.5f,
-				projectile.position + perp * length + tang * tangentLength);
-			projectile.ai[1] = currentAngle;
-
-		}
+            if (currentAngle > MathHelper.TwoPi)
+            {
+                currentAngle = 0;
+            }
 
 
-		public override void SendExtraAI(BinaryWriter writer)
-		{
-			writer.WriteVector2(middlePoint);
-			writer.WriteVector2(finalPoint);
-		}
+            Vector2 perp = new Vector2((float)Math.Cos(currentAngle), (float)Math.Sin(currentAngle));
+            Vector2 tang = new Vector2(perp.Y, -perp.X);
 
-		public override void ReceiveExtraAI(BinaryReader reader)
-		{
-			middlePoint = reader.ReadVector2();
-			finalPoint = reader.ReadVector2();
-		}
-	}
+
+            curve = new BaseCurvingBeam.BezierCurve(
+                projectile.position,
+                projectile.position + perp * length * 0.75f,
+                projectile.position + perp * length + tang * tangentLength * 0.5f,
+                projectile.position + perp * length + tang * tangentLength);
+            projectile.ai[1] = currentAngle;
+
+        }
+
+
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            writer.WriteVector2(middlePoint);
+            writer.WriteVector2(finalPoint);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            middlePoint = reader.ReadVector2();
+            finalPoint = reader.ReadVector2();
+        }
+    }
 }

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ROI.Effects;
+using ROI.NPCs.HeartOfTheWasteland;
+using ROI.NPCs.Void.VoidPillar;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.Xna.Framework.Graphics;
-using ROI.NPCs.HeartOfTheWasteland;
-using ROI.NPCs.Void.VoidPillar;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
@@ -32,8 +32,8 @@ namespace ROI.Players
         public int VoidTier { get; internal set; }
         // private short voidExposure;
 
-		//Radiation in precent
-	    public float radiationLevel = 0;
+        //Radiation in precent
+        public float radiationLevel = 0;
 
         public override void Initialize()
         {
@@ -68,14 +68,14 @@ namespace ROI.Players
                 [nameof(voidItemCooldown)] = voidItemCooldown,
                 [nameof(VoidHeartHP)] = VoidHeartHP,
                 [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats,
-				[nameof(radiationLevel)] = radiationLevel
+                [nameof(radiationLevel)] = radiationLevel
             };
         }
 
         public override void ResetEffects()
         {
             MaxVoidHeartStatsExtra = MaxVoidHeartStats;
-			ResetArmorEffect();
+            ResetArmorEffect();
         }
 
         public override void Load(TagCompound tag)
@@ -83,7 +83,7 @@ namespace ROI.Players
             _voidAffinityAmount = tag.GetShort(nameof(_voidAffinityAmount));
             VoidTier = tag.GetAsInt(nameof(VoidTier));
             MaxVoidAffinity = tag.GetAsInt(nameof(MaxVoidAffinity));
-	        radiationLevel = tag.GetFloat(nameof(radiationLevel));
+            radiationLevel = tag.GetFloat(nameof(radiationLevel));
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -92,16 +92,16 @@ namespace ROI.Players
             packet.Write(_voidAffinityAmount);
             packet.Write(VoidTier);
             packet.Write(voidItemCooldown);
-			packet.Write(radiationLevel);
-			packet.Write(_removeRadiationTimer);
-			packet.Write(_radiationTimer);
-			packet.Write(irrawoodSet);
-			packet.Write(irradiatedSet);
-			packet.Write(irradiatedHood);
-			packet.Write(irradiatedHornedHelmet);
-			packet.Write(irradiatedMask);
-			packet.Write(irradiatedHat);
-			packet.Write(irradiatedHelmet);
+            packet.Write(radiationLevel);
+            packet.Write(_removeRadiationTimer);
+            packet.Write(_radiationTimer);
+            packet.Write(irrawoodSet);
+            packet.Write(irradiatedSet);
+            packet.Write(irradiatedHood);
+            packet.Write(irradiatedHornedHelmet);
+            packet.Write(irradiatedMask);
+            packet.Write(irradiatedHat);
+            packet.Write(irradiatedHelmet);
             packet.Send(toWho, fromWho);
         }
 
@@ -110,17 +110,17 @@ namespace ROI.Players
             _voidAffinityAmount = reader.ReadInt16();
             VoidTier = reader.ReadByte();
             voidItemCooldown = reader.ReadInt32();
-	        radiationLevel = reader.ReadSingle();
-	        _removeRadiationTimer = reader.ReadInt32();
-	        _radiationTimer = reader.ReadInt32();
-	        irrawoodSet = reader.ReadBoolean();
-	        irradiatedSet = reader.ReadBoolean();
-	        irradiatedHood = reader.ReadBoolean();
-	        irradiatedHornedHelmet = reader.ReadBoolean();
-	        irradiatedMask = reader.ReadBoolean();
-			irradiatedHat = reader.ReadBoolean();
-	        irradiatedHelmet = reader.ReadBoolean();
-		}
+            radiationLevel = reader.ReadSingle();
+            _removeRadiationTimer = reader.ReadInt32();
+            _radiationTimer = reader.ReadInt32();
+            irrawoodSet = reader.ReadBoolean();
+            irradiatedSet = reader.ReadBoolean();
+            irradiatedHood = reader.ReadBoolean();
+            irradiatedHornedHelmet = reader.ReadBoolean();
+            irradiatedMask = reader.ReadBoolean();
+            irradiatedHat = reader.ReadBoolean();
+            irradiatedHelmet = reader.ReadBoolean();
+        }
 
         public override void UpdateBiomes()
         {
@@ -185,7 +185,7 @@ namespace ROI.Players
                     player.AddBuff(mod.BuffType("Horrified"), 1);
                 }
 
-                if (Main.npc[ROI.Worlds.ROIWorld.activeHotWID].ai[0] == 1 && 
+                if (Main.npc[ROI.Worlds.ROIWorld.activeHotWID].ai[0] == 1 &&
                     player.position.X / 16 > Main.npc[ROI.Worlds.ROIWorld.activeHotWID].position.X / 16 - 300 ||
                     player.position.X / 16 < Main.npc[ROI.Worlds.ROIWorld.activeHotWID].position.X / 16 + 300)
                 {
@@ -194,7 +194,7 @@ namespace ROI.Players
                 }
             }
 
-			UpdateRadiation();
+            UpdateRadiation();
         }
 
         public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
@@ -230,15 +230,15 @@ namespace ROI.Players
                 }
             }
 
-	        bool isPillarPresent = Main.npc.Any(i => i.modNPC is VoidPillar);
-	        if (isPillarPresent)
-	        {
-				SkyManager.Instance.Activate("ROI:VoidSky", player.position);
-	        }
-	        else
-	        {
-		        SkyManager.Instance.Deactivate("ROI:VoidSky");
-			}
+            bool isPillarPresent = Main.npc.Any(i => i.modNPC is VoidPillar);
+            if (isPillarPresent)
+            {
+                SkyManager.Instance.Activate("ROI:VoidSky", player.position);
+            }
+            else
+            {
+                SkyManager.Instance.Deactivate("ROI:VoidSky");
+            }
         }
     }
 }

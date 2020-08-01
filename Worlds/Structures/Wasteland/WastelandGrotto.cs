@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
 using Terraria;
 
 namespace ROI.Worlds.Structures.Wasteland
@@ -29,14 +24,14 @@ namespace ROI.Worlds.Structures.Wasteland
                 {
                     WorldGen.PlaceTile(x + i, y + j, ROIMod.instance.TileType("Wasteland_Rock"));
                     Main.tile[x + i, y + j].active(true);
-                    Main.tile[x + i, y + j].type = (ushort) ROIMod.instance.TileType("Wasteland_Rock");
+                    Main.tile[x + i, y + j].type = (ushort)ROIMod.instance.TileType("Wasteland_Rock");
                 }
             }
         }
 
         internal static int ParabolaEquation(float curveModifier, float heightModifier, int x)
         {
-            return (int) (curveModifier * (x * x) + heightModifier);
+            return (int)(curveModifier * (x * x) + heightModifier);
         }
     }
 }

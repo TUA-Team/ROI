@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MonoMod.Cil;
+using MonoMod.RuntimeDetour.HookGen;
+using System;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MonoMod.Cil;
-using MonoMod.RuntimeDetour.HookGen;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -85,7 +82,7 @@ namespace ROI
 
             internal static void NewChasmGenerator(orig_ChasmGenerator orig, int i, int j, int steps, bool ocean = false)
             {
-                if(WorldGen.crimson)
+                if (WorldGen.crimson)
                     return;
                 orig(i, j, steps, ocean);
             }
@@ -138,7 +135,7 @@ namespace ROI
                         return assembly.GetTypes().Single(i => i.Name == type);
                     }
                     return assembly.GetTypes().Single(i => i.Name == type && i.IsInstanceOfType(extendedType));
-                    
+
                 }
                 catch (Exception e)
                 {
