@@ -56,6 +56,8 @@ namespace ROI.Players
         /// </summary>
 	    public int MaxVoidHeartStatsExtra { get; set; }
 
+        public bool ZoneWasteland = false;
+
         public override TagCompound Save()
         {
             return new TagCompound()
@@ -120,6 +122,45 @@ namespace ROI.Players
 	        irradiatedHelmet = reader.ReadBoolean();
 		}
 
+        public override void UpdateBiomes()
+        {
+            Vector2 pos = player.position / 16;
+            ZoneWasteland = pos.Y > Main.maxTilesY - 200 && WorldGen.crimson;
+        }
+
+        public override bool CustomBiomesMatch(Player other)
+        {
+            var otherPlr = other.GetModPlayer<ROIPlayer>();
+
+            return ZoneWasteland == otherPlr.ZoneWasteland;
+        }
+
+        public override void CopyCustomBiomesTo(Player other)
+        {
+            var otherPlr = other.GetModPlayer<ROIPlayer>();
+
+            otherPlr.ZoneWasteland = ZoneWasteland;
+        }
+
+        public override void SendCustomBiomes(BinaryWriter writer)
+        {
+            var flags = new BitsByte();
+            flags[0] = ZoneWasteland;
+            writer.Write(flags);
+        }
+
+        public override void ReceiveCustomBiomes(BinaryReader reader)
+        {
+            BitsByte flags = reader.ReadByte();
+            ZoneWasteland = flags[0];
+        }
+
+        public override Texture2D GetMapBackgroundImage()
+        {
+            //TODO: wasteland bg
+            return base.GetMapBackgroundImage();
+        }
+
         public override void PreUpdateBuffs()
         {
             bool isHotWAlive = NPC.AnyNPCs(ModContent.NPCType<HeartOfTheWasteland>());
@@ -171,10 +212,8 @@ namespace ROI.Players
         public override void UpdateBiomeVisuals()
         {
             Vector2 playerPosition = Main.LocalPlayer.position / 16;
-            if (playerPosition.Y > Main.maxTilesY - 200 && WorldGen.crimson)
+            if (ZoneWasteland)
             {
-
-
                 float percent = ((playerPosition.Y - Main.maxTilesY + 300) / 300);
                 if (!Filters.Scene["ROI:UnderworldFilter"].IsActive())
                 {
@@ -201,7 +240,5 @@ namespace ROI.Players
 		        SkyManager.Instance.Deactivate("ROI:VoidSky");
 			}
         }
-
-        
     }
 }
