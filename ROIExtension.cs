@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using ROI.Globals;
 using ROI.Manager;
+using System.Reflection;
 using Terraria;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
@@ -102,6 +103,11 @@ namespace ROI
                 }
             }
             return false;
+        }
+
+        public static T GetField<T>(this object parent, string name, BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance)
+        {
+            return (T)parent.GetType().GetField(name, flags).GetValue(parent);
         }
     }
 }
