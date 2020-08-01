@@ -8,7 +8,7 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <Target Name="BuildMod" AfterTargets="Build">
-    <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define &quot;$(DefineConstants)&quot; -unsafe $(AllowUnsafeBlocks)" />
+    <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define &quot;$(DefineConstants)&quot; -unsafe true" />
   </Target>
   <ItemGroup>
     <Compile Remove="Textures\**" />
@@ -25,6 +25,9 @@
   <ItemGroup>
     <Reference Include="DiscordRPC">
       <HintPath>lib\DiscordRPC.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video">
+      <HintPath>C:\Windows\Microsoft.NET\assembly\GAC_MSIL\Microsoft.Xna.Framework.Video\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Video.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
