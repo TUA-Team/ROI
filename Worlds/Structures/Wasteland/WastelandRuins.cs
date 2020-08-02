@@ -128,44 +128,18 @@ namespace ROI.Worlds.Structures
                 if (!WorldGen.InWorld(i, v)) continue;
                 if (currentFloor == 0)
                 {
-                    Main.tile[i, v].active(true);
-                    Main.tile[i, v].type = (ushort)mod.TileType("Wasteland_Brick");
+                    WorldGen.PlaceTile(i, v, mod.TileType("Wasteland_Brick"), true, true);
                     continue;
                 }
                 if (WorldGen.genRand.Next(8) == 0)
                     continue;
                 //Main.tile[i, v].active(true);
 
-                if (!(Main.tile[i, v].type == (ushort)mod.TileType("Wasteland_Brick")))
+                if (Main.tile[i, v].type != (ushort)mod.TileType("Wasteland_Brick"))
                 {
-                    if (Main.tile[i, v].active())
-                    {
-                        WorldGen.KillTile(i, v);
-                        WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
-                        //WorldGen.PlaceTile(i, v, TileID.Dirt, true, true);
-                    }
-                    else
-                    {
-                        Main.tile[i, v].active(true);
-                        Main.tile[i, v].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
-                    }
+                    // TODO: WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
+                    WorldGen.PlaceTile(i, v, TileID.Platforms, true, true);
                 }
-                /*
-                else
-                {
-                    if (Main.tile[i, v].active())
-                    {
-                        WorldGen.KillTile(i, v);
-                        WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
-                        //WorldGen.PlaceTile(i, v, TileID.Dirt, true, true);
-                    }
-                    else
-                    {
-                        Main.tile[i, v].active(true);
-                        Main.tile[i, v].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
-                    }
-                }
-                */
                 //WorldGen.SquareTileFrame(i, y + height);
             }
 
