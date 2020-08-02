@@ -37,6 +37,10 @@ namespace ROI
         internal UserInterface radiationInterface;
         internal RadiationMeter radiationMeter;
 
+        //Config
+        internal static MainMenuConfig menu;
+
+        //Infinity core static loader
         public static bool EnableInfinityCoreStaticLoader = true;
 
         public static GameTime gameTime;
