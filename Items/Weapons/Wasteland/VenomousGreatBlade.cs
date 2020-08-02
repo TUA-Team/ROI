@@ -26,18 +26,22 @@ namespace ROI.Items.Weapons.Wasteland
             item.useAnimation = 20;
             item.useStyle = 1;
             item.autoReuse = false;
-            
+
         }
 
         public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            if (Main.rand.Next(100) > 45)
+            if (Main.netMode != NetmodeID.MultiplayerClient)
             {
-                target.AddBuff(BuffID.Venom, 180, true);
+                if (Main.rand.Next(100) > 45)
+                {
+                    target.AddBuff(BuffID.Venom, 180, true);
+                    // TODO: sync this
+                }
             }
 
-            target.life = 1;
-            target.StrikeNPCNoInteraction(1, 0, 0);
+            //target.life = 1;
+            //target.StrikeNPCNoInteraction(1, 0, 0);
         }
 
         public override void AddRecipes()

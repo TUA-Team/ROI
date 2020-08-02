@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Helpers;
-using ROI.Players;
 using ROI.Projectiles.HeartOfTheWasteland;
 using ROI.Worlds;
+using System;
+using System.IO;
+using System.Linq;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ROI.NPCs.HeartOfTheWasteland
@@ -36,7 +34,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
         private int nextVineToModify = 0;
 
         private int spawningCountdown;
-        private float opacity = 0f; 
+        private float opacity = 0f;
 
         private int _nextSmallLaserCooldown = 100;
         private int _nextLaserAmount = 5;
@@ -143,10 +141,10 @@ namespace ROI.NPCs.HeartOfTheWasteland
             //npc.velocity = Vector2.Zero;
             switch ((HotWAiPhase)npc.ai[0])
             {
-                case HotWAiPhase.Spawning :
-                    if (!Main.projectile[(int)npc.ai[2]].active || Main.projectile[(int) npc.ai[2]].type != ModContent.ProjectileType<ClumpOfRadioactiveMeat>())
+                case HotWAiPhase.Spawning:
+                    if (!Main.projectile[(int)npc.ai[2]].active || Main.projectile[(int)npc.ai[2]].type != ModContent.ProjectileType<ClumpOfRadioactiveMeat>())
                     {
-                        npc.ai[0] = (float) HotWAiPhase.Moving;
+                        npc.ai[0] = (float)HotWAiPhase.Moving;
                         npc.ai[1] = 0;
                         npc.ai[2] = 0;
                         npc.ai[3] = 0;
@@ -156,7 +154,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
 
                     for (int i = 0; i < 2; i++)
                     {
-                        if(Main.rand.Next(5) == 0)
+                        if (Main.rand.Next(5) == 0)
                             Dust.NewDust(Main.projectile[(int)npc.ai[2]].Center, 2, 2, DustID.GreenBlood, Main.rand.Next(-2, 2), Main.rand.Next(1, 3), 0, Color.GreenYellow, 1f);
                     }
                     break;
@@ -165,7 +163,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
                     break;
                 case HotWAiPhase.Stalling:
                     //Insert laser and mob spawning stuff here
-                    npc.ai[0] = (float) HotWAiPhase.Moving;
+                    npc.ai[0] = (float)HotWAiPhase.Moving;
                     break;
             }
 
@@ -204,7 +202,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
                 _nextSmallLaserCooldown = 15;
 
                 Vector2 spawn = new Vector2(npc.position.X + npc.width / 2, npc.position.Y + npc.height / 2);
-                float rotation = (float) Math.Atan2(TargetPlayer.Center.Y - spawn.Y, TargetPlayer.Center.X - spawn.X);
+                float rotation = (float)Math.Atan2(TargetPlayer.Center.Y - spawn.Y, TargetPlayer.Center.X - spawn.X);
 
                 Projectile.NewProjectile(spawn, rotation.ToRotationVector2() * 6, ProjectileID.EyeLaser, 100, 0.2f);
 
@@ -218,7 +216,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
         }
 
 
-        
+
         private void MovingLaser()
         {
             if (npc.life > npc.lifeMax * 0.9)
@@ -332,7 +330,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
 
         public override bool CheckActive()
         {
-            if (Main.player.Any(i => !i.dead || i.position.Y / 16 > Main.maxTilesY - 200))
+            if (Main.player.Any(i => !i.dead || i.position.Y / 16 > Main.maxTilesY - 200))
             {
                 return false;
             }
@@ -377,7 +375,7 @@ namespace ROI.NPCs.HeartOfTheWasteland
         }
 
         public override void NPCLoot()
-        { 
+        {
             ROIWorld.activeHotWID = -1;
             if (!Main.hardMode)
             {
@@ -389,10 +387,10 @@ namespace ROI.NPCs.HeartOfTheWasteland
         public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
         {
             Vector2 npcPosition = new Vector2(npc.position.X - Main.screenPosition.X, npc.position.Y - Main.screenPosition.Y);
-            
+
             switch ((HotWAiPhase)npc.ai[0])
             {
-                case HotWAiPhase.Spawning :
+                case HotWAiPhase.Spawning:
                     spriteBatch.End();
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
                     PostSpawningDraw(spriteBatch);
@@ -400,12 +398,12 @@ namespace ROI.NPCs.HeartOfTheWasteland
                     spriteBatch.End();
                     spriteBatch.Begin();
                     break;
-                case HotWAiPhase.Moving : 
-                case HotWAiPhase.Stalling :
+                case HotWAiPhase.Moving:
+                case HotWAiPhase.Stalling:
                     PostSpawningDraw(spriteBatch);
                     spriteBatch.Draw(ModContent.GetTexture(Texture), npcPosition, new Rectangle(0, 0, 152, 222), Color.White, 0f, Vector2.Zero, new Vector2(2, 2), SpriteEffects.None, 1f);
                     break;
-                case HotWAiPhase.dead :
+                case HotWAiPhase.dead:
                     break;
             }
             PostSpawningDraw(spriteBatch);
@@ -418,34 +416,32 @@ namespace ROI.NPCs.HeartOfTheWasteland
             for (int i = 0; i < 3; i++)
             {
                 Vector2 startingPoint = new Vector2(_VinePosition[i].X, _VinePosition[i].Y);
-                float num7 = npc.Center.X - startingPoint.X;
-                float num8 = npc.Center.Y - startingPoint.Y;
-                float rotation2 = (float) Math.Atan2(num8, num7) - 1.57f;
-                bool flag3 = true;
-                while (flag3)
-                {
-                    int textureWidth = 102;
-                    int textureHeight = 222;
-                    float num11 = (float) Math.Sqrt(num7 * num7 + num8 * num8);
-                    if (num11 < (float) textureHeight)
-                    {
-                        textureWidth = (int) num11 - textureHeight + textureWidth;
-                        flag3 = false;
-                    }
-
-                    num11 = (float) textureWidth / num11;
-                    num7 *= num11;
-                    num8 *= num11;
-                    startingPoint.X += num7;
-                    startingPoint.Y += num8;
-                    num7 = npc.Center.X - startingPoint.X;
-                    num8 = npc.Center.Y - startingPoint.Y;
-                    Microsoft.Xna.Framework.Color color2 = Lighting.GetColor((int) startingPoint.X / 16, (int) (startingPoint.Y / 16f));
-                    spriteBatch.Draw(_tentacle, new Vector2(startingPoint.X - Main.screenPosition.X,startingPoint.Y - Main.screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, _tentacle.Width, textureWidth), color2, rotation2, new Vector2((float) _tentacle.Width * 0.5f, (float) _tentacle.Height * 0.5f), 1f, SpriteEffects.None, 0f);
-                }
+                DrawRepeatingTexture(spriteBatch, startingPoint, npc.Center, _tentacle, Color.White);
             }
         }
 
+        private void DrawRepeatingTexture(SpriteBatch spriteBatch, Vector2 start, Vector2 end, Texture2D texture, Color color)
+        {
+            Vector2 direction = end - start;
+            float dist = direction.Length();
+            direction.Normalize();
+            float rotation = MathHelper.PiOver2 + (float)Math.Atan2(direction.Y, direction.X);
+            int height = texture.Height;
+            
+            void DrawSection(int drawHeight)
+            {
+                spriteBatch.Draw(texture, start - (direction * (height - drawHeight)), new Rectangle(0, height - drawHeight, texture.Width, drawHeight), color, rotation, new Vector2(texture.Width * 0.5f, height), 1f, SpriteEffects.None, 0f);
+            }
+
+            while (dist > height)
+            {
+                DrawSection(height);
+                dist -= height;
+                start += direction * height;
+            }
+
+            DrawSection((int)dist);
+        }
 
         private enum HotWAiPhase : byte
         {

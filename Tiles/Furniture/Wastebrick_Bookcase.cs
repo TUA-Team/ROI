@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
@@ -31,7 +26,8 @@ namespace ROI.Tiles.Furniture
             adjTiles = new int[] { TileID.Bookcases };
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
             Item.NewItem(i * 16, j * 16, 32, 16, mod.ItemType("Wastebrick_Bookcase"));
         }
     }

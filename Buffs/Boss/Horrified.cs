@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ROI.Players;
+﻿using ROI.Players;
 using Terraria;
 using Terraria.ID;
 
@@ -13,7 +8,7 @@ namespace ROI.Buffs.Boss
     {
         public override bool Autoload(ref string name, ref string texture)
         {
-            texture = "Terraria/Images/Buff_" + BuffID.Horrified; 
+            texture = "Terraria/Images/Buff_" + BuffID.Horrified;
             return base.Autoload(ref name, ref texture);
         }
 

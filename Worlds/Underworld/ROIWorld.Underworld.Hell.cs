@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
+﻿using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
+using static Terraria.WorldGen;
 
 namespace ROI.Worlds
 {
@@ -29,6 +25,7 @@ namespace ROI.Worlds
             HellstoneOreGeneration(progress);
             progress.Message = "Hell worker house";
             WorldGen.AddHellHouses();
+            HellForgeGen(progress);
         }
 
         private static void HellstoneOreGeneration(GenerationProgress progress)
@@ -197,6 +194,48 @@ namespace ROI.Worlds
                     else
                     {
                         Main.tile[x, y].type = 57;
+                    }
+                }
+            }
+        }
+
+        private static void HellForgeGen(GenerationProgress progress)
+        {
+            progress.Message = Lang.gen[36].Value;
+            for (int num258 = 0; num258 < Main.maxTilesX / 200; num258++)
+            {
+                float value = num258 / (Main.maxTilesX / 200);
+                progress.Set(value);
+                bool flag17 = false;
+                int num259 = 0;
+                while (!flag17)
+                {
+                    int num260 = genRand.Next(1, Main.maxTilesX);
+                    int num261 = genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 5);
+                    try
+                    {
+                        if (Main.tile[num260, num261].wall == 13 || Main.tile[num260, num261].wall == 14)
+                        {
+                            for (; !Main.tile[num260, num261].active(); num261++)
+                            {
+                            }
+
+                            num261--;
+                            PlaceTile(num260, num261, 77);
+                            if (Main.tile[num260, num261].type == 77)
+                            {
+                                flag17 = true;
+                            }
+                            else
+                            {
+                                num259++;
+                                if (num259 >= 10000)
+                                    flag17 = true;
+                            }
+                        }
+                    }
+                    catch
+                    {
                     }
                 }
             }

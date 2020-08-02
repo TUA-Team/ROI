@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiquidAPI;
+﻿using LiquidAPI;
 using LiquidAPI.LiquidMod;
+using System.Collections.Generic;
 using Terraria;
 
 namespace ROI.Helpers
@@ -34,7 +30,7 @@ namespace ROI.Helpers
                         Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
                         WorldGen.SquareTileFrame(x, y);
                     }
-                    else if(!replaceTileMode)
+                    else if (!replaceTileMode)
                     {
                         Main.tile[x, y].active(true);
                         Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);

@@ -1,13 +1,7 @@
 ﻿
 using ROIWorld = ROI.Worlds.ROIWorld;
 #if DEBUG
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using ROI.Worlds;
 using ROI.Worlds.Structures.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
@@ -29,14 +23,14 @@ namespace ROI.Commands
             Point16 positionInWorld = position.ToPoint16();
             switch (args[0].ToLower())
             {
-                case "wastelandgrotto" :
+                case "wastelandgrotto":
                     WastelandGrotto.Generate(positionInWorld.X, positionInWorld.Y);
                     break;
-                case "wasteland" :
-                    ROIWorld instance = (ROIWorld) mod.GetModWorld("ROIWorld");
+                case "wasteland":
+                    ROIWorld instance = (ROIWorld)mod.GetModWorld("ROIWorld");
                     instance.WastelandGeneration(new GenerationProgress());
                     break;
-                case "wastelake" :
+                case "wastelake":
                     WastelandLake.Generate(position);
                     break;
             }

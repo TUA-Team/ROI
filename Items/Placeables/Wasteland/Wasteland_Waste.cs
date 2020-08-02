@@ -23,6 +23,6 @@ namespace ROI.Items.Placeables.Wasteland
             item.createTile = mod.TileType("Wasteland_Waste");
         }
 
-        
+
     }
 }

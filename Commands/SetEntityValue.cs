@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -14,9 +10,9 @@ namespace ROI.Commands
         {
             switch (args[0])
             {
-                case "Entity" :
+                case "Entity":
                     break;
-                case "Mod" :
+                case "Mod":
                     if (!ModLoader.Mods.Any(i => i.Name == args[1]))
                     {
                         Main.NewText("");

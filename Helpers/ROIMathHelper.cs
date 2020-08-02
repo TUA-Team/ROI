@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace ROI.Helpers
 {
@@ -12,7 +8,7 @@ namespace ROI.Helpers
         // TO DO: Move to Math helper
         public static float GetRadiantAngle(Vector2 point1, Vector2 point2)
         {
-            return (float) Math.Atan((point2.X - point1.X) / (point2.Y - point1.Y));
+            return (float)Math.Atan((point2.X - point1.X) / (point2.Y - point1.Y));
         }
 
         // TO DO: Move to Math helper

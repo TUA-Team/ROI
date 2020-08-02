@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.Shaders;
-using Terraria.Graphics.Effects;
-using Terraria.ID;
+﻿using Terraria;
 using Terraria.ModLoader;
 using static ROI.Globals.ProjectileAIStyle.ProjectileAIStyle;
 
 namespace ROI.Globals
 {
-    
+
     partial class ROIGlobalProjectile : GlobalProjectile
     {
         public static class ProjectileAIStyleID

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net;
+﻿using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Globals;
 using ROI.Manager;
-using ROI.Players;
+using System.Reflection;
 using Terraria;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
@@ -70,44 +65,49 @@ namespace ROI
             npc.active = false;
         }
 
-	    public static bool IntersectXAxis(this Rectangle rectangle, Rectangle otherRectangle, int x)
-	    {
-		    for (int i = rectangle.Y; i < rectangle.Y + rectangle.Height; i++)
-		    {
-			    if (rectangle.Contains(x, i))
-			    {
-				    return true;
-			    }
-		    }
-		    return false;
-	    }
+        public static bool IntersectXAxis(this Rectangle rectangle, Rectangle otherRectangle, int x)
+        {
+            for (int i = rectangle.Y; i < rectangle.Y + rectangle.Height; i++)
+            {
+                if (rectangle.Contains(x, i))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-	    public static bool IntersectYAxis(this Rectangle rectangle, Rectangle otherRectangle, int y)
-	    {
-		    for (int i = rectangle.X; i < rectangle.X + rectangle.Width; i++)
-		    {
-			    if (rectangle.Contains(i, y)) { return true; }
-		    }
-		    return false;
-	    }
+        public static bool IntersectYAxis(this Rectangle rectangle, Rectangle otherRectangle, int y)
+        {
+            for (int i = rectangle.X; i < rectangle.X + rectangle.Width; i++)
+            {
+                if (rectangle.Contains(i, y)) { return true; }
+            }
+            return false;
+        }
 
-	    public static bool IntersectAdvanced(this Rectangle rectangle, Rectangle otherRectangle, bool xAxis, int startingPoint, int searchingLength)
-	    {
-		    if (xAxis)
-		    {
-			    for (int i = rectangle.Y + startingPoint; i < rectangle.Y + searchingLength; i++)
-			    {
-				    if (rectangle.Contains(i, startingPoint)) { return true; }
-			    }	
-		    }
-		    else
-		    {
-			    for (int i = rectangle.X + startingPoint; i < rectangle.X + searchingLength; i++)
-			    {
-				    if (rectangle.Contains(startingPoint, i)) { return true; }
-			    }
-			}
-		    return false;
-	    }
-	}
+        public static bool IntersectAdvanced(this Rectangle rectangle, Rectangle otherRectangle, bool xAxis, int startingPoint, int searchingLength)
+        {
+            if (xAxis)
+            {
+                for (int i = rectangle.Y + startingPoint; i < rectangle.Y + searchingLength; i++)
+                {
+                    if (rectangle.Contains(i, startingPoint)) { return true; }
+                }
+            }
+            else
+            {
+                for (int i = rectangle.X + startingPoint; i < rectangle.X + searchingLength; i++)
+                {
+                    if (rectangle.Contains(startingPoint, i)) { return true; }
+                }
+            }
+            return false;
+        }
+
+        public static T GetField<T>(this object parent, string name, BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance)
+        {
+            return (T)parent.GetType().GetField(name, flags).GetValue(parent);
+        }
+    }
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using log4net;
+﻿using log4net;
 using Microsoft.Xna.Framework;
-using ROI.Buffs.Void;
 using ROI.Crafting;
 using ROI.NPCs.HeartOfTheWasteland;
 using ROI.NPCs.Interfaces;
-using ROI.NPCs.Void.VoidPillar;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Terraria;
+using Terraria.GameContent.Generation;
 using Terraria.Graphics.Effects;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -20,7 +19,7 @@ namespace ROI.Worlds
     partial class ROIWorld : ModWorld
     {
         private int _pillarSpawningTimer;
-        
+
         /// <summary>
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
@@ -44,7 +43,7 @@ namespace ROI.Worlds
             {
                 if (i.modNPC is ISavableEntity entity)
                 {
-                    
+
                     TagCompound currentEntityTag = entity.Save();
                     currentEntityTag["position"] = i.position;
                     currentEntityTag["name"] = i.modNPC.Name;
@@ -63,14 +62,22 @@ namespace ROI.Worlds
         public override void Load(TagCompound tag)
         {
             LoadModNPCData(tag);
-            if (tag.ContainsKey(nameof(version)))
+            try
             {
-                version = tag.Get<Version>(nameof(version));
+                if (tag.ContainsKey(nameof(version)))
+                {
+                    version = tag.Get<Version>(nameof(version));
+                }
+                else
+                {
+                    version = new Version(0, 0, 0, 0);
+                }
             }
-            else
+            catch (Exception e)
             {
                 version = new Version(0, 0, 0, 0);
             }
+            
         }
 
         private static void LoadModNPCData(TagCompound tag)
@@ -79,12 +86,11 @@ namespace ROI.Worlds
             foreach (TagCompound tagCompound in modNPCData)
             {
                 Vector2 position = tagCompound.Get<Vector2>("position");
-                int instanceNPCID = NPC.NewNPC((int) position.X, (int) position.Y, ModLoader.GetMod(tagCompound.GetString("mod")).NPCType(tagCompound.GetString("name")));
+                int instanceNPCID = NPC.NewNPC((int)position.X, (int)position.Y, ModLoader.GetMod(tagCompound.GetString("mod")).NPCType(tagCompound.GetString("name")));
                 if (Main.npc[instanceNPCID].modNPC is ISavableEntity entity)
                 {
                     entity.Load(tagCompound);
                 }
-                LogManager.GetLogger("I actually care").Info(tagCompound.GetString("name") + " : " + tagCompound.GetString("mod"));
                 if (tag.ContainsKey("Health"))
                 {
                     Main.npc[instanceNPCID].life = tag.GetAsInt("Health");
@@ -116,7 +122,33 @@ namespace ROI.Worlds
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            
+            int hellGen = tasks.FindIndex(i => i.Name == "Underworld");
+            int hellForgeGen = tasks.FindIndex(i => i.Name == "Hellforge");
+            if (hellGen != -1)
+            {
+                tasks[hellGen] = new PassLegacy("Underworld", (progress) =>
+                {
+                    
+                    if (WorldGen.crimson)
+                    {
+                        WastelandGeneration(progress);
+                    }
+                    else
+                    {
+                        OriginalUnderworldGeneration(progress);
+                    }
+                });
+            }
+
+            if (hellForgeGen != -1)
+            {
+                tasks[hellForgeGen] = new PassLegacy("Hellforge", progress =>
+                {
+                    //Why the fuck is this it's own phase in the first place
+                    return;
+                });
+            }
+
         }
 
         public override void PostWorldGen()

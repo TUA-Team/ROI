@@ -1,14 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Mono.Cecil;
-using MonoMod.Cil;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Mono.Cecil.Cil;
-using Terraria.ModLoader;
-
-namespace ROI
+﻿namespace ROI
 {
     /// <summary>
     /// All tree hook related thing added by ROI
