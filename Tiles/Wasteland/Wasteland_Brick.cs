@@ -8,11 +8,10 @@ namespace ROI.Tiles.Wasteland
     {
         public override void SetDefaults()
         {
-            Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
+            Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
-            ModTranslation tileTranslation = CreateMapEntryName();
-            tileTranslation.SetDefault("Wasteland Brick");
+            drop = ModContent.ItemType<Items.Placeables.Wasteland.Wastebrick>();
             AddMapEntry(new Color(173, 255, 47));
         }
     }

@@ -13,10 +13,12 @@ namespace ROI.Players
         public int voidEffectAttemptCooldown = 60 * 60;
         public int voidItemCooldown = 60 * 60 * 5;
 
-        internal int VoidAffinityAmount
-        {
-            get => _voidAffinityAmount;
-        }
+        public bool voidHeartBuff = false;
+
+		internal int VoidAffinityAmount
+		{
+			get => _voidAffinityAmount;
+		}
 
 
         public int AddVoidAffinity(int voidAffinity, bool simulate = false)
@@ -31,14 +33,20 @@ namespace ROI.Players
 
         public void DamageVoidHeart(ref int damage)
         {
-            if (VoidHeartHP >= 0)
+			if (VoidHeartHP >= 0)
+			{
+			    CombatText.NewText(
+			        new Rectangle((int) player.position.X, (int) player.position.Y, player.width, player.height),
+			        Color.Black, damage, true, true);
+				VoidHeartHP -= damage;
+				damage = 0;
+			}
+
+            if (VoidHeartHP <= 0)
             {
-                CombatText.NewText(
-                    new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height),
-                    Color.Black, damage, true, true);
-                VoidHeartHP -= damage;
-                damage = 0;
+                voidHeartBuff = false;
+				
             }
-        }
-    }
+		}
+	}
 }
