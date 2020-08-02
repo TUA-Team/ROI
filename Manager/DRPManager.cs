@@ -25,7 +25,7 @@ namespace ROI.Manager
             _currentState = Main.netMode == 0
                 ? rand.Next(new string[] { "Playing Alone", "Lone Samurai", "Singleplayer" })
                 : rand.Next(new string[] { "Playing With Friends", "Multiplayer" });
-
+            
             _presence = new RichPresence()
             {
                 Details = Environment.Is64BitProcess ? "In Main Menu (64x)" : "In Main Menu",

@@ -9,12 +9,18 @@ using ROI.Manager;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Microsoft.Xna.Framework.Media;
+using ROI.Configs;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
+using ReLogic.Graphics;
+using Terraria.Localization;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+
 
 namespace ROI
 {
@@ -44,6 +50,9 @@ namespace ROI
         public static bool EnableInfinityCoreStaticLoader = true;
 
         public static GameTime gameTime;
+        private static VideoPlayer player;
+        private static Video video;
+        private static Texture2D videoTexture;
 
         public override uint ExtraPlayerBuffSlots => 255 - 22;
 
@@ -63,11 +72,27 @@ namespace ROI
             }
         }
 
+        /*
+        public override bool LoadResource(string path, int length, Func<Stream> getStream)
+        {
+            string extension = Path.GetExtension(path).ToLower();
+            path = Path.ChangeExtension(path, null);
+            switch (extension) {
+                case ".mp4" :
+                    if (!Main.dedServ)
+                    {
+                        return base.LoadResource(path, length, getStream);
+                    }
+                    video = Main.instance.OurLoad<Video>("tmod:" + Name + "/" + path);
+                    return true;
+            }
+
+            return base.LoadResource(path, length, getStream);
+        }*/
 
 
         private void ClientLoad()
         {
-
             roiFilterManager = new FilterManager();
 
             VoidPillarHealthBar.Load();
@@ -98,6 +123,60 @@ namespace ROI
 
             TextureCache.Initialize();
 
+
+            Main.OnTick += delegate
+            {
+
+
+                if (!Main.gameMenu)
+                {
+                    return;
+                }
+
+                Main.worldSurface = 565;
+                string currentBackgroundSetting = menu.NewMainMenuTheme;
+                switch (currentBackgroundSetting)
+                {
+                    case "Vanilla" :
+                        return;
+                    default:
+                        if (Filters.Scene[menu.NewMainMenuTheme] != null)
+                        {
+                            Filters.Scene.Activate(menu.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
+                        if (SkyManager.Instance[menu.NewMainMenuTheme] != null)
+                        {
+                            SkyManager.Instance.Activate(menu.NewMainMenuTheme, new Vector2(2556.793f, 4500f), new object[0]);
+                        }
+
+                        if (Overlays.Scene[menu.NewMainMenuTheme] != null)
+                        {
+                            Overlays.Scene.Activate(menu.NewMainMenuTheme,
+                                Vector2.Zero - new Vector2(0f, 10f), new object[0]);
+                        }
+                        break;
+                }
+            };
+            if (InfinityCore.InfinityCore.IsTMLFNA64())
+            {
+                player = new VideoPlayer();
+                video = InfinityCore.InfinityCore.LoadVideo(this, "ROI/Backgrounds/MainMenu/Menu_BG");
+
+                On.Terraria.Main.DrawMenu += (orig, self, time) =>
+                {
+                   
+                    if (player.State == MediaState.Stopped)
+                    {
+                        player.Play(video);
+                    }
+                    videoTexture = player.GetTexture();
+                    Vector2 scalingTexture = new Vector2(Main.graphics.GraphicsDevice.Viewport.Width / (float)video.Width, Main.graphics.GraphicsDevice.Viewport.Height / (float)video.Height);
+                    Main.spriteBatch.Draw(videoTexture, Vector2.Zero, new Rectangle(0, 0, videoTexture.Width, videoTexture.Height), Color.White, 0f, Vector2.Zero, scalingTexture, SpriteEffects.None, 1f);
+                    orig(self, time);
+                };
+            }
+            
         }
 
         private void GeneralLoad()
