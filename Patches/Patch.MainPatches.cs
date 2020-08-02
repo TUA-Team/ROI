@@ -1,8 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using ROI.Players;
 using ROI.Worlds;
 using System;
+using System.Linq;
 using Terraria;
 
 namespace ROI.Patches
@@ -53,6 +56,23 @@ namespace ROI.Patches
                 }
             }
             orig(Main.instance);
+        }
+
+        public static void AddThemeToMainMenu(ILContext il)
+        {
+            ILCursor c = il.At(0);
+
+            if (c.TryGotoNext(i => i.MatchLdcI4(out _),
+                i => i.MatchStloc(out _),
+                i => i.MatchBr(out _),
+                i => i.MatchLdstr(out _),
+                i => i.MatchStloc(out _),
+                i => i.MatchLdloc(out _),
+                i => i.MatchSwitch(out _)))
+            {
+                Instruction ins2 = il.Body.Instructions.Single(i => i.OpCode.Code == Code.Callvirt && i.ToString().Contains("Terraria.Graphics.Effects.SkyManager::DeactivateAll()"));
+                c.Emit(OpCodes.Br, ins2.Next);
+            }
         }
     }
 }
