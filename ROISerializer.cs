@@ -15,14 +15,10 @@ namespace ROI
                 ["Major"] = value.Major,
                 ["Minor"] = value.Minor,
                 ["Build"] = value.Build,
-                ["Revision"] = value.Revision < 0 ? 0 : value.Revision
+                ["Revision"] = value.Revision,
             };
 
-            public override Version Deserialize(TagCompound tag) => new Version(
-                tag.GetAsInt("Major"),
-                tag.GetAsInt("Minor"),
-                tag.GetAsInt("Build"),
-                tag.GetAsInt("Revision") < 0 ? 0 : tag.GetAsInt("Revision"));
+            public override Version Deserialize(TagCompound tag) => new Version(tag.GetAsInt("Major"), tag.GetAsInt("Minor"), tag.GetAsInt("Build"), tag.GetAsInt("Revision") <= -1 ? 0 : tag.GetAsInt("Revision"));
         }
     }
 }

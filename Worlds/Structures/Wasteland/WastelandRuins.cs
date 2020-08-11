@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
+using Mono.Cecil.Mdb;
 using ROI.Tiles.Furniture;
+using ROI.Tiles.Wasteland;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -103,7 +105,6 @@ namespace ROI.Worlds.Structures
                     Main.tile[x + width - 1, i].type = (ushort)mod.TileType("Wasteland_Brick");
                     //WorldGen.SquareTileFrame(x, i);
                     //WorldGen.SquareTileFrame(x + width - 1, i);
-
                 }
             }
 
@@ -121,25 +122,24 @@ namespace ROI.Worlds.Structures
             }
 
 
-            bool hitBrick = false;
             for (int i = x + 1; i < x + width - 1; i++)
             {
+                int v = y + height - 1;
+                if (!WorldGen.InWorld(i, v)) continue;
                 if (currentFloor == 0)
                 {
-                    Main.tile[i, y + height - 1].active(true);
-                    Main.tile[i, y + height - 1].type = (ushort)mod.TileType("Wasteland_Brick");
+                    WorldGen.PlaceTile(i, v, mod.TileType("Wasteland_Brick"), true, true);
                     continue;
                 }
                 if (WorldGen.genRand.Next(8) == 0)
                     continue;
-                Main.tile[i, y + height - 1].active(true);
+                //Main.tile[i, v].active(true);
 
-                if (Main.tile[i, y + height - 1].type == (ushort)mod.TileType("Wasteland_Brick"))
-                    hitBrick = true;
-                if (!hitBrick)
-                    WorldGen.PlaceTile(i, y + height - 1, mod.TileType("Wastebrick_Platform"), true, true);
-                else
-                    Main.tile[i, y + height - 1].type = (ushort) mod.TileType("Wasteland_Brick");
+                if (Main.tile[i, v].type != (ushort)mod.TileType("Wasteland_Brick"))
+                {
+                    // TODO: WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
+                    WorldGen.PlaceTile(i, v, TileID.Platforms, true, true);
+                }
                 //WorldGen.SquareTileFrame(i, y + height);
             }
 

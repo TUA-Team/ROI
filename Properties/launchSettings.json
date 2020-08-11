@@ -2,8 +2,8 @@
   "profiles": {
     "Terraria": {
       "commandName": "Executable",
-      "executablePath": "D:\\TerrariaFullsource\\Official merge\\src\\64bit\\bin\\FNARelease\\net45\\tModLoader.exe",
-      "workingDirectory": "D:\\TerrariaFullsource\\Official merge\\src\\64bit\\bin\\FNARelease\\net45",
+      "executablePath": "D:\\steam game\\steamapps\\steamapps\\common\\tModLoader\\tModLoader.exe",
+      "workingDirectory": "D:\\steam game\\steamapps\\steamapps\\common\\tModLoader\\",
       "nativeDebugging": true
     },
     "TerrariaServer": {

@@ -40,7 +40,6 @@ namespace ROI
 
         internal UnifiedRandom rng;
 
-        //UI
         internal UserInterface radiationInterface;
         internal RadiationMeter radiationMeter;
 
@@ -226,7 +225,6 @@ namespace ROI
         public override void UpdateUI(GameTime gameTime)
         {
             ROIMod.gameTime = gameTime;
-
             if (radiationInterface.IsVisible)
             {
                 radiationInterface.Update(gameTime);
@@ -251,18 +249,18 @@ namespace ROI
             }
         }
 
-        public override void PostDrawInterface(SpriteBatch spriteBatch)
-        {
-            VoidPillarHealthBar.FindPillar();
-            VoidPillarHealthBar.Draw(spriteBatch);
-            VoidHeartHealthBar.Draw(spriteBatch);
-            if (!Main.playerInventory)
-            {
-                VoidAffinity.Draw(spriteBatch);
-            }
-        }
+		public override void PostDrawInterface(SpriteBatch spriteBatch)
+	    {
+	        //VoidPillarHealthBar.FindPillar();
+            //VoidPillarHealthBar.Draw(spriteBatch);
+	        //VoidHeartHealthBar.Draw(spriteBatch);
+	        if (!Main.playerInventory)
+	        {
+                //VoidUI.Draw(spriteBatch);
+	        }
+	    }
 
-        
+
 
         public override object Call(params object[] args)
         {
@@ -300,5 +298,8 @@ namespace ROI
             }
             base.ModifyLightingBrightness(ref scale);
         }
+
+
+
     }
 }

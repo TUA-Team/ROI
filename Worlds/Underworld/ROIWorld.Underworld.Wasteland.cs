@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using ROI.Tiles.Wasteland;
 using ROI.Walls.Wasteland;
 using ROI.Worlds.Structures;
 using ROI.Worlds.Structures.Wasteland;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using static Terraria.WorldGen;
@@ -36,7 +34,6 @@ namespace ROI.Worlds
                         return 5;
                     default:
                         return 1;
-
                 }
             }
         }
@@ -78,8 +75,8 @@ namespace ROI.Worlds
         internal void WastelandGeneration(GenerationProgress progress)
         {
             ClearTerrain();
-            BaseTerrain(new float[] { 0.00077f, 0.00011f, 0.022f }, new float[] { 0.3f, 0.05f, 0.02f });
-            BaseTerrain(new float[] { 0.0001f, 0.00011f, 0.01f }, new float[] { 0.2f, 0.02f, 0.02f }, true);
+            BaseTerrain(new float[] {0.00077f, 0.00011f, 0.022f}, new float[] {0.3f, 0.05f, 0.02f});
+            BaseTerrain(new float[] {0.0001f, 0.00011f, 0.01f}, new float[] {0.2f, 0.02f, 0.02f}, true);
             progress.Message = "Accumulating waste";
             //actual world gen
             /*if (WorldGen.gen)
@@ -96,7 +93,7 @@ namespace ROI.Worlds
             }*/
             //TerrainBottom(progress);
             StructureMap map = new StructureMap();
-
+            
             SpreadingGrass(progress);
             GenerateCavern(progress);
             GenerateWasteLake(progress);
@@ -104,7 +101,7 @@ namespace ROI.Worlds
             GeneratingRuins(progress);
             WastelandForgeGen(progress);
             //GrowingTree(progress);
-
+            
             //GenerateMysteriousGrotto(progress);
             WorldGen.EveryTileFrame();
         }
@@ -132,7 +129,7 @@ namespace ROI.Worlds
             {
                 for (int i = 0; i < Main.maxTilesX; i++)
                 {
-                    totalDisplacements[i] = (int)(totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 125));
+                    totalDisplacements[i] = (int) (totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 125));
                     SurfaceLevel[i] = totalDisplacements[i];
 
                     if (totalDisplacements[i] < HighestLevel || HighestLevel == 0)
@@ -141,8 +138,8 @@ namespace ROI.Worlds
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort)mod.TileType("Wasteland_Dirt"));
-                    Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort)mod.TileType("Wasteland_Rock"));
+                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
+                    Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort) mod.TileType("Wasteland_Rock"));
                     FillAir(i, 0, 1, totalDisplacements[i]);
                 }
             }
@@ -150,7 +147,7 @@ namespace ROI.Worlds
             {
                 for (int i = 0; i < Main.maxTilesX; i++)
                 {
-                    totalDisplacements[i] = (int)(totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 225));
+                    totalDisplacements[i] = (int) (totalDisplacements[i] / displacements.Length + (Main.maxTilesY - 225));
                     SurfaceLevel[i] = totalDisplacements[i];
 
                     if (totalDisplacements[i] < HighestLevel || HighestLevel == 0)
@@ -159,10 +156,10 @@ namespace ROI.Worlds
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort)mod.TileType("Wasteland_Dirt"));
+                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
                 }
             }
-
+            
 
             for (int i = 0; i < Main.maxTilesX; i++)
             {
@@ -192,7 +189,7 @@ namespace ROI.Worlds
         {
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
-                if (WorldGen.genRand.Next(20) == 0)
+                if(WorldGen.genRand.Next(20) == 0)
                     WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(Main.maxTilesY - 140, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), ModContent.TileType<Wasteland_Ore>(), false, 0f, 0f, false, true);
             }
         }

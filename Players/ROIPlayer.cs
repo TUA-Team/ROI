@@ -67,8 +67,7 @@ namespace ROI.Players
                 [nameof(MaxVoidAffinity)] = MaxVoidAffinity,
                 [nameof(voidItemCooldown)] = voidItemCooldown,
                 [nameof(VoidHeartHP)] = VoidHeartHP,
-                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats,
-                [nameof(radiationLevel)] = radiationLevel
+                [nameof(MaxVoidHeartStats)] = MaxVoidHeartStats
             };
         }
 
