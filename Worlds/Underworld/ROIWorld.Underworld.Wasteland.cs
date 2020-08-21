@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using ROI.Tiles.Wasteland;
 using ROI.Walls.Wasteland;
 using ROI.Worlds.Structures;
@@ -100,10 +101,28 @@ namespace ROI.Worlds
             WastelandOreGeneration(progress);
             GeneratingRuins(progress);
             WastelandForgeGen(progress);
+            WastelandUraniumOreGen(progress);
             //GrowingTree(progress);
             
             //GenerateMysteriousGrotto(progress);
             WorldGen.EveryTileFrame();
+        }
+
+        private void WastelandUraniumOreGen(GenerationProgress progress)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                int x = Main.rand.Next(25, Main.maxTilesX - 25);
+                int yGen = 0;
+                if (Scan(x, Main.maxTilesY - 175, out yGen, (tile => { return true; })))
+                {
+                    WorldUtils.Gen(new Point(x, yGen), new Shapes.Tail(WorldGen.genRand.Next(10, 13), new Vector2(WorldGen.genRand.Next(-10, 10), WorldGen.genRand.Next(20, 25))), Actions.Chain(new GenAction[]
+                    {
+                        new Actions.PlaceTile((ushort) mod.TileType("Uranium_Ore"), 0)
+                    }));
+                }
+            }
+
         }
 
         private void BaseTerrain(float[] freq, float[] limit, bool top = false)

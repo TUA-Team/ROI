@@ -9,6 +9,9 @@ using ROI.Manager;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using InfinityCore.API.Pots;
+using InfinityCore.API.Pots.DropTable;
+using InfinityCore.Enums;
 using Microsoft.Xna.Framework.Media;
 using ROI.Configs;
 using Terraria;
@@ -18,6 +21,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
 using ReLogic.Graphics;
+using Terraria.ID;
 using Terraria.Localization;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
@@ -70,6 +74,7 @@ namespace ROI
             {
                 ClientLoad();
             }
+            
         }
 
         /*
@@ -126,14 +131,12 @@ namespace ROI
 
             Main.OnTick += delegate
             {
-
-
                 if (!Main.gameMenu)
                 {
                     return;
                 }
 
-                Main.worldSurface = 565;
+                //Main.worldSurface = 565;
                 string currentBackgroundSetting = menu.NewMainMenuTheme;
                 switch (currentBackgroundSetting)
                 {
@@ -192,6 +195,19 @@ namespace ROI
 #else
             debug = false;
 #endif
+        }
+
+        public override void PostAddRecipes()
+        {
+            List<PotsDrop> drop = PotsRegistry.ModifyPotsDrop((int) PotsTypeID.Lihzahrd);
+            //drop.Insert(0, new ItemPotsDrop("brick", ItemID.LihzahrdBrick, 10, (i, i1) => Main.rand.NextBool()));
+            drop = PotsRegistry.ModifyPotsDrop((int) PotsTypeID.Hell);
+            //drop.Insert(0, new ItemPotsDrop("Obsidian", ItemID.Obsidian, 7, (i, i1) => Main.rand.Next(25) == 0));
+            //drop.Insert(1, new ItemPotsDrop("Hellstone", ItemID.Hellstone, 3, (i, i1) => Main.rand.Next(35) == 0));
+
+            PotsRegistry.RegisterModPotsStyle(TileType("Wasteland_Rock"), new ModPots[] {(ModPots)GetTile("Wasteland_Pots_Big"), (ModPots)GetTile("Wasteland_Pots_Small")});
+            PotsRegistry.RegisterModPotsStyle(TileType("Wasteland_Dirt"), new ModPots[] {(ModPots)GetTile("Wasteland_Pots_Big"), (ModPots)GetTile("Wasteland_Pots_Small")});
+            PotsRegistry.RegisterModPotsStyle(TileType("Wasteland_Grass"), new ModPots[] {(ModPots)GetTile("Wasteland_Pots_Big"), (ModPots)GetTile("Wasteland_Pots_Small")});
         }
 
         public override void Unload()
@@ -260,6 +276,7 @@ namespace ROI
 	        }
 	    }
 
+        
 
 
         public override object Call(params object[] args)

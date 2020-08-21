@@ -124,6 +124,8 @@ namespace ROI.Worlds
         {
             int hellGen = tasks.FindIndex(i => i.Name == "Underworld");
             int hellForgeGen = tasks.FindIndex(i => i.Name == "Hellforge");
+            mod.Logger.Info(Main.maxTilesX);
+            mod.Logger.Info(Main.maxTilesY);
             if (hellGen != -1)
             {
                 tasks[hellGen] = new PassLegacy("Underworld", (progress) =>

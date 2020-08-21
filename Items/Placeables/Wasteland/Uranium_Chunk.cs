@@ -1,13 +1,19 @@
-﻿using Terraria.ModLoader;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.ModLoader;
 
 namespace ROI.Items.Placeables.Wasteland
 {
-    class Wasteland_Dirt : ModItem
+    class Uranium_Chunk : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Irradiated dirt");
-            Tooltip.SetDefault("\"Is it even safe to touch it?\"");
+            DisplayName.SetDefault("Uranium chunk");
+            Tooltip.SetDefault("Shiny green radioactivity.\nWill be used in the 0.2 update - The nuclear and reforge rework update");
+
         }
 
         public override void SetDefaults()
@@ -21,7 +27,7 @@ namespace ROI.Items.Placeables.Wasteland
             item.useTime = 10;
             item.useStyle = 1;
             item.useTurn = true;
-            item.createTile = mod.TileType("Wasteland_Dirt");
+            item.createTile = mod.TileType("Uranium_Ore");
         }
     }
 }

@@ -66,7 +66,8 @@ namespace ROI.Helpers
             {
                 for (int y = j; y < j + height; y++)
                 {
-                    Main.tile[x, y].active(false);
+                    if(WorldGen.InWorld(x, y))
+                        Main.tile[x, y].active(false);
                 }
             }
         }
