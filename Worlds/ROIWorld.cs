@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ROI.NPCs.Void;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.Graphics.Effects;
@@ -26,6 +27,8 @@ namespace ROI.Worlds
         internal Version version = new Version(0, 0, 0, 0);
 
         public static int activeHotWID;
+
+        internal static List<Tentacle> tenctacleList = new List<Tentacle>();
 
         public override TagCompound Save()
         {
@@ -100,6 +103,12 @@ namespace ROI.Worlds
 
         public override void PreUpdate()
         {
+            foreach (Tentacle tentacle in tenctacleList)
+            {
+                tentacle.Update(ROIMod.gameTime);
+            }
+
+
             Main.bottomWorld = (Main.maxTilesY * 16) + 400;
             Main.topWorld = 0;
             Main.leftWorld = 0;
@@ -118,6 +127,16 @@ namespace ROI.Worlds
 
         public override void NetReceive(BinaryReader reader)
         {
+        }
+
+        public override void PostDrawTiles()
+        {
+            Main.spriteBatch.Begin();
+            foreach (Tentacle tentacle in tenctacleList)
+            {
+                tentacle.Draw();
+            }
+            Main.spriteBatch.End();
         }
 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)

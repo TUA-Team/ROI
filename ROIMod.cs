@@ -9,6 +9,7 @@ using ROI.Manager;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using InfinityCore.API.Pots;
 using InfinityCore.API.Pots.DropTable;
 using InfinityCore.Enums;
@@ -21,6 +22,7 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using Terraria.Utilities;
 using ReLogic.Graphics;
+using ROI.NPCs.Void;
 using Terraria.ID;
 using Terraria.Localization;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -274,7 +276,9 @@ namespace ROI
 	        {
                 //VoidUI.Draw(spriteBatch);
 	        }
-	    }
+        }
+
+        
 
         
 
