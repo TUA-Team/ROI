@@ -164,6 +164,8 @@ namespace ROI.Worlds.Structures
                     {
                         Main.tile[i, y].active(true);
                         Main.tile[i, y].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
+                        Main.tile[i, y].frameX = 0;
+                        Main.tile[i, y].frameY = 0;
                         //WorldGen.SquareTileFrame(i, y);
                     }
 
