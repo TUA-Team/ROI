@@ -119,7 +119,7 @@ namespace ROI.NPCs.Void
 
                 effect = new BasicEffect(Main.graphics.GraphicsDevice);
 
-                List<VertexPositionColor> vertices = new List<VertexPositionColor>();
+                List<VertexPositionTexture> vertices = new List<VertexPositionTexture>();
 
                 Vector2 normal = new Vector2(2f);
 
@@ -144,17 +144,17 @@ namespace ROI.NPCs.Void
                     Vector2 secondUp = positionList[i + 1] - (normalAhead * 5 * j2);
                     Vector2 secondDown = positionList[i + 1] + (normalAhead * 5 * j2);
 
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(firstDown), 0), Color.MediumPurple));
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(secondDown), 0), Color.MediumPurple));
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(firstUp), 0), Color.MediumPurple));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(firstDown), 0), new Vector2(0, 1)));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(secondDown), 0), new Vector2(1, 1)));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(firstUp), 0), new Vector2(0, 0)));
 
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(firstUp), 0), Color.MediumPurple));
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(secondDown), 0), Color.MediumPurple));
-                    vertices.Add(new VertexPositionColor(new Vector3(ConvertToScreenCoordinates(secondUp), 0), Color.MediumPurple));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(firstUp), 0), new Vector2(0, 0)));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(secondDown), 0), new Vector2(1, 1)));
+                    vertices.Add(new VertexPositionTexture(new Vector3(ConvertToScreenCoordinates(secondUp), 0), new Vector2(1, 0)));
                 }
 
-                buffer = new VertexBuffer(Main.graphics.GraphicsDevice, typeof(VertexPositionColor), vertices.Count, BufferUsage.WriteOnly);
-                buffer.SetData<VertexPositionColor>(vertices.ToArray());
+                buffer = new VertexBuffer(Main.graphics.GraphicsDevice, typeof(VertexPositionTexture), vertices.Count, BufferUsage.WriteOnly);
+                buffer.SetData<VertexPositionTexture>(vertices.ToArray());
 
                 //effect.Projection = projection;
                 effect.VertexColorEnabled = true;
