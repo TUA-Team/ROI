@@ -306,17 +306,5 @@ namespace ROI
         {
             NetworkManager.Instance.ReceivePacket(reader, whoAmI);
         }
-
-        public override void ModifyLightingBrightness(ref float scale)
-        {
-            if (Main.ActiveWorldFileData.HasCrimson && (Main.LocalPlayer.position.Y / 16) > Main.maxTilesY - 200)
-            {
-                scale = 0.7f;
-            }
-            base.ModifyLightingBrightness(ref scale);
-        }
-
-
-
     }
 }

@@ -7,6 +7,7 @@ using ROI.Worlds;
 using System;
 using System.Linq;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ROI.Patches
 {
@@ -56,6 +57,22 @@ namespace ROI.Patches
                 }
             }
             orig(Main.instance);
+        }
+
+        public static void WastelandBackgroundLightingDraw(ILContext context)
+        {
+            ILCursor c = new ILCursor(context);
+
+            if (c.TryGotoNext(i => i.MatchLdcI4(out _),
+                i => i.MatchStloc(out _),
+                i => i.MatchLdloc(out _),
+                i => i.MatchConvR8(),
+                i => i.MatchLdcR8(out _),
+                i => i.MatchMul()))
+            {
+                c.Next.OpCode = OpCodes.Ldc_I4_0;
+                
+            }
         }
 
         public static void AddThemeToMainMenu(ILContext il)

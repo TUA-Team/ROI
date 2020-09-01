@@ -120,10 +120,11 @@ namespace ROI.Tiles.Wasteland
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            Color color = new Color(152, 208, 113);
+            Color color = new Color(152, 208, 113) * 0.4f;
             r = color.ToVector3().X;
             g = color.ToVector3().Y;
             b = color.ToVector3().Z;
+
         }
 
         public override int SaplingGrowthType(ref int style)
