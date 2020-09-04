@@ -8,7 +8,7 @@ namespace ROI.Items.Tools
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Irradiated Key");
-            Tooltip.SetDefault("Allow to open Irradiated chest");
+            Tooltip.SetDefault("Unlocks all Irradiated chests");
         }
 
         public override void SetDefaults()
