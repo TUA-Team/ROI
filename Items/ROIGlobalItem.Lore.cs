@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.ID;
 
 namespace ROI.Items
 {
@@ -7,8 +6,8 @@ namespace ROI.Items
     {
         private void OnHitNPCLore(Item item, Player player, NPC target, int damage, float knockBack, bool crit)
         {
-            
-                
+
+
         }
     }
 }

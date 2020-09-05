@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria.ModLoader;
 
 namespace ROI.Extensions

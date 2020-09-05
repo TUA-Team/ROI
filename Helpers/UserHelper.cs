@@ -1,7 +1,7 @@
-﻿using System;
+﻿using ROI.Commons.Users;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using ROI.Commons.Users;
 using Terraria.ModLoader;
 
 namespace ROI.Helpers

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ROI.Buffs.Void;
 using ROI.Extensions;
 using ROI.NPCs;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -51,7 +51,7 @@ namespace ROI.Worlds
             foreach (TagCompound currentTag in npcTags)
             {
                 Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
-                int npcInstanceId = NPC.NewNPC((int) position.X, (int) position.Y, ModLoader.GetMod(currentTag.GetString(nameof(NPC.modNPC.mod))).BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
+                int npcInstanceId = NPC.NewNPC((int)position.X, (int)position.Y, ModLoader.GetMod(currentTag.GetString(nameof(NPC.modNPC.mod))).BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
 
                 if (Main.npc[npcInstanceId].modNPC is ISaveableEntity saveable)
                     saveable.Load(currentTag);

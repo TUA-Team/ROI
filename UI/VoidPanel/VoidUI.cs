@@ -1,93 +1,93 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.UI.VoidPanel
 {
-	internal class VoidUI
-	{
-		private static readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
+    internal class VoidUI
+    {
+        private static readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
 
-	    private static Texture2D voidMeterFilled;
-	    private static Texture2D voidMeterEmpty;
+        private static Texture2D voidMeterFilled;
+        private static Texture2D voidMeterEmpty;
 
-	    public static void Load()
-	    {
-	        GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/RadialProgress")), "progress");
+        public static void Load()
+        {
+            GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/RadialProgress")), "progress");
 
             voidMeterFilled = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterFull");
-	        voidMeterEmpty = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterEmpty");
+            voidMeterEmpty = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterEmpty");
         }
 
-	    public static void Unload()
-	    {
-	        voidMeterFilled.Dispose();
-	        voidMeterEmpty.Dispose();
+        public static void Unload()
+        {
+            voidMeterFilled.Dispose();
+            voidMeterEmpty.Dispose();
         }
 
-	    public static void Draw(SpriteBatch spriteBatch)
-		{
-			ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
-			float percent = VoidManager.Instance.Percent(player) / 100f;
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
+            float percent = VoidManager.Instance.Percent(player) / 100f;
 
             spriteBatch.Draw(voidMeterEmpty, DrawingOffset, null, Color.White, 0f, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 1f);
             spriteBatch.End();
-		    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-		    var radialShader = GameShaders.Misc["ROI:RadialProgress"];
-		    radialShader.Shader.Parameters["progress"].SetValue(percent);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+            var radialShader = GameShaders.Misc["ROI:RadialProgress"];
+            radialShader.Shader.Parameters["progress"].SetValue(percent);
             radialShader.Shader.CurrentTechnique.Passes[0].Apply();
             spriteBatch.Draw(voidMeterFilled, DrawingOffset, null, Color.White, 0f, Vector2.Zero, new Vector2(1f, 1f), SpriteEffects.None, 1f);
             spriteBatch.End();
-		    Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
-            
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, Main.GameViewMatrix.TransformationMatrix);
+
             Rectangle textureBound = new Rectangle((int)DrawingOffset.X, (int)DrawingOffset.Y, voidMeterEmpty.Width, voidMeterFilled.Height);
 
-		    if (textureBound.Contains((int) Main.MouseScreen.X, (int) Main.MouseScreen.Y))
-		    {
-		        Main.hoverItemName = $"Void meter : {player.VoidAffinityAmount}/{player.MaxVoidAffinity}\n" +
-		                             $"Percent : {percent * 100}%\n" +
-		                             $"Tier : {player.VoidTier}";
-		    }
-		}
+            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
+            {
+                Main.hoverItemName = $"Void meter : {player.VoidAffinityAmount}/{player.MaxVoidAffinity}\n" +
+                                     $"Percent : {percent * 100}%\n" +
+                                     $"Tier : {player.VoidTier}";
+            }
+        }
 
 
         //TODO: Move this to DrawUtils
-		public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
-		{
-			Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
-			Color[] colorData = new Color[diameter * diameter];
+        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
+        {
+            Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
+            Color[] colorData = new Color[diameter * diameter];
 
-			float radius = diameter / 2f;
-			float radiusInterior = diameterInterior / 2f;
-			float radiusSquared = radius * radius;
-			float radiusSquaredInterior = radiusInterior * radiusInterior;
+            float radius = diameter / 2f;
+            float radiusInterior = diameterInterior / 2f;
+            float radiusSquared = radius * radius;
+            float radiusSquaredInterior = radiusInterior * radiusInterior;
 
-			for (int x = 0; x < diameter; x++)
-			{
-				for (int y = 0; y < diameter; y++)
-				{
+            for (int x = 0; x < diameter; x++)
+            {
+                for (int y = 0; y < diameter; y++)
+                {
 
-					int index = x * diameter + y;
-					Vector2 pos = new Vector2(x - radius, y - radius);
-					float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
-					float angle = (float)Math.Atan2(pos.Y, pos.X);
+                    int index = x * diameter + y;
+                    Vector2 pos = new Vector2(x - radius, y - radius);
+                    float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
+                    float angle = (float)Math.Atan2(pos.Y, pos.X);
 
-					if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
-					{
-						colorData[index] = Color.White;
-					}
-					else
-					{
-						colorData[index] = Color.Transparent;
-					}
-				}
-			}
+                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
+                    {
+                        colorData[index] = Color.White;
+                    }
+                    else
+                    {
+                        colorData[index] = Color.Transparent;
+                    }
+                }
+            }
 
-			texture.SetData(colorData);
-			return texture;
-		}
-	}
+            texture.SetData(colorData);
+            return texture;
+        }
+    }
 }

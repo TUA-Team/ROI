@@ -1,6 +1,4 @@
-﻿using Terraria;
-
-namespace ROI.Buffs.Void
+﻿namespace ROI.Buffs.Void
 {
     public sealed class PillarPresenceBuff : ROIBuff
     {

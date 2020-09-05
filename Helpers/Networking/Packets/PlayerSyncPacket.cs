@@ -1,6 +1,6 @@
-﻿using System.IO;
-using ROI.Players;
+﻿using ROI.Players;
 using ROI.Void;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,7 +23,7 @@ namespace ROI.Helpers.Networking.Packets
             ROIPlayer roiPlayer = ROIPlayer.Get(Main.player[whichPlayer]);
 
             roiPlayer.VoidAffinity = voidAffinity;
-            roiPlayer.VoidTier = (VoidTiers) voidTier;
+            roiPlayer.VoidTier = (VoidTiers)voidTier;
             roiPlayer.VoidItemCooldown = voidItemCooldown;
 
             return true;
@@ -31,10 +31,10 @@ namespace ROI.Helpers.Networking.Packets
 
         protected override void SendPacket(ModPacket packet, int toWho, int fromWho, params object[] args)
         {
-            packet.Write((int) args[0]);
-            packet.Write((ushort) args[1]);
-            packet.Write((byte) args[2]);
-            packet.Write((int) args[3]);
+            packet.Write((int)args[0]);
+            packet.Write((ushort)args[1]);
+            packet.Write((byte)args[2]);
+            packet.Write((int)args[3]);
 
             packet.Send(toWho, fromWho);
         }

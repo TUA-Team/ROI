@@ -24,7 +24,7 @@ namespace ROI.Players
             AddVoidAffinity(amount > limit ? limit : amount);
 
         public void RewardAffinity(NPC npc, ushort limit = AFFINITY_STANDARD_LIMIT) =>
-            RewardAffinity((ushort) (npc.value / Item.buyPrice(gold: 1)), limit);
+            RewardAffinity((ushort)(npc.value / Item.buyPrice(gold: 1)), limit);
 
         public ushort AddVoidAffinity(ushort amount) => VoidAffinity += amount;
 
@@ -34,7 +34,7 @@ namespace ROI.Players
 
             if (postNullificationDamage <= 0)
             {
-                CombatText.NewText(new Rectangle((int) player.position.X, (int) player.position.Y, player.width, player.height), Color.Black, damage, true, true);
+                CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Black, damage, true, true);
 
                 VoidHeartHP -= damage;
             }

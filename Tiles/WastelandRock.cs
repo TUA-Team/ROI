@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ROI.Worlds;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
