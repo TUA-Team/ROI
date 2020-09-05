@@ -10,9 +10,9 @@ ItemTooltip.Gnomed="I'm not a gnelf, I'm not a gnoblin, I'm a GNOME, and you've 
 BuffName.DarkMind=Dark Mind
 BuffTooltip.DarkMind=You feel the darkness consuming your mind\n-50% damage overall\n+50% debuff duration
 BuffName.PillarPresence=Strange Presence
-BuffTooltip.PillarPresence=Something isn't right
+BuffTooltip.PillarPresence=Something isn't natural here...
 BuffName.VoidSlowness=Void Slowness
-BuffTooltip.VoidSlowness=The void is dragging you down\n-75% movement speed
+BuffTooltip.VoidSlowness=The power of the Void is dragging you down\n-75% movement speed
 
 NPCName.VoidPillar=Void Pillar
 

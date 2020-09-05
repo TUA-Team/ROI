@@ -8,7 +8,7 @@ namespace ROI.Items.Summons
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Clump of radioactive meat");
-            Tooltip.SetDefault("The nurse said it was not alive, but you can ear it beating");
+            Tooltip.SetDefault("It doesn't look alive, yet you can hear a heartbeat.");
         }
 
         public override void SetDefaults()

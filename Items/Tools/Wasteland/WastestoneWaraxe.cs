@@ -9,7 +9,7 @@ namespace ROI.Items.Tools.Wasteland
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Eradiated Waraxe");
-            Tooltip.SetDefault("Holds the power of 100 fragmented souls");
+            Tooltip.SetDefault("Holds the power of hundreds of fragmented souls.");
         }
 
         public override void SetDefaults()

@@ -9,7 +9,7 @@ namespace ROI.Items.Weapons.Wasteland
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Toxic Greatsword");
-            Tooltip.SetDefault("Strike your foes with a deadly toxic lash");
+            Tooltip.SetDefault("Sends a deadly toxic lash out at foes");
         }
 
         public override void SetDefaults()
