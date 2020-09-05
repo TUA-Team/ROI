@@ -10,13 +10,12 @@ namespace ROI.Models.Networking
     {
         public PlayerSyncPacket(Mod mod) : base(mod) { }
 
-        public override void Receive(BinaryReader reader) {
-            int whichPlayer = reader.ReadInt32();
+        public override void Receive(BinaryReader reader, int fromWho) {
             ushort voidAffinity = reader.ReadUInt16();
             byte voidTier = reader.ReadByte();
             int voidItemCooldown = reader.ReadInt32();
 
-            ROIPlayer roiPlayer = ROIPlayer.Get(Main.player[whichPlayer]);
+            ROIPlayer roiPlayer = ROIPlayer.Get(Main.player[fromWho]);
 
             roiPlayer.VoidAffinity = voidAffinity;
             roiPlayer.VoidTier = (VoidTier)voidTier;
@@ -24,10 +23,9 @@ namespace ROI.Models.Networking
         }
 
         protected override void SendPacket(ModPacket packet, int toWho, int fromWho, params object[] args) {
-            packet.Write((int)args[0]);
-            packet.Write((ushort)args[1]);
-            packet.Write((byte)args[2]);
-            packet.Write((int)args[3]);
+            packet.Write((ushort)args[0]);
+            packet.Write((byte)args[1]);
+            packet.Write((int)args[2]);
         }
     }
 }

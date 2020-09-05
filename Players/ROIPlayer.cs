@@ -44,7 +44,8 @@ namespace ROI.Players
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
-            mod.networkLoader.PlayerSync.SendPacket(toWho, fromWho, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
+            mod.networkLoader.PlayerSync.SendPacket(toWho, fromWho,
+                VoidAffinity, VoidTier, VoidItemCooldown);
         }
 
 

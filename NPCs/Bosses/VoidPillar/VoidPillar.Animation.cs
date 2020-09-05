@@ -5,7 +5,7 @@ namespace ROI.NPCs.Bosses.VoidPillar
 {
     public sealed partial class VoidPillar
     {
-        // TODO: (low prio) these should all be put into a sub-method InitAnim() in SetDefaults()
+        // TODO: (low prio) move to SetDefaults()
         private bool _firstDialog = false;
         private bool _secondDialog = false;
         private bool _finalDialog = false;

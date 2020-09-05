@@ -3,19 +3,17 @@ using ROI.NPCs.Bosses.VoidPillar;
 using ROI.UI.Elements;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace ROI.UI.Void
 {
-    public class VoidPillarHealthBar : UIState
+    public class VoidPillarHealthBar : ROIState
     {
-        private Mod _mod;
-
-        public VoidPillarHealthBar(Mod mod) => _mod = mod;
+        public VoidPillarHealthBar(Mod mod) : base(mod) { }
 
         public override void OnInitialize() {
             var bar = new HealthBar(_mod);
             bar.GetDrawInfo += GetDrawInfo;
+            Append(bar);
         }
 
         public VoidPillar FindPillar() {

@@ -1,19 +1,15 @@
-﻿using Microsoft.Xna.Framework;
+﻿// TODO: (med prio)
+/*
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using System.Reflection;
 using Terraria;
-using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.UI.Void
 {
-
-    /// <summary>
-    /// I'm lazy, not doing my own UI state because I hate that system
-    /// </summary>
-    class VoidHeartHealthBar
+    internal sealed class VoidHeartHealthBar
     {
-
         private static Texture2D heartTexture;
 
         public static void Load() {
@@ -90,3 +86,4 @@ namespace ROI.UI.Void
         }
     }
 }
+*/

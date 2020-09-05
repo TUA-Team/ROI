@@ -1,6 +1,6 @@
 ﻿namespace ROI.Models.Enums
 {
-    internal enum PillarShieldColor : byte
+    public enum PillarShieldColor : byte
     {
         /// <summary>
         /// Red color shield, will drain health from the player directly

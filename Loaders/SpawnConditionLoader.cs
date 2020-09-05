@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria.ModLoader;
+using SpawnCondition = ROI.Models.Spawning.SpawnCondition;
 
 namespace ROI.Loaders
 {
-    public class SpawnConditionLoader : BaseLoader
+    public sealed class SpawnConditionLoader : BaseLoader
     {
         private Dictionary<Type, SpawnCondition> _spawnConditionsByType;
 
-
-        #region Loading
 
         public override void Initialize(Mod mod) {
             _spawnConditionsByType = new Dictionary<Type, SpawnCondition>();
@@ -31,8 +30,6 @@ namespace ROI.Loaders
             _spawnConditionsByType?.Clear();
             _spawnConditionsByType = null;
         }
-
-        #endregion
 
 
         public SpawnCondition GetSpawnCondition<T>() where T : SpawnCondition => GetSpawnCondition(typeof(T));

@@ -11,11 +11,11 @@ namespace ROI.UI.Elements
         public delegate bool GetDrawInfoDG(out string name, out string health,
             out Color color, out float progress);
 
-        private Texture2D _bg;
-        private Texture2D _fg;
+        private readonly Texture2D _bg;
+        private readonly Texture2D _fg;
 
         public HealthBar(Mod mod) {
-            // TODO: (very low prio) make it work with any health bar texture
+            // TODO: (very low prio) make it work with any health bar texture, would also include using StyleDims
             _bg = mod.GetTexture("Textures/Elements/HealthBarBG");
             _fg = mod.GetTexture("Textures/Elements/HealthBarFG");
         }
@@ -26,7 +26,7 @@ namespace ROI.UI.Elements
         public override void Draw(SpriteBatch sb) {
             // afaik Draw is singlethreaded, because it would be dumb otherwise
             // however, the official docs for publishing events say that race
-            // conditions are possible here just a note - Agrair
+            // conditions are possible here, just something to note - Agrair
             if (!GetDrawInfo(out string name, out string health, out Color color, out float barProgress))
                 return;
 
@@ -38,10 +38,9 @@ namespace ROI.UI.Elements
             Vector2 textSize = Main.fontDeathText.MeasureString(name) * 0.5f;
             Vector2 healthTextSize = Main.fontDeathText.MeasureString(health) * 0.5f;
 
-            sb.Draw(_bg, new Rectangle((int)offset.X - 250,
-                (int)offset.Y + 41,
-                20,
-                41), new Rectangle(0, 0, 20, 41), color * 0.5f);
+            sb.Draw(_bg, 
+                new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41), 
+                new Rectangle(0, 0, 20, 41), color * 0.5f);
             sb.Draw(_bg,
                 new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41),
                 new Rectangle(23, 0, 24, 41),

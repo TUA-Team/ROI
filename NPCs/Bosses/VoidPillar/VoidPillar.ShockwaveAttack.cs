@@ -4,8 +4,9 @@ using Terraria;
 
 namespace ROI.NPCs.Bosses.VoidPillar
 {
-    internal sealed partial class VoidPillar
+    public sealed partial class VoidPillar
     {
+        // TODO: (low prio) move to SetDefaults()
         private int _shockwaveTimer = 300;
 
         internal void Shockwave() {

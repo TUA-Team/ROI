@@ -11,14 +11,14 @@ namespace ROI.Loaders
         private readonly Dictionary<byte, NetworkPacket> _networkPacketsById = new Dictionary<byte, NetworkPacket>();
 
         public override void Initialize(Mod mod) {
-            PlayerSync = Add(new PlayerSyncPacket(mod)) as PlayerSyncPacket;
+            PlayerSync = Add(new PlayerSyncPacket(mod));
         }
 
 
         public PlayerSyncPacket PlayerSync { get; private set; }
 
 
-        public NetworkPacket Add<T>(T networkPacket) where T : NetworkPacket {
+        public T Add<T>(T networkPacket) where T : NetworkPacket {
             _networkPacketsById.Add(_latestPacketTypeId, networkPacket);
 
             networkPacket.PacketType = _latestPacketTypeId;
@@ -27,10 +27,10 @@ namespace ROI.Loaders
             return networkPacket;
         }
 
-        public void HandlePacket(BinaryReader reader) {
+        public void HandlePacket(BinaryReader reader, int sender) {
             byte packetType = reader.ReadByte();
 
-            _networkPacketsById[packetType].Receive(reader);
+            _networkPacketsById[packetType].Receive(reader, sender);
         }
 
 

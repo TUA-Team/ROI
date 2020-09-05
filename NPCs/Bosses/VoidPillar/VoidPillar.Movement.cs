@@ -4,9 +4,9 @@ using Terraria;
 
 namespace ROI.NPCs.Bosses.VoidPillar
 {
-    internal sealed partial class VoidPillar
+    public sealed partial class VoidPillar
     {
-        // TODO: (low prio) these should all be put into a sub-method InitMovement() in SetDefaults()
+        // TODO: (low prio) move to SetDefaults()
         private float _standardMovementSpeed = 0.5f;
 
         private int _previousTeleportationTimer;

@@ -9,7 +9,7 @@ namespace ROI.Models.Networking
             Mod = mod;
         }
 
-        public abstract void Receive(BinaryReader reader);
+        public abstract void Receive(BinaryReader reader, int fromWho);
 
         public void SendPacket(int toWho, int fromWho, params object[] args) {
             var p = MakePacket();
