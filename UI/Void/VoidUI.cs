@@ -5,7 +5,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
-namespace ROI.UI.VoidPanel
+namespace ROI.UI.Void
 {
     internal class VoidUI
     {

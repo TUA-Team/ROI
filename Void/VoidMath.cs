@@ -13,17 +13,17 @@ namespace ROI.Void
             // Original values, if the formula isn't good enough for Dradon.
             /*switch (tier)
             {
-                case VoidTiers.Alpha:
+                case VoidTier.Alpha:
                     return 100;
-                case VoidTiers.Beta:
+                case VoidTier.Beta:
                     return 200;
-                case VoidTiers.Gamma:
+                case VoidTier.Gamma:
                     return 500;
-                case VoidTiers.Delta:
+                case VoidTier.Delta:
                     return 900;
-                case VoidTiers.Epsilon:
+                case VoidTier.Epsilon:
                     return 1200;
-                case VoidTiers.Zeta:
+                case VoidTier.Zeta:
                     return 2000;
                 default:
                     return 0;

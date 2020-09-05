@@ -5,7 +5,7 @@ using System.Reflection;
 using Terraria;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
-namespace ROI.UI.VoidPanel
+namespace ROI.UI.Void
 {
 
     /// <summary>

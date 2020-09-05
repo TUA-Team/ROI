@@ -1,4 +1,5 @@
 ﻿using ROI.Players;
+using ROI.Void;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -18,18 +19,18 @@ namespace ROI.NPCs
             { NPCID.CultistBoss, Item.sellPrice(gold: 20) } // 20 gold
         };
 
-        private static readonly Dictionary<short, VoidTiers> _bossTiers = new Dictionary<short, VoidTiers>
+        private static readonly Dictionary<short, VoidTier> _bossTiers = new Dictionary<short, VoidTier>
         {
-            { NPCID.EyeofCthulhu, VoidTiers.Alpha },
-            { NPCID.SkeletronHead, VoidTiers.Beta },
-            { NPCID.WallofFlesh, VoidTiers.Gamma },
-            { NPCID.Plantera, VoidTiers.Delta },
-            { NPCID.CultistBoss, VoidTiers.Epsilon },
-            { NPCID.MoonLordCore, VoidTiers.Zeta }
+            { NPCID.EyeofCthulhu, VoidTier.Alpha },
+            { NPCID.SkeletronHead, VoidTier.Beta },
+            { NPCID.WallofFlesh, VoidTier.Gamma },
+            { NPCID.Plantera, VoidTier.Delta },
+            { NPCID.CultistBoss, VoidTier.Epsilon },
+            { NPCID.MoonLordCore, VoidTier.Zeta }
         };
 
 
-        private void RewardVoidTier(VoidTiers tier)
+        private void RewardVoidTier(VoidTier tier)
         {
             for (int i = 0; i < Main.player.Length; i++)
                 ROIPlayer.Get(Main.player[i]).UnlockVoidTier(tier);
@@ -58,7 +59,7 @@ namespace ROI.NPCs
 
             mod.Logger.Info($"Void Reward: {npc.FullName} ;; NPC Value: {npc.value}");
 
-            if (_bossTiers.TryGetValue((short)npc.type, out VoidTiers tier))
+            if (_bossTiers.TryGetValue((short)npc.type, out VoidTier tier))
                 RewardVoidTier(tier);
 
             if (npc.boss)

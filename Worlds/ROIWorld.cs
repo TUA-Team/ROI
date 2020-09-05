@@ -26,7 +26,7 @@ namespace ROI.Worlds
                 {
                     TagCompound npcTag = new TagCompound();
                     NPC npc = Main.npc[i];
-
+                    
                     npcTag.Add(nameof(NPC.position), npc.position);
                     npcTag.Add(nameof(NPC.modNPC.Name), npc.modNPC.Name);
                     npcTag.Add(nameof(NPC.modNPC.mod), npc.modNPC.mod.Name);

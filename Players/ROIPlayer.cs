@@ -19,7 +19,7 @@ namespace ROI.Players
 
         private void OnNewBuffDetected(int previousBuffType)
         {
-            // TODO: Check if you can just do player.buffType[previousBuffType] instead of iterating through this.
+            // TODO: (med prio) Check if you can just do player.buffType[previousBuffType] instead of iterating through this.
             for (int i = 0; i < player.buffType.Length; i++)
                 if (player.buffType[i] == previousBuffType && Main.debuff[player.buffType[i]])
                     player.buffTime[i] = (int)(player.buffTime[previousBuffType] * DebuffDurationMultiplier);

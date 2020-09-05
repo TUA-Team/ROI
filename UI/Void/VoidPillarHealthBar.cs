@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ROI.NPCs.Bosses.VoidPillar;
 using Terraria;
 
-namespace ROI.UI.VoidPanel
+namespace ROI.UI.Void
 {
-    static class VoidPillarHealthBar
+    public static class VoidPillarHealthBar
     {
         public static VoidPillar Pillar { get; private set; }
 

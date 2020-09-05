@@ -19,7 +19,7 @@ namespace ROI.Tiles.Wasteland
             TileID.Sets.ChecksForMerge[Type] = true;
         }
 
-        //TODO: Broken?
+        //TODO: (high prio) Broken?
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             //Following part need to moved into a seperate class
