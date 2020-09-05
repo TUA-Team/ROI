@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers.Networking
+namespace ROI.Models.Networking
 {
     public abstract class NetworkPacket
     {

@@ -4,7 +4,7 @@ using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers.Networking.Packets
+namespace ROI.Models.Networking
 {
     public sealed class PlayerSyncPacket : NetworkPacket
     {

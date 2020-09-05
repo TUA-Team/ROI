@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Terraria;
 
-namespace ROI.Commons
+namespace ROI.Models
 {
     public struct Snowflake
     {

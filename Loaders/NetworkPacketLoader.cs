@@ -1,9 +1,9 @@
-﻿using ROI.Helpers.Networking.Packets;
+﻿using ROI.Models.Networking;
 using System.Collections.Generic;
 using System.IO;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers.Networking
+namespace ROI.Loaders
 {
     public sealed class NetworkPacketLoader : BaseLoader
     {

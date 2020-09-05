@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers.Spawning.Wasteland.Walls
+namespace ROI.Models.Spawning.Walls
 {
     public class UnsafeWastelandDirtWall : SpawnCondition
     {

@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace ROI.Helpers.Spawning
+namespace ROI.Models.Spawning
 {
     public abstract class SpawnCondition
     {

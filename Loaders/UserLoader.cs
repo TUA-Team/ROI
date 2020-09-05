@@ -1,10 +1,10 @@
-﻿using ROI.Commons.Users;
+﻿using ROI.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers
+namespace ROI.Loaders
 {
     public sealed class UserLoader : BaseLoader
     {

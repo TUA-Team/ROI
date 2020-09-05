@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace ROI.Helpers.Spawning.Wasteland
+namespace ROI.Models.Spawning.Wasteland
 {
     public class WastelandSpawnCondition : SpawnCondition
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace ROI.Helpers.Spawning
+namespace ROI.Loaders
 {
     public class SpawnConditionLoader : BaseLoader
     {

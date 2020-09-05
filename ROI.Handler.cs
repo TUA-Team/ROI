@@ -1,5 +1,5 @@
-﻿using ROI.Helpers.Networking;
-using ROI.Helpers.Spawning;
+﻿using ROI.Loaders.Networking;
+using ROI.Loaders.Spawning;
 using Terraria.ModLoader;
 
 namespace ROI

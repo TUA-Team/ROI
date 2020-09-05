@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace ROI.Helpers
+namespace ROI.Loaders
 {
     public abstract class BaseLoader
     {
