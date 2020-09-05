@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
 using Terraria.Graphics.Shaders;
-using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI.UI.Void
 {
@@ -14,22 +13,19 @@ namespace ROI.UI.Void
         private static Texture2D voidMeterFilled;
         private static Texture2D voidMeterEmpty;
 
-        public static void Load()
-        {
+        public static void Load() {
             GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(ROIMod.instance.GetEffect("Effects/RadialProgress")), "progress");
 
             voidMeterFilled = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterFull");
             voidMeterEmpty = ROIMod.instance.GetTexture("Textures/UIElements/VoidMeterEmpty");
         }
 
-        public static void Unload()
-        {
+        public static void Unload() {
             voidMeterFilled.Dispose();
             voidMeterEmpty.Dispose();
         }
 
-        public static void Draw(SpriteBatch spriteBatch)
-        {
+        public static void Draw(SpriteBatch spriteBatch) {
             ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
             float percent = VoidManager.Instance.Percent(player) / 100f;
 
@@ -45,8 +41,7 @@ namespace ROI.UI.Void
 
             Rectangle textureBound = new Rectangle((int)DrawingOffset.X, (int)DrawingOffset.Y, voidMeterEmpty.Width, voidMeterFilled.Height);
 
-            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
-            {
+            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y)) {
                 Main.hoverItemName = $"Void meter : {player.VoidAffinityAmount}/{player.MaxVoidAffinity}\n" +
                                      $"Percent : {percent * 100}%\n" +
                                      $"Tier : {player.VoidTier}";
@@ -55,8 +50,7 @@ namespace ROI.UI.Void
 
 
         //TODO: Move this to DrawUtils
-        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
-        {
+        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent) {
             Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
             Color[] colorData = new Color[diameter * diameter];
 
@@ -65,22 +59,18 @@ namespace ROI.UI.Void
             float radiusSquared = radius * radius;
             float radiusSquaredInterior = radiusInterior * radiusInterior;
 
-            for (int x = 0; x < diameter; x++)
-            {
-                for (int y = 0; y < diameter; y++)
-                {
+            for (int x = 0; x < diameter; x++) {
+                for (int y = 0; y < diameter; y++) {
 
                     int index = x * diameter + y;
                     Vector2 pos = new Vector2(x - radius, y - radius);
                     float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
                     float angle = (float)Math.Atan2(pos.Y, pos.X);
 
-                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
-                    {
+                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior) {
                         colorData[index] = Color.White;
                     }
-                    else
-                    {
+                    else {
                         colorData[index] = Color.Transparent;
                     }
                 }

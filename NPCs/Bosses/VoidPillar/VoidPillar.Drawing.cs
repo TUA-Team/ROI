@@ -22,13 +22,10 @@ namespace ROI.NPCs.Bosses.VoidPillar
         /// <param name="spriteBatch"></param>
         /// <param name="drawColor"></param>
         /// <returns></returns>
-        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
-            if (MovementAIPhase == 2f)
-            {
+        public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor) {
+            if (MovementAIPhase == 2f) {
                 Vector2 drawOrigin = new Vector2(npc.width / 2, npc.height / 2);
-                for (int k = (npc.oldPos.Length / 3); k < npc.oldPos.Length; k++)
-                {
+                for (int k = (npc.oldPos.Length / 3); k < npc.oldPos.Length; k++) {
                     Vector2 drawPosition = npc.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0, npc.gfxOffY);
                     Color color = npc.GetAlpha(drawColor) * ((float)(npc.oldPos.Length - k) / (2f * npc.oldPos.Length));
                     spriteBatch.Draw(Main.npcTexture[npc.type], drawPosition, npc.frame, color, npc.oldRot[k], drawOrigin, npc.scale, SpriteEffects.None, 0f);
@@ -38,8 +35,7 @@ namespace ROI.NPCs.Bosses.VoidPillar
             return true;
         }
 
-        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor)
-        {
+        public override void PostDraw(SpriteBatch spriteBatch, Color drawColor) {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
             Vector2 center = npc.Center - Main.screenPosition;
@@ -49,8 +45,7 @@ namespace ROI.NPCs.Bosses.VoidPillar
             drawingData.Draw(Main.spriteBatch);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin();
-            if (npc.ai[0] == 1)
-            {
+            if (npc.ai[0] == 1) {
                 TeleportationRingDraw(spriteBatch);
                 return;
             }
@@ -59,29 +54,23 @@ namespace ROI.NPCs.Bosses.VoidPillar
             _teleportationRingOpacity = 0f;
         }
 
-        private void TeleportationRingDraw(SpriteBatch spriteBatch)
-        {
-            if (_teleportationRingScale < 1.5f && _teleportationTimer > 250)
-            {
+        private void TeleportationRingDraw(SpriteBatch spriteBatch) {
+            if (_teleportationRingScale < 1.5f && _teleportationTimer > 250) {
                 _teleportationRingScale += 0.005f;
             }
 
-            if (_teleportationTimer <= 250)
-            {
+            if (_teleportationTimer <= 250) {
                 _teleportationRingScale -= 0.005f;
             }
 
-            if (_teleportationRingOpacity < 1f)
-            {
+            if (_teleportationRingOpacity < 1f) {
                 _teleportationRingOpacity += 0.005f;
             }
 
-            if (_teleportationRingRotation >= Math.PI * 2)
-            {
+            if (_teleportationRingRotation >= Math.PI * 2) {
                 _teleportationRingRotation = 0f;
             }
-            if (_teleportationTimer < 250 && _teleportationRingOpacity >= 1f)
-            {
+            if (_teleportationTimer < 250 && _teleportationRingOpacity >= 1f) {
                 _teleportationRingOpacity = 0.5f;
             }
             _teleportationRingRotation += 0.05f;

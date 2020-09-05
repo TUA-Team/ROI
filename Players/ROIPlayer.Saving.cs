@@ -4,8 +4,7 @@ namespace ROI.Players
 {
     public sealed partial class ROIPlayer
     {
-        public override TagCompound Save()
-        {
+        public override TagCompound Save() {
             TagCompound tag = new TagCompound();
 
             SaveVoid(tag);
@@ -13,8 +12,7 @@ namespace ROI.Players
             return tag;
         }
 
-        public override void Load(TagCompound tag)
-        {
+        public override void Load(TagCompound tag) {
             LoadVoid(tag);
         }
     }

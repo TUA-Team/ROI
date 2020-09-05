@@ -21,11 +21,9 @@ namespace ROI.NPCs.Bosses.VoidPillar
         public Vector2 CameraPosition =>
             new Vector2(npc.Center.X - Main.screenWidth / 2, npc.Center.Y - Main.screenHeight / 2);
 
-        public bool AnimationAI()
-        {
+        public bool AnimationAI() {
             // TODO: (low prio) modtranslations
-            if (CurrentlyExecuting)
-            {
+            if (CurrentlyExecuting) {
                 Dust dust;
                 // You need to set position depending on what you are doing. You may need to subtract width/2 and height/2 as well to center the spawn rectangle.
                 Vector2 position = npc.position;
@@ -34,20 +32,17 @@ namespace ROI.NPCs.Bosses.VoidPillar
 
                 _animationTimeLeft++;
                 npc.Opacity = (float)(_animationTimeLeft / 600f);
-                if (!_firstDialog)
-                {
+                if (!_firstDialog) {
                     Main.NewText("<codex> A player as breached the void, the original pillar has finally broke into reality. Be ready to fight it", Color.Black);
                     _firstDialog = true;
                 }
 
-                if (!_secondDialog && _animationTimeLeft == 300)
-                {
+                if (!_secondDialog && _animationTimeLeft == 300) {
                     Main.NewText("<codex> The void pillar, a weapon that became a living entity, linked to someone, if the pillar die, the person will get massively debuffed for the next couple of minute", Color.Black);
                     _secondDialog = true;
                 }
 
-                if (!_finalDialog && _animationTimeLeft == 600)
-                {
+                if (!_finalDialog && _animationTimeLeft == 600) {
                     Main.NewText("<codex> On a final note, be aware of the heart beat, it can kill anything that get hit by the shockwave", Color.Black);
                     _finalDialog = true;
                     CurrentlyExecuting = false;

@@ -9,8 +9,7 @@ namespace ROI.Projectiles
         private readonly string _displayName;
         private readonly int _width, _height;
 
-        protected ROIProjectile(string displayName, int width, int height, bool cloneNewInstances = true)
-        {
+        protected ROIProjectile(string displayName, int width, int height, bool cloneNewInstances = true) {
             _displayName = displayName;
 
             _width = width;
@@ -19,15 +18,13 @@ namespace ROI.Projectiles
             CloneNewInstances = cloneNewInstances;
         }
 
-        public override void SetStaticDefaults()
-        {
+        public override void SetStaticDefaults() {
             base.SetStaticDefaults();
 
             DisplayName.SetDefault(_displayName);
         }
 
-        public override void SetDefaults()
-        {
+        public override void SetDefaults() {
             base.SetDefaults();
 
             projectile.width = _width;
@@ -35,8 +32,7 @@ namespace ROI.Projectiles
         }
 
 
-        public override bool PreAI()
-        {
+        public override bool PreAI() {
             if (Owner == null)
                 Owner = ROIPlayer.Get(Main.player[projectile.owner]);
 

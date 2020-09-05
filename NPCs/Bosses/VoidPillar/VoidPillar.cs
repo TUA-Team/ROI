@@ -43,15 +43,13 @@ namespace ROI.NPCs.Bosses.VoidPillar
             set => extraAI[0] = value;
         }
 
-        public override void SetStaticDefaults()
-        {
+        public override void SetStaticDefaults() {
             DisplayName.SetDefault("Void Pillar");
             NPCID.Sets.TrailingMode[npc.type] = 3;
             NPCID.Sets.TrailCacheLength[npc.type] = 8;
         }
 
-        public override void SetDefaults()
-        {
+        public override void SetDefaults() {
             npc.boss = true;
             npc.width = 174;
             npc.height = 364;
@@ -69,38 +67,31 @@ namespace ROI.NPCs.Bosses.VoidPillar
             movementTimer = 100;
             _movementUp = false;
             _damageReduction = (Main.expertMode) ? 0.2f : 0; //Set red shield damage reduction here
-            if (Main.npc.Any(i => i.modNPC is VoidPillar))
-            {
+            if (Main.npc.Any(i => i.modNPC is VoidPillar)) {
                 npc.active = false;
             }
             _originalPosition = npc.position;
         }
 
-        public override void AI()
-        {
+        public override void AI() {
             MovementAI();
             StandardPillarMovement();
-            if (AnimationAI())
-            {
+            if (AnimationAI()) {
                 return;
             }
 
-            if (MovementAIPhase != 1f && Main.netMode != NetmodeID.MultiplayerClient)
-            {
+            if (MovementAIPhase != 1f && Main.netMode != NetmodeID.MultiplayerClient) {
                 Shockwave();
             }
 
-            if (MovementAIPhase == 0f)
-            {
-                if (Main.rand.Next(1000) == 0 && ShieldColor == PillarShieldColor.none)
-                {
+            if (MovementAIPhase == 0f) {
+                if (Main.rand.Next(1000) == 0 && ShieldColor == PillarShieldColor.none) {
                     MovementAIPhase = 1f;
                 }
             }
         }
 
-        public override void SendExtraAI(BinaryWriter writer)
-        {
+        public override void SendExtraAI(BinaryWriter writer) {
             writer.Write(ShieldHealth);
             writer.Write((byte)ShieldColor);
             writer.Write(movementTimer);
@@ -108,8 +99,7 @@ namespace ROI.NPCs.Bosses.VoidPillar
             writer.Write(_animationTimeLeft);
         }
 
-        public override void ReceiveExtraAI(BinaryReader reader)
-        {
+        public override void ReceiveExtraAI(BinaryReader reader) {
             ShieldHealth = reader.ReadInt32();
             ShieldColor = (PillarShieldColor)reader.ReadByte();
             movementTimer = reader.Read();
@@ -117,12 +107,10 @@ namespace ROI.NPCs.Bosses.VoidPillar
             _animationTimeLeft = reader.ReadInt32();
         }
 
-        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit)
-        {
+        public override void OnHitByItem(Player player, Item item, int damage, float knockback, bool crit) {
             DamageShield(damage);
 
-            if (ShieldColor == PillarShieldColor.Green)
-            {
+            if (ShieldColor == PillarShieldColor.Green) {
                 string gp1 = player.Male ? "himself" : "herself";
                 string gp2 = player.Male ? "his" : "her";
                 PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(
@@ -132,12 +120,10 @@ namespace ROI.NPCs.Bosses.VoidPillar
             }
         }
 
-        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit)
-        {
+        public override void OnHitByProjectile(Projectile projectile, int damage, float knockback, bool crit) {
             DamageShield(damage);
 
-            if (ShieldColor == PillarShieldColor.Green)
-            {
+            if (ShieldColor == PillarShieldColor.Green) {
                 var plr = Main.player[projectile.owner];
                 PlayerDeathReason deathReason = PlayerDeathReason.ByCustomReason(
                     string.Format("{0} threw something and was unlucky enough that it came back", plr));
@@ -145,39 +131,32 @@ namespace ROI.NPCs.Bosses.VoidPillar
             }
         }
 
-        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position)
-        {
-            if (ShieldColor == PillarShieldColor.none)
-            {
+        public override bool? DrawHealthBar(byte hbPosition, ref float scale, ref Vector2 position) {
+            if (ShieldColor == PillarShieldColor.none) {
                 return true;
             }
 
             return false;
         }
 
-        public override bool CheckActive()
-        {
+        public override bool CheckActive() {
             return false;
         }
 
-        private void DamageShield(int damage)
-        {
+        private void DamageShield(int damage) {
             ShieldHealth -= damage - (int)(damage * _damageReduction);
             npc.life -= damage - (int)(damage * _damageReduction);
 
-            if (ShieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow)
-            {
+            if (ShieldHealth <= 0 && ShieldColor != PillarShieldColor.Rainbow) {
                 ShieldHealth = (Main.expertMode) ? 25000 : 20000;
                 npc.life = (Main.expertMode) ? 25000 : 20000;
                 SwitchShieldColor();
             }
         }
 
-        private void SwitchShieldColor()
-        {
+        private void SwitchShieldColor() {
             npc.netUpdate = true;
-            switch (ShieldColor)
-            {
+            switch (ShieldColor) {
                 case PillarShieldColor.Red:
                     ShieldColor = PillarShieldColor.Purple;
                     break;
@@ -198,16 +177,13 @@ namespace ROI.NPCs.Bosses.VoidPillar
             ChangeDamageReduction();
         }
 
-        private void ChangeDamageReduction()
-        {
+        private void ChangeDamageReduction() {
             npc.netUpdate = true;
-            if (_isCurrentlyTeleporting)
-            {
+            if (_isCurrentlyTeleporting) {
                 _damageReduction = 0.95f;
                 return;
             }
-            switch (ShieldColor)
-            {
+            switch (ShieldColor) {
                 case PillarShieldColor.Red:
                     _damageReduction = 0.2f;
                     break;
@@ -227,10 +203,8 @@ namespace ROI.NPCs.Bosses.VoidPillar
 
         }
 
-        public Color GetShieldColor()
-        {
-            switch (ShieldColor)
-            {
+        public Color GetShieldColor() {
+            switch (ShieldColor) {
                 case PillarShieldColor.Black:
                     return Color.Black;
                 case PillarShieldColor.Blue:
@@ -246,10 +220,8 @@ namespace ROI.NPCs.Bosses.VoidPillar
             }
         }
 
-        public override bool CheckDead()
-        {
-            if (ShieldColor == PillarShieldColor.none)
-            {
+        public override bool CheckDead() {
+            if (ShieldColor == PillarShieldColor.none) {
                 return true;
             }
 
@@ -257,16 +229,14 @@ namespace ROI.NPCs.Bosses.VoidPillar
         }
 
 
-        public void Save(TagCompound tag)
-        {
+        public void Save(TagCompound tag) {
             tag.Add(nameof(ShieldColor), (byte)ShieldColor);
             tag.Add(nameof(ShieldHealth), ShieldHealth);
             //tag.Add(nameof(_originalPosition), _originalPosition);
             tag.Add(nameof(MovementAIPhase), MovementAIPhase);
         }
 
-        public void Load(TagCompound data)
-        {
+        public void Load(TagCompound data) {
             ShieldColor = (PillarShieldColor)data.GetByte(nameof(ShieldColor));
             ShieldHealth = data.GetAsInt(nameof(ShieldHealth));
             MovementAIPhase = data.GetFloat(nameof(MovementAIPhase));

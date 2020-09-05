@@ -30,24 +30,20 @@ namespace ROI.NPCs
         };
 
 
-        private void RewardVoidTier(VoidTier tier)
-        {
+        private void RewardVoidTier(VoidTier tier) {
             for (int i = 0; i < Main.player.Length; i++)
                 ROIPlayer.Get(Main.player[i]).UnlockVoidTier(tier);
         }
 
-        private void RewardVoidAffinity(NPC npc)
-        {
+        private void RewardVoidAffinity(NPC npc) {
             for (int i = 0; i < Main.ActivePlayersCount; i++)
                 if (Main.player[i].active)
                     ROIPlayer.Get(Main.player[i]).RewardAffinity(npc);
         }
 
 
-        private bool PreNPCLootVoid(NPC npc)
-        {
-            bool IsEoWAlive()
-            {
+        private bool PreNPCLootVoid(NPC npc) {
+            bool IsEoWAlive() {
                 int count = 0;
 
                 for (int i = 0; i < Main.npc.Length; i++)
@@ -62,8 +58,7 @@ namespace ROI.NPCs
             if (_bossTiers.TryGetValue((short)npc.type, out VoidTier tier))
                 RewardVoidTier(tier);
 
-            if (npc.boss)
-            {
+            if (npc.boss) {
                 if (npc.type == NPCID.EaterofWorldsHead && IsEoWAlive())
                     return false;
 
@@ -73,8 +68,7 @@ namespace ROI.NPCs
             return true;
         }
 
-        private void SetDefaultsVoid(NPC npc)
-        {
+        private void SetDefaultsVoid(NPC npc) {
             if (_bossValues.TryGetValue((short)npc.type, out int value))
                 npc.value = value;
         }

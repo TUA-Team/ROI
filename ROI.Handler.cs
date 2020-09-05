@@ -8,8 +8,7 @@ namespace ROI
         public NetworkPacketLoader networkLoader;
         public SpawnConditionLoader spawnLoader;
 
-        private void InitializeHelpers()
-        {
+        private void InitializeHelpers() {
             spawnLoader = new SpawnConditionLoader();
             spawnLoader.Initialize(this);
 
@@ -17,8 +16,7 @@ namespace ROI
             networkLoader.Initialize(this);
         }
 
-        private void UnloadHelpers()
-        {
+        private void UnloadHelpers() {
             spawnLoader?.Unload();
             spawnLoader = null;
 

@@ -8,8 +8,7 @@ namespace ROI.Tiles.Wasteland
 {
     internal class WastelandView : ModTile
     {
-        public override void SetDefaults()
-        {
+        public override void SetDefaults() {
             Main.tileFrameImportant[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
             TileObjectData.newTile.Width = 6;

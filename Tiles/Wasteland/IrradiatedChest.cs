@@ -13,8 +13,7 @@ namespace ROI.Tiles.Wasteland
 {
     internal class IrradiatedChest : ModTile
     {
-        public override void SetDefaults()
-        {
+        public override void SetDefaults() {
             Main.tileSpelunker[Type] = true;
             Main.tileContainer[Type] = true;
             Main.tileShine2[Type] = true;
@@ -50,123 +49,98 @@ namespace ROI.Tiles.Wasteland
 
         public override bool IsLockedChest(int i, int j) => Main.tile[i, j].frameX / 36 == 1;
 
-        public string MapChestName(string name, int i, int j)
-        {
+        public string MapChestName(string name, int i, int j) {
             int left = i;
             int top = j;
             Tile tile = Main.tile[i, j];
-            if (tile.frameX % 36 != 0)
-            {
+            if (tile.frameX % 36 != 0) {
                 left--;
             }
-            if (tile.frameY != 0)
-            {
+            if (tile.frameY != 0) {
                 top--;
             }
             int chest = Chest.FindChest(left, top);
-            if (Main.chest[chest].name == "")
-            {
+            if (Main.chest[chest].name == "") {
                 return name;
             }
-            else
-            {
+            else {
                 return name + ": " + Main.chest[chest].name;
             }
         }
 
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
+        public override void NumDust(int i, int j, bool fail, ref int num) {
             num = 1;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
-        {
+        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
             if (IsLockedChest(i, j))
                 return;
             Item.NewItem(i * 16, j * 16, 32, 32, chestDrop);
             Chest.DestroyChest(i, j);
         }
 
-        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
-        {
+        public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem) {
             if (IsLockedChest(i, j))
                 fail = true;
         }
 
-        public override bool NewRightClick(int i, int j)
-        {
+        public override bool NewRightClick(int i, int j) {
             Player player = Main.LocalPlayer;
             Tile tile = Main.tile[i, j];
             Main.mouseRightRelease = false;
             int left = i;
             int top = j;
-            if (tile.frameX % 36 != 0)
-            {
+            if (tile.frameX % 36 != 0) {
                 left--;
             }
-            if (tile.frameY != 0)
-            {
+            if (tile.frameY != 0) {
                 top--;
             }
-            if (player.sign >= 0)
-            {
+            if (player.sign >= 0) {
                 Main.PlaySound(SoundID.MenuClose);
                 player.sign = -1;
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
-            if (Main.editChest)
-            {
+            if (Main.editChest) {
                 Main.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
-            if (player.editedChestName)
-            {
+            if (player.editedChestName) {
                 NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[player.chest].name), player.chest, 1f, 0f, 0f, 0, 0, 0);
                 player.editedChestName = false;
             }
             bool isLocked = IsLockedChest(left, top);
-            if (Main.netMode == 1 && !isLocked)
-            {
-                if (left == player.chestX && top == player.chestY && player.chest >= 0)
-                {
+            if (Main.netMode == 1 && !isLocked) {
+                if (left == player.chestX && top == player.chestY && player.chest >= 0) {
                     player.chest = -1;
                     Recipe.FindRecipes();
                     Main.PlaySound(SoundID.MenuClose);
                 }
-                else
-                {
+                else {
                     NetMessage.SendData(31, -1, -1, null, left, (float)top, 0f, 0f, 0, 0, 0);
                     Main.stackSplit = 600;
                 }
             }
-            else
-            {
-                if (isLocked)
-                {
+            else {
+                if (isLocked) {
                     int key = ModContent.ItemType<Items.Misc.IrradiatedKey>();
-                    if (player.inventory.Any(x => x.type == key) && Chest.Unlock(left, top))
-                    {
-                        if (Main.netMode == 1)
-                        {
+                    if (player.inventory.Any(x => x.type == key) && Chest.Unlock(left, top)) {
+                        if (Main.netMode == 1) {
                             NetMessage.SendData(MessageID.Unlock, -1, -1, null, player.whoAmI, 1f, (float)left, (float)top);
                         }
                     }
                 }
-                else
-                {
+                else {
                     int chest = Chest.FindChest(left, top);
-                    if (chest >= 0)
-                    {
+                    if (chest >= 0) {
                         Main.stackSplit = 600;
-                        if (chest == player.chest)
-                        {
+                        if (chest == player.chest) {
                             player.chest = -1;
                             Main.PlaySound(SoundID.MenuClose);
                         }
-                        else
-                        {
+                        else {
                             player.chest = chest;
                             Main.playerInventory = true;
                             Main.recBigList = false;
@@ -181,31 +155,25 @@ namespace ROI.Tiles.Wasteland
             return false;
         }
 
-        public override void MouseOver(int i, int j)
-        {
+        public override void MouseOver(int i, int j) {
             Player player = Main.LocalPlayer;
             Tile tile = Main.tile[i, j];
             int left = i;
             int top = j;
-            if (tile.frameX % 36 != 0)
-            {
+            if (tile.frameX % 36 != 0) {
                 left--;
             }
-            if (tile.frameY != 0)
-            {
+            if (tile.frameY != 0) {
                 top--;
             }
             int chest = Chest.FindChest(left, top);
             player.showItemIcon2 = -1;
-            if (chest < 0)
-            {
+            if (chest < 0) {
                 player.showItemIconText = Language.GetTextValue("LegacyChestType.0");
             }
-            else
-            {
+            else {
                 player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
-                if (player.showItemIconText == "Irradiated Chest")
-                {
+                if (player.showItemIconText == "Irradiated Chest") {
                     player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Wasteland.IrradiatedChest>();
                     if (Main.tile[left, top].frameX / 36 == 1)
                         player.showItemIcon2 = ModContent.ItemType<Items.Misc.IrradiatedKey>();
@@ -216,19 +184,16 @@ namespace ROI.Tiles.Wasteland
             player.showItemIcon = true;
         }
 
-        public override void MouseOverFar(int i, int j)
-        {
+        public override void MouseOverFar(int i, int j) {
             MouseOver(i, j);
             Player player = Main.LocalPlayer;
-            if (player.showItemIconText == "")
-            {
+            if (player.showItemIconText == "") {
                 player.showItemIcon = false;
                 player.showItemIcon2 = 0;
             }
         }
 
-        public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual)
-        {
+        public override bool UnlockChest(int i, int j, ref short frameXAdjustment, ref int dustType, ref bool manual) {
             return true;
         }
     }

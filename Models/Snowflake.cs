@@ -9,8 +9,7 @@ namespace ROI.Models
         private static ushort currentIncrement = 0;
 
 
-        public Snowflake(ulong epoch = Constants.TERRARIA_EPOCH)
-        {
+        public Snowflake(ulong epoch = Constants.TERRARIA_EPOCH) {
             Timestamp = DateTime.UtcNow;
             Raw = (ulong)Timestamp.Subtract(new DateTime((long)epoch)).TotalMilliseconds << 22;
 

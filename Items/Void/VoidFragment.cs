@@ -9,28 +9,23 @@ namespace ROI.Items.Void
     {
         public VoidFragment() : base("Void Affinity", "", 28, 40, 1000, -1, 3, 999) { }
 
-        public override void SetStaticDefaults()
-        {
+        public override void SetStaticDefaults() {
             base.SetStaticDefaults();
             ItemID.Sets.ItemIconPulse[item.type] = true;
             ItemID.Sets.ItemNoGravity[item.type] = true;
         }
 
-        public override void SetDefaults()
-        {
+        public override void SetDefaults() {
             Item refItem = new Item();
             refItem.SetDefaults(ItemID.SoulofFright);
             base.SetDefaults();
         }
 
         private bool used;
-        public override void UpdateInventory(Player player)
-        {
+        public override void UpdateInventory(Player player) {
             var plr = player.GetModPlayer<ROIPlayer>();
-            if (plr.voidCollector && !used)
-            {
-                if (plr.VoidAffinity < plr.MaxVoidAffinity)
-                {
+            if (plr.voidCollector && !used) {
+                if (plr.VoidAffinity < plr.MaxVoidAffinity) {
                     plr.VoidAffinity += (ushort)item.stack;
                     if (plr.VoidAffinity > plr.MaxVoidAffinity) plr.VoidAffinity = plr.MaxVoidAffinity;
                 }

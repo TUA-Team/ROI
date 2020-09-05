@@ -2,8 +2,7 @@
 {
     internal sealed partial class VoidPillar
     {
-        private void SpawnTeleportationDust()
-        {
+        private void SpawnTeleportationDust() {
             // TODO: (high prio) something here lol
         }
     }

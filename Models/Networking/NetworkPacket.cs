@@ -5,15 +5,13 @@ namespace ROI.Models.Networking
 {
     public abstract class NetworkPacket
     {
-        public NetworkPacket(Mod mod)
-        {
+        public NetworkPacket(Mod mod) {
             Mod = mod;
         }
 
         public abstract void Receive(BinaryReader reader);
 
-        public void SendPacket(int toWho, int fromWho, params object[] args)
-        {
+        public void SendPacket(int toWho, int fromWho, params object[] args) {
             var p = MakePacket();
             SendPacket(p, toWho, fromWho, args);
             p.Send();
@@ -25,8 +23,7 @@ namespace ROI.Models.Networking
         // public void SendPacketToServer(int fromWho, params object[] args) => SendPacket(256, fromWho, args);
 
 
-        protected ModPacket MakePacket()
-        {
+        protected ModPacket MakePacket() {
             var p = Mod.GetPacket();
             p.Write(PacketType);
 

@@ -16,18 +16,15 @@ namespace ROI.UI.Void
 
         private static Texture2D heartTexture;
 
-        public static void Load()
-        {
+        public static void Load() {
             heartTexture = ROIMod.instance.GetTexture("Textures/UIElements/VoidHeart");
         }
 
-        public static void Unload()
-        {
+        public static void Unload() {
             heartTexture = null;
         }
 
-        public static void Draw(SpriteBatch sb)
-        {
+        public static void Draw(SpriteBatch sb) {
             ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
 
             int main_UIScreenAnchorX = (int)typeof(Main)
@@ -48,8 +45,7 @@ namespace ROI.UI.Void
 
             int numberOfHeartToDraw = player.MaxVoidHeartStatsExtra / LifePerHeart;
 
-            if (numberOfHeartToDraw >= 10)
-            {
+            if (numberOfHeartToDraw >= 10) {
                 numberOfHeartToDraw = 10;
             }
 
@@ -59,41 +55,33 @@ namespace ROI.UI.Void
             sb.DrawString(Main.fontMouseText, text, new Vector2(drawingOffset.X + textSize.X, drawingOffset.Y), new Microsoft.Xna.Framework.Color((int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor, (int)Main.mouseTextColor), 0f, new Vector2(Main.fontMouseText.MeasureString(Main.player[Main.myPlayer].statLife + "/" + Main.player[Main.myPlayer].statLifeMax2).X, 0f), 1f, SpriteEffects.None, 0f);
 
 
-            for (int i = 1; i < player.MaxVoidHeartStatsExtra / LifePerHeart + 1; i++)
-            {
+            for (int i = 1; i < player.MaxVoidHeartStatsExtra / LifePerHeart + 1; i++) {
                 float heartScale = 1f;
                 float heartAlpha;
                 bool pulsatingEffect = false;
 
-                if (player.VoidHeartHP >= i * LifePerHeart)
-                {
+                if (player.VoidHeartHP >= i * LifePerHeart) {
                     heartAlpha = 255;
-                    if (player.VoidHeartHP == i * LifePerHeart)
-                    {
+                    if (player.VoidHeartHP == i * LifePerHeart) {
                         pulsatingEffect = true;
                     }
                 }
-                else
-                {
+                else {
                     float individualHeartValue = ((float)Main.player[Main.myPlayer].statLife - (float)(i - 1) * LifePerHeart) / LifePerHeart;
                     heartAlpha = (int)(30f + 225f * individualHeartValue);
-                    if (heartAlpha < 30)
-                    {
+                    if (heartAlpha < 30) {
                         heartAlpha = 30;
                     }
                     heartScale = individualHeartValue / 4f + 0.75f;
-                    if ((double)heartScale < 0.75)
-                    {
+                    if ((double)heartScale < 0.75) {
                         heartScale = 0.75f;
                     }
-                    if (individualHeartValue > 0f)
-                    {
+                    if (individualHeartValue > 0f) {
                         pulsatingEffect = true;
                     }
                 }
 
-                if (pulsatingEffect)
-                {
+                if (pulsatingEffect) {
                     heartScale += Main.cursorScale - 1f;
                 }
                 int alpha = (int)((double)((float)heartAlpha) * 0.9);

@@ -13,8 +13,7 @@ namespace ROI.Backgrounds
 
         #region Loading
 
-        internal static void Load()
-        {
+        internal static void Load() {
             _backgroundsByTypes = new Dictionary<Type, Background>();
 
             List<Assembly> assemblies = new List<Assembly>();
@@ -28,8 +27,7 @@ namespace ROI.Backgrounds
                     _backgroundsByTypes.Add(backgroundType, Activator.CreateInstance(backgroundType) as Background);
         }
 
-        internal static void Unload()
-        {
+        internal static void Unload() {
             _backgroundsByTypes.Clear();
             _backgroundsByTypes = null;
         }
@@ -39,8 +37,7 @@ namespace ROI.Backgrounds
 
         public static Background GetBackground<T>() where T : Background => GetBackground(typeof(T));
 
-        public static Background GetBackground(Type type)
-        {
+        public static Background GetBackground(Type type) {
             if (!_backgroundsByTypes.ContainsKey(type))
                 return null;
 

@@ -13,8 +13,7 @@ namespace ROI.Extensions
 
             SOCIAL_ARMOR_START_INDEX = ARMOR_SLOTS_COUNT + ACCESSORY_SLOTS_COUNT + MAX_EXTRA_ACCESSORY_SLOTS;
 
-        public static List<T> GetItemsByType<T>(this Player player, bool inventory = false, bool armor = false, bool armorSocial = false, bool accessories = false, bool accessoriesSocial = false) where T : class
-        {
+        public static List<T> GetItemsByType<T>(this Player player, bool inventory = false, bool armor = false, bool armorSocial = false, bool accessories = false, bool accessoriesSocial = false) where T : class {
             List<T> filteredItems = new List<T>();
 
             if (inventory)
@@ -28,8 +27,7 @@ namespace ROI.Extensions
                 SearchItems(ref filteredItems, armorSlots);
             }
 
-            if (accessories)
-            {
+            if (accessories) {
                 Item[] accessorySlots = new Item[ACCESSORY_SLOTS_COUNT + player.extraAccessorySlots];
                 Array.Copy(player.armor, ARMOR_SLOTS_COUNT, accessorySlots, 0, accessorySlots.Length);
 
@@ -44,8 +42,7 @@ namespace ROI.Extensions
                 SearchItems(ref filteredItems, armorSlots);
             }
 
-            if (accessoriesSocial)
-            {
+            if (accessoriesSocial) {
                 Item[] accessorySlots = new Item[ACCESSORY_SLOTS_COUNT + player.extraAccessorySlots];
                 Array.Copy(player.armor, SOCIAL_ARMOR_START_INDEX + ARMOR_SLOTS_COUNT, accessorySlots, 0, accessorySlots.Length);
 
@@ -55,8 +52,7 @@ namespace ROI.Extensions
             return filteredItems;
         }
 
-        private static void SearchItems<T>(ref List<T> filtered, IEnumerable<Item> items) where T : class
-        {
+        private static void SearchItems<T>(ref List<T> filtered, IEnumerable<Item> items) where T : class {
             foreach (Item item in items)
                 if (item != null && item.modItem != null && item.IsOfType<T>())
                     filtered.Add(item.modItem as T);

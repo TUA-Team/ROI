@@ -8,32 +8,27 @@ namespace ROI
     // We call this ROIMod instead of ROI since we don't want to have a class with the same name as the namespace its in.
     public sealed partial class ROIMod : Mod
     {
-        public ROIMod()
-        {
+        public ROIMod() {
             Instance = this;
         }
 
 
-        public override void Load()
-        {
+        public override void Load() {
             base.Load();
 
             InitializeHelpers();
 
-            if (!Main.dedServ)
-            {
+            if (!Main.dedServ) {
                 LoadClient();
             }
         }
 
-        public override void Unload()
-        {
+        public override void Unload() {
             base.Unload();
 
             UnloadHelpers();
 
-            if (!Main.dedServ)
-            {
+            if (!Main.dedServ) {
                 UnloadClient();
             }
         }

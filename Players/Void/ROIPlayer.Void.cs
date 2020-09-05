@@ -11,8 +11,7 @@ namespace ROI.Players
         public bool voidCollector;
 
 
-        public void UnlockVoidTier(VoidTier tier)
-        {
+        public void UnlockVoidTier(VoidTier tier) {
             if (VoidTier != tier - 1) // Player cannot skip tiers.
                 return;
 
@@ -28,12 +27,10 @@ namespace ROI.Players
 
         public ushort AddVoidAffinity(ushort amount) => VoidAffinity += amount;
 
-        public void AttemptDamageVoidHeart(ref int damage)
-        {
+        public void AttemptDamageVoidHeart(ref int damage) {
             int postNullificationDamage = damage - VoidHeartHP;
 
-            if (postNullificationDamage <= 0)
-            {
+            if (postNullificationDamage <= 0) {
                 CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Black, damage, true, true);
 
                 VoidHeartHP -= damage;
@@ -46,8 +43,7 @@ namespace ROI.Players
         }
 
 
-        private void InitializeVoid()
-        {
+        private void InitializeVoid() {
             VoidAffinity = 0;
             MaxVoidAffinity = 100;
 
@@ -57,8 +53,7 @@ namespace ROI.Players
             VoidItemCooldown = 300 * Constants.TICKS_PER_SECOND;
         }
 
-        private void ResetEffectsVoid()
-        {
+        private void ResetEffectsVoid() {
             DebuffDurationMultiplier = 1f;
 
             MaxVoidHearts2 = MaxVoidHearts;
@@ -66,8 +61,7 @@ namespace ROI.Players
             voidCollector = false;
         }
 
-        private void PostUpdateVoid()
-        {
+        private void PostUpdateVoid() {
             if (VoidItemCooldown > 0)
                 VoidItemCooldown--;
 

@@ -2,8 +2,7 @@
 {
     public class User
     {
-        public User(long steamId64, string displayName, ulong discordId)
-        {
+        public User(long steamId64, string displayName, ulong discordId) {
             SteamId64 = steamId64;
             DisplayName = displayName;
             DiscordId = discordId;

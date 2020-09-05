@@ -4,8 +4,7 @@ namespace ROI.Players
 {
     public sealed partial class ROIPlayer
     {
-        private void SaveVoid(TagCompound tag)
-        {
+        private void SaveVoid(TagCompound tag) {
             tag.Add(nameof(VoidAffinity), VoidAffinity);
             tag.Add(nameof(MaxVoidAffinity), MaxVoidAffinity);
 
@@ -16,8 +15,7 @@ namespace ROI.Players
             tag.Add(nameof(MaxVoidHearts), MaxVoidHearts);
         }
 
-        private void LoadVoid(TagCompound tag)
-        {
+        private void LoadVoid(TagCompound tag) {
             VoidAffinity = tag.Get<ushort>(nameof(VoidAffinity));
             MaxVoidAffinity = tag.Get<ushort>(nameof(MaxVoidAffinity));
 

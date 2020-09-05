@@ -13,30 +13,25 @@ namespace ROI.Loaders
         private readonly List<Developer> _activeDevelopers = new List<Developer>();
 
 
-        public override void Initialize(Mod mod)
-        {
+        public override void Initialize(Mod mod) {
             if (_initialized) return;
 
-            try
-            {
+            try {
                 string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null).ToString();
 
-                if (!string.IsNullOrWhiteSpace(unparsedSteamID64))
-                {
+                if (!string.IsNullOrWhiteSpace(unparsedSteamID64)) {
                     HasSteamId64 = true;
                     SteamId64 = long.Parse(unparsedSteamID64);
                 }
             }
-            catch (Exception)
-            {
+            catch (Exception) {
                 mod.Logger.Info("Unable to fetch SteamID, assuming no Steam is present.");
             }
 
             if (!HasSteamId64) return;
 
             foreach (Developer developer in _activeDevelopers)
-                if (developer.SteamId64 == SteamId64)
-                {
+                if (developer.SteamId64 == SteamId64) {
                     CurrentUser = developer;
 
                     developer.IsCurrentUser = true;

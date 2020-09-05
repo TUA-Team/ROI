@@ -13,14 +13,11 @@ namespace ROI.Loaders
 
         #region Loading
 
-        public override void Initialize(Mod mod)
-        {
+        public override void Initialize(Mod mod) {
             _spawnConditionsByType = new Dictionary<Type, SpawnCondition>();
 
-            foreach (TypeInfo spawnConditionType in mod.Code.DefinedTypes.Where(t => t.IsSubclassOf(typeof(SpawnCondition))))
-            {
-                if (!(Activator.CreateInstance(spawnConditionType) is SpawnCondition spawnCondition))
-                {
+            foreach (TypeInfo spawnConditionType in mod.Code.DefinedTypes.Where(t => t.IsSubclassOf(typeof(SpawnCondition)))) {
+                if (!(Activator.CreateInstance(spawnConditionType) is SpawnCondition spawnCondition)) {
                     mod.Logger.Error($"Error while loading {nameof(SpawnCondition)} {spawnConditionType.FullName}.");
                     continue;
                 }
@@ -30,8 +27,7 @@ namespace ROI.Loaders
             }
         }
 
-        public override void Unload()
-        {
+        public override void Unload() {
             _spawnConditionsByType?.Clear();
             _spawnConditionsByType = null;
         }
@@ -41,8 +37,7 @@ namespace ROI.Loaders
 
         public SpawnCondition GetSpawnCondition<T>() where T : SpawnCondition => GetSpawnCondition(typeof(T));
 
-        public SpawnCondition GetSpawnCondition(Type type)
-        {
+        public SpawnCondition GetSpawnCondition(Type type) {
             if (_spawnConditionsByType.ContainsKey(type))
                 return null;
 

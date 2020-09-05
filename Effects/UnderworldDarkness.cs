@@ -11,8 +11,7 @@ namespace ROI.Effects
         public const string UNDERWORLD_FILTER_NAME = "UnderworldFilter";
 
 
-        public static void Load()
-        {
+        public static void Load() {
             (Filters.Scene[$"{nameof(ROI)}:{UNDERWORLD_FILTER_NAME}"] =
                 new Filter(new ScreenShaderData(new Ref<Effect>(ROIMod.Instance.GetEffect($"Effects/{UNDERWORLD_FILTER_NAME}")), UNDERWORLD_FILTER_NAME), EffectPriority.VeryHigh)).Load();
 
