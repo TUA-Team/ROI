@@ -50,9 +50,7 @@ namespace ROI.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            // TODO: is this necessary?
-            if (fromWho == Main.myPlayer)
-                mod.networkHelper.PlayerSync.SendPacketToAllClients(Main.myPlayer, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
+            mod.networkLoader.PlayerSync.SendPacket(toWho, fromWho, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
         }
 
 

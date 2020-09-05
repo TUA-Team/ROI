@@ -1,6 +1,6 @@
 ﻿namespace ROI.Void
 {
-    public enum VoidTiers : byte
+    public enum VoidTier : byte
     {
         Alpha,
         Beta,

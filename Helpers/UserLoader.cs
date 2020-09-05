@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Helpers
 {
-    public sealed class UserHelper : BaseHelper
+    public sealed class UserLoader : BaseLoader
     {
         private readonly bool _initialized = false;
 

@@ -10,22 +10,27 @@ namespace ROI.Helpers.Networking
             Mod = mod;
         }
 
-        public abstract bool Receive(BinaryReader reader, int fromWho);
+        public abstract void Receive(BinaryReader reader);
 
-        public void SendPacket(int toWho, int fromWho, params object[] args) => SendPacket(MakePacket(), toWho, fromWho, args);
+        public void SendPacket(int toWho, int fromWho, params object[] args)
+        {
+            var p = MakePacket();
+            SendPacket(p, toWho, fromWho, args);
+            p.Send();
+        }
 
         protected abstract void SendPacket(ModPacket packet, int toWho, int fromWho, params object[] args);
 
-        public void SendPacketToAllClients(int fromWho, params object[] args) => SendPacket(-1, fromWho, args);
-        public void SendPacketToServer(int fromWho, params object[] args) => SendPacket(256, fromWho, args);
+        // public void SendPacketToAllClients(int fromWho, params object[] args) => SendPacket(-1, fromWho, args);
+        // public void SendPacketToServer(int fromWho, params object[] args) => SendPacket(256, fromWho, args);
 
 
         protected ModPacket MakePacket()
         {
-            ModPacket packet = Mod.GetPacket();
-            packet.Write(PacketType);
+            var p = Mod.GetPacket();
+            p.Write(PacketType);
 
-            return packet;
+            return p;
         }
 
         public byte PacketType { get; internal set; }

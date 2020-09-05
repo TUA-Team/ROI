@@ -1,5 +1,4 @@
 ﻿using ROI.Players;
-using ROI.Void;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;

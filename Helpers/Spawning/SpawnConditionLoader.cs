@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Helpers.Spawning
 {
-    public class SpawnConditionHelper : BaseHelper
+    public class SpawnConditionLoader : BaseLoader
     {
         private Dictionary<Type, SpawnCondition> _spawnConditionsByType;
 

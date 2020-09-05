@@ -11,7 +11,7 @@ namespace ROI.Players
         public bool voidCollector;
 
 
-        public void UnlockVoidTier(VoidTiers tier)
+        public void UnlockVoidTier(VoidTier tier)
         {
             if (VoidTier != tier - 1) // Player cannot skip tiers.
                 return;
@@ -87,7 +87,7 @@ namespace ROI.Players
         public ushort VoidAffinity { get; set; }
         public ushort MaxVoidAffinity { get; set; }
 
-        public VoidTiers VoidTier { get; internal set; }
+        public VoidTier VoidTier { get; internal set; }
 
         public uint VoidExposure { get; private set; }
 

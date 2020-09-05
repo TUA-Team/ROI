@@ -4,7 +4,7 @@ namespace ROI.Void
 {
     public static class VoidMath
     {
-        public static ushort GetMaxVoidAffinity(VoidTiers tier)
+        public static ushort GetMaxVoidAffinity(VoidTier tier)
         {
             int x = (int)tier + 1;
 

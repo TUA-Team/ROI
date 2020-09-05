@@ -2,7 +2,7 @@
 
 namespace ROI.Helpers
 {
-    public abstract class BaseHelper
+    public abstract class BaseLoader
     {
         public virtual void Initialize(Mod mod)
         {

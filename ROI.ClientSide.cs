@@ -7,7 +7,7 @@ namespace ROI
     {
         private void LoadClient()
         {
-            UserHelper.Initialize(this);
+            UserLoader.Initialize(this);
 
             BackgroundLoader.Load();
         }

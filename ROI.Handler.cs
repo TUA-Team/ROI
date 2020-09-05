@@ -6,25 +6,25 @@ namespace ROI
 {
     public sealed partial class ROIMod : Mod
     {
-        public NetworkPacketHelper networkHelper;
-        public SpawnConditionHelper spawnHelper;
+        public NetworkPacketLoader networkLoader;
+        public SpawnConditionLoader spawnLoader;
 
         private void InitializeHelpers()
         {
-            spawnHelper = new SpawnConditionHelper();
-            spawnHelper.Initialize(this);
+            spawnLoader = new SpawnConditionLoader();
+            spawnLoader.Initialize(this);
 
-            networkHelper = new NetworkPacketHelper();
-            networkHelper.Initialize(this);
+            networkLoader = new NetworkPacketLoader();
+            networkLoader.Initialize(this);
         }
 
         private void UnloadHelpers()
         {
-            spawnHelper?.Unload();
-            spawnHelper = null;
+            spawnLoader?.Unload();
+            spawnLoader = null;
 
-            networkHelper?.Unload();
-            networkHelper = null;
+            networkLoader?.Unload();
+            networkLoader = null;
         }
     }
 }
