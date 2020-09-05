@@ -1671,7 +1671,7 @@ namespace ROI.Worlds
             {
                 for (int j = y; j < y + height - 1; j++)
                 {
-                    if (Main.tile[i, j].type != 0)
+                    if (Main.tile[i, j].active())
                     {
                         return false;
                     }
@@ -1679,6 +1679,26 @@ namespace ROI.Worlds
             }
 
             return true;
+        }
+
+        public static void Fill(int x, int startingY, int one, int depth, ushort tile)
+        {
+            for (int i = startingY; i < startingY + depth; i++)
+            {
+                if (!WorldGen.InWorld(x, i))
+                {
+                    return;
+                }
+                WorldGen.PlaceTile(x, i, tile, false, true);
+            }
+        }
+
+        public static void FillAir(int x, int depth, int one, int startingY)
+        {
+            for (int i = startingY; i < startingY + depth; i++)
+            {
+                Main.tile[x, i].active(false);
+            }
         }
     }
 }

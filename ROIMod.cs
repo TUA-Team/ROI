@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using InfinityCore.API.Interface;
 using InfinityCore.API.Pots;
 using InfinityCore.API.Pots.DropTable;
 using InfinityCore.Enums;
@@ -30,7 +31,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace ROI
 {
-    public sealed partial class ROIMod : Mod
+    public sealed partial class ROIMod : Mod, IModExtension
     {
         internal static string SAVE_PATH = "";
 
@@ -130,6 +131,7 @@ namespace ROI
 
             TextureCache.Initialize();
 
+            InfinityCore.InfinityCore.screenOverlays.Add(new DungeonOverlay());
 
             Main.OnTick += delegate
             {
@@ -309,6 +311,23 @@ namespace ROI
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
             NetworkManager.Instance.ReceivePacket(reader, whoAmI);
+        }
+
+        public override void ModifyLightingBrightness(ref float scale)
+        {
+            scale = 1.09f;
+        }
+
+        public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
+        {
+            backgroundColor = new Color(75,0,130);
+            tileColor = new Color(139,0,139);
+            base.ModifySunLightColor(ref tileColor, ref backgroundColor);
+        }
+
+        public bool ModifyCameraBound()
+        {
+            return false;
         }
     }
 }

@@ -49,29 +49,9 @@ namespace ROI.Worlds
 
             for (int x = 0; x < displacementCount; x++)
                 displacements[x] = (int)Math.Floor(noise.GetNoise(x, x) * maxLimit * multiplier);
-
             return displacements;
         }
 
-        internal void Fill(int x, int startingY, int one, int depth, ushort tile)
-        {
-            for (int i = startingY; i < startingY + depth; i++)
-            {
-                if (!WorldGen.InWorld(x, i))
-                {
-                    return;
-                }
-                WorldGen.PlaceTile(x, i, tile, false, true);
-            }
-        }
-
-        internal void FillAir(int x, int depth, int one, int startingY)
-        {
-            for (int i = startingY; i < startingY + depth; i++)
-            {
-                Main.tile[x, i].active(false);
-            }
-        }
 
         internal void WastelandGeneration(GenerationProgress progress)
         {
@@ -157,9 +137,9 @@ namespace ROI.Worlds
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
-                    Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort) mod.TileType("Wasteland_Rock"));
-                    FillAir(i, 0, 1, totalDisplacements[i]);
+                    ROIWorldHelper.Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
+                    ROIWorldHelper.Fill(i, totalDisplacements[i] + dirtDepth, 1, 200, (ushort) mod.TileType("Wasteland_Rock"));
+                    ROIWorldHelper.FillAir(i, 0, 1, totalDisplacements[i]);
                 }
             }
             else
@@ -175,7 +155,7 @@ namespace ROI.Worlds
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
+                    ROIWorldHelper.Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
                 }
             }
             

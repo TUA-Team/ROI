@@ -9,4 +9,4 @@ includeSource = true
 
 dllReferences = DiscordRPC
 
-modReferences = LiquidAPI, InfinityCore
+modReferences = LiquidAPI, InfinityCore, WebmilioCommons, SubworldLibrary

@@ -6,6 +6,8 @@ namespace ROI.Commands
 {
     class SetEntityValue : ModCommand
     {
+        public override bool Autoload(ref string name) => ROIMod.debug;
+
         public override void Action(CommandCaller caller, string input, string[] args)
         {
             switch (args[0])

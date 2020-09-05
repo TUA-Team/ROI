@@ -5,6 +5,8 @@ using ROI.Projectiles.Beams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ROI.Worlds.Subworlds;
+using SubworldLibrary;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -42,6 +44,8 @@ namespace ROI.Items.Weapons.Solar
 
         public override bool UseItem(Player player)
         {
+            Subworld.Enter<VoidRiftSubworld>(true);
+            return false;
             List<NPC> pillars = Main.npc.Where(i => i.modNPC is VoidPillar).ToList();
             foreach (NPC pillar in pillars)
             {
@@ -52,6 +56,8 @@ namespace ROI.Items.Weapons.Solar
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+            Subworld.Enter<VoidRiftSubworld>();
+            return false;
             int count = 64;
 
             //set start angle to base angle

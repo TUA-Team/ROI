@@ -6,6 +6,8 @@ namespace ROI.Commands
 {
     public class Localize : ModCommand
     {
+        public override bool Autoload(ref string name) => ROIMod.debug;
+
         public override string Command => "localize";
 
         public override CommandType Type => (CommandType)0b1111;

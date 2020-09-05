@@ -24,11 +24,13 @@ namespace ROI.Worlds
         /// <summary>
         /// This version string gonna be really important as we'll use it to distinguish an old world with a new one
         /// </summary>
-        internal Version version = new Version(0, 0, 0, 0);
+        internal Version version = new Version(0, 0, 1, 1);
 
         public static int activeHotWID;
 
         internal static List<Tentacle> tenctacleList = new List<Tentacle>();
+
+        
 
         public override TagCompound Save()
         {

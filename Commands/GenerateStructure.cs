@@ -11,10 +11,7 @@ namespace ROI.Commands
 {
     class GenerateStructure : ModCommand
     {
-        public override bool Autoload(ref string name)
-        {
-            return ROIMod.debug;
-        }
+        public override bool Autoload(ref string name) => ROIMod.debug;
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
