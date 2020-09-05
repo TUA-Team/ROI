@@ -1,9 +1,8 @@
-﻿using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
+﻿using Terraria.ModLoader.IO;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer
     {
         public override TagCompound Save()
         {
@@ -16,8 +15,6 @@ namespace ROI.Players
 
         public override void Load(TagCompound tag)
         {
-            base.Load(tag);
-
             LoadVoid(tag);
         }
     }

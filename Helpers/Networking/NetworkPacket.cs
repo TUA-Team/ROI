@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using Terraria.ModLoader;
 
-namespace ROI.Networking
+namespace ROI.Helpers.Networking
 {
     public abstract class NetworkPacket
     {
-        protected NetworkPacket()
+        public NetworkPacket(Mod mod)
         {
+            Mod = mod;
         }
 
         public abstract bool Receive(BinaryReader reader, int fromWho);
@@ -21,12 +22,14 @@ namespace ROI.Networking
 
         protected ModPacket MakePacket()
         {
-            ModPacket packet = ROIMod.Instance.GetPacket();
+            ModPacket packet = Mod.GetPacket();
             packet.Write(PacketType);
 
             return packet;
         }
 
         public byte PacketType { get; internal set; }
+
+        public Mod Mod { get; }
     }
 }

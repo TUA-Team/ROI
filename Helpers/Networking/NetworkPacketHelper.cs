@@ -1,23 +1,20 @@
-﻿using System;
+﻿using ROI.Helpers.Networking.Packets;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using ROI.Networking.Packets;
+using Terraria.ModLoader;
 
-namespace ROI.Networking
+namespace ROI.Helpers.Networking
 {
-    public sealed class NetworkPacketManager
+    public sealed class NetworkPacketHelper : BaseHelper
     {
-        private static NetworkPacketManager _instance;
-
         private byte _latestPacketTypeId = 1;
         private readonly Dictionary<byte, NetworkPacket> _networkPacketsById = new Dictionary<byte, NetworkPacket>();
         private readonly Dictionary<Type, NetworkPacket> _networkPacketsByType = new Dictionary<Type, NetworkPacket>();
 
-        internal void DefaultInitialize()
+        public override void Initialize(Mod mod)
         {
-            PlayerSync = Add(new PlayerSyncPacket()) as PlayerSyncPacket;
-
-            Initialized = true;
+            PlayerSync = Add(new PlayerSyncPacket(mod)) as PlayerSyncPacket;
         }
 
 
@@ -46,23 +43,6 @@ namespace ROI.Networking
         }
 
 
-        public bool Initialized { get; private set; }
-
         public NetworkPacket this[byte packetType] => _networkPacketsById[packetType];
-
-
-        public static NetworkPacketManager Instance
-        {
-            get
-            {
-                if (_instance == null)
-                    _instance = new NetworkPacketManager();
-
-                if (!_instance.Initialized)
-                    _instance.DefaultInitialize();
-
-                return _instance;
-            }
-        }
     }
 }

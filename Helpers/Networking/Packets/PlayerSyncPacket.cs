@@ -4,10 +4,12 @@ using ROI.Void;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Networking.Packets
+namespace ROI.Helpers.Networking.Packets
 {
     public sealed class PlayerSyncPacket : NetworkPacket
     {
+        public PlayerSyncPacket(Mod mod) : base(mod) { }
+
         public override bool Receive(BinaryReader reader, int fromWho)
         {
             int whichPlayer = reader.ReadInt32();
@@ -16,7 +18,7 @@ namespace ROI.Networking.Packets
             int voidItemCooldown = reader.ReadInt32();
 
             if (Main.dedServ)
-                NetworkPacketManager.Instance.PlayerSync.SendPacketToAllClients(fromWho, whichPlayer, voidAffinity, voidTier, voidItemCooldown);
+                SendPacketToAllClients(fromWho, whichPlayer, voidAffinity, voidTier, voidItemCooldown);
 
             ROIPlayer roiPlayer = ROIPlayer.Get(Main.player[whichPlayer]);
 

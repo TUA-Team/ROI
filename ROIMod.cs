@@ -1,16 +1,13 @@
 using System.IO;
 using log4net;
-using ROI.Backgrounds;
-using ROI.Networking;
-using ROI.Spawning;
-using ROI.Spawning.Wasteland;
+using ROI.Helpers.Networking;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI
 {
     // We call this ROIMod instead of ROI since we don't want to have a class with the same name as the namespace its in.
-	public sealed partial class ROIMod : Mod
+    public sealed partial class ROIMod : Mod
 	{
 		public ROIMod()
         {
@@ -22,7 +19,7 @@ namespace ROI
         {
             base.Load();
 
-            SpawnConditionLoader.Load();
+            InitializeHelpers();
 
             if (!Main.dedServ)
             {
@@ -34,7 +31,7 @@ namespace ROI
         {
             base.Unload();
 
-            SpawnConditionLoader.Unload();
+            UnloadHelpers();
 
             if (!Main.dedServ)
             {
@@ -43,7 +40,8 @@ namespace ROI
         }
 
 
-        public override void HandlePacket(BinaryReader reader, int whoAmI) => NetworkPacketManager.Instance.HandlePacket(reader, whoAmI);
+        public override void HandlePacket(BinaryReader reader, int whoAmI) =>
+            NetworkPacketHelper.Instance.HandlePacket(reader, whoAmI);
 
 
         public static ROIMod Instance { get; private set; }

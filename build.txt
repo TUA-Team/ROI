@@ -1,3 +1,5 @@
-displayName = Realms Of Infinity
-author = TUA
+displayName = Realms Of Infinity - Hunt for the Void
+author = TUA Team
 version = 0.1
+
+buildIgnore = .vs/ , bin/ , obj/ , .todo , ROI.csproj , ROI.sln , .gitignore , README.md

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ROI
+﻿namespace ROI
 {
     public static class Constants
     {
         public const int TICKS_PER_SECOND = 60;
+
+        public const ulong TERRARIA_EPOCH = 1300233600000;
     }
 }

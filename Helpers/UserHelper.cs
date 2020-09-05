@@ -6,18 +6,16 @@ using Terraria.ModLoader;
 
 namespace ROI.Helpers
 {
-    public static class UserHelper
+    public sealed class UserHelper : BaseHelper
     {
-        private static bool _initialized = false;
+        private readonly bool _initialized = false;
 
-        private static readonly List<Developer> _activeDevelopers = new List<Developer>();
+        private readonly List<Developer> _activeDevelopers = new List<Developer>();
 
 
-        public static void Initialize(Mod initializer)
+        public override void Initialize(Mod mod)
         {
             if (_initialized) return;
-
-            Initializer = initializer;
 
             try
             {
@@ -31,7 +29,7 @@ namespace ROI.Helpers
             }
             catch (Exception)
             {
-                Initializer.Logger.Info("Unable to fetch SteamID, assuming no steam is present.");
+                mod.Logger.Info("Unable to fetch SteamID, assuming no Steam is present.");
             }
 
             if (!HasSteamId64) return;
@@ -51,16 +49,13 @@ namespace ROI.Helpers
         }
 
 
-        public static bool HasSteamId64 { get; private set; }
-        public static long SteamId64 { get; private set; }
+        public bool HasSteamId64 { get; private set; }
+        public long SteamId64 { get; private set; }
 
 
-        public static User CurrentUser { get; private set; }
+        public User CurrentUser { get; private set; }
 
-        public static Developer CurrentDeveloper { get; private set; }
-        public static bool IsDeveloper { get; private set; }
-
-
-        public static Mod Initializer { get; private set; }
+        public Developer CurrentDeveloper { get; private set; }
+        public bool IsDeveloper { get; private set; }
     }
 }

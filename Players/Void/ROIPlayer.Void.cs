@@ -1,14 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Void;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer
     {
         public const int AFFINITY_STANDARD_LIMIT = 50;
+
+        public bool voidCollector;
 
 
         public void UnlockVoidTier(VoidTiers tier)
@@ -62,6 +62,8 @@ namespace ROI.Players
             DebuffDurationMultiplier = 1f;
 
             MaxVoidHearts2 = MaxVoidHearts;
+
+            voidCollector = false;
         }
 
         private void PostUpdateVoid()
@@ -69,7 +71,7 @@ namespace ROI.Players
             if (VoidItemCooldown > 0)
                 VoidItemCooldown--;
 
-            VoidExposure += VoidAffinity; // What
+            // VoidExposure += VoidAffinity; // What
         }
 
         private void ModifyHitByNPCVoid(NPC npc, ref int damage, ref bool crit) =>

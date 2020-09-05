@@ -8,16 +8,19 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Managers\**" />
+    <Compile Remove="Recipes\**" />
+    <EmbeddedResource Remove="Managers\**" />
+    <EmbeddedResource Remove="Recipes\**" />
+    <None Remove="Managers\**" />
+    <None Remove="Recipes\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Remove="Effects\RadialProgress.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove=".gitignore" />
     <None Remove="ROI.csproj.DotSettings" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Managers\" />
-    <Folder Include="Walls\" />
-    <Folder Include="Recipes\" />
-    <Folder Include="Tiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Effects\RadialProgress.cs" />

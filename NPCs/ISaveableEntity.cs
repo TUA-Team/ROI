@@ -12,5 +12,4 @@ namespace ROI.NPCs
 
         bool SaveHP { get; }
     }
-    }
 }

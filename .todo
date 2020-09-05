@@ -1,0 +1,38 @@
+﻿import InfCore
+	- WastelandTree
+
+import LiquidAPI
+	- (?)
+
+import wasteland
+	- background / shaders
+	- pick and axe
+	- weapons
+	- heart of the wasteland
+	- music config
+
+import buffs
+	- (?)
+
+void pillar
+	- import npc
+
+import armor
+	- armorbase
+	- irrawood (irradiated)
+	- dev
+		- doodle
+
+import placeables
+	- wasteland
+	- hell
+	- wasteland -> furniture
+	
+import main menu changes
+	- config
+	- patches
+
+graphical user interfaces
+	- void affinity (OOP)
+	- void health (OOP)
+	- void pillar (OOP)

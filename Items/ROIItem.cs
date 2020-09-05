@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -8,15 +7,16 @@ namespace ROI.Items
     public abstract class ROIItem : ModItem
     {
         private readonly string _displayName, _tooltip;
-        private readonly int _width, _height;
+        private readonly int _width, _height, _stack;
 
-        protected ROIItem(string displayName, string tooltip, int width, int height, int value = 0, int defense = 0, int rarity = ItemRarityID.White)
+        protected ROIItem(string displayName, string tooltip, int width, int height, int value = 0, int defense = -1, int rarity = ItemRarityID.White, int stack = 1)
         {
             _displayName = displayName;
             _tooltip = tooltip;
 
             _width = width;
             _height = height;
+            _stack = stack;
 
             Value = value;
             Defense = defense;
@@ -26,16 +26,12 @@ namespace ROI.Items
 
         public override void SetStaticDefaults()
         {
-            base.SetStaticDefaults();
-
             DisplayName.SetDefault(_displayName);
             Tooltip.SetDefault(_tooltip);
         }
 
         public override void SetDefaults()
         {
-            base.SetDefaults();
-
             item.width = _width;
             item.height = _height;
 
@@ -45,12 +41,11 @@ namespace ROI.Items
         }
 
 
-        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public sealed override void ModifyTooltips(List<TooltipLine> tooltips)
         {
             //Tooltip.SetDefault(_tooltip);
 
             PostModifyTooltips(tooltips);
-            base.ModifyTooltips(tooltips);
         }
 
         public virtual void PostModifyTooltips(List<TooltipLine> tooltips)

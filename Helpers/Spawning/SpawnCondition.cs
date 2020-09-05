@@ -1,8 +1,6 @@
-﻿using ROI.Spawning.Wasteland;
-using ROI.Spawning.Wasteland.Walls;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
-namespace ROI.Spawning
+namespace ROI.Helpers.Spawning
 {
     public abstract class SpawnCondition
     {

@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using ROI.Networking;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ROIPlayerBase
     {
         public static ROIPlayer Get() => Get(Main.LocalPlayer);
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
@@ -21,16 +19,15 @@ namespace ROI.Players
 
         private void OnNewBuffDetected(int previousBuffType)
         {
+            // TODO: Check if you can just do player.buffType[previousBuffType] instead of iterating through this.
             for (int i = 0; i < player.buffType.Length; i++)
-                if (player.buffType[i] == previousBuffType && Main.debuff[player.buffType[i]]) // TODO Check if you can just do player.buffType[previousBuffType] instead of iterating through this.
+                if (player.buffType[i] == previousBuffType && Main.debuff[player.buffType[i]])
                     player.buffTime[i] = (int)(player.buffTime[previousBuffType] * DebuffDurationMultiplier);
         }
 
 
         public override void Initialize()
         {
-            base.Initialize();
-
             InitializeVoid();
         }
 
@@ -44,25 +41,17 @@ namespace ROI.Players
                     OnNewBuffDetected(PreviousBuffs[i]);
         }
 
-        public override void PreUpdateBuffs()
-        {
-            base.PreUpdateBuffs();
-        }
-
         public override void ResetEffects()
         {
-            base.ResetEffects();
-
             ResetEffectsVoid();
         }
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
+            // TODO: is this necessary?
             if (fromWho == Main.myPlayer)
-                NetworkPacketManager.Instance.PlayerSync.SendPacketToAllClients(Main.myPlayer, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
-
-            base.SyncPlayer(toWho, fromWho, newPlayer);
+                mod.networkHelper.PlayerSync.SendPacketToAllClients(Main.myPlayer, Main.myPlayer, VoidAffinity, VoidTier, VoidItemCooldown);
         }
 
 
