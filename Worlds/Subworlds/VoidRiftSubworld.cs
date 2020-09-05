@@ -49,8 +49,11 @@ namespace ROI.Worlds.Subworlds
             Main.dayTime = false;
             Main.time = 0;
 
-            VoidRiftModWorld.InVoidRift = true;
-            VoidRiftModWorld.currentFloorInfo = new VoidRiftModWorld.FloorInfo(0);
+            if (!VoidRiftModWorld.InVoidRift)
+            {
+                VoidRiftModWorld.InVoidRift = true;
+                VoidRiftModWorld.currentFloorInfo = new VoidRiftModWorld.FloorInfo(0, "Void rift Floor 1");
+            }
         }
 
         public override void Unload()
