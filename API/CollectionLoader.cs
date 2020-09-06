@@ -1,34 +1,38 @@
 ﻿using System;
-using Terraria.ModLoader;
 
 namespace API
 {
-    public abstract class CollectionLoader<T> : BaseLoader where T : IdBasedObject
+    public abstract class CollectionLoader : BaseLoader
     {
         private byte _nextId = 0;
-        private T[] _objects = new T[0];
+        private IdBasedObject[] _objects = new IdBasedObject[0];
 
 
-        public T Add(T networkPacket) {
+        public IdBasedObject Add(IdBasedObject element) {
             Array.Resize(ref _objects, _nextId + 1);
 
-            _objects[_nextId] = networkPacket;
+            _objects[_nextId] = element;
 
-            networkPacket.MyId = _nextId;
-            _nextId++;
+            element.MyId = _nextId++;
 
-            ContentInstance.Register(networkPacket);
+            IdHolder.Register(element);
 
-            return networkPacket;
+            return element;
         }
 
 
-        public TUnique Get<TUnique>() where TUnique : T {
-            return this[ContentInstance<T>.Instance.MyId] as TUnique;
-        }
-
-        public T this[byte packetType] => _objects[packetType];
+        public IdBasedObject this[byte packetType] => _objects[packetType];
 
         public int Count => _nextId;
+    }
+
+    public abstract class CollectionLoader<T> : CollectionLoader where T : IdBasedObject
+    {
+        public TUnique Add<TUnique>(TUnique element) where TUnique : T => base.Add(element) as TUnique;
+
+
+        public T Get() => this[IdHolder<T>.Id];
+
+        public new T this[byte packetType] => base[packetType] as T;
     }
 }

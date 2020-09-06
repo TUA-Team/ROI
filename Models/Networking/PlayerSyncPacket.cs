@@ -23,7 +23,7 @@ namespace ROI.Models.Networking
             roiPlayer.VoidItemCooldown = voidItemCooldown;
         }
 
-        protected override void SendPacket(ModPacket packet, int toWho, int fromWho, params object[] args) {
+        protected override void SendPacket(ModPacket packet, params object[] args) {
             packet.Write((ushort)args[0]);
             packet.Write((byte)args[1]);
             packet.Write((int)args[2]);

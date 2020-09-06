@@ -13,11 +13,11 @@ namespace API.Networking
 
         public void SendPacket(int toWho, int fromWho, params object[] args) {
             var p = MakePacket();
-            SendPacket(p, toWho, fromWho, args);
-            p.Send();
+            SendPacket(p, args);
+            p.Send(toWho, fromWho);
         }
 
-        protected abstract void SendPacket(ModPacket packet, int toWho, int fromWho, params object[] args);
+        protected abstract void SendPacket(ModPacket packet, params object[] args);
 
         // public void SendPacketToAllClients(int fromWho, params object[] args) => SendPacket(-1, fromWho, args);
         // public void SendPacketToServer(int fromWho, params object[] args) => SendPacket(256, fromWho, args);

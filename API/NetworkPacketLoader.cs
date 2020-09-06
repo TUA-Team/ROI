@@ -9,7 +9,7 @@ namespace API
     public sealed class NetworkPacketLoader : CollectionLoader<NetworkPacket>
     {
         public override void Initialize(Mod mod) {
-            PlayerSync = Add(new PlayerSyncPacket(mod)) as PlayerSyncPacket;
+            PlayerSync = Add(new PlayerSyncPacket(mod));
         }
 
 
