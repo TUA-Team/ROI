@@ -1,4 +1,4 @@
-﻿namespace ROI.Models.Users
+﻿namespace API.Users
 {
     public sealed class Developer : User
     {

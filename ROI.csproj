@@ -13,6 +13,9 @@
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot; -savedirectory &quot;D:\Terraria Saves&quot;" />
   </Target>

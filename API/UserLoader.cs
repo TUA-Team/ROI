@@ -1,15 +1,16 @@
-﻿using ROI.Models.Users;
+﻿using API.Users;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace ROI.Loaders
+namespace API
 {
     public sealed class UserLoader : BaseLoader
     {
         private readonly bool _initialized = false;
 
+        // TODO: (med prio) populate this
         private readonly List<Developer> _activeDevelopers = new List<Developer>();
 
 

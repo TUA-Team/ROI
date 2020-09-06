@@ -17,7 +17,7 @@ namespace ROI.Items.Placeables.Wasteland
             item.useAnimation = 15;
             item.autoReuse = true;
             item.useTime = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTurn = true;
         }
 

@@ -1,4 +1,4 @@
-﻿namespace ROI.Models
+﻿namespace API
 {
     public abstract class IdBasedObject
     {

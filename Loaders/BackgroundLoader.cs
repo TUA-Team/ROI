@@ -1,4 +1,5 @@
-﻿using ROI.Models.Backgrounds;
+﻿using API;
+using ROI.Models.Backgrounds;
 using ROI.Models.Backgrounds.Underworld;
 using Terraria.ModLoader;
 

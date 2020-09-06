@@ -1,8 +1,7 @@
-﻿using ROI.Models;
-using System;
+﻿using System;
 using Terraria.ModLoader;
 
-namespace ROI.Loaders
+namespace API
 {
     public abstract class CollectionLoader<T> : BaseLoader where T : IdBasedObject
     {

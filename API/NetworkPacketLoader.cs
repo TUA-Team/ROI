@@ -1,9 +1,11 @@
-﻿using ROI.Models.Networking;
+﻿using API.Networking;
+using ROI.Models.Networking;
 using System.IO;
 using Terraria.ModLoader;
 
-namespace ROI.Loaders
+namespace API
 {
+    // TODO: (low prio) create a cecil based generator for NetworkPacket
     public sealed class NetworkPacketLoader : CollectionLoader<NetworkPacket>
     {
         public override void Initialize(Mod mod) {

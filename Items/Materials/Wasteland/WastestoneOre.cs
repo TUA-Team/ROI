@@ -1,4 +1,5 @@
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace ROI.Items.Materials.Wasteland
 {
@@ -13,7 +14,7 @@ namespace ROI.Items.Materials.Wasteland
             item.useTurn = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.autoReuse = true;
             item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandOre>();
         }

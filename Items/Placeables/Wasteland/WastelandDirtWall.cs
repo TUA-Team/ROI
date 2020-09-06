@@ -12,7 +12,7 @@ namespace ROI.Items.Placeables.Wasteland
             item.scale *= 0.5f;
             item.maxStack = 999;
             item.useAnimation = 15;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 10;
             item.consumable = true;
             item.createWall = ModContent.WallType<Walls.Wasteland.WastelandDirtWallSafe>();

@@ -1,5 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace ROI.Items.Materials.Wasteland
 {
@@ -9,7 +10,7 @@ namespace ROI.Items.Materials.Wasteland
         {
             item.width = 30;
             item.height = 24;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.value = Item.sellPrice(0, 0, 99, 0);
             item.maxStack = 999;
             item.createTile = ModContent.TileType<Tiles.Wasteland.WastestoneIngot>();

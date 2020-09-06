@@ -1,4 +1,5 @@
 using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace ROI.Items.Placeables.Wasteland
 {
@@ -13,7 +14,7 @@ namespace ROI.Items.Placeables.Wasteland
             item.useAnimation = 15;
             item.autoReuse = true;
             item.useTime = 10;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTurn = true;
             //item.createTile = ModContent.TileType("Irrawood");
         }

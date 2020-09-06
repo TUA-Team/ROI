@@ -1,0 +1,1 @@
+﻿These are types that can be used by literally any mod, not just ROI.
