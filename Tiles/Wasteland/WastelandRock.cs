@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ROI.Helpers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -22,8 +23,8 @@ namespace ROI.Tiles.Wasteland
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
             //Following part need to moved into a seperate class
             int tileToSearch = ModContent.TileType<WastelandDirt>();
-            ROIWorldHelper.RegularMerge(i, j);
-            ROIWorldHelper.SpecialTileMerge(i, j, tileToSearch);
+            WorldHelper.RegularMerge(i, j);
+            WorldHelper.SpecialTileMerge(i, j, tileToSearch);
             //RegularMerge(i, j);
             return false;
         }

@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ROI.Helpers;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,8 +17,8 @@ namespace ROI.Tiles.Wasteland
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
-            Worlds.ROIWorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandGrass>(), i, j);
-            Worlds.ROIWorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandRock>(), i, j);
+            WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandGrass>(), i, j);
+            WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandRock>(), i, j);
 
             return true;
         }

@@ -2,17 +2,18 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.ModLoader;
 
-namespace ROI.Backgrounds.Underworld
+namespace ROI.Models.Backgrounds.Underworld
 {
     public class WastelandBackground : Background
     {
         private readonly Texture2D[] _texture = new Texture2D[5];
 
 
-        public WastelandBackground() {
+        public WastelandBackground(Mod mod) {
             for (int i = 0; i < _texture.Length; i++)
-                ROIMod.Instance.GetTexture("Backgrounds/Underworld/WastelandBackground" + i);
+                mod.GetTexture("Textures/Backgrounds/WastelandBackground" + i);
 
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
         }

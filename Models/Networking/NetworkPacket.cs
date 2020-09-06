@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Models.Networking
 {
-    public abstract class NetworkPacket
+    public abstract class NetworkPacket : IdBasedObject
     {
         public NetworkPacket(Mod mod) {
             Mod = mod;
@@ -25,12 +25,11 @@ namespace ROI.Models.Networking
 
         protected ModPacket MakePacket() {
             var p = Mod.GetPacket();
-            p.Write(PacketType);
+            p.Write(MyId);
 
             return p;
         }
 
-        public byte PacketType { get; internal set; }
 
         public Mod Mod { get; }
     }

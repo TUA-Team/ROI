@@ -59,7 +59,7 @@ namespace ROI.Worlds
         public override void PreUpdate() {
             if (StrangePresenceDebuff) {
                 for (int i = 0; i < Main.player.Length; i++)
-                    Main.player[i].AddBuff<PillarPresenceBuff>(1, true);
+                    Main.player[i].AddBuff<PillarPresence>(1, true);
             }
         }
 

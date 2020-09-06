@@ -19,8 +19,8 @@ namespace ROI.UI.Void
         public VoidAffinity(Mod mod) : base(mod) {
             GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(mod.GetEffect("Effects/RadialProgress")), "progress");
 
-            voidMeterFilled = mod.GetTexture("Textures/UIElements/VoidMeterFull");
-            voidMeterEmpty = mod.GetTexture("Textures/UIElements/VoidMeterEmpty");
+            voidMeterFilled = mod.GetTexture("Textures/Elements/VoidMeterFull");
+            voidMeterEmpty = mod.GetTexture("Textures/Elements/VoidMeterEmpty");
         }
 
         public override void Draw(SpriteBatch spriteBatch) {

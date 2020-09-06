@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Players
 {
+    // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
     public sealed partial class ROIPlayer : ModPlayer
     {
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();

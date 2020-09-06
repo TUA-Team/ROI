@@ -49,19 +49,23 @@ namespace ROI.Loaders
         public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces) {
             var list = new List<string>();
 
-            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out var index);
+            // TODO: ask someone if it's intentional that inline out is broken
+#pragma warning disable IDE0018 // Inline variable declaration
+            int index;
+#pragma warning restore IDE0018 // Inline variable declaration
+            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out index);
 
-            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int index) {
-                index = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
-                insertLayer(index, name, draw);
+            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i) {
+                i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
+                insertLayer(i, name, draw);
             }
 
-            void insertLayer(int index, string name, Action<SpriteBatch, GameTime> draw) {
-                if (index == -1) {
+            void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw) {
+                if (j == -1) {
                     list.Add(name);
                     return;
                 }
-                layers.Insert(index, new LegacyGameInterfaceLayer(
+                layers.Insert(j, new LegacyGameInterfaceLayer(
                     $"ROI: {name}",
                     delegate {
                         draw(Main.spriteBatch, lastGameTime);

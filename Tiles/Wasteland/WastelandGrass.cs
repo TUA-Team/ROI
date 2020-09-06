@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using ROI.Helpers;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -16,7 +17,7 @@ namespace ROI.Tiles.Wasteland
             Main.tileMerge[Type][ModContent.TileType<WastelandDirt>()] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandGrass>()] = true;
             AddMapEntry(new Color(127, 125, 87));
-            SetModTree(new WastelandTree());
+            // TODO: SetModTree(new WastelandTree());
         }
 
         public override void RandomUpdate(int i, int j) {
@@ -35,7 +36,7 @@ namespace ROI.Tiles.Wasteland
         }
 
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
-            Worlds.ROIWorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandDirt>(), i, j);
+            WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandDirt>(), i, j);
             return true;
         }
 
