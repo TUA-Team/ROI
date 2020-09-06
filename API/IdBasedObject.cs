@@ -2,12 +2,12 @@
 
 namespace API
 {
-    public abstract class IdBasedObject
+    public abstract class IdBasedObject : IHaveId
     {
-        public byte MyId { get; internal set; }
-
-        internal void Link(Action<byte> update) {
+        public void Link(Action<byte> update) {
             update(MyId);
         }
+
+        public byte MyId { get; set; }
     }
 }

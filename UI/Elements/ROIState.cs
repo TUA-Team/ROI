@@ -1,4 +1,4 @@
-﻿using Terraria.ModLoader;
+using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ROI.UI.Elements

@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using API;
+using ROI.Models.Networking;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Players
 {
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IHaveState
     {
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
+        public T StaticGet<T>() where T : IHaveState => (T)(Get(Main.LocalPlayer) as IHaveState);
 
         private void UpdatePreviousBuffs() {
             PreviousBuffs.Clear();
@@ -45,8 +48,7 @@ namespace ROI.Players
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
-            mod.networkLoader.PlayerSync.SendPacket(toWho, fromWho,
-                VoidAffinity, VoidTier, VoidItemCooldown);
+            mod.networkLoader.Get<PlayerSyncPacket>().Send(this, toWho, fromWho);
         }
 
 

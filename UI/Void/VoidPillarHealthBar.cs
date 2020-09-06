@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using ROI.NPCs.Bosses.VoidPillar;
 using ROI.UI.Elements;
 using Terraria;

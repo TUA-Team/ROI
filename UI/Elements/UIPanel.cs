@@ -10,7 +10,6 @@ namespace ROI.UI.Elements
     //TODO : Replace with the Advanced UI ui system
     internal class UIPanel : UIElement
     {
-
         private Vector2 offset;
         public bool dragging;
 

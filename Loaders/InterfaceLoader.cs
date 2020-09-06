@@ -1,4 +1,4 @@
-﻿using API;
+using API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Models;

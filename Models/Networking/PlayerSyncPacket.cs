@@ -1,17 +1,14 @@
-﻿using API.Networking;
+﻿using API;
 using ROI.Players;
 using ROI.Void;
 using System.IO;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ROI.Models.Networking
 {
-    public sealed class PlayerSyncPacket : NetworkPacket
+    public sealed class PlayerSyncPacket : NetworkPacket<ROIPlayer>
     {
-        public PlayerSyncPacket(Mod mod) : base(mod) { }
-
-        public override void Receive(BinaryReader reader, int fromWho) {
+        public override void ReceiveData(BinaryReader reader, int fromWho) {
             ushort voidAffinity = reader.ReadUInt16();
             byte voidTier = reader.ReadByte();
             int voidItemCooldown = reader.ReadInt32();
@@ -23,10 +20,10 @@ namespace ROI.Models.Networking
             roiPlayer.VoidItemCooldown = voidItemCooldown;
         }
 
-        protected override void SendPacket(ModPacket packet, params object[] args) {
-            packet.Write((ushort)args[0]);
-            packet.Write((byte)args[1]);
-            packet.Write((int)args[2]);
+        protected override void WriteData(ROIPlayer state) {
+            Write(state.VoidAffinity);
+            Write((byte)state.VoidTier);
+            Write(state.VoidItemCooldown);
         }
     }
 }

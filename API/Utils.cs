@@ -1,6 +1,6 @@
-﻿using ROI.Extensions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -8,6 +8,12 @@ namespace API
 {
     public static class Utils
     {
+        // TODO: (low prio) cache these
+        public static T GetField<T>(this object parent, string name,
+            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance) {
+            return (T)parent.GetType().GetField(name, flags).GetValue(parent);
+        }
+
         public static void GenerateLocalization(Mod mod) {
             var dictionary = (Dictionary<string, ModTranslation>)
                 mod.GetField<IDictionary<string, ModTranslation>>("translations");

@@ -8,15 +8,12 @@ namespace API
 {
     public sealed class UserLoader : BaseLoader
     {
-        private readonly bool _initialized = false;
-
-        // TODO: (med prio) populate this
-        private readonly List<Developer> _activeDevelopers = new List<Developer>();
+        private readonly List<Developer> _activeDevelopers = new List<Developer> {
+            new Developer(76561198193865502, "Agrair", 0)
+        };
 
 
         public override void Initialize(Mod mod) {
-            if (_initialized) return;
-
             try {
                 string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null).ToString();
 

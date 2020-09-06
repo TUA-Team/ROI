@@ -1,25 +1,23 @@
-﻿using API.Networking;
-using ROI.Models.Networking;
-using System.IO;
-using Terraria.ModLoader;
+﻿using System.IO;
 
 namespace API
 {
-    // TODO: (low prio) create a cecil based generator for NetworkPacket
-    public sealed class NetworkPacketLoader : CollectionLoader<NetworkPacket>
+    public class NetworkPacketLoader : CollectionLoader<NetworkPacket>
     {
-        public override void Initialize(Mod mod) {
-            PlayerSync = Add(new PlayerSyncPacket(mod));
+        protected override void OnAdd<TUnique>(TUnique element) {
+            element.Init(Mod);
         }
-
-
-        public PlayerSyncPacket PlayerSync { get; private set; }
-
 
         public void HandlePacket(BinaryReader reader, int sender) {
             byte packetType = reader.ReadByte();
 
-            base[packetType].Receive(reader, sender);
+            base[packetType].ReceiveData(reader, sender);
+        }
+
+        public TUnique Get<TUnique>() where TUnique : NetworkPacket => (TUnique)this[IdHolder<TUnique>.Id];
+
+        internal static void GenerateMethods() {
+            
         }
     }
 }
