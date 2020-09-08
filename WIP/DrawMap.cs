@@ -39,8 +39,8 @@ namespace ROI.WIP
             float num4 = mapY; //TBD
             float scale = 2f;
             byte b = byte.MaxValue;
-            _ = maxTilesX / textureMaxWidth;
-            int num6 = maxTilesY / textureMaxHeight;
+            int maxAmountMapSectionX = maxTilesX / textureMaxWidth; // Somehow was assigned as _, decompiler?
+            int maxAmountMapSectionY = maxTilesY / textureMaxHeight;
             //float mapStartX = Lighting.offScreenTiles;
             //float mapStartY = Lighting.offScreenTiles;
             //float mapEndX = maxTilesX - Lighting.offScreenTiles - 1;
@@ -49,12 +49,12 @@ namespace ROI.WIP
             float mapStartY = 10f;
             float mapEndX = maxTilesX - 10;
             float mapEndY = maxTilesY - 10;
-            float num11 = 0f;
-            float num12 = 0f;
+            float realMapPositionX = 0f;
+            float realMapPositionY = 0f;
             float num13 = 0f;
             float num14 = 0f;
-            float num15 = mapEndX - 1f;
-            float num16 = mapEndY - 1f;
+            float mapWidthWithScale = mapEndX - 1f;
+            float mapHeightWithScale = mapEndY - 1f;
             scale = (mapFullscreen ? mapFullscreenScale : ((mapStyle != 1) ? mapOverlayScale : mapMinimapScale));
             bool flag = false;
             Matrix transformMatrix = UIScaleMatrix;
@@ -285,14 +285,14 @@ namespace ROI.WIP
                 mapY = miniMapY;
                 num3 = mapX;
                 num4 = mapY;
-                float num28 = (screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f;
-                float num29 = (screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f;
-                num11 = (0f - (num28 - (float)(int)((screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f))) * scale;
-                num12 = (0f - (num29 - (float)(int)((screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f))) * scale;
-                num15 = (float)miniMapWidth / scale;
-                num16 = (float)miniMapHeight / scale;
-                num13 = (float)(int)num28 - num15 / 2f;
-                num14 = (float)(int)num29 - num16 / 2f;
+                float realScreenPositionX = (screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f;
+                float realScreenPositionY = (screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f;
+                realMapPositionX = (0f - (realScreenPositionX - (float)(int)((screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f))) * scale;
+                realMapPositionY = (0f - (realScreenPositionY - (float)(int)((screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f))) * scale;
+                mapWidthWithScale = (float)miniMapWidth / scale;
+                mapHeightWithScale = (float)miniMapHeight / scale;
+                num13 = (float)(int)realScreenPositionX - mapWidthWithScale / 2f;
+                num14 = (float)(int)realScreenPositionY - mapHeightWithScale / 2f;
                 _ = (float)maxTilesY + num14;
                 float x = num3 - 6f;
                 float y = num4 - 6f;
@@ -336,19 +336,19 @@ namespace ROI.WIP
                     mapY -= (num14 - mapStartY) * scale;
             }
 
-            num15 = num13 + num15;
-            num16 = num14 + num16;
+            mapWidthWithScale = num13 + mapWidthWithScale;
+            mapHeightWithScale = num14 + mapHeightWithScale;
             if (num13 > mapStartX)
                 mapStartX = num13;
 
             if (num14 > mapStartY)
                 mapStartY = num14;
 
-            if (num15 < mapEndX)
-                mapEndX = num15;
+            if (mapWidthWithScale < mapEndX)
+                mapEndX = mapWidthWithScale;
 
-            if (num16 < mapEndY)
-                mapEndY = num16;
+            if (mapHeightWithScale < mapEndY)
+                mapEndY = mapHeightWithScale;
 
             float num34 = (float)textureMaxWidth * scale;
             float num35 = (float)textureMaxHeight * scale;
@@ -359,7 +359,7 @@ namespace ROI.WIP
                 if (!((float)((k + 1) * textureMaxWidth) > mapStartX) || !((float)(k * textureMaxWidth) < mapStartX + mapEndX))
                     continue;
 
-                for (int l = 0; l <= num6; l++)
+                for (int l = 0; l <= maxAmountMapSectionY; l++)
                 {
                     if ((float)((l + 1) * textureMaxHeight) > mapStartY && (float)(l * textureMaxHeight) < mapStartY + mapEndY)
                     {
@@ -400,15 +400,15 @@ namespace ROI.WIP
                         if (num47 >= mapEndY)
                             num45 -= num47 - mapEndY;
 
-                        num38 += num11;
-                        num39 += num12;
+                        num38 += realMapPositionX;
+                        num39 += realMapPositionY;
                         if (num44 > num42)
                             spriteBatch.Draw(Main.instance.mapTarget[k, l], new Vector2(num38, num39), new Microsoft.Xna.Framework.Rectangle((int)num42, (int)num43, (int)num44 - (int)num42, (int)num45 - (int)num43), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 
                         num37 = (float)((int)num44 - (int)num42) * scale;
                     }
 
-                    if (l == num6)
+                    if (l == maxAmountMapSectionY)
                         num36 += num37;
                 }
             }
@@ -530,7 +530,7 @@ namespace ROI.WIP
                                 num64 -= 2f * scale / 5f;
                                 if (num63 > (float)(miniMapX + 12) && num63 < (float)(miniMapX + miniMapWidth - 16) && num64 > (float)(miniMapY + 10) && num64 < (float)(miniMapY + miniMapHeight - 14))
                                 {
-                                    spriteBatch.Draw(npcHeadTexture[num62], new Vector2(num63 + num11, num64 + num12), new Microsoft.Xna.Framework.Rectangle(0, 0, npcHeadTexture[num62].Width, npcHeadTexture[num62].Height), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, new Vector2(npcHeadTexture[num62].Width / 2, npcHeadTexture[num62].Height / 2), num60, effects2, 0f);
+                                    spriteBatch.Draw(npcHeadTexture[num62], new Vector2(num63 + realMapPositionX, num64 + realMapPositionY), new Microsoft.Xna.Framework.Rectangle(0, 0, npcHeadTexture[num62].Width, npcHeadTexture[num62].Height), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, new Vector2(npcHeadTexture[num62].Width / 2, npcHeadTexture[num62].Height / 2), num60, effects2, 0f);
                                     float num65 = num63 - (float)(npcHeadTexture[num62].Width / 2) * num60;
                                     float num66 = num64 - (float)(npcHeadTexture[num62].Height / 2) * num60;
                                     float num67 = num65 + (float)npcHeadTexture[num62].Width * num60;
@@ -571,7 +571,7 @@ namespace ROI.WIP
                         num72 -= 2f * scale / 5f;
                         if (num71 > (float)(miniMapX + 12) && num71 < (float)(miniMapX + miniMapWidth - 16) && num72 > (float)(miniMapY + 10) && num72 < (float)(miniMapY + miniMapHeight - 14))
                         {
-                            spriteBatch.Draw(npcHeadBossTexture[bossHeadTextureIndex2], new Vector2(num71 + num11, num72 + num12), null, new Microsoft.Xna.Framework.Color(b, b, b, b), bossHeadRotation2, npcHeadBossTexture[bossHeadTextureIndex2].Size() / 2f, num60, bossHeadSpriteEffects2, 0f);
+                            spriteBatch.Draw(npcHeadBossTexture[bossHeadTextureIndex2], new Vector2(num71 + realMapPositionX, num72 + realMapPositionY), null, new Microsoft.Xna.Framework.Color(b, b, b, b), bossHeadRotation2, npcHeadBossTexture[bossHeadTextureIndex2].Size() / 2f, num60, bossHeadSpriteEffects2, 0f);
                             float num73 = num71 - (float)(npcHeadBossTexture[bossHeadTextureIndex2].Width / 2) * num60;
                             float num74 = num72 - (float)(npcHeadBossTexture[bossHeadTextureIndex2].Height / 2) * num60;
                             float num75 = num73 + (float)npcHeadBossTexture[bossHeadTextureIndex2].Width * num60;
@@ -595,8 +595,8 @@ namespace ROI.WIP
                         num78 -= 6f;
                         num79 -= 6f;
                         num79 -= 2f - scale / 5f * 2f;
-                        num78 += num11;
-                        num79 += num12;
+                        num78 += realMapPositionX;
+                        num79 += realMapPositionY;
                         if (screenPosition.X != leftWorld + 640f + 16f && screenPosition.X + (float)screenWidth != rightWorld - 640f - 32f && screenPosition.Y != topWorld + 640f + 16f && !(screenPosition.Y + (float)screenHeight > bottomWorld - 640f - 32f) && num77 == myPlayer && zoomX == 0f && zoomY == 0f)
                         {
                             num78 = num3 + (float)(miniMapWidth / 2);
@@ -627,8 +627,8 @@ namespace ROI.WIP
                         num78 += num3;
                         num79 += num4;
                         num79 -= 2f - scale / 5f * 2f;
-                        num78 += num11;
-                        num79 += num12;
+                        num78 += realMapPositionX;
+                        num79 += realMapPositionY;
                         if (num78 > (float)(miniMapX + 8) && num78 < (float)(miniMapX + miniMapWidth - 18) && num79 > (float)(miniMapY + 8) && num79 < (float)(miniMapY + miniMapHeight - 16))
                         {
                             spriteBatch.Draw(Main.instance.mapDeathTexture, new Vector2(num78, num79), new Microsoft.Xna.Framework.Rectangle(0, 0, mapDeathTexture.Width, mapDeathTexture.Height), Microsoft.Xna.Framework.Color.White, 0f, new Vector2((float)mapDeathTexture.Width * 0.5f, (float)mapDeathTexture.Height * 0.5f), num60, SpriteEffects.None, 0f);
