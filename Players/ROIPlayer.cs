@@ -216,7 +216,7 @@ namespace ROI.Players
                 float percent = ((playerPosition.Y - Main.maxTilesY + 300) / 300);
                 if (!Filters.Scene["ROI:UnderworldFilter"].IsActive())
                 {
-                    Filters.Scene.Activate("ROI:UnderworldFilter", Main.LocalPlayer.Center).GetShader().UseColor(UnderworldDarkness.hell).UseIntensity(percent).UseOpacity(percent);
+                    Filters.Scene.Activate("ROI:UnderworldFilter", Main.LocalPlayer.Center).GetShader().UseColor(ColorScreenShader.hell).UseIntensity(percent).UseOpacity(percent);
                 }
                 Filters.Scene["ROI:UnderworldFilter"].GetShader().UseColor(0f, 0f, 1f).UseIntensity(0.2f).UseOpacity(1f);
 

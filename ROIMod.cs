@@ -106,7 +106,7 @@ namespace ROI
             VoidPillarHealthBar.Load();
             VoidAffinity.Load();
             VoidHeartHealthBar.Load();
-            UnderworldDarkness.Load();
+            ColorScreenShader.Load();
             Wasteland_Background.Load();
             DRPManager.Instance.Initialize();
             radiationInterface = new UserInterface();

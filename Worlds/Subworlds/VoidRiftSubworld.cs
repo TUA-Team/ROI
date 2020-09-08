@@ -24,7 +24,7 @@ namespace ROI.Worlds.Subworlds
         {
             return new List<GenPass>()
             {
-                new PassLegacy("Test", progress =>
+                new PassLegacy("Fill the world", progress =>
                 {
                     progress.Message = "Loading"; //Sets the text above the worldgen progress bar
                     Main.worldSurface = Main.maxTilesY - 42; //Hides the underground layer just out of bounds

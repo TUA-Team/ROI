@@ -17,6 +17,8 @@ namespace ROI.Worlds.Subworlds
             public int score;
             public int kill;
 
+            
+
             public bool completed; 
 
             public TimeSpan timeSpent;
@@ -31,6 +33,8 @@ namespace ROI.Worlds.Subworlds
                 this.completed = false;
                 this.floorName = floorName;
 
+                
+
                 timeSpent = TimeSpan.Zero;
                  
                 startedTime = DateTime.Now;
@@ -40,6 +44,14 @@ namespace ROI.Worlds.Subworlds
             {
                 timeSpent = DateTime.Now - startedTime;
             }
+        }
+
+        class DungeonInfo
+        {
+            public int dungeonWidth;
+            public int dungeonHeight;
+
+            public List<>
         }
 
         public static bool InVoidRift { get; set; }
