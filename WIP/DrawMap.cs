@@ -22,50 +22,39 @@ namespace ROI.WIP
     public class DrawMap
     {
         protected void NewDrawMap() {
-			string text = "";
+			//string text = ""; Moved after because why would why declare something if it ain't gonna be used after a check
 			if (!mapEnabled || !mapReady)
 				return;
 
-			float num = 0f;
-			float num2 = 0f;
-			float num3 = num;
-			float num4 = num2;
-			float num5 = 2f;
+            CheckIfMapSectionContentIsLost(); //Moved there because it can be done before any variable assignement
+
+            string hoverText = "";
+
+			//float mapX = 0f;
+			//float mapY = 0f;
+            float mapX = 200f;
+            float mapY = 300f;
+			float num3 = mapX; //TBD
+			float num4 = mapY; //TBD
+			float scale = 2f;
 			byte b = byte.MaxValue;
 			_ = maxTilesX / textureMaxWidth;
 			int num6 = maxTilesY / textureMaxHeight;
-			float num7 = Lighting.offScreenTiles;
-			float num8 = Lighting.offScreenTiles;
-			float num9 = maxTilesX - Lighting.offScreenTiles - 1;
-			float num10 = maxTilesY - Lighting.offScreenTiles - 42;
+			//float mapStartX = Lighting.offScreenTiles;
+			//float mapStartY = Lighting.offScreenTiles;
+			//float mapEndX = maxTilesX - Lighting.offScreenTiles - 1;
+			//float mapEndX = maxTilesY - Lighting.offScreenTiles - 42;
+            float mapStartX = 10f;
+            float mapStartY = 10f;
+            float mapEndX = maxTilesX - 10;
+            float mapEndY = maxTilesY - 10;
 			float num11 = 0f;
 			float num12 = 0f;
-			num7 = 10f;
-			num8 = 10f;
-			num9 = maxTilesX - 10;
-			num10 = maxTilesY - 10;
-			for (int i = 0; i < Main.instance.mapTarget.GetLength(0); i++) {
-				for (int j = 0; j < Main.instance.mapTarget.GetLength(1); j++) {
-					if (Main.instance.mapTarget[i, j] != null) {
-						if (Main.instance.mapTarget[i, j].IsContentLost && !mapWasContentLost[i, j]) {
-							mapWasContentLost[i, j] = true;
-							refreshMap = true;
-							clearMap = true;
-						}
-						else if (!Main.instance.mapTarget[i, j].IsContentLost && mapWasContentLost[i, j]) {
-							mapWasContentLost[i, j] = false;
-						}
-					}
-				}
-			}
-
-			num = 200f;
-			num2 = 300f;
-			float num13 = 0f;
+            float num13 = 0f;
 			float num14 = 0f;
-			float num15 = num9 - 1f;
-			float num16 = num10 - 1f;
-			num5 = (mapFullscreen ? mapFullscreenScale : ((mapStyle != 1) ? mapOverlayScale : mapMinimapScale));
+			float num15 = mapEndX - 1f;
+			float num16 = mapEndY - 1f;
+			scale = (mapFullscreen ? mapFullscreenScale : ((mapStyle != 1) ? mapOverlayScale : mapMinimapScale));
 			bool flag = false;
 			Matrix transformMatrix = UIScaleMatrix;
 			if (mapStyle != 1)
@@ -74,7 +63,7 @@ namespace ROI.WIP
 			if (mapFullscreen)
 				transformMatrix = Matrix.Identity;
 
-			if (!mapFullscreen && num5 > 1f) {
+			if (!mapFullscreen && scale > 1f) {
 				spriteBatch.End();
 				spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, transformMatrix);
 				flag = true;
@@ -106,19 +95,19 @@ namespace ROI.WIP
 				if (mapFullscreenScale > 16f)
 					mapFullscreenScale = 16f;
 
-				num5 = mapFullscreenScale;
+				scale = mapFullscreenScale;
 				b = byte.MaxValue;
-				if (mapFullscreenPos.X < num7)
-					mapFullscreenPos.X = num7;
+				if (mapFullscreenPos.X < mapStartX)
+					mapFullscreenPos.X = mapStartX;
 
-				if (mapFullscreenPos.X > num9)
-					mapFullscreenPos.X = num9;
+				if (mapFullscreenPos.X > mapEndX)
+					mapFullscreenPos.X = mapEndX;
 
-				if (mapFullscreenPos.Y < num8)
-					mapFullscreenPos.Y = num8;
+				if (mapFullscreenPos.Y < mapStartY)
+					mapFullscreenPos.Y = mapStartY;
 
-				if (mapFullscreenPos.Y > num10)
-					mapFullscreenPos.Y = num10;
+				if (mapFullscreenPos.Y > mapEndY)
+					mapFullscreenPos.Y = mapEndY;
 
 				float num20 = mapFullscreenPos.X;
 				float num21 = mapFullscreenPos.Y;
@@ -130,22 +119,22 @@ namespace ROI.WIP
 					mapFullscreenPos.Y = num21;
 				}
 
-				num20 *= num5;
-				num21 *= num5;
-				num = 0f - num20 + (float)(screenWidth / 2);
-				num2 = 0f - num21 + (float)(screenHeight / 2);
-				num += num7 * num5;
-				num2 += num8 * num5;
+				num20 *= scale;
+				num21 *= scale;
+				mapX = 0f - num20 + (float)(screenWidth / 2);
+				mapY = 0f - num21 + (float)(screenHeight / 2);
+				mapX += mapStartX * scale;
+				mapY += mapStartY * scale;
 				float num22 = maxTilesX / 840;
 				num22 *= mapFullscreenScale;
-				float num23 = num;
-				float num24 = num2;
+				float num23 = mapX;
+				float num24 = mapY;
 				float num25 = mapTexture.Width;
 				float num26 = mapTexture.Height;
 				if (maxTilesX == 8400) {
 					num22 *= 0.999f;
 					num23 -= 40.6f * num22;
-					num24 = num2 - 5f * num22;
+					num24 = mapY - 5f * num22;
 					num25 -= 8.045f;
 					num25 *= num22;
 					num26 += 0.12f;
@@ -156,7 +145,7 @@ namespace ROI.WIP
 				else if (maxTilesX == 6400) {
 					num22 *= 1.09f;
 					num23 -= 38.8f * num22;
-					num24 = num2 - 3.85f * num22;
+					num24 = mapY - 3.85f * num22;
 					num25 -= 13.6f;
 					num25 *= num22;
 					num26 -= 6.92f;
@@ -167,7 +156,7 @@ namespace ROI.WIP
 				else if (maxTilesX == 6300) {
 					num22 *= 1.09f;
 					num23 -= 39.8f * num22;
-					num24 = num2 - 4.08f * num22;
+					num24 = mapY - 4.08f * num22;
 					num25 -= 26.69f;
 					num25 *= num22;
 					num26 -= 6.92f;
@@ -235,8 +224,8 @@ namespace ROI.WIP
 				Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle((int)num23, (int)num24, (int)num25, (int)num26);
 				spriteBatch.Draw(mapTexture, destinationRectangle, Microsoft.Xna.Framework.Color.White);
 				*/
-				int x = (int)(num + mapFullscreenScale * 10);
-				int y = (int)(num2 + mapFullscreenScale * 10);
+				int x = (int)(mapX + mapFullscreenScale * 10);
+				int y = (int)(mapY + mapFullscreenScale * 10);
 				int width = (int)((maxTilesX - 40) * mapFullscreenScale);
 				int height = (int)((maxTilesY - 40) * mapFullscreenScale);
 				var destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x, y, width, height);
@@ -247,7 +236,7 @@ namespace ROI.WIP
 				spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(0, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
 				destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x + width, y - edgeHeight, edgeWidth, height + 2 * edgeHeight);
 				spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(888, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
-				if (num5 < 1f) {
+				if (scale < 1f) {
 					spriteBatch.End();
 					spriteBatch.Begin();
 					flag = false;
@@ -271,18 +260,18 @@ namespace ROI.WIP
 				if (mapMinimapAlpha > 1f)
 					mapMinimapAlpha = 1f;
 
-				num5 = mapMinimapScale;
+				scale = mapMinimapScale;
 				b = (byte)(255f * mapMinimapAlpha);
-				num = miniMapX;
-				num2 = miniMapY;
-				num3 = num;
-				num4 = num2;
+				mapX = miniMapX;
+				mapY = miniMapY;
+				num3 = mapX;
+				num4 = mapY;
 				float num28 = (screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f;
 				float num29 = (screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f;
-				num11 = (0f - (num28 - (float)(int)((screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f))) * num5;
-				num12 = (0f - (num29 - (float)(int)((screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f))) * num5;
-				num15 = (float)miniMapWidth / num5;
-				num16 = (float)miniMapHeight / num5;
+				num11 = (0f - (num28 - (float)(int)((screenPosition.X + (float)(PlayerInput.RealScreenWidth / 2)) / 16f))) * scale;
+				num12 = (0f - (num29 - (float)(int)((screenPosition.Y + (float)(PlayerInput.RealScreenHeight / 2)) / 16f))) * scale;
+				num15 = (float)miniMapWidth / scale;
+				num16 = (float)miniMapHeight / scale;
 				num13 = (float)(int)num28 - num15 / 2f;
 				num14 = (float)(int)num29 - num16 / 2f;
 				_ = (float)maxTilesY + num14;
@@ -304,72 +293,72 @@ namespace ROI.WIP
 				if (mapOverlayAlpha > 1f)
 					mapOverlayAlpha = 1f;
 
-				num5 = mapOverlayScale;
+				scale = mapOverlayScale;
 				b = (byte)(255f * mapOverlayAlpha);
 				_ = maxTilesX;
 				_ = maxTilesY;
 				float num31 = (screenPosition.X + (float)(screenWidth / 2)) / 16f;
 				float num32 = (screenPosition.Y + (float)(screenHeight / 2)) / 16f;
-				num31 *= num5;
-				float num33 = num32 * num5;
-				num = 0f - num31 + (float)(screenWidth / 2);
-				num2 = 0f - num33 + (float)(screenHeight / 2);
-				num += num7 * num5;
-				num2 += num8 * num5;
+				num31 *= scale;
+				float num33 = num32 * scale;
+				mapX = 0f - num31 + (float)(screenWidth / 2);
+				mapY = 0f - num33 + (float)(screenHeight / 2);
+				mapX += mapStartX * scale;
+				mapY += mapStartY * scale;
 			}
 
 			if (mapStyle == 1 && !mapFullscreen) {
-				if (num13 < num7)
-					num -= (num13 - num7) * num5;
+				if (num13 < mapStartX)
+					mapX -= (num13 - mapStartX) * scale;
 
-				if (num14 < num8)
-					num2 -= (num14 - num8) * num5;
+				if (num14 < mapStartY)
+					mapY -= (num14 - mapStartY) * scale;
 			}
 
 			num15 = num13 + num15;
 			num16 = num14 + num16;
-			if (num13 > num7)
-				num7 = num13;
+			if (num13 > mapStartX)
+				mapStartX = num13;
 
-			if (num14 > num8)
-				num8 = num14;
+			if (num14 > mapStartY)
+				mapStartY = num14;
 
-			if (num15 < num9)
-				num9 = num15;
+			if (num15 < mapEndX)
+				mapEndX = num15;
 
-			if (num16 < num10)
-				num10 = num16;
+			if (num16 < mapEndY)
+				mapEndY = num16;
 
-			float num34 = (float)textureMaxWidth * num5;
-			float num35 = (float)textureMaxHeight * num5;
-			float num36 = num;
+			float num34 = (float)textureMaxWidth * scale;
+			float num35 = (float)textureMaxHeight * scale;
+			float num36 = mapX;
 			float num37 = 0f;
 			for (int k = 0; k <= mapTargetX - 1; k++) {
-				if (!((float)((k + 1) * textureMaxWidth) > num7) || !((float)(k * textureMaxWidth) < num7 + num9))
+				if (!((float)((k + 1) * textureMaxWidth) > mapStartX) || !((float)(k * textureMaxWidth) < mapStartX + mapEndX))
 					continue;
 
 				for (int l = 0; l <= num6; l++) {
-					if ((float)((l + 1) * textureMaxHeight) > num8 && (float)(l * textureMaxHeight) < num8 + num10) {
-						float num38 = num + (float)(int)((float)k * num34);
-						float num39 = num2 + (float)(int)((float)l * num35);
+					if ((float)((l + 1) * textureMaxHeight) > mapStartY && (float)(l * textureMaxHeight) < mapStartY + mapEndY) {
+						float num38 = mapX + (float)(int)((float)k * num34);
+						float num39 = mapY + (float)(int)((float)l * num35);
 						float num40 = k * textureMaxWidth;
 						float num41 = l * textureMaxHeight;
 						float num42 = 0f;
 						float num43 = 0f;
-						if (num40 < num7) {
-							num42 = num7 - num40;
-							num38 = num;
+						if (num40 < mapStartX) {
+							num42 = mapStartX - num40;
+							num38 = mapX;
 						}
 						else {
-							num38 -= num7 * num5;
+							num38 -= mapStartX * scale;
 						}
 
-						if (num41 < num8) {
-							num43 = num8 - num41;
-							num39 = num2;
+						if (num41 < mapStartY) {
+							num43 = mapStartY - num41;
+							num39 = mapY;
 						}
 						else {
-							num39 -= num8 * num5;
+							num39 -= mapStartY * scale;
 						}
 
 						num38 = num36;
@@ -377,18 +366,18 @@ namespace ROI.WIP
 						float num45 = textureMaxHeight;
 						float num46 = (k + 1) * textureMaxWidth;
 						float num47 = (l + 1) * textureMaxHeight;
-						if (num46 >= num9)
-							num44 -= num46 - num9;
+						if (num46 >= mapEndX)
+							num44 -= num46 - mapEndX;
 
-						if (num47 >= num10)
-							num45 -= num47 - num10;
+						if (num47 >= mapEndY)
+							num45 -= num47 - mapEndY;
 
 						num38 += num11;
 						num39 += num12;
 						if (num44 > num42)
-							spriteBatch.Draw(Main.instance.mapTarget[k, l], new Vector2(num38, num39), new Microsoft.Xna.Framework.Rectangle((int)num42, (int)num43, (int)num44 - (int)num42, (int)num45 - (int)num43), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, default(Vector2), num5, SpriteEffects.None, 0f);
+							spriteBatch.Draw(Main.instance.mapTarget[k, l], new Vector2(num38, num39), new Microsoft.Xna.Framework.Rectangle((int)num42, (int)num43, (int)num44 - (int)num42, (int)num45 - (int)num43), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, default(Vector2), scale, SpriteEffects.None, 0f);
 
-						num37 = (float)((int)num44 - (int)num42) * num5;
+						num37 = (float)((int)num44 - (int)num42) * scale;
 					}
 
 					if (l == num6)
@@ -403,7 +392,7 @@ namespace ROI.WIP
 
 			if (!mapFullscreen) {
 				if (mapStyle == 2) {
-					float num48 = (num5 * 0.2f * 2f + 1f) / 3f;
+					float num48 = (scale * 0.2f * 2f + 1f) / 3f;
 					if (num48 > 1f)
 						num48 = 1f;
 
@@ -416,12 +405,12 @@ namespace ROI.WIP
 								if (npc[m].direction > 0)
 									effects = SpriteEffects.FlipHorizontally;
 
-								float num50 = (npc[m].position.X + (float)(npc[m].width / 2)) / 16f * num5;
-								float num51 = (npc[m].position.Y + (float)(npc[m].height / 2)) / 16f * num5;
-								num50 += num;
-								num51 += num2;
-								num50 -= 10f * num5;
-								num51 -= 10f * num5;
+								float num50 = (npc[m].position.X + (float)(npc[m].width / 2)) / 16f * scale;
+								float num51 = (npc[m].position.Y + (float)(npc[m].height / 2)) / 16f * scale;
+								num50 += mapX;
+								num51 += mapY;
+								num50 -= 10f * scale;
+								num51 -= 10f * scale;
 								spriteBatch.Draw(npcHeadTexture[num49], new Vector2(num50, num51), new Microsoft.Xna.Framework.Rectangle(0, 0, npcHeadTexture[num49].Width, npcHeadTexture[num49].Height), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, new Vector2(npcHeadTexture[num49].Width / 2, npcHeadTexture[num49].Height / 2), num48, effects, 0f);
 							}
 						}
@@ -447,12 +436,12 @@ namespace ROI.WIP
 						}
 
 						int bossHeadTextureIndex = npc[m].GetBossHeadTextureIndex();
-						float num54 = vector.X / 16f * num5;
-						float num55 = vector.Y / 16f * num5;
-						num54 += num;
-						num55 += num2;
-						num54 -= 10f * num5;
-						num55 -= 10f * num5;
+						float num54 = vector.X / 16f * scale;
+						float num55 = vector.Y / 16f * scale;
+						num54 += mapX;
+						num55 += mapY;
+						num54 -= 10f * scale;
+						num55 -= 10f * scale;
 						spriteBatch.Draw(npcHeadBossTexture[bossHeadTextureIndex], new Vector2(num54, num55), null, new Microsoft.Xna.Framework.Color(b, b, b, b), bossHeadRotation, npcHeadBossTexture[bossHeadTextureIndex].Size() / 2f, num48, bossHeadSpriteEffects, 0f);
 					}
 
@@ -460,15 +449,15 @@ namespace ROI.WIP
 					spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, transformMatrix);
 					for (int n = 0; n < 255; n++) {
 						if (player[n].active && !player[n].dead && n != myPlayer && ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0) || n == myPlayer)) {
-							float num56 = (player[n].position.X + (float)(player[n].width / 2)) / 16f * num5;
-							float num57 = player[n].position.Y / 16f * num5;
-							num56 += num;
-							num57 += num2;
+							float num56 = (player[n].position.X + (float)(player[n].width / 2)) / 16f * scale;
+							float num57 = player[n].position.Y / 16f * scale;
+							num56 += mapX;
+							num57 += mapY;
 							num56 -= 6f;
 							num57 -= 2f;
-							num57 -= 2f - num5 / 5f * 2f;
-							num56 -= 10f * num5;
-							num57 -= 10f * num5;
+							num57 -= 2f - scale / 5f * 2f;
+							num56 -= 10f * scale;
+							num57 -= 10f * scale;
                             Main.instance.DrawPlayerHead(player[n], num56, num57, (float)(int)b / 255f, num48);
 						}
 					}
@@ -480,7 +469,7 @@ namespace ROI.WIP
 				if (mapStyle == 1) {
 					float num58 = num3 - 6f;
 					float num59 = num4 - 6f;
-					float num60 = (num5 * 0.25f * 2f + 1f) / 3f;
+					float num60 = (scale * 0.25f * 2f + 1f) / 3f;
 					if (num60 > 1f)
 						num60 = 1f;
 
@@ -492,11 +481,11 @@ namespace ROI.WIP
 								if (npc[num61].direction > 0)
 									effects2 = SpriteEffects.FlipHorizontally;
 
-								float num63 = ((npc[num61].position.X + (float)(npc[num61].width / 2)) / 16f - num13) * num5;
-								float num64 = ((npc[num61].position.Y + npc[num61].gfxOffY + (float)(npc[num61].height / 2)) / 16f - num14) * num5;
+								float num63 = ((npc[num61].position.X + (float)(npc[num61].width / 2)) / 16f - num13) * scale;
+								float num64 = ((npc[num61].position.Y + npc[num61].gfxOffY + (float)(npc[num61].height / 2)) / 16f - num14) * scale;
 								num63 += num3;
 								num64 += num4;
-								num64 -= 2f * num5 / 5f;
+								num64 -= 2f * scale / 5f;
 								if (num63 > (float)(miniMapX + 12) && num63 < (float)(miniMapX + miniMapWidth - 16) && num64 > (float)(miniMapY + 10) && num64 < (float)(miniMapY + miniMapHeight - 14)) {
 									spriteBatch.Draw(npcHeadTexture[num62], new Vector2(num63 + num11, num64 + num12), new Microsoft.Xna.Framework.Rectangle(0, 0, npcHeadTexture[num62].Width, npcHeadTexture[num62].Height), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, new Vector2(npcHeadTexture[num62].Width / 2, npcHeadTexture[num62].Height / 2), num60, effects2, 0f);
 									float num65 = num63 - (float)(npcHeadTexture[num62].Width / 2) * num60;
@@ -504,7 +493,7 @@ namespace ROI.WIP
 									float num67 = num65 + (float)npcHeadTexture[num62].Width * num60;
 									float num68 = num66 + (float)npcHeadTexture[num62].Height * num60;
 									if ((float)mouseX >= num65 && (float)mouseX <= num67 && (float)mouseY >= num66 && (float)mouseY <= num68)
-										text = npc[num61].FullName;
+										hoverText = npc[num61].FullName;
 								}
 							}
 						}
@@ -530,11 +519,11 @@ namespace ROI.WIP
 						}
 
 						int bossHeadTextureIndex2 = npc[num61].GetBossHeadTextureIndex();
-						float num71 = (vector2.X / 16f - num13) * num5;
-						float num72 = (vector2.Y / 16f - num14) * num5;
+						float num71 = (vector2.X / 16f - num13) * scale;
+						float num72 = (vector2.Y / 16f - num14) * scale;
 						num71 += num3;
 						num72 += num4;
-						num72 -= 2f * num5 / 5f;
+						num72 -= 2f * scale / 5f;
 						if (num71 > (float)(miniMapX + 12) && num71 < (float)(miniMapX + miniMapWidth - 16) && num72 > (float)(miniMapY + 10) && num72 < (float)(miniMapY + miniMapHeight - 14)) {
 							spriteBatch.Draw(npcHeadBossTexture[bossHeadTextureIndex2], new Vector2(num71 + num11, num72 + num12), null, new Microsoft.Xna.Framework.Color(b, b, b, b), bossHeadRotation2, npcHeadBossTexture[bossHeadTextureIndex2].Size() / 2f, num60, bossHeadSpriteEffects2, 0f);
 							float num73 = num71 - (float)(npcHeadBossTexture[bossHeadTextureIndex2].Width / 2) * num60;
@@ -542,7 +531,7 @@ namespace ROI.WIP
 							float num75 = num73 + (float)npcHeadBossTexture[bossHeadTextureIndex2].Width * num60;
 							float num76 = num74 + (float)npcHeadBossTexture[bossHeadTextureIndex2].Height * num60;
 							if ((float)mouseX >= num73 && (float)mouseX <= num75 && (float)mouseY >= num74 && (float)mouseY <= num76)
-								text = npc[num61].GivenOrTypeName;
+								hoverText = npc[num61].GivenOrTypeName;
 						}
 					}
 
@@ -552,13 +541,13 @@ namespace ROI.WIP
 						if (!player[num77].active || ((player[myPlayer].hostile || player[num77].hostile) && (player[myPlayer].team != player[num77].team || player[num77].team == 0) && num77 != myPlayer))
 							continue;
 
-						float num78 = ((player[num77].position.X + (float)(player[num77].width / 2)) / 16f - num13) * num5;
-						float num79 = ((player[num77].position.Y + player[num77].gfxOffY + (float)(player[num77].height / 2)) / 16f - num14) * num5;
+						float num78 = ((player[num77].position.X + (float)(player[num77].width / 2)) / 16f - num13) * scale;
+						float num79 = ((player[num77].position.Y + player[num77].gfxOffY + (float)(player[num77].height / 2)) / 16f - num14) * scale;
 						num78 += num3;
 						num79 += num4;
 						num78 -= 6f;
 						num79 -= 6f;
-						num79 -= 2f - num5 / 5f * 2f;
+						num79 -= 2f - scale / 5f * 2f;
 						num78 += num11;
 						num79 += num12;
 						if (screenPosition.X != leftWorld + 640f + 16f && screenPosition.X + (float)screenWidth != rightWorld - 640f - 32f && screenPosition.Y != topWorld + 640f + 16f && !(screenPosition.Y + (float)screenHeight > bottomWorld - 640f - 32f) && num77 == myPlayer && zoomX == 0f && zoomY == 0f) {
@@ -576,18 +565,18 @@ namespace ROI.WIP
 								float num82 = num80 + 28f * num60;
 								float num83 = num81 + 28f * num60;
 								if ((float)mouseX >= num80 && (float)mouseX <= num82 && (float)mouseY >= num81 && (float)mouseY <= num83)
-									text = player[num77].name;
+									hoverText = player[num77].name;
 							}
 						}
 
 						if (!player[num77].showLastDeath)
 							continue;
 
-						num78 = (player[num77].lastDeathPostion.X / 16f - num13) * num5;
-						num79 = (player[num77].lastDeathPostion.Y / 16f - num14) * num5;
+						num78 = (player[num77].lastDeathPostion.X / 16f - num13) * scale;
+						num79 = (player[num77].lastDeathPostion.Y / 16f - num14) * scale;
 						num78 += num3;
 						num79 += num4;
-						num79 -= 2f - num5 / 5f * 2f;
+						num79 -= 2f - scale / 5f * 2f;
 						num78 += num11;
 						num79 += num12;
 						if (num78 > (float)(miniMapX + 8) && num78 < (float)(miniMapX + miniMapWidth - 18) && num79 > (float)(miniMapY + 8) && num79 < (float)(miniMapY + miniMapHeight - 16)) {
@@ -600,7 +589,7 @@ namespace ROI.WIP
 							float num87 = num85 + 28f * num60;
 							if ((float)mouseX >= num84 && (float)mouseX <= num86 && (float)mouseY >= num85 && (float)mouseY <= num87) {
 								TimeSpan timeSpan = DateTime.Now - player[num77].lastDeathTime;
-								text = Language.GetTextValue("Game.PlayerDeathTime", player[num77].name, Lang.LocalizedDuration(timeSpan, abbreviated: false, showAllAvailableUnits: false));
+								hoverText = Language.GetTextValue("Game.PlayerDeathTime", player[num77].name, Lang.LocalizedDuration(timeSpan, abbreviated: false, showAllAvailableUnits: false));
 							}
 						}
 					}
@@ -640,19 +629,19 @@ namespace ROI.WIP
 			}
 
 			if (mapFullscreen) {
-				int num91 = (int)((0f - num + (float)mouseX) / num5 + num7);
-				int num92 = (int)((0f - num2 + (float)mouseY) / num5 + num8);
+				int num91 = (int)((0f - mapX + (float)mouseX) / scale + mapStartX);
+				int num92 = (int)((0f - mapY + (float)mouseY) / scale + mapStartY);
 				bool flag2 = false;
-				if ((float)num91 < num7)
+				if ((float)num91 < mapStartX)
 					flag2 = true;
 
-				if ((float)num91 >= num9)
+				if ((float)num91 >= mapEndX)
 					flag2 = true;
 
-				if ((float)num92 < num8)
+				if ((float)num92 < mapStartY)
 					flag2 = true;
 
-				if ((float)num92 >= num10)
+				if ((float)num92 >= mapEndY)
 					flag2 = true;
 
 				if (!flag2 && Map[num91, num92].Light > 40) {
@@ -678,7 +667,7 @@ namespace ROI.WIP
 							if (tile.frameY % 36 != 0)
 								num102--;
 
-							text = DrawMap_FindChestName(chestType, tile, num101, num102);
+							hoverText = DrawMap_FindChestName(chestType, tile, num101, num102);
 						}
 					}
 					else if (type >= num96 && type < num96 + num98) {
@@ -692,7 +681,7 @@ namespace ROI.WIP
 							if (tile2.frameY % 36 != 0)
 								num104--;
 
-							text = DrawMap_FindChestName(chestType2, tile2, num103, num104);
+							hoverText = DrawMap_FindChestName(chestType2, tile2, num103, num104);
 						}
 					}
 					else if (type >= num94 && type < num94 + num95) {
@@ -706,7 +695,7 @@ namespace ROI.WIP
 							if (tile3.frameY % 36 != 0)
 								num106--;
 
-							text = chestType[tile3.frameX / 36].Value;
+							hoverText = chestType[tile3.frameX / 36].Value;
 						}
 					}
 					else if (type >= num97 && type < num97 + num98) {
@@ -720,7 +709,7 @@ namespace ROI.WIP
 							if (tile4.frameY % 36 != 0)
 								num108--;
 
-							text = chestType2[tile4.frameX / 36].Value;
+							hoverText = chestType2[tile4.frameX / 36].Value;
 						}
 					}
 					else if (type >= num99 && type < num99 + num100) {
@@ -733,16 +722,16 @@ namespace ROI.WIP
 								num109--;
 
 							int num110 = Chest.FindChest(x2, num109);
-							text = ((num110 < 0) ? Lang.dresserType[0].Value : ((!(chest[num110].name != "")) ? Lang.dresserType[tile5.frameX / 54].Value : (Lang.dresserType[tile5.frameX / 54].Value + ": " + chest[num110].name)));
+							hoverText = ((num110 < 0) ? Lang.dresserType[0].Value : ((!(chest[num110].name != "")) ? Lang.dresserType[tile5.frameX / 54].Value : (Lang.dresserType[tile5.frameX / 54].Value + ": " + chest[num110].name)));
 						}
 					}
 					else {
-						text = Lang.GetMapObjectName(type);
-						text = Lang._mapLegendCache.FromTile(Map[num91, num92], num91, num92);
+						hoverText = Lang.GetMapObjectName(type);
+						hoverText = Lang._mapLegendCache.FromTile(Map[num91, num92], num91, num92);
 					}
 				}
 
-				float num111 = (num5 * 0.25f * 2f + 1f) / 3f;
+				float num111 = (scale * 0.25f * 2f + 1f) / 3f;
 				if (num111 > 1f)
 					num111 = 1f;
 
@@ -756,19 +745,19 @@ namespace ROI.WIP
 							if (npc[num112].direction > 0)
 								effects3 = SpriteEffects.FlipHorizontally;
 
-							float num114 = (npc[num112].position.X + (float)(npc[num112].width / 2)) / 16f * num5;
-							float num115 = (npc[num112].position.Y + npc[num112].gfxOffY + (float)(npc[num112].height / 2)) / 16f * num5;
-							num114 += num;
-							num115 += num2;
-							num114 -= 10f * num5;
-							num115 -= 10f * num5;
+							float num114 = (npc[num112].position.X + (float)(npc[num112].width / 2)) / 16f * scale;
+							float num115 = (npc[num112].position.Y + npc[num112].gfxOffY + (float)(npc[num112].height / 2)) / 16f * scale;
+							num114 += mapX;
+							num115 += mapY;
+							num114 -= 10f * scale;
+							num115 -= 10f * scale;
 							spriteBatch.Draw(npcHeadTexture[num113], new Vector2(num114, num115), new Microsoft.Xna.Framework.Rectangle(0, 0, npcHeadTexture[num113].Width, npcHeadTexture[num113].Height), new Microsoft.Xna.Framework.Color(b, b, b, b), 0f, new Vector2(npcHeadTexture[num113].Width / 2, npcHeadTexture[num113].Height / 2), num111, effects3, 0f);
 							float num116 = num114 - (float)(npcHeadTexture[num113].Width / 2) * num111;
 							float num117 = num115 - (float)(npcHeadTexture[num113].Height / 2) * num111;
 							float num118 = num116 + (float)npcHeadTexture[num113].Width * num111;
 							float num119 = num117 + (float)npcHeadTexture[num113].Height * num111;
 							if ((float)mouseX >= num116 && (float)mouseX <= num118 && (float)mouseY >= num117 && (float)mouseY <= num119)
-								text = npc[num112].FullName;
+								hoverText = npc[num112].FullName;
 						}
 					}
 
@@ -793,19 +782,19 @@ namespace ROI.WIP
 					}
 
 					int bossHeadTextureIndex3 = npc[num112].GetBossHeadTextureIndex();
-					float num122 = vector3.X / 16f * num5;
-					float num123 = vector3.Y / 16f * num5;
-					num122 += num;
-					num123 += num2;
-					num122 -= 10f * num5;
-					num123 -= 10f * num5;
+					float num122 = vector3.X / 16f * scale;
+					float num123 = vector3.Y / 16f * scale;
+					num122 += mapX;
+					num123 += mapY;
+					num122 -= 10f * scale;
+					num123 -= 10f * scale;
 					spriteBatch.Draw(npcHeadBossTexture[bossHeadTextureIndex3], new Vector2(num122, num123), null, new Microsoft.Xna.Framework.Color(b, b, b, b), bossHeadRotation3, npcHeadBossTexture[bossHeadTextureIndex3].Size() / 2f, num111, bossHeadSpriteEffects3, 0f);
 					float num124 = num122 - (float)(npcHeadBossTexture[bossHeadTextureIndex3].Width / 2) * num111;
 					float num125 = num123 - (float)(npcHeadBossTexture[bossHeadTextureIndex3].Height / 2) * num111;
 					float num126 = num124 + (float)npcHeadBossTexture[bossHeadTextureIndex3].Width * num111;
 					float num127 = num125 + (float)npcHeadBossTexture[bossHeadTextureIndex3].Height * num111;
 					if ((float)mouseX >= num124 && (float)mouseX <= num126 && (float)mouseY >= num125 && (float)mouseY <= num127)
-						text = npc[num112].GivenOrTypeName;
+						hoverText = npc[num112].GivenOrTypeName;
 				}
 
 				bool flag3 = false;
@@ -813,13 +802,13 @@ namespace ROI.WIP
 				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 				for (int num128 = 0; num128 < 255; num128++) {
 					if (player[num128].active && ((!player[myPlayer].hostile && !player[num128].hostile) || (player[myPlayer].team == player[num128].team && player[num128].team != 0) || num128 == myPlayer) && player[num128].showLastDeath) {
-						float num129 = (player[num128].lastDeathPostion.X / 16f - num13) * num5;
-						float num130 = (player[num128].lastDeathPostion.Y / 16f - num14) * num5;
-						num129 += num;
-						num130 += num2;
-						num130 -= 2f - num5 / 5f * 2f;
-						num129 -= 10f * num5;
-						num130 -= 10f * num5;
+						float num129 = (player[num128].lastDeathPostion.X / 16f - num13) * scale;
+						float num130 = (player[num128].lastDeathPostion.Y / 16f - num14) * scale;
+						num129 += mapX;
+						num130 += mapY;
+						num130 -= 2f - scale / 5f * 2f;
+						num129 -= 10f * scale;
+						num130 -= 10f * scale;
 						spriteBatch.Draw(Main.instance.mapDeathTexture, new Vector2(num129, num130), new Microsoft.Xna.Framework.Rectangle(0, 0, mapDeathTexture.Width, mapDeathTexture.Height), Microsoft.Xna.Framework.Color.White, 0f, new Vector2((float)mapDeathTexture.Width * 0.5f, (float)mapDeathTexture.Height * 0.5f), num111, SpriteEffects.None, 0f);
 						float num131 = num129 + 4f - 14f * num111;
 						float num132 = num130 + 2f - 14f * num111;
@@ -827,7 +816,7 @@ namespace ROI.WIP
 						float num134 = num132 + 28f * num111;
 						if ((float)mouseX >= num131 && (float)mouseX <= num133 && (float)mouseY >= num132 && (float)mouseY <= num134) {
 							TimeSpan timeSpan2 = DateTime.Now - player[num128].lastDeathTime;
-							text = Language.GetTextValue("Game.PlayerDeathTime", player[num128].name, Lang.LocalizedDuration(timeSpan2, abbreviated: false, showAllAvailableUnits: false));
+							hoverText = Language.GetTextValue("Game.PlayerDeathTime", player[num128].name, Lang.LocalizedDuration(timeSpan2, abbreviated: false, showAllAvailableUnits: false));
 						}
 					}
 				}
@@ -836,15 +825,15 @@ namespace ROI.WIP
 					if (!player[num135].active || ((player[myPlayer].hostile || player[num135].hostile) && (player[myPlayer].team != player[num135].team || player[num135].team == 0) && num135 != myPlayer))
 						continue;
 
-					float num136 = ((player[num135].position.X + (float)(player[num135].width / 2)) / 16f - num13) * num5;
-					float num137 = ((player[num135].position.Y + player[num135].gfxOffY + (float)(player[num135].height / 2)) / 16f - num14) * num5;
-					num136 += num;
-					num137 += num2;
+					float num136 = ((player[num135].position.X + (float)(player[num135].width / 2)) / 16f - num13) * scale;
+					float num137 = ((player[num135].position.Y + player[num135].gfxOffY + (float)(player[num135].height / 2)) / 16f - num14) * scale;
+					num136 += mapX;
+					num137 += mapY;
 					num136 -= 6f;
 					num137 -= 2f;
-					num137 -= 2f - num5 / 5f * 2f;
-					num136 -= 10f * num5;
-					num137 -= 10f * num5;
+					num137 -= 2f - scale / 5f * 2f;
+					num136 -= 10f * scale;
+					num137 -= 10f * scale;
 					float num138 = num136 + 4f - 14f * num111;
 					float num139 = num137 + 2f - 14f * num111;
 					float num140 = num138 + 28f * num111;
@@ -856,7 +845,7 @@ namespace ROI.WIP
 					if (!((float)mouseX >= num138) || !((float)mouseX <= num140) || !((float)mouseY >= num139) || !((float)mouseY <= num141))
 						continue;
 
-					text = player[num135].name;
+					hoverText = player[num135].name;
 					if (num135 != myPlayer && player[myPlayer].team > 0 && player[myPlayer].team == player[num135].team && netMode == 1 && player[myPlayer].HasUnityPotion()) {
 						flag3 = true;
 						if (!Main.instance.unityMouseOver)
@@ -864,7 +853,7 @@ namespace ROI.WIP
 
                         Main.instance.unityMouseOver = true;
                         Main.instance.DrawPlayerHead(player[num135], num136, num137, 2f, num111 + 0.5f);
-						text = Language.GetTextValue("Game.TeleportTo", player[num135].name);
+						hoverText = Language.GetTextValue("Game.TeleportTo", player[num135].name);
 						if (mouseLeft && mouseLeftRelease) {
 							mouseLeftRelease = false;
 							mapFullscreen = false;
@@ -898,17 +887,40 @@ namespace ROI.WIP
 				}
 
 				spriteBatch.Draw(mapIconTexture[num144], new Vector2(num142, num143), new Microsoft.Xna.Framework.Rectangle(0, 0, mapIconTexture[num144].Width, mapIconTexture[num144].Height), new Microsoft.Xna.Framework.Color(num145, num145, num145, num145), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
-				ModHooks.PostDrawFullscreenMap(ref text);
+				ModHooks.PostDrawFullscreenMap(ref hoverText);
 				DrawCursor(DrawThickCursor());
 			}
 
-			if (text != "")
-                Main.instance.MouseText(text, 0, 0);
+			if (hoverText != "")
+                Main.instance.MouseText(hoverText, 0, 0);
 
 			spriteBatch.End();
 			spriteBatch.Begin();
 			PlayerInput.SetZoom_Unscaled();
 			TimeLogger.DetailedDrawTime(9);
 		}
+
+        private static void CheckIfMapSectionContentIsLost()
+        {
+            for (int x = 0; x < Main.instance.mapTarget.GetLength(0); x++)
+            {
+                for (int y = 0; y < Main.instance.mapTarget.GetLength(1); y++)
+                {
+                    if (Main.instance.mapTarget[x, y] != null)
+                    {
+                        if (Main.instance.mapTarget[x, y].IsContentLost && !mapWasContentLost[x, y])
+                        {
+                            mapWasContentLost[x, y] = true;
+                            refreshMap = true;
+                            clearMap = true;
+                        }
+                        else if (!Main.instance.mapTarget[x, y].IsContentLost && mapWasContentLost[x, y])
+                        {
+                            mapWasContentLost[x, y] = false;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
