@@ -57,13 +57,14 @@ namespace ROI.WIP
             float mapHeightWithScale = mapEndY - 1f;
             scale = (mapFullscreen ? mapFullscreenScale : ((mapStyle != 1) ? mapOverlayScale : mapMinimapScale));
             bool flag = false;
+            #region define matrix
             Matrix transformMatrix = UIScaleMatrix;
             if (mapStyle != 1)
                 transformMatrix = Matrix.Identity;
 
             if (mapFullscreen)
                 transformMatrix = Matrix.Identity;
-
+            #endregion
             if (!mapFullscreen && scale > 1f)
             {
                 spriteBatch.End();
@@ -73,192 +74,7 @@ namespace ROI.WIP
 
             if (mapFullscreen)
             {
-                if (mouseLeft && Main.instance.IsActive && !CaptureManager.Instance.UsingMap)
-                {
-                    if (mouseLeftRelease)
-                    {
-                        grabMapX = mouseX;
-                        grabMapY = mouseY;
-                    }
-                    else
-                    {
-                        float num17 = (float)mouseX - grabMapX;
-                        float num18 = (float)mouseY - grabMapY;
-                        grabMapX = mouseX;
-                        grabMapY = mouseY;
-                        num17 *= 0.06255f;
-                        num18 *= 0.06255f;
-                        mapFullscreenPos.X -= num17 * (16f / mapFullscreenScale);
-                        mapFullscreenPos.Y -= num18 * (16f / mapFullscreenScale);
-                    }
-                }
-
-                player[myPlayer].mouseInterface = true;
-                float num19 = (float)screenWidth / (float)maxTilesX * 0.8f;
-                if (mapFullscreenScale < num19)
-                    mapFullscreenScale = num19;
-
-                if (mapFullscreenScale > 16f)
-                    mapFullscreenScale = 16f;
-
-                scale = mapFullscreenScale;
-                b = byte.MaxValue;
-                if (mapFullscreenPos.X < mapStartX)
-                    mapFullscreenPos.X = mapStartX;
-
-                if (mapFullscreenPos.X > mapEndX)
-                    mapFullscreenPos.X = mapEndX;
-
-                if (mapFullscreenPos.Y < mapStartY)
-                    mapFullscreenPos.Y = mapStartY;
-
-                if (mapFullscreenPos.Y > mapEndY)
-                    mapFullscreenPos.Y = mapEndY;
-
-                float num20 = mapFullscreenPos.X;
-                float num21 = mapFullscreenPos.Y;
-                if (resetMapFull)
-                {
-                    resetMapFull = false;
-                    num20 = (screenPosition.X + (float)(screenWidth / 2)) / 16f;
-                    num21 = (screenPosition.Y + (float)(screenHeight / 2)) / 16f;
-                    mapFullscreenPos.X = num20;
-                    mapFullscreenPos.Y = num21;
-                }
-
-                num20 *= scale;
-                num21 *= scale;
-                mapX = 0f - num20 + (float)(screenWidth / 2);
-                mapY = 0f - num21 + (float)(screenHeight / 2);
-                mapX += mapStartX * scale;
-                mapY += mapStartY * scale;
-                float num22 = maxTilesX / 840;
-                num22 *= mapFullscreenScale;
-                float num23 = mapX;
-                float num24 = mapY;
-                float num25 = mapTexture.Width;
-                float num26 = mapTexture.Height;
-                if (maxTilesX == 8400)
-                {
-                    num22 *= 0.999f;
-                    num23 -= 40.6f * num22;
-                    num24 = mapY - 5f * num22;
-                    num25 -= 8.045f;
-                    num25 *= num22;
-                    num26 += 0.12f;
-                    num26 *= num22;
-                    if ((double)num22 < 1.2)
-                        num26 += 1f;
-                }
-                else if (maxTilesX == 6400)
-                {
-                    num22 *= 1.09f;
-                    num23 -= 38.8f * num22;
-                    num24 = mapY - 3.85f * num22;
-                    num25 -= 13.6f;
-                    num25 *= num22;
-                    num26 -= 6.92f;
-                    num26 *= num22;
-                    if ((double)num22 < 1.2)
-                        num26 += 2f;
-                }
-                else if (maxTilesX == 6300)
-                {
-                    num22 *= 1.09f;
-                    num23 -= 39.8f * num22;
-                    num24 = mapY - 4.08f * num22;
-                    num25 -= 26.69f;
-                    num25 *= num22;
-                    num26 -= 6.92f;
-                    num26 *= num22;
-                    if ((double)num22 < 1.2)
-                        num26 += 2f;
-                }
-                else if (maxTilesX == 4200)
-                {
-                    num22 *= 0.998f;
-                    num23 -= 37.3f * num22;
-                    num24 -= 1.7f * num22;
-                    num25 -= 16f;
-                    num25 *= num22;
-                    num26 -= 8.31f;
-                    num26 *= num22;
-                }
-
-                spriteBatch.End();
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
-                flag = true;
-                Texture2D modTexture = PlayerHooks.GetMapBackgroundImage(player[myPlayer]);
-                if (modTexture != null)
-                {
-                    spriteBatch.Draw(modTexture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (screenPosition.Y > (maxTilesY - 232) * 16)
-                {
-                    spriteBatch.Draw(Main.instance.mapBG3Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (player[myPlayer].ZoneDungeon)
-                {
-                    spriteBatch.Draw(Main.instance.mapBG5Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                }
-                else if (Main.tile[(int)(player[myPlayer].Center.X / 16f), (int)(player[myPlayer].Center.Y / 16f)].wall == 87)
-                {
-                    spriteBatch.Draw(Main.instance.mapBG14Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                }
-                else if ((double)screenPosition.Y > worldSurface * 16.0)
-                {
-                    if (player[myPlayer].ZoneSnow)
-                        spriteBatch.Draw(Main.instance.mapBG4Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                    else if (player[myPlayer].ZoneJungle)
-                        spriteBatch.Draw(Main.instance.mapBG13Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (sandTiles > 1000)
-                        spriteBatch.Draw(Main.instance.mapBG15Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else
-                        spriteBatch.Draw(Main.instance.mapBG2Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
-                }
-                else
-                {
-                    int num27 = (int)((screenPosition.X + (float)(screenWidth / 2)) / 16f);
-                    if (player[myPlayer].ZoneCorrupt)
-                        spriteBatch.Draw(mapBG6Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (player[myPlayer].ZoneCrimson)
-                        spriteBatch.Draw(mapBG7Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (player[myPlayer].ZoneHoly)
-                        spriteBatch.Draw(mapBG8Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if ((double)(screenPosition.Y / 16f) < worldSurface + 10.0 && (num27 < 380 || num27 > maxTilesX - 380))
-                        spriteBatch.Draw(mapBG11Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (player[myPlayer].ZoneSnow)
-                        spriteBatch.Draw(mapBG12Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (player[myPlayer].ZoneJungle)
-                        spriteBatch.Draw(mapBG9Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else if (sandTiles > 1000)
-                        spriteBatch.Draw(mapBG10Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                    else
-                        spriteBatch.Draw(mapBG1Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
-                }
-
-                /* Map texture drawing replaced by an adaptive drawing below, as mod worlds sometimes aren't regular sizes.
-				Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle((int)num23, (int)num24, (int)num25, (int)num26);
-				spriteBatch.Draw(mapTexture, destinationRectangle, Microsoft.Xna.Framework.Color.White);
-				*/
-                int x = (int)(mapX + mapFullscreenScale * 10);
-                int y = (int)(mapY + mapFullscreenScale * 10);
-                int width = (int)((maxTilesX - 40) * mapFullscreenScale);
-                int height = (int)((maxTilesY - 40) * mapFullscreenScale);
-                var destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x, y, width, height);
-                spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(40, 4, 848, 240), Microsoft.Xna.Framework.Color.White);
-                int edgeWidth = (int)(40 * mapFullscreenScale * 5);
-                int edgeHeight = (int)(4 * mapFullscreenScale * 5);
-                destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x - edgeWidth, y - edgeHeight, edgeWidth, height + 2 * edgeHeight);
-                spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(0, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
-                destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x + width, y - edgeHeight, edgeWidth, height + 2 * edgeHeight);
-                spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(888, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
-                if (scale < 1f)
-                {
-                    spriteBatch.End();
-                    spriteBatch.Begin();
-                    flag = false;
-                }
+                scale = DrawMapFullScreen(mapStartX, mapEndX, mapStartY, mapEndY, out mapX, out mapY, out flag);
             }
             else if (mapStyle == 1)
             {
@@ -979,6 +795,145 @@ namespace ROI.WIP
             spriteBatch.Begin();
             PlayerInput.SetZoom_Unscaled();
             TimeLogger.DetailedDrawTime(9);
+        }
+
+        private static float DrawMapFullScreen(float mapStartX, float mapEndX, float mapStartY, float mapEndY, out float mapX, out float mapY, out bool flag)
+        {
+            float scale;
+            if (mouseLeft && Main.instance.IsActive && !CaptureManager.Instance.UsingMap)
+            {
+                if (mouseLeftRelease)
+                {
+                    grabMapX = mouseX;
+                    grabMapY = mouseY;
+                }
+                else
+                {
+                    float num17 = (float) mouseX - grabMapX;
+                    float num18 = (float) mouseY - grabMapY;
+                    grabMapX = mouseX;
+                    grabMapY = mouseY;
+                    num17 *= 0.06255f;
+                    num18 *= 0.06255f;
+                    mapFullscreenPos.X -= num17 * (16f / mapFullscreenScale);
+                    mapFullscreenPos.Y -= num18 * (16f / mapFullscreenScale);
+                }
+            }
+
+            player[myPlayer].mouseInterface = true;
+            float num19 = (float) screenWidth / (float) maxTilesX * 0.8f;
+            if (mapFullscreenScale < num19)
+                mapFullscreenScale = num19;
+
+            if (mapFullscreenScale > 16f)
+                mapFullscreenScale = 16f;
+
+            scale = mapFullscreenScale;
+            if (mapFullscreenPos.X < mapStartX)
+                mapFullscreenPos.X = mapStartX;
+
+            if (mapFullscreenPos.X > mapEndX)
+                mapFullscreenPos.X = mapEndX;
+
+            if (mapFullscreenPos.Y < mapStartY)
+                mapFullscreenPos.Y = mapStartY;
+
+            if (mapFullscreenPos.Y > mapEndY)
+                mapFullscreenPos.Y = mapEndY;
+
+            float num20 = mapFullscreenPos.X;
+            float num21 = mapFullscreenPos.Y;
+            if (resetMapFull)
+            {
+                resetMapFull = false;
+                num20 = (screenPosition.X + (float) (screenWidth / 2)) / 16f;
+                num21 = (screenPosition.Y + (float) (screenHeight / 2)) / 16f;
+                mapFullscreenPos.X = num20;
+                mapFullscreenPos.Y = num21;
+            }
+
+            num20 *= scale;
+            num21 *= scale;
+            mapX = 0f - num20 + (float) (screenWidth / 2);
+            mapY = 0f - num21 + (float) (screenHeight / 2);
+            mapX += mapStartX * scale;
+            mapY += mapStartY * scale;
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+            flag = true;
+            Texture2D modTexture = PlayerHooks.GetMapBackgroundImage(player[myPlayer]);
+            if (modTexture != null)
+            {
+                spriteBatch.Draw(modTexture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+            }
+            else if (screenPosition.Y > (maxTilesY - 232) * 16)
+            {
+                spriteBatch.Draw(Main.instance.mapBG3Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+            }
+            else if (player[myPlayer].ZoneDungeon)
+            {
+                spriteBatch.Draw(Main.instance.mapBG5Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+            }
+            else if (Main.tile[(int) (player[myPlayer].Center.X / 16f), (int) (player[myPlayer].Center.Y / 16f)].wall == 87)
+            {
+                spriteBatch.Draw(Main.instance.mapBG14Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+            }
+            else if ((double) screenPosition.Y > worldSurface * 16.0)
+            {
+                if (player[myPlayer].ZoneSnow)
+                    spriteBatch.Draw(Main.instance.mapBG4Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+                else if (player[myPlayer].ZoneJungle)
+                    spriteBatch.Draw(Main.instance.mapBG13Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (sandTiles > 1000)
+                    spriteBatch.Draw(Main.instance.mapBG15Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else
+                    spriteBatch.Draw(Main.instance.mapBG2Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), Microsoft.Xna.Framework.Color.White);
+            }
+            else
+            {
+                int num27 = (int) ((screenPosition.X + (float) (screenWidth / 2)) / 16f);
+                if (player[myPlayer].ZoneCorrupt)
+                    spriteBatch.Draw(Main.instance.mapBG6Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (player[myPlayer].ZoneCrimson)
+                    spriteBatch.Draw(Main.instance.mapBG7Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (player[myPlayer].ZoneHoly)
+                    spriteBatch.Draw(Main.instance.mapBG8Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if ((double) (screenPosition.Y / 16f) < worldSurface + 10.0 && (num27 < 380 || num27 > maxTilesX - 380))
+                    spriteBatch.Draw(Main.instance.mapBG11Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (player[myPlayer].ZoneSnow)
+                    spriteBatch.Draw(Main.instance.mapBG12Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (player[myPlayer].ZoneJungle)
+                    spriteBatch.Draw(Main.instance.mapBG9Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else if (sandTiles > 1000)
+                    spriteBatch.Draw(Main.instance.mapBG10Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+                else
+                    spriteBatch.Draw(Main.instance.mapBG1Texture, new Microsoft.Xna.Framework.Rectangle(0, 0, screenWidth, screenHeight), bgColor);
+            }
+
+            /* Map texture drawing replaced by an adaptive drawing below, as mod worlds sometimes aren't regular sizes.
+				Microsoft.Xna.Framework.Rectangle destinationRectangle = new Microsoft.Xna.Framework.Rectangle((int)num23, (int)num24, (int)num25, (int)num26);
+				spriteBatch.Draw(mapTexture, destinationRectangle, Microsoft.Xna.Framework.Color.White);
+				*/
+            int x = (int) (mapX + mapFullscreenScale * 10);
+            int y = (int) (mapY + mapFullscreenScale * 10);
+            int width = (int) ((maxTilesX - 40) * mapFullscreenScale);
+            int height = (int) ((maxTilesY - 40) * mapFullscreenScale);
+            var destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x, y, width, height);
+            spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(40, 4, 848, 240), Microsoft.Xna.Framework.Color.White);
+            int edgeWidth = (int) (40 * mapFullscreenScale * 5);
+            int edgeHeight = (int) (4 * mapFullscreenScale * 5);
+            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x - edgeWidth, y - edgeHeight, edgeWidth, height + 2 * edgeHeight);
+            spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(0, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
+            destinationRectangle = new Microsoft.Xna.Framework.Rectangle(x + width, y - edgeHeight, edgeWidth, height + 2 * edgeHeight);
+            spriteBatch.Draw(mapTexture, destinationRectangle, new Microsoft.Xna.Framework.Rectangle(888, 0, 40, 248), Microsoft.Xna.Framework.Color.White);
+            if (scale < 1f)
+            {
+                spriteBatch.End();
+                spriteBatch.Begin();
+                flag = false;
+            }
+
+            return scale;
         }
 
         private static void CheckIfMapSectionContentIsLost()
