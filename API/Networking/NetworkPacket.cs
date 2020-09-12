@@ -86,7 +86,5 @@ namespace API.Networking
         }
 
         public byte MyId { get; set; }
-
-        public Mod Mod { get; set; }
     }
 }

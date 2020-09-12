@@ -1,4 +1,5 @@
-﻿using ROI.Models.Networking;
+﻿using API;
+using ROI.Models.Networking;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -6,11 +7,10 @@ using Terraria.ModLoader;
 namespace ROI.Players
 {
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
-    public sealed partial class ROIPlayer : ModPlayer, IHaveState
+    public sealed partial class ROIPlayer : ModPlayer
     {
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
-        public T StaticGet<T>() where T : IHaveState => (T)(Get(Main.LocalPlayer) as IHaveState);
 
         private void UpdatePreviousBuffs()
         {
@@ -74,9 +74,11 @@ namespace ROI.Players
         }
 
 
-#pragma warning disable IDE1006 // Naming Styles
-        public new ROIMod mod => base.mod as ROIMod;
-#pragma warning restore IDE1006 // Naming Styles
         private List<int> PreviousBuffs { get; set; }
+
+
+#pragma warning disable IDE1006 // Naming Styles
+        private new ROIMod mod => base.mod as ROIMod;
+#pragma warning restore IDE1006 // Naming Styles
     }
 }

@@ -1,7 +1,9 @@
-﻿using API.Networking;
+﻿using API;
+using API.Networking;
 using API.Users;
 using Microsoft.Xna.Framework;
 using ROI.Loaders;
+using ROI.Models.Backgrounds;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -12,16 +14,17 @@ namespace ROI
 {
     public sealed partial class ROIMod : Mod
     {
-        public BackgroundLoader backgroundLoader;
+        public CollectionLoader<Background> backgroundLoader;
         // internal: see addendum in InterfaceLoader
         internal InterfaceLoader interfaceLoader;
-        public NetworkPacketLoader networkLoader;
+        public CollectionLoader<NetworkPacket> networkLoader;
         public SpawnConditionLoader spawnLoader;
         public UserLoader userLoader;
 
         private void InitializeLoaders()
         {
-            backgroundLoader = new BackgroundLoader();
+            backgroundLoader = new CollectionLoader<Background>();
+            backgroundLoader.OnAddEvent += b => b.Init(this);
             backgroundLoader.Initialize(this);
 
             if (!Main.dedServ)
@@ -30,7 +33,7 @@ namespace ROI
                 interfaceLoader.Initialize(this);
             }
 
-            networkLoader = new NetworkPacketLoader();
+            networkLoader = new CollectionLoader<NetworkPacket>();
             networkLoader.Initialize(this);
 
             spawnLoader = new SpawnConditionLoader();
@@ -47,11 +50,11 @@ namespace ROI
                     new Developer(76561198098585379, "Chinzilla00", 0),
                     new Developer(76561198265178242, "Demi", 0),
                     new Developer(76561193989806658, "SDF", 0),
-            new Developer(76561198193865502, "Agrair", 0),
-                new Developer(76561198108364775,"HumanGamer", 0),
-                new Developer(76561198046878487, "Webmilio", 0),
-            new Developer(76561198008064465, "Rartrin", 0),
-                new Developer(76561198843721841, "Skeletony", 0)
+                    new Developer(76561198193865502, "Agrair", 0),
+                    new Developer(76561198108364775,"HumanGamer", 0),
+                    new Developer(76561198046878487, "Webmilio", 0),
+                    new Developer(76561198008064465, "Rartrin", 0),
+                    new Developer(76561198843721841, "Skeletony", 0)
                 }
             };
             userLoader.Initialize(this);

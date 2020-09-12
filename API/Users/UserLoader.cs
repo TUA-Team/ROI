@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 namespace API.Users
 {
+    // web's code
     public sealed class UserLoader : BaseLoader
     {
         public override void Initialize(Mod mod)

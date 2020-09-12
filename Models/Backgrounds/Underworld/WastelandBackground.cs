@@ -11,7 +11,7 @@ namespace ROI.Models.Backgrounds.Underworld
         private readonly Texture2D[] _texture = new Texture2D[5];
 
 
-        public WastelandBackground(Mod mod)
+        public override void Init(Mod mod)
         {
             for (int i = 0; i < _texture.Length; i++)
                 mod.GetTexture("Textures/Backgrounds/WastelandBackground" + i);

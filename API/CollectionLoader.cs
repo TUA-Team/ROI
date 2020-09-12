@@ -44,16 +44,20 @@ namespace API
                 if (t.IsAbstract) continue;
                 if (t.IsEquivalentTo(parentType)) continue;
 
-                base.Add((IHaveId)Activator.CreateInstance(t));
+                Add((IHaveId)Activator.CreateInstance(t));
             }
         }
 
-        public TUnique Add<TUnique>(TUnique element) where TUnique : T => (TUnique)base.Add(element);
-        protected sealed override void OnAdd(IHaveId element) => OnAdd((T)element);
+
+        public event Action<T> OnAddEvent;
+
+        protected sealed override void OnAdd(IHaveId element)
+        {
+            OnAddEvent((T)element);
+        }
 
 
-        protected virtual void OnAdd<TUnique>(TUnique element) where TUnique : T { }
-
+        public T Get<TUnique>() where TUnique : T => this[IdHolder<TUnique>.Id];
 
         public new T this[byte packetType] => (T)base[packetType];
     }
