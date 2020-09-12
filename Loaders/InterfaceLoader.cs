@@ -1,8 +1,8 @@
 using API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Models;
-using ROI.UI.Void;
+using ROI.Content.UI.Elements;
+using ROI.Content.UI.Void;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -12,7 +12,7 @@ using Terraria.UI;
 namespace ROI.Loaders
 {
     // this is internal because all of the UI states are internal
-    // possible choices: use normal UserInterfaces, use public properties, use public setter methods
+    // possible choices: use normal UserInterfaces, use public properties, use public setter methods, use public states
     internal sealed class InterfaceLoader : BaseLoader
     {
         public VoidAffinity vAffinityState;
@@ -42,6 +42,7 @@ namespace ROI.Loaders
         {
             lastGameTime = gameTime;
 
+            // TODO: (super low prio) write simple ?. based way to do this
             if (vPillarHealthInterface.CurrentState != null)
             {
                 vPillarHealthInterface.Update(lastGameTime);
@@ -52,14 +53,13 @@ namespace ROI.Loaders
         // other mods disabling layers
         public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
         {
-            var list = new List<string>();
+            var failed = new List<string>();
 
-            // TODO: ask someone if it's intentional that inline out is broken
-#pragma warning disable IDE0018 // Inline variable declaration
-            int index;
-#pragma warning restore IDE0018 // Inline variable declaration
-            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out index);
+            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out int index);
 
+
+            // indexes are named i and j because I was too lazy to figure out
+            // how to name it `index` without breaking stuff - Agrair
             void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i)
             {
                 i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
@@ -70,7 +70,7 @@ namespace ROI.Loaders
             {
                 if (j == -1)
                 {
-                    list.Add(name);
+                    failed.Add(name);
                     return;
                 }
                 layers.Insert(j, new LegacyGameInterfaceLayer(
@@ -82,7 +82,7 @@ namespace ROI.Loaders
                     }, InterfaceScaleType.UI));
             }
 
-            return (failedInterfaces = list.Count != 0 ? list : null) == null;
+            return (failedInterfaces = failed.Count != 0 ? failed : null) == null;
         }
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\references\tModLoader.targets" />
+  <Import Project="..\..\Beta\references\tModLoader.targets" />
   <PropertyGroup>
     <AssemblyName>ROI</AssemblyName>
     <TargetFramework>net45</TargetFramework>
@@ -24,6 +24,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build &quot;$(ProjectDir)\&quot; -eac &quot;$(TargetPath)&quot; -savedirectory &quot;D:\Terraria Saves&quot;" />
+    <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build &quot;$(ProjectDir)&quot; -eac &quot;$(TargetPath)&quot; -tmlsavedirectory &quot;D:\Terraria Saves\ModLoader\Beta&quot;" />
   </Target>
 </Project>

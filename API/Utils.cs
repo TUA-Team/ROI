@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Terraria.Localization;
@@ -42,7 +43,7 @@ namespace API
                 .Select(x => $"{x.Value.DisplayName.Key}={x.Value.DisplayName.GetTranslation(Language.ActiveCulture)}"));
 
             int index = $"Mods.ROI.".Length;
-            ReLogic.OS.Platform.Current.Clipboard = string.Join("\n", list.Select(x => x.Remove(0, index)));
+            System.IO.File.WriteAllText(Path.Combine(ModLoader.ModPath, "localized.txt"), string.Join("\n", list.Select(x => x.Remove(0, index))));
         }
 
         public static T GetOrAdd<T>(this ICollection<T> col, Func<T, bool> predicate, Func<T> factory)

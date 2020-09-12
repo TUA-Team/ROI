@@ -1,4 +1,4 @@
-﻿using ROI.Configs;
+﻿using ROI.Content.Configs;
 using System;
 using System.IO;
 using Terraria;

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
+using Terraria.GameContent;
 using Terraria.ModLoader;
 
 namespace ROI.Models.Backgrounds.Underworld
@@ -14,7 +15,7 @@ namespace ROI.Models.Backgrounds.Underworld
         public override void Init(Mod mod)
         {
             for (int i = 0; i < _texture.Length; i++)
-                mod.GetTexture("Textures/Backgrounds/WastelandBackground" + i);
+                mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);
 
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
         }
@@ -29,7 +30,7 @@ namespace ROI.Models.Backgrounds.Underworld
             }
 
             for (int i = 0; i < _texture.Length; i++)
-                _texture[i] = Terraria.ModLoader.ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
+                _texture[i] = (Texture2D)ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
 
             if (!Main.ActiveWorldFileData.HasCrimson)
             {
@@ -59,7 +60,7 @@ namespace ROI.Models.Backgrounds.Underworld
                 {
                     case 1:
                         {
-                            int num4 = (int)(Main.GlobalTime * 8f) % 4;
+                            int num4 = (int)(Main.time * 8f) % 4;
                             value3 = new Rectangle((num4 >> 1) * (texture2D.Width >> 1), num4 % 2 * (texture2D.Height >> 1), texture2D.Width >> 1, texture2D.Height >> 1);
                             vector *= 0.5f;
                             zero.Y += 75f;
@@ -98,7 +99,9 @@ namespace ROI.Models.Backgrounds.Underworld
                     if (i == 0)
                     {
                         int num8 = (int)(position.Y + (float)value3.Height * num3);
-                        Main.spriteBatch.Draw(Main.blackTileTexture, new Rectangle((int)position.X, num8, (int)((float)value3.Width * num3), Math.Max(0, Main.screenHeight - num8)), new Color(11, 3, 7));
+                        Main.spriteBatch.Draw((Texture2D)TextureAssets.BlackTile,
+                            new Rectangle((int)position.X, num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)),
+                            new Color(11, 3, 7));
                     }
                 }
             }

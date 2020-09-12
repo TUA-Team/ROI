@@ -1,8 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using ROI.Buffs.Void;
+﻿using ROI.Content.Buffs.Void;
 using ROI.Extensions;
-using ROI.NPCs;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -11,8 +8,10 @@ namespace ROI.Worlds
 {
     public sealed class ROIWorld : ModWorld
     {
+        // TODO: (low prio) make this work again
         public override TagCompound Save()
         {
+            /*
             TagCompound tag = new TagCompound()
             {
                 [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
@@ -42,16 +41,20 @@ namespace ROI.Worlds
 
             tag.Add(nameof(ISaveableEntity), npcTags);
             return tag;
+            */
+
+            return base.Save();
         }
 
         public override void Load(TagCompound tag)
         {
+            /*
             List<TagCompound> npcTags = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
 
             foreach (TagCompound currentTag in npcTags)
             {
                 Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
-                int npcInstanceId = NPC.NewNPC((int)position.X, (int)position.Y, ModLoader.GetMod(currentTag.GetString(nameof(NPC.modNPC.mod))).BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
+                int npcInstanceId = NPC.NewNPC((int)position.X, (int)position.Y, ModContent.BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
 
                 if (Main.npc[npcInstanceId].modNPC is ISaveableEntity saveable)
                     saveable.Load(currentTag);
@@ -59,6 +62,7 @@ namespace ROI.Worlds
                 if (currentTag.ContainsKey(nameof(NPC.life)))
                     Main.npc[npcInstanceId].life = tag.GetAsInt(nameof(NPC.life));
             }
+            */
         }
 
 

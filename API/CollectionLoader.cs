@@ -26,7 +26,7 @@ namespace API
         }
 
 
-        protected virtual void OnAdd(IHaveId element) { }
+        public event Action<IHaveId> OnAdd;
 
 
         public IHaveId this[byte packetType] => _objects[packetType];
@@ -44,21 +44,18 @@ namespace API
                 if (t.IsAbstract) continue;
                 if (t.IsEquivalentTo(parentType)) continue;
 
-                Add((IHaveId)Activator.CreateInstance(t));
+                var instance = (IHaveId)Activator.CreateInstance(t);
+                Add(instance);
             }
         }
 
-
-        public event Action<T> OnAddEvent;
-
-        protected sealed override void OnAdd(IHaveId element)
+        public new event Action<T> OnAdd
         {
-            OnAddEvent((T)element);
+            add => base.OnAdd += instance => value((T)instance);
+            remove => base.OnAdd -= instance => value((T)instance);
         }
 
-
-        public T Get<TUnique>() where TUnique : T => this[IdHolder<TUnique>.Id];
-
+        public T Get<TUnique>() where TUnique : T => (T)base[IdHolder<TUnique>.Id];
         public new T this[byte packetType] => (T)base[packetType];
     }
 }

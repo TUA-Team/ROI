@@ -1,5 +1,4 @@
-﻿using API;
-using ROI.Models.Networking;
+﻿using ROI.Models.Networking;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -53,7 +52,7 @@ namespace ROI.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            mod.networkLoader.Get<PlayerSyncPacket>().Send(this, toWho, fromWho);
+            Mod.networkLoader.Get<PlayerSyncPacket>().Send(this, toWho, fromWho);
         }
 
 
@@ -77,8 +76,6 @@ namespace ROI.Players
         private List<int> PreviousBuffs { get; set; }
 
 
-#pragma warning disable IDE1006 // Naming Styles
-        private new ROIMod mod => base.mod as ROIMod;
-#pragma warning restore IDE1006 // Naming Styles
+        private new ROIMod Mod => base.Mod as ROIMod;
     }
 }
