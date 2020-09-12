@@ -11,15 +11,19 @@ namespace ROI.Worlds
 {
     public sealed class ROIWorld : ModWorld
     {
-        public override TagCompound Save() {
-            TagCompound tag = new TagCompound() {
+        public override TagCompound Save()
+        {
+            TagCompound tag = new TagCompound()
+            {
                 [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
             };
 
             List<TagCompound> npcTags = new List<TagCompound>();
 
-            for (int i = 0; i < Main.npc.Length; i++) {
-                if (Main.npc[i] is ISaveableEntity saveable) {
+            for (int i = 0; i < Main.npc.Length; i++)
+            {
+                if (Main.npc[i] is ISaveableEntity saveable)
+                {
                     TagCompound npcTag = new TagCompound();
                     NPC npc = Main.npc[i];
 
@@ -40,10 +44,12 @@ namespace ROI.Worlds
             return tag;
         }
 
-        public override void Load(TagCompound tag) {
+        public override void Load(TagCompound tag)
+        {
             List<TagCompound> npcTags = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
 
-            foreach (TagCompound currentTag in npcTags) {
+            foreach (TagCompound currentTag in npcTags)
+            {
                 Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
                 int npcInstanceId = NPC.NewNPC((int)position.X, (int)position.Y, ModLoader.GetMod(currentTag.GetString(nameof(NPC.modNPC.mod))).BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
 
@@ -56,8 +62,10 @@ namespace ROI.Worlds
         }
 
 
-        public override void PreUpdate() {
-            if (StrangePresenceDebuff) {
+        public override void PreUpdate()
+        {
+            if (StrangePresenceDebuff)
+            {
                 for (int i = 0; i < Main.player.Length; i++)
                     Main.player[i].AddBuff<PillarPresence>(1, true);
             }

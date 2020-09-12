@@ -7,10 +7,11 @@ namespace API
     public abstract class CollectionLoader : BaseLoader
     {
         private byte _nextId = 0;
-        private IHaveId[] _objects = new IdBasedObject[0];
+        private IHaveId[] _objects = new IHaveId[0];
 
 
-        public IHaveId Add(IHaveId element) {
+        public IHaveId Add(IHaveId element)
+        {
             Array.Resize(ref _objects, _nextId + 1);
 
             _objects[_nextId] = element;
@@ -35,9 +36,11 @@ namespace API
 
     public class CollectionLoader<T> : CollectionLoader where T : IHaveId
     {
-        public override void Initialize(Mod mod) {
+        public override void Initialize(Mod mod)
+        {
             var parentType = typeof(T);
-            foreach (var t in mod.Code.DefinedTypes.Where(t => parentType.IsAssignableFrom(t))) {
+            foreach (var t in mod.Code.DefinedTypes.Where(t => parentType.IsAssignableFrom(t)))
+            {
                 if (t.IsAbstract) continue;
                 if (t.IsEquivalentTo(parentType)) continue;
 
@@ -46,13 +49,11 @@ namespace API
         }
 
         public TUnique Add<TUnique>(TUnique element) where TUnique : T => (TUnique)base.Add(element);
-        protected sealed override void OnAdd(IHaveId element) { OnAdd((T)element); }
+        protected sealed override void OnAdd(IHaveId element) => OnAdd((T)element);
 
 
         protected virtual void OnAdd<TUnique>(TUnique element) where TUnique : T { }
 
-
-        public T Get() => this[IdHolder<T>.Id];
 
         public new T this[byte packetType] => (T)base[packetType];
     }

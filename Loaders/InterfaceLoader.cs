@@ -25,7 +25,8 @@ namespace ROI.Loaders
         private GameTime lastGameTime;
 
 
-        public override void Initialize(Mod mod) {
+        public override void Initialize(Mod mod)
+        {
             vAffinityState = new VoidAffinity(mod);
             vAffinityState.Activate();
             vAffinityInterface = new ROIUserInterface<VoidAffinity>();
@@ -37,17 +38,20 @@ namespace ROI.Loaders
             // implicit: vPillarHealthInterface.SetState(null);
         }
 
-        public void UpdateUI(GameTime gameTime) {
+        public void UpdateUI(GameTime gameTime)
+        {
             lastGameTime = gameTime;
 
-            if (vPillarHealthInterface.CurrentState != null) {
+            if (vPillarHealthInterface.CurrentState != null)
+            {
                 vPillarHealthInterface.Update(lastGameTime);
             }
         }
 
         // list of failedInterfaces is there to debug any possible problems with
         // other mods disabling layers
-        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces) {
+        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
+        {
             var list = new List<string>();
 
             // TODO: ask someone if it's intentional that inline out is broken
@@ -56,19 +60,23 @@ namespace ROI.Loaders
 #pragma warning restore IDE0018 // Inline variable declaration
             insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out index);
 
-            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i) {
+            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i)
+            {
                 i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
                 insertLayer(i, name, draw);
             }
 
-            void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw) {
-                if (j == -1) {
+            void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw)
+            {
+                if (j == -1)
+                {
                     list.Add(name);
                     return;
                 }
                 layers.Insert(j, new LegacyGameInterfaceLayer(
                     $"ROI: {name}",
-                    delegate {
+                    delegate
+                    {
                         draw(Main.spriteBatch, lastGameTime);
                         return true;
                     }, InterfaceScaleType.UI));

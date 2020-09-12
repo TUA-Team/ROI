@@ -8,7 +8,8 @@ namespace ROI.Tiles.Wasteland
 {
     internal class WastelandRock : ModTile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             //Main.tileMerge[Type][mod.TileType("Wasteland_Dirt")] = true;
@@ -20,7 +21,8 @@ namespace ROI.Tiles.Wasteland
         }
 
         //TODO: (high prio) Broken?
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak) {
+        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+        {
             //Following part need to moved into a seperate class
             int tileToSearch = ModContent.TileType<WastelandDirt>();
             WorldHelper.RegularMerge(i, j);

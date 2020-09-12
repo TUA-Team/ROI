@@ -10,17 +10,21 @@ namespace ROI.UI.Void
     {
         public VoidPillarHealthBar(Mod mod) : base(mod) { }
 
-        public override void OnInitialize() {
+        public override void OnInitialize()
+        {
             var bar = new HealthBar(_mod);
             bar.GetDrawInfo += GetDrawInfo;
             Append(bar);
         }
 
-        public VoidPillar FindPillar() {
-            for (int i = 0; i < 200; i++) {
+        public VoidPillar FindPillar()
+        {
+            for (int i = 0; i < 200; i++)
+            {
                 var npc = Main.npc[i];
                 if (npc.active && npc.modNPC is VoidPillar query
-                    && npc.DistanceSQ(Main.LocalPlayer.position) <= 6250000) {
+                    && npc.DistanceSQ(Main.LocalPlayer.position) <= 6250000)
+                {
                     return query;
                 }
             }
@@ -28,7 +32,8 @@ namespace ROI.UI.Void
             return null;
         }
 
-        private bool GetDrawInfo(out string name, out string health, out Color color, out float progress) {
+        private bool GetDrawInfo(out string name, out string health, out Color color, out float progress)
+        {
             // TODO: (low prio) modtranslations
             name = null;
             health = null;

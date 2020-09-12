@@ -11,28 +11,34 @@ namespace ROI
         public MusicConfig MusicConfig;
         public DebugConfig DebugConfig;
 
-        private void LoadClient() {
+        private void LoadClient()
+        {
             MusicConfig = ModContent.GetInstance<MusicConfig>();
             DebugConfig = ModContent.GetInstance<DebugConfig>();
 
-            if (DebugConfig.Nightly) {
+            if (DebugConfig.Nightly)
+            {
                 var path = Path.Combine(Main.SavePath, "ROI-beta-timestamp.txt");
-                if (File.Exists(path)) {
+                if (File.Exists(path))
+                {
                     var data = File.ReadAllText(path);
                     Helpers.NightlyHelper.CheckForNightly(DateTime.Parse(data));
                 }
-                else {
+                else
+                {
                     var data = Helpers.NightlyHelper.CheckForNightly(DateTime.MinValue);
                     if (data != null) File.WriteAllText(path, data);
                 }
             }
         }
 
-        private void UnloadClient() {
+        private void UnloadClient()
+        {
         }
 
 
-        public override void UpdateMusic(ref int music, ref MusicPriority priority) {
+        public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        {
             // TODO: (low prio) this was in EM, but it might be redundant
             if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
 

@@ -7,7 +7,8 @@ namespace ROI.Loaders
 {
     public class BackgroundLoader : CollectionLoader<Background>
     {
-        public override void Initialize(Mod mod) {
+        public override void Initialize(Mod mod)
+        {
             Wasteland = Add(new WastelandBackground(mod)) as WastelandBackground;
         }
 

@@ -9,7 +9,8 @@ namespace ROI.Items
         private readonly string _displayName, _tooltip;
         private readonly int _width, _height, _stack;
 
-        protected ROIItem(string displayName, string tooltip, int width, int height, int value = 0, int defense = -1, int rarity = ItemRarityID.White, int stack = 1) {
+        protected ROIItem(string displayName, string tooltip, int width, int height, int value = 0, int defense = -1, int rarity = ItemRarityID.White, int stack = 1)
+        {
             _displayName = displayName;
             _tooltip = tooltip;
 
@@ -23,12 +24,14 @@ namespace ROI.Items
         }
 
 
-        public override void SetStaticDefaults() {
+        public override void SetStaticDefaults()
+        {
             DisplayName.SetDefault(_displayName);
             Tooltip.SetDefault(_tooltip);
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             item.width = _width;
             item.height = _height;
 
@@ -38,13 +41,15 @@ namespace ROI.Items
         }
 
 
-        public sealed override void ModifyTooltips(List<TooltipLine> tooltips) {
+        public sealed override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
             //Tooltip.SetDefault(_tooltip);
 
             PostModifyTooltips(tooltips);
         }
 
-        public virtual void PostModifyTooltips(List<TooltipLine> tooltips) {
+        public virtual void PostModifyTooltips(List<TooltipLine> tooltips)
+        {
         }
 
 

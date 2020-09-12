@@ -1,5 +1,4 @@
-﻿using API;
-using ROI.Models.Networking;
+﻿using ROI.Models.Networking;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -13,14 +12,16 @@ namespace ROI.Players
 
         public T StaticGet<T>() where T : IHaveState => (T)(Get(Main.LocalPlayer) as IHaveState);
 
-        private void UpdatePreviousBuffs() {
+        private void UpdatePreviousBuffs()
+        {
             PreviousBuffs.Clear();
 
             for (int i = 0; i < player.CountBuffs(); i++)
                 PreviousBuffs.Add(player.buffType[i]);
         }
 
-        private void OnNewBuffDetected(int previousBuffType) {
+        private void OnNewBuffDetected(int previousBuffType)
+        {
             // TODO: (med prio) Check if you can just do player.buffType[previousBuffType] instead of iterating through this.
             for (int i = 0; i < player.buffType.Length; i++)
                 if (player.buffType[i] == previousBuffType && Main.debuff[player.buffType[i]])
@@ -28,12 +29,14 @@ namespace ROI.Players
         }
 
 
-        public override void Initialize() {
+        public override void Initialize()
+        {
             PreviousBuffs = new List<int>();
             InitializeVoid();
         }
 
-        public override void OnEnterWorld(Player player) {
+        public override void OnEnterWorld(Player player)
+        {
             List<int> previousBuffs = new List<int>(PreviousBuffs.ToArray());
             UpdatePreviousBuffs();
 
@@ -42,26 +45,31 @@ namespace ROI.Players
                     OnNewBuffDetected(PreviousBuffs[i]);
         }
 
-        public override void ResetEffects() {
+        public override void ResetEffects()
+        {
             ResetEffectsVoid();
         }
 
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) {
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
             mod.networkLoader.Get<PlayerSyncPacket>().Send(this, toWho, fromWho);
         }
 
 
-        public override void PostUpdate() {
+        public override void PostUpdate()
+        {
             PostUpdateVoid();
         }
 
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit) {
+        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
+        {
             ModifyHitByNPCVoid(npc, ref damage, ref crit);
         }
 
-        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit) {
+        public override void ModifyHitByProjectile(Projectile proj, ref int damage, ref bool crit)
+        {
             ModifyHitByProjectileVoid(proj, ref damage, ref crit);
         }
 

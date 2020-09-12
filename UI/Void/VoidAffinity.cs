@@ -16,14 +16,16 @@ namespace ROI.UI.Void
         private readonly Texture2D voidMeterFilled;
         private readonly Texture2D voidMeterEmpty;
 
-        public VoidAffinity(Mod mod) : base(mod) {
+        public VoidAffinity(Mod mod) : base(mod)
+        {
             GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(new Ref<Effect>(mod.GetEffect("Effects/RadialProgress")), "progress");
 
             voidMeterFilled = mod.GetTexture("Textures/Elements/VoidMeterFull");
             voidMeterEmpty = mod.GetTexture("Textures/Elements/VoidMeterEmpty");
         }
 
-        public override void Draw(SpriteBatch spriteBatch) {
+        public override void Draw(SpriteBatch spriteBatch)
+        {
             ROIPlayer player = ROIPlayer.Get(Main.LocalPlayer);
             float percent = player.VoidAffinity / player.MaxVoidAffinity / 100f;
 
@@ -68,7 +70,8 @@ namespace ROI.UI.Void
                 voidMeterEmpty.Width,
                 voidMeterFilled.Height);
 
-            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y)) {
+            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
+            {
                 Main.hoverItemName = $"Void meter : {player.VoidAffinity}/{player.MaxVoidAffinity}\n" +
                     $"Percent : {percent * 100}%\n" +
                     $"Tier : {player.VoidTier}";
@@ -77,7 +80,8 @@ namespace ROI.UI.Void
 
 
         // TODO: (low prio) Move this to DrawUtils
-        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent) {
+        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
+        {
             Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
             Color[] colorData = new Color[diameter * diameter];
 
@@ -86,18 +90,22 @@ namespace ROI.UI.Void
             float radiusSquared = radius * radius;
             float radiusSquaredInterior = radiusInterior * radiusInterior;
 
-            for (int x = 0; x < diameter; x++) {
-                for (int y = 0; y < diameter; y++) {
+            for (int x = 0; x < diameter; x++)
+            {
+                for (int y = 0; y < diameter; y++)
+                {
 
                     int index = x * diameter + y;
                     Vector2 pos = new Vector2(x - radius, y - radius);
                     float anglePercent = (percent * MathHelper.TwoPi) - MathHelper.Pi;
                     float angle = (float)Math.Atan2(pos.Y, pos.X);
 
-                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior) {
+                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
+                    {
                         colorData[index] = Color.White;
                     }
-                    else {
+                    else
+                    {
                         colorData[index] = Color.Transparent;
                     }
                 }

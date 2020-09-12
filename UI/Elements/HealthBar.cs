@@ -14,7 +14,8 @@ namespace ROI.UI.Elements
         private readonly Texture2D _bg;
         private readonly Texture2D _fg;
 
-        public HealthBar(Mod mod) {
+        public HealthBar(Mod mod)
+        {
             // TODO: (very low prio) make it work with any health bar texture, would also include using StyleDims
             _bg = mod.GetTexture("Textures/Elements/HealthBarBG");
             _fg = mod.GetTexture("Textures/Elements/HealthBarFG");
@@ -23,7 +24,8 @@ namespace ROI.UI.Elements
 
         public event GetDrawInfoDG GetDrawInfo;
 
-        public override void Draw(SpriteBatch sb) {
+        public override void Draw(SpriteBatch sb)
+        {
             // afaik Draw is singlethreaded, because it would be dumb otherwise
             // however, the official docs for publishing events say that race
             // conditions are possible here, just something to note - Agrair
@@ -32,14 +34,15 @@ namespace ROI.UI.Elements
 
             Vector2 offset = new Vector2(Main.screenWidth / 2, Main.screenHeight - 100);
             if (ModLoader.GetMod("HEROsMod") != null
-                || ModLoader.GetMod("CheatSheet") != null) {
+                || ModLoader.GetMod("CheatSheet") != null)
+            {
                 offset.Y -= 50;
             }
             Vector2 textSize = Main.fontDeathText.MeasureString(name) * 0.5f;
             Vector2 healthTextSize = Main.fontDeathText.MeasureString(health) * 0.5f;
 
-            sb.Draw(_bg, 
-                new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41), 
+            sb.Draw(_bg,
+                new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41),
                 new Rectangle(0, 0, 20, 41), color * 0.5f);
             sb.Draw(_bg,
                 new Rectangle((int)offset.X - 250 + 20, (int)offset.Y + 41, 460, 41),

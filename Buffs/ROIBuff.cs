@@ -8,7 +8,8 @@ namespace ROI.Buffs
         private readonly string _displayName, _tooltip;
         private readonly bool _hideTime, _save, _persistent, _canBeCleared, _debuff, _longerExpertDebuff;
 
-        protected ROIBuff(string displayName, string tooltip, bool hideTime = false, bool save = false, bool persistent = false, bool canBeCleared = true, bool debuff = false, bool longerExpertDebuff = false) {
+        protected ROIBuff(string displayName, string tooltip, bool hideTime = false, bool save = false, bool persistent = false, bool canBeCleared = true, bool debuff = false, bool longerExpertDebuff = false)
+        {
             _displayName = displayName;
             _tooltip = tooltip;
 
@@ -21,7 +22,8 @@ namespace ROI.Buffs
             _longerExpertDebuff = longerExpertDebuff;
         }
 
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             base.SetDefaults();
 
             DisplayName.SetDefault(_displayName);

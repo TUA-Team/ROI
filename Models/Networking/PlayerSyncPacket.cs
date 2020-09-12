@@ -1,5 +1,4 @@
-﻿using API;
-using ROI.Players;
+﻿using ROI.Players;
 using ROI.Void;
 using System.IO;
 using Terraria;
@@ -8,7 +7,8 @@ namespace ROI.Models.Networking
 {
     public sealed class PlayerSyncPacket : NetworkPacket<ROIPlayer>
     {
-        public override void ReceiveData(BinaryReader reader, int fromWho) {
+        public override void ReceiveData(BinaryReader reader, int fromWho)
+        {
             ushort voidAffinity = reader.ReadUInt16();
             byte voidTier = reader.ReadByte();
             int voidItemCooldown = reader.ReadInt32();
@@ -20,7 +20,8 @@ namespace ROI.Models.Networking
             roiPlayer.VoidItemCooldown = voidItemCooldown;
         }
 
-        protected override void WriteData(ROIPlayer state) {
+        protected override void WriteData(ROIPlayer state)
+        {
             Write(state.VoidAffinity);
             Write((byte)state.VoidTier);
             Write(state.VoidItemCooldown);

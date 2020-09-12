@@ -61,22 +61,26 @@ namespace ROI.Helpers
             return false;
         }
 
-        private static string IssueCommentsJson() {
+        private static string IssueCommentsJson()
+        {
             // some stupid legacy stuff, somehow necessary
             var oldProtocol = ServicePointManager.SecurityProtocol;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback += SCVC;
 
             string json = string.Empty;
-            try {
-                using (var client = new HttpClient()) {
+            try
+            {
+                using (var client = new HttpClient())
+                {
                     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
                     client.DefaultRequestHeaders.Add("User-Agent", "RealmsOfInfinityNightly");
                     var response = client.GetAsync("https://api.github.com/repos/TUA-Team/ROI/issues/3/comments").Result;
                     json = response.Content.ReadAsStringAsync().Result;
                 }
             }
-            catch (HttpRequestException) {
+            catch (HttpRequestException)
+            {
                 Terraria.ModLoader.ModLoader.GetMod("ROI").Logger.Error("Could not download nightly");
             }
 

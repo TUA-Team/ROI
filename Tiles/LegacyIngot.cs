@@ -11,7 +11,8 @@ namespace ROI.Tiles
         public abstract string MapNameLegend { get; }
         public abstract int IngotDropName { get; }
 
-        public sealed override void SetDefaults() {
+        public sealed override void SetDefaults()
+        {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileSolidTop[Type] = true;
@@ -29,7 +30,8 @@ namespace ROI.Tiles
             Main.tileSolid[Type] = true;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY) {
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
             Item.NewItem(i * 16, j * 16, 48, 48, IngotDropName);
         }
     }

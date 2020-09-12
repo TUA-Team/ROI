@@ -6,7 +6,8 @@ namespace ROI.Tiles.Wasteland
 {
     internal class WastelandOre : ModTile
     {
-        public override void SetDefaults() {
+        public override void SetDefaults()
+        {
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;

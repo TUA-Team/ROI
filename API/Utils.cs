@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Terraria.Localization;
@@ -10,11 +11,13 @@ namespace API
     {
         // TODO: (low prio) cache these
         public static T GetField<T>(this object parent, string name,
-            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance) {
+            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance)
+        {
             return (T)parent.GetType().GetField(name, flags).GetValue(parent);
         }
 
-        public static void GenerateLocalization(Mod mod) {
+        public static void GenerateLocalization(Mod mod)
+        {
             var dictionary = (Dictionary<string, ModTranslation>)
                 mod.GetField<IDictionary<string, ModTranslation>>("translations");
 
@@ -40,6 +43,15 @@ namespace API
 
             int index = $"Mods.ROI.".Length;
             ReLogic.OS.Platform.Current.Clipboard = string.Join("\n", list.Select(x => x.Remove(0, index)));
+        }
+
+        public static T GetOrAdd<T>(this ICollection<T> col, Func<T, bool> predicate, Func<T> factory)
+        {
+            var val = col.FirstOrDefault(predicate);
+            if (val != null) return val;
+            val = factory();
+            col.Add(val);
+            return val;
         }
     }
 }
