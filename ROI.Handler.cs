@@ -1,12 +1,14 @@
 ﻿using API;
 using API.Networking;
 using API.Users;
+using Microsoft.Xna.Framework;
 using ROI.Loaders;
 using ROI.Models.Backgrounds;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace ROI
 {
@@ -32,6 +34,7 @@ namespace ROI
             }
 
             networkLoader = new CollectionLoader<NetworkPacket>();
+            networkLoader.OnAdd += p => p.Init(this);
             networkLoader.Initialize(this);
 
             spawnLoader = new SpawnConditionLoader();
@@ -80,6 +83,7 @@ namespace ROI
             networkLoader?[reader.ReadByte()].ReceiveData(reader, whoAmI);
 
         /*
+         * 1.4 totally broke this somehow
         public override void UpdateUI(GameTime gameTime)
         {
             interfaceLoader?.UpdateUI(gameTime);
