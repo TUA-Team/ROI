@@ -1,4 +1,4 @@
-using ROI.API.Networking;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -110,6 +110,8 @@ namespace API.Networking
     {
         private IEnumerable<PropertyInfo> properties;
         private INeedSync instance;
+        private ShouldSerializeNetworkDataContractResolver resolver;
+        private JsonSerializerSettings settings;
 
         public NetworkPacket() : base(new MemoryStream(261), new UTF8Encoding(false, true), true)
         {
@@ -119,152 +121,18 @@ namespace API.Networking
         public override void ReceiveData(BinaryReader reader, int fromWho)
         {
             var state = instance.Identify(reader.ReadInt32());
+            var len = reader.ReadInt32();
 
-            foreach (var p in properties)
-            {
-                if (p.PropertyType == typeof(bool))
-                {
-                    p.SetValue(state, reader.ReadBoolean());
-                }
-
-                else if (p.PropertyType == typeof(byte))
-                {
-                    p.SetValue(state, reader.ReadByte());
-                }
-
-                else if (p.PropertyType == typeof(char))
-                {
-                    p.SetValue(state, reader.ReadChar());
-                }
-
-                else if (p.PropertyType == typeof(Decimal))
-                {
-                    p.SetValue(state, reader.ReadDecimal());
-                }
-
-                else if (p.PropertyType == typeof(Double))
-                {
-                    p.SetValue(state, reader.ReadDouble());
-                }
-
-                else if (p.PropertyType == typeof(Int16))
-                {
-                    p.SetValue(state, reader.ReadInt16());
-                }
-
-                else if (p.PropertyType == typeof(Int32))
-                {
-                    p.SetValue(state, reader.ReadInt32());
-                }
-
-                else if (p.PropertyType == typeof(Int64))
-                {
-                    p.SetValue(state, reader.ReadInt64());
-                }
-
-                else if (p.PropertyType == typeof(SByte))
-                {
-                    p.SetValue(state, reader.ReadSByte());
-                }
-
-                else if (p.PropertyType == typeof(Single))
-                {
-                    p.SetValue(state, reader.ReadSingle());
-                }
-
-                else if (p.PropertyType == typeof(String))
-                {
-                    p.SetValue(state, reader.ReadString());
-                }
-
-                else if (p.PropertyType == typeof(UInt16))
-                {
-                    p.SetValue(state, reader.ReadUInt16());
-                }
-
-                else if (p.PropertyType == typeof(UInt32))
-                {
-                    p.SetValue(state, reader.ReadUInt32());
-                }
-
-                else if (p.PropertyType == typeof(UInt64))
-                {
-                    p.SetValue(state, reader.ReadUInt64());
-                }
-            }
+            JsonConvert.PopulateObject(Encoding.UTF8.GetString(reader.ReadBytes(len)), state);
         }
 
         protected virtual void WriteData(T state)
         {
             Write(state.Identifier);
+            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(state, settings));
 
-            foreach (var p in properties)
-            {
-                if (p.PropertyType == typeof(bool))
-                {
-                    Write((bool)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(byte))
-                {
-                    Write((byte)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(string))
-                {
-                    Write((string)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(float))
-                {
-                    Write((float)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(ulong))
-                {
-                    Write((ulong)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(long))
-                {
-                    Write((long)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(uint))
-                {
-                    Write((uint)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(int))
-                {
-                    Write((int)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(ushort))
-                {
-                    Write((ushort)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(short))
-                {
-                    Write((short)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(double))
-                {
-                    Write((double)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(sbyte))
-                {
-                    Write((sbyte)p.GetValue(state));
-                }
-
-                else if (p.PropertyType == typeof(decimal))
-                {
-                    Write((decimal)p.GetValue(state));
-                }
-            }
+            Write(bytes.Length);
+            Write(bytes, 0, bytes.Length);
         }
 
         protected sealed override void WriteData(object state) => WriteData((T)state);
@@ -274,8 +142,12 @@ namespace API.Networking
             base.Init(mod);
             properties = typeof(T).GetType().GetProperties()
                 .Where(x => x.GetCustomAttribute<SyncAttribute>() is SyncAttribute attr &&
-                attr.PacketType == MyId && x.PropertyType.IsPrimitive);
+                attr.PacketType == MyId);
             instance = new T();
+            settings = new JsonSerializerSettings
+            {
+                ContractResolver = new ShouldSerializeNetworkDataContractResolver(MyId)
+            };
         }
     }
 }

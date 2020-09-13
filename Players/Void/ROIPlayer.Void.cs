@@ -1,6 +1,6 @@
 ﻿using API;
+using API.Networking;
 using Microsoft.Xna.Framework;
-using ROI.API.Networking;
 using ROI.Loaders;
 using ROI.Void;
 using Terraria;
@@ -88,7 +88,7 @@ namespace ROI.Players
         // TODO: Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
 
-        [Sync(NetworkPacketID.SyncPlayer)] 
+        [Sync(NetworkPacketID.SyncPlayer)]
         public ushort VoidAffinity { get; internal set; }
         [Sync(NetworkPacketID.SyncPlayer)]
         public ushort MaxVoidAffinity { get; internal set; }

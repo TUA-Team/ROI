@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ROI.API.Networking
+namespace API.Networking
 {
     // TODO: (med prio) currently only works on primitives
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
