@@ -1,4 +1,5 @@
-﻿using ROI.Models.Networking;
+﻿using API.Networking;
+using ROI.Loaders;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 namespace ROI.Players
 {
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, INeedSync
     {
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
@@ -52,7 +53,7 @@ namespace ROI.Players
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
-            Mod.networkLoader.Get<PlayerSyncPacket>().Send(this, toWho, fromWho);
+            (Mod.networkLoader[NetworkPacketID.SyncPlayer] as NetworkPacket).Send(this, toWho, fromWho);
         }
 
 
@@ -72,10 +73,13 @@ namespace ROI.Players
             ModifyHitByProjectileVoid(proj, ref damage, ref crit);
         }
 
-
         private List<int> PreviousBuffs { get; set; }
 
 
         private new ROIMod Mod => base.Mod as ROIMod;
+
+        public INeedSync Identify(int identity) => Get(Main.player[identity]);
+
+        public int Identifier => player.whoAmI;
     }
 }

@@ -1,30 +1,27 @@
 ﻿using API;
 using API.Networking;
 using API.Users;
-using Microsoft.Xna.Framework;
 using ROI.Loaders;
 using ROI.Models.Backgrounds;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace ROI
 {
     public sealed partial class ROIMod : Mod
     {
-        public CollectionLoader<Background> backgroundLoader;
+        public CollectionLoader backgroundLoader;
         // internal: see addendum in InterfaceLoader
-        internal InterfaceLoader interfaceLoader;
-        public CollectionLoader<NetworkPacket> networkLoader;
-        public SpawnConditionLoader spawnLoader;
-        public UserLoader userLoader;
+        internal BaseLoader interfaceLoader;
+        public CollectionLoader networkLoader;
+        public BaseLoader spawnLoader;
+        public BaseLoader userLoader;
 
         private void InitializeLoaders()
         {
             backgroundLoader = new CollectionLoader<Background>();
-            backgroundLoader.OnAdd += b => b.Init(this);
             backgroundLoader.Initialize(this);
 
             if (!Main.dedServ)
@@ -34,7 +31,6 @@ namespace ROI
             }
 
             networkLoader = new CollectionLoader<NetworkPacket>();
-            networkLoader.OnAdd += p => p.Init(this);
             networkLoader.Initialize(this);
 
             spawnLoader = new SpawnConditionLoader();
@@ -80,7 +76,7 @@ namespace ROI
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            networkLoader?[reader.ReadByte()].ReceiveData(reader, whoAmI);
+            (networkLoader?[reader.ReadByte()] as NetworkPacket).ReceiveData(reader, whoAmI);
 
         /*
          * 1.4 totally broke this somehow

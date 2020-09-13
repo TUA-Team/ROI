@@ -10,6 +10,8 @@ namespace API.Users
     {
         public override void Initialize(Mod mod)
         {
+            base.Initialize(mod);
+
             try
             {
                 string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null).ToString();

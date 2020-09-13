@@ -1,5 +1,7 @@
 ﻿using API;
 using Microsoft.Xna.Framework;
+using ROI.API.Networking;
+using ROI.Loaders;
 using ROI.Void;
 using Terraria;
 
@@ -8,6 +10,7 @@ namespace ROI.Players
     public sealed partial class ROIPlayer
     {
         public const int AFFINITY_STANDARD_LIMIT = 50;
+
 
         public bool voidCollector;
 
@@ -82,11 +85,13 @@ namespace ROI.Players
             AttemptDamageVoidHeart(ref damage);
 
 
-        // TODO Go through these and verify is protection level is accurate.
+        // TODO: Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
 
-        public ushort VoidAffinity { get; set; }
-        public ushort MaxVoidAffinity { get; set; }
+        [Sync(NetworkPacketID.SyncPlayer)] 
+        public ushort VoidAffinity { get; internal set; }
+        [Sync(NetworkPacketID.SyncPlayer)]
+        public ushort MaxVoidAffinity { get; internal set; }
 
         public VoidTier VoidTier { get; internal set; }
 
@@ -100,7 +105,7 @@ namespace ROI.Players
         /// <summary>Just like player.statLifeMax, you shouldn't change this property with potions and buffs. Use <see cref="MaxVoidHearts2"/>.</summary>
         public int MaxVoidHearts { get; set; }
 
-        /// <summary>Just like player.statLifeMax2. Resets on <see cref="ResetEffects"/>.</summary>
+        /// <summary>Just like player.statLifeMax2. Resets every frame via <see cref="ResetEffects"/>.</summary>
         public int MaxVoidHearts2 { get; set; }
     }
 }

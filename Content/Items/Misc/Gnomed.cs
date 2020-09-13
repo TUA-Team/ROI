@@ -17,5 +17,9 @@ namespace ROI.Content.Items.Misc
             // item.reuseDelay = 50;
             // item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/GnomedMeme");
         }
+
+        public override void AddRecipes() => CreateRecipe()
+            .AddIngredient(ItemID.Wood)
+            .Register();
     }
 }

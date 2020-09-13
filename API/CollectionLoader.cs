@@ -20,14 +20,15 @@ namespace API
             _objects[_nextId] = element;
 
             element.MyId = _nextId++;
+            element.Init(Mod);
 
-            OnAdd?.Invoke(element);
+            OnAdd?.Invoke(element, Mod);
 
             return element;
         }
 
 
-        public event Action<IHaveId> OnAdd;
+        public event Action<IHaveId, Mod> OnAdd;
 
 
         public IHaveId this[byte packetType] => _objects[packetType];
@@ -39,8 +40,10 @@ namespace API
     {
         public override void Initialize(Mod mod)
         {
+            base.Initialize(mod);
+            OnAdd += (element, _) => IdHolder.Register(element);
+
             var parentType = typeof(T);
-            OnAdd += element => IdHolder.Register(element);
 
             foreach (var t in mod.Code.DefinedTypes.Where(t => parentType.IsAssignableFrom(t)))
             {
@@ -51,13 +54,10 @@ namespace API
             }
         }
 
-        public new event Action<T> OnAdd
+        public new event Action<T, Mod> OnAdd
         {
-            add => base.OnAdd += instance => value((T)instance);
-            remove => base.OnAdd -= instance => value((T)instance);
+            add => base.OnAdd += (instance, mod) => value((T)instance, mod);
+            remove => base.OnAdd -= (instance, mod) => value((T)instance, mod);
         }
-
-        public T Get<TUnique>() where TUnique : T => (T)base[IdHolder<TUnique>.Id];
-        public new T this[byte packetType] => (T)base[packetType];
     }
 }
