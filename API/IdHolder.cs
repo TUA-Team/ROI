@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace API
 {
     /// <summary>
     /// This class assumes that there will never ever be another instance of the specified IHaveId object.
-    /// This means that any type derived from IHaveId must be a singleton
+    /// This means that any type derived from IHaveId and used in tandem with a CollectionLoader must be a singleton
     /// </summary>
     public static class IdHolder
     {
@@ -22,6 +23,7 @@ namespace API
 
         static IdHolder()
         {
+            ModLoader.GetMod("ROI").Logger.Info($"IdHolder registered for {nameof(T)}");
             IdHolder.Link(typeof(T), Link);
         }
 

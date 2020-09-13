@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Items.Misc
+namespace ROI.Content.Items.Misc
 {
     internal class Poutine : ModItem
     {

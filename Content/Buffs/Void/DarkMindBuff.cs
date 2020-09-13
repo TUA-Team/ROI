@@ -1,5 +1,4 @@
-﻿using ROI.Content.Buffs;
-using ROI.Players;
+﻿using ROI.Players;
 using Terraria;
 
 namespace ROI.Content.Buffs.Void
@@ -14,7 +13,7 @@ namespace ROI.Content.Buffs.Void
         {
             ROIPlayer roiPlayer = ROIPlayer.Get(player);
 
-            roiPlayer.player.allDamageMult -= 0.5f;
+            player.allDamageMult -= 0.5f;
             roiPlayer.DebuffDurationMultiplier += 0.5f;
         }
     }

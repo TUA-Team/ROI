@@ -1,14 +1,12 @@
 ﻿using API;
 using API.Networking;
 using API.Users;
-using Microsoft.Xna.Framework;
 using ROI.Loaders;
 using ROI.Models.Backgrounds;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace ROI
 {
@@ -63,6 +61,8 @@ namespace ROI
 
         private void UnloadLoaders()
         {
+            IdHolder.objsByType?.Clear();
+
             backgroundLoader = null;
 
             interfaceLoader = null;
@@ -79,6 +79,7 @@ namespace ROI
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
             networkLoader?[reader.ReadByte()].ReceiveData(reader, whoAmI);
 
+        /*
         public override void UpdateUI(GameTime gameTime)
         {
             interfaceLoader?.UpdateUI(gameTime);
@@ -89,5 +90,6 @@ namespace ROI
             // see addendum in InterfaceLoader.ModifyInterfaceLayers
             interfaceLoader?.ModifyInterfaceLayers(layers, out _);
         }
+        */
     }
 }

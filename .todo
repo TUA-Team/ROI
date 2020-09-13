@@ -9,13 +9,6 @@ import wasteland
 	- pick and axe
 	- weapons
 	- heart of the wasteland
-	- music config
-
-import buffs
-	- (?)
-
-void pillar
-	- import npc
 
 import armor
 	- armorbase
@@ -24,8 +17,6 @@ import armor
 		- doodle
 
 import placeables
-	- wasteland
-	- hell
 	- wasteland -> furniture
 	
 import main menu changes
@@ -33,6 +24,7 @@ import main menu changes
 	- patches
 
 graphical user interfaces
-	- void affinity (OOP)
 	- void health (OOP)
-	- void pillar (OOP)
+
+additional, debatable todos
+	- move all textures to Assets folder

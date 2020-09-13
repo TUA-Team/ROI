@@ -37,6 +37,7 @@ namespace ROI
         }
 
 
+        /*
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             // TODO: (low prio) this was in EM, but it might be redundant
@@ -45,11 +46,12 @@ namespace ROI
             // Highest to lowest priority here, just return if a condition is validated
 
             // TODO: wasteland
-            /*if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland &&
+            if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland &&
                 MusicConfig.WastelandMusic != WastelandMusicType.Vanilla) {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/Wasteland_" + MusicConfig.WastelandMusic);
                 priority = MusicPriority.Environment;
-            }*/
+            }
         }
+        */
     }
 }

@@ -34,6 +34,7 @@ namespace ROI.Content.Items
         {
             item.width = _width;
             item.height = _height;
+            item.stack = _stack;
 
             item.value = Value;
             item.defense = Defense;

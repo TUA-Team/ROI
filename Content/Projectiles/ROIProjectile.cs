@@ -40,8 +40,6 @@ namespace ROI.Content.Projectiles
             if (Owner == null)
                 Owner = ROIPlayer.Get(Main.player[projectile.owner]);
 
-            projectile.netUpdate = true;
-
             return base.PreAI();
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using Terraria.ModLoader;
 
@@ -12,15 +13,15 @@ namespace API
 
         public IHaveId Add(IHaveId element)
         {
+            Debug.Assert(element != null, $"CollectionLoader: {nameof(element)} is null");
+
             Array.Resize(ref _objects, _nextId + 1);
 
             _objects[_nextId] = element;
 
             element.MyId = _nextId++;
 
-            IdHolder.Register(element);
-
-            OnAdd(element);
+            OnAdd?.Invoke(element);
 
             return element;
         }
@@ -39,13 +40,14 @@ namespace API
         public override void Initialize(Mod mod)
         {
             var parentType = typeof(T);
+            OnAdd += element => IdHolder.Register(element);
+
             foreach (var t in mod.Code.DefinedTypes.Where(t => parentType.IsAssignableFrom(t)))
             {
                 if (t.IsAbstract) continue;
                 if (t.IsEquivalentTo(parentType)) continue;
 
-                var instance = (IHaveId)Activator.CreateInstance(t);
-                Add(instance);
+                Add((IHaveId)Activator.CreateInstance(t));
             }
         }
 

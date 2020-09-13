@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using Terraria.Localization;
-using Terraria.ModLoader;
 
 namespace API
 {
@@ -17,11 +14,10 @@ namespace API
             return (T)parent.GetType().GetField(name, flags).GetValue(parent);
         }
 
+        /*
+         * this got totally screwed over by tML 1.4 reworks
         public static void GenerateLocalization(Mod mod)
         {
-            var dictionary = (Dictionary<string, ModTranslation>)
-                mod.GetField<IDictionary<string, ModTranslation>>("translations");
-
             var list = new List<string>();
 
             list.AddRange(mod.GetField<IDictionary<string, ModItem>>("items")
@@ -45,6 +41,7 @@ namespace API
             int index = $"Mods.ROI.".Length;
             System.IO.File.WriteAllText(Path.Combine(ModLoader.ModPath, "localized.txt"), string.Join("\n", list.Select(x => x.Remove(0, index))));
         }
+        */
 
         public static T GetOrAdd<T>(this ICollection<T> col, Func<T, bool> predicate, Func<T> factory)
         {

@@ -10,7 +10,7 @@ namespace ROI
         {
             InitializeLoaders();
 
-            API.Utils.GenerateLocalization(this);
+            // Utils.GenerateLocalization(this);
 
             if (!Main.dedServ)
             {
