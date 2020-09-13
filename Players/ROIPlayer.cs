@@ -1,5 +1,4 @@
 ﻿using API.Networking;
-using ROI.Loaders;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -51,10 +50,8 @@ namespace ROI.Players
         }
 
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-        {
-            (Mod.networkLoader[NetworkPacketID.SyncPlayer] as NetworkPacket).Send(this, toWho, fromWho);
-        }
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) => 
+            Mod.networkLoader.Send("sync", this, toWho, fromWho);
 
 
         public override void PostUpdate()

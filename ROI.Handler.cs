@@ -15,7 +15,8 @@ namespace ROI
         public CollectionLoader backgroundLoader;
         // internal: see addendum in InterfaceLoader
         internal BaseLoader interfaceLoader;
-        public CollectionLoader networkLoader;
+        // explicit implementation: it's annoying otherwise, the packet system requires too much strongly typed nonsense to be represented by the abstract type
+        public NetworkPacketLoader networkLoader;
         public BaseLoader spawnLoader;
         public BaseLoader userLoader;
 
@@ -30,7 +31,7 @@ namespace ROI
                 interfaceLoader.Initialize(this);
             }
 
-            networkLoader = new CollectionLoader<NetworkPacket>();
+            networkLoader = new NetworkPacketLoader();
             networkLoader.Initialize(this);
 
             spawnLoader = new SpawnConditionLoader();

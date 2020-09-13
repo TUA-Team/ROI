@@ -1,7 +1,6 @@
 ﻿using API;
 using API.Networking;
 using Microsoft.Xna.Framework;
-using ROI.Loaders;
 using ROI.Void;
 using Terraria;
 
@@ -88,22 +87,20 @@ namespace ROI.Players
         // TODO: Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
 
-        [Sync(NetworkPacketID.SyncPlayer)]
-        public ushort VoidAffinity { get; internal set; }
-        [Sync(NetworkPacketID.SyncPlayer)]
-        public ushort MaxVoidAffinity { get; internal set; }
+        [Save, SyncKind("sync")] public ushort VoidAffinity { get; internal set; }
+        [Save, SyncKind("sync")] public ushort MaxVoidAffinity { get; internal set; }
 
         public VoidTier VoidTier { get; internal set; }
 
         public uint VoidExposure { get; private set; }
 
         public int VoidEffectAttemptCooldown { get; internal set; }
-        public int VoidItemCooldown { get; internal set; }
+        [Save] public int VoidItemCooldown { get; internal set; }
 
-        public int VoidHeartHP { get; set; }
+        [Save] public int VoidHeartHP { get; set; }
 
         /// <summary>Just like player.statLifeMax, you shouldn't change this property with potions and buffs. Use <see cref="MaxVoidHearts2"/>.</summary>
-        public int MaxVoidHearts { get; set; }
+        [Save] public int MaxVoidHearts { get; set; }
 
         /// <summary>Just like player.statLifeMax2. Resets every frame via <see cref="ResetEffects"/>.</summary>
         public int MaxVoidHearts2 { get; set; }

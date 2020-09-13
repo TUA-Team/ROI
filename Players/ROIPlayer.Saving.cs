@@ -1,4 +1,7 @@
-﻿using Terraria.ModLoader.IO;
+﻿using API;
+using System.Linq;
+using System.Reflection;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Players
 {
@@ -6,16 +9,31 @@ namespace ROI.Players
     {
         public override TagCompound Save()
         {
-            TagCompound tag = new TagCompound();
+            // TODO: (low prio) can be simplified with linq, probably
+            var tag = new TagCompound();
 
-            SaveVoid(tag);
+            foreach (var p in GetType().GetProperties())
+            {
+                if (p.GetCustomAttribute<SaveAttribute>() != null)
+                {
+                    tag.Add(p.Name, p.GetValue(this));
+                }
+            }
 
             return tag;
         }
 
         public override void Load(TagCompound tag)
         {
-            LoadVoid(tag);
+            var coll = tag.ToDictionary(x => x.Key, x => x.Value);
+
+            foreach (var p in GetType().GetProperties())
+            {
+                if (p.GetCustomAttribute<SaveAttribute>() is var attr)
+                {
+                    p.SetValue(this, tag[p.Name]);
+                }
+            }
         }
     }
 }

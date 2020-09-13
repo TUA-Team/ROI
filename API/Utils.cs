@@ -51,5 +51,7 @@ namespace API
             col.Add(val);
             return val;
         }
+
+        public static bool EqualsIC(this string str, string str2) => str.ToUpper().Equals(str2);
     }
 }

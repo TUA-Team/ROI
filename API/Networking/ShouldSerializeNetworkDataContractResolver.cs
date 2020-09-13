@@ -6,21 +6,19 @@ namespace API.Networking
 {
     public class ShouldSerializeNetworkDataContractResolver : DefaultContractResolver
     {
-        private readonly byte packet;
+        private readonly string kind;
 
-        public ShouldSerializeNetworkDataContractResolver(byte packet)
+        public ShouldSerializeNetworkDataContractResolver(string kind)
         {
-            this.packet = packet;
+            this.kind = kind;
         }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             JsonProperty property = base.CreateProperty(member, memberSerialization);
             property.ShouldSerialize =
-                instance =>
-                {
-                    return member.DeclaringType.GetCustomAttribute<SyncAttribute>() != null;
-                };
+                instance => member.DeclaringType.GetCustomAttribute<SyncKindAttribute>() is var attr
+                    && attr.Kind.EqualsIC(kind);
 
             return property;
         }

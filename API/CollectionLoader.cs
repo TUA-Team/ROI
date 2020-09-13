@@ -15,6 +15,7 @@ namespace API
         {
             Debug.Assert(element != null, $"CollectionLoader: {nameof(element)} is null");
 
+
             Array.Resize(ref _objects, _nextId + 1);
 
             _objects[_nextId] = element;
@@ -22,13 +23,13 @@ namespace API
             element.MyId = _nextId++;
             element.Init(Mod);
 
-            OnAdd?.Invoke(element, Mod);
+            OnAdd?.Invoke(element);
 
             return element;
         }
 
 
-        public event Action<IHaveId, Mod> OnAdd;
+        public event Action<IHaveId> OnAdd;
 
 
         public IHaveId this[byte packetType] => _objects[packetType];
@@ -40,24 +41,24 @@ namespace API
     {
         public override void Initialize(Mod mod)
         {
-            base.Initialize(mod);
-            OnAdd += (element, _) => IdHolder.Register(element);
+            OnAdd += element => IdHolder.Register(element);
 
             var parentType = typeof(T);
 
             foreach (var t in mod.Code.DefinedTypes.Where(t => parentType.IsAssignableFrom(t)))
             {
                 if (t.IsAbstract) continue;
+                if (t.ContainsGenericParameters) continue;
                 if (t.IsEquivalentTo(parentType)) continue;
 
                 Add((IHaveId)Activator.CreateInstance(t));
             }
         }
 
-        public new event Action<T, Mod> OnAdd
+        public new event Action<T> OnAdd
         {
-            add => base.OnAdd += (instance, mod) => value((T)instance, mod);
-            remove => base.OnAdd -= (instance, mod) => value((T)instance, mod);
+            add => base.OnAdd += instance => value((T)instance);
+            remove => base.OnAdd -= instance => value((T)instance);
         }
     }
 }
