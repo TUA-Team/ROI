@@ -1,5 +1,8 @@
-﻿using ROI.Content.Buffs.Void;
+﻿using Microsoft.Xna.Framework;
+using ROI.Content.Buffs.Void;
+using ROI.Content.NPCs;
 using ROI.Extensions;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -8,10 +11,8 @@ namespace ROI.Worlds
 {
     public sealed class ROIWorld : ModWorld
     {
-        // TODO: (low prio) make this work again
         public override TagCompound Save()
         {
-            /*
             TagCompound tag = new TagCompound()
             {
                 [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
@@ -28,7 +29,7 @@ namespace ROI.Worlds
 
                     npcTag.Add(nameof(NPC.position), npc.position);
                     npcTag.Add(nameof(NPC.modNPC.Name), npc.modNPC.Name);
-                    npcTag.Add(nameof(NPC.modNPC.mod), npc.modNPC.mod.Name);
+                    npcTag.Add(nameof(NPC.modNPC.Mod), npc.modNPC.Mod.Name);
 
                     if (saveable.SaveHP)
                         npcTag.Add(nameof(NPC.life), npc.life);
@@ -40,29 +41,30 @@ namespace ROI.Worlds
             }
 
             tag.Add(nameof(ISaveableEntity), npcTags);
-            return tag;
-            */
 
-            return base.Save();
+            return tag;
         }
 
         public override void Load(TagCompound tag)
         {
-            /*
-            List<TagCompound> npcTags = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
+            List<TagCompound> npcs = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
 
-            foreach (TagCompound currentTag in npcTags)
+            foreach (TagCompound currentTag in npcs)
             {
                 Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
-                int npcInstanceId = NPC.NewNPC((int)position.X, (int)position.Y, ModContent.BuffType(currentTag.GetString(nameof(NPC.modNPC.Name))));
+                if (ModContent.TryFind<ModNPC>(currentTag.GetString(nameof(NPC.modNPC.Name)), out var npc))
+                {
+                    int npcIndex = NPC.NewNPC((int)position.X, (int)position.Y, npc.Type);
 
-                if (Main.npc[npcInstanceId].modNPC is ISaveableEntity saveable)
-                    saveable.Load(currentTag);
+                    if (Main.npc[npcIndex].modNPC is ISaveableEntity saveable)
+                    {
+                        saveable.Load(currentTag);
 
-                if (currentTag.ContainsKey(nameof(NPC.life)))
-                    Main.npc[npcInstanceId].life = tag.GetAsInt(nameof(NPC.life));
+                        if (saveable.SaveHP && currentTag.ContainsKey(nameof(NPC.life)))
+                            Main.npc[npcIndex].life = tag.GetAsInt(nameof(NPC.life));
+                    }
+                }
             }
-            */
         }
 
 
