@@ -25,7 +25,7 @@ namespace ROI.Loaders
         private GameTime lastGameTime;
 
 
-        public override void Initialize(Mod mod)
+        protected override void OnInitialize(Mod mod)
         {
             vAffinityState = new VoidAffinity(mod);
             vAffinityState.Activate();

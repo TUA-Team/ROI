@@ -8,10 +8,8 @@ namespace API.Users
     // web's code
     public sealed class UserLoader : BaseLoader
     {
-        public override void Initialize(Mod mod)
+        protected override void OnInitialize(Mod mod)
         {
-            base.Initialize(mod);
-
             try
             {
                 string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null).ToString();

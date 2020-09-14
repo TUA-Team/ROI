@@ -6,7 +6,7 @@ namespace API.Networking
 {
     public sealed class NetworkPacketLoader : CollectionLoader<NetworkPacket>
     {
-        public override void Initialize(Mod mod)
+        protected override void OnInitialize(Mod mod)
         {
             OnAdd += element => IdHolder.Register(element);
 

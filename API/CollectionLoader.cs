@@ -39,7 +39,7 @@ namespace API
 
     public class CollectionLoader<T> : CollectionLoader where T : IHaveId
     {
-        public override void Initialize(Mod mod)
+        protected override void OnInitialize(Mod mod)
         {
             OnAdd += element => IdHolder.Register(element);
 

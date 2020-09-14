@@ -14,10 +14,8 @@ namespace ROI.Loaders
         private Dictionary<Type, SpawnCondition> _spawnConditionsByType;
 
 
-        public override void Initialize(Mod mod)
+        protected override void OnInitialize(Mod mod)
         {
-            base.Initialize(mod);
-
             _spawnConditionsByType = new Dictionary<Type, SpawnCondition>();
 
             foreach (TypeInfo spawnConditionType in mod.Code.DefinedTypes.Where(t => t.IsSubclassOf(typeof(SpawnCondition))))

@@ -4,10 +4,16 @@ namespace API
 {
     public abstract class BaseLoader
     {
-        public virtual void Initialize(Mod mod)
+        public void Initialize(Mod mod)
         {
-            Mod = mod;
+            OnInitialize(Mod = mod);
         }
+
+
+        protected virtual void OnInitialize(Mod mod)
+        {
+        }
+        
 
         public virtual void Unload()
         {
