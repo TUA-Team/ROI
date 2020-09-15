@@ -11,6 +11,10 @@ using Terraria.ModLoader;
 
 namespace API.Networking
 {
+    // TODO: (med prio) instead of keeping streams open, instantiate them only on use
+    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria/ModLoader/ModPacket.cs
+    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria.ModLoader/ModNet.cs#L407
+    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria.ModLoader/Mod.cs#L1693
     public abstract class NetworkPacket : BinaryWriter, IHaveId
     {
         private byte[] buf;
@@ -18,10 +22,8 @@ namespace API.Networking
         private short netID = -1;
         private string mod;
 
-        public NetworkPacket(Stream stream, Encoding encoding, bool leaveOpen)
-            : base(stream, encoding, leaveOpen)
+        public NetworkPacket(Encoding encoding) : base(null, encoding, false)
         {
-
         }
 
         public void Send(string kind, object state, int toClient = -1, int ignoreClient = -1)
@@ -29,6 +31,9 @@ namespace API.Networking
             if (netID < 0)
                 throw new Exception("Cannot get packet for " + mod + " because it has not been synced");
 
+            OutStream = new MemoryStream(261);
+
+            Write((ushort)0);
             Write(MessageID.ModPacket);
             if (ModNet.NetModCount < 256)
                 Write((byte)netID);
@@ -84,7 +89,7 @@ namespace API.Networking
             buf = ((MemoryStream)OutStream).GetBuffer();
         }
 
-        public abstract void ReceiveData(BinaryReader reader, int fromWho);
+        public abstract void ReceiveData(BinaryReader reader, string kind, int fromWho);
 
         protected abstract void WriteData(string kind, object state);
 
@@ -102,41 +107,28 @@ namespace API.Networking
         public byte MyId { get; set; }
     }
 
-    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria/ModLoader/ModPacket.cs
-    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria.ModLoader/ModNet.cs#L407
-    // https://github.com/tModLoader/tModLoader/blob/1.4/patches/tModLoader/Terraria.ModLoader/Mod.cs#L1693
     public class NetworkPacket<T> : NetworkPacket where T : INeedSync, new()
     {
-        private static readonly Dictionary<string, JsonSerializerSettings> settings = new Dictionary<string, JsonSerializerSettings>();
-
-
+        private Type type;
         private INeedSync instance;
 
-        public NetworkPacket() : base(new MemoryStream(261), new UTF8Encoding(false, true), true)
+        public NetworkPacket() : base(new UTF8Encoding(false, true))
         {
         }
 
 
-        public override void ReceiveData(BinaryReader reader, int fromWho)
+        public override void ReceiveData(BinaryReader reader, string kind, int fromWho)
         {
             var state = instance.Identify(reader.ReadInt32());
-            var len = reader.ReadInt32();
-
-            JsonConvert.PopulateObject(Encoding.UTF8.GetString(reader.ReadBytes(len)), state);
+            reader.PopulateObjectWProperties(type, state, 
+                x => x.GetCustomAttribute<SyncKindAttribute>() is var attr && attr.Kind.EqualsIC(kind));
         }
 
         protected virtual void WriteData(string kind, T state)
         {
             Write(state.Identifier);
-            var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(state,
-                settings.GetOrAdd(x => x.Key.Equals(kind),
-                () => new KeyValuePair<string, JsonSerializerSettings>(kind.ToUpper(), new JsonSerializerSettings
-                {
-                    ContractResolver = new ShouldSerializeNetworkDataContractResolver(kind.ToUpper())
-                })).Value));
-
-            Write(bytes.Length);
-            Write(bytes, 0, bytes.Length);
+            this.SerializeProperties(type, state, 
+                x => x.GetCustomAttribute<SyncKindAttribute>() is var attr && attr.Kind.EqualsIC(kind));
         }
 
         protected sealed override void WriteData(string kind, object state) => WriteData(kind, (T)state);
@@ -144,6 +136,7 @@ namespace API.Networking
         public override void Init(Mod mod)
         {
             base.Init(mod);
+            type = typeof(T);
             instance = new T();
         }
     }

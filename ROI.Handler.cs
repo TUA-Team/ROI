@@ -31,8 +31,11 @@ namespace ROI
                 interfaceLoader.Initialize(this);
             }
 
-            networkLoader = new NetworkPacketLoader();
-            networkLoader.Initialize(this);
+            if (IsNetSynced)
+            {
+                networkLoader = new NetworkPacketLoader();
+                networkLoader.Initialize(this);
+            }
 
             spawnLoader = new SpawnConditionLoader();
             spawnLoader.Initialize(this);
@@ -77,7 +80,7 @@ namespace ROI
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            (networkLoader?[reader.ReadByte()] as NetworkPacket).ReceiveData(reader, whoAmI);
+            networkLoader.Receive(reader, whoAmI);
 
         /*
          * 1.4 totally broke this somehow

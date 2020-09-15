@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using Terraria.ModLoader;
 
@@ -25,7 +26,12 @@ namespace API.Networking
 
         internal void Send<T>(string kind, T state, int toWho, int fromWho) where T : INeedSync, new()
         {
-            (this[IdHolder<NetworkPacket<T>>.Id] as NetworkPacket<T>).Send(kind, state, toWho, fromWho);
+            (this[IdHolder<NetworkPacket<T>>.Id] as NetworkPacket).Send(kind, state, toWho, fromWho);
+        }
+
+        internal void Receive(BinaryReader reader, int sender)
+        {
+            (this[reader.ReadByte()] as NetworkPacket).ReceiveData(reader, reader.ReadString(), sender);
         }
     }
 }

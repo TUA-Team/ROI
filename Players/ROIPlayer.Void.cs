@@ -20,7 +20,7 @@ namespace ROI.Players
                 return;
 
             VoidTier = tier;
-            MaxVoidAffinity = VoidMath.GetMaxVoidAffinity(VoidTier);
+            MaxVoidAffinity = (short)VoidMath.GetMaxVoidAffinity(VoidTier);
         }
 
         public void RewardAffinity(ushort amount, ushort limit = AFFINITY_STANDARD_LIMIT) =>
@@ -29,7 +29,7 @@ namespace ROI.Players
         public void RewardAffinity(NPC npc, ushort limit = AFFINITY_STANDARD_LIMIT) =>
             RewardAffinity((ushort)(npc.value / Item.buyPrice(gold: 1)), limit);
 
-        public ushort AddVoidAffinity(ushort amount) => VoidAffinity += amount;
+        public ushort AddVoidAffinity(ushort amount) => (ushort)(VoidAffinity += (short)amount);
 
         public void AttemptDamageVoidHeart(ref int damage)
         {
