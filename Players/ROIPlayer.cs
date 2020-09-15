@@ -51,7 +51,7 @@ namespace ROI.Players
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) => 
-            Mod.networkLoader.Send("sync", this, toWho, fromWho);
+            Mod.networkLoader.Value.Send("sync", this, toWho, fromWho);
 
 
         public override void PostUpdate()

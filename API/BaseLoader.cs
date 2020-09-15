@@ -13,7 +13,6 @@ namespace API
         protected virtual void OnInitialize(Mod mod)
         {
         }
-        
 
         public virtual void Unload()
         {

@@ -32,7 +32,7 @@ namespace ROI.Content.Items.Void
             {
                 if (plr.VoidAffinity < plr.MaxVoidAffinity)
                 {
-                    plr.VoidAffinity += (ushort)item.stack;
+                    plr.VoidAffinity += (short)item.stack;
                     if (plr.VoidAffinity > plr.MaxVoidAffinity) plr.VoidAffinity = plr.MaxVoidAffinity;
                 }
                 used = true;
