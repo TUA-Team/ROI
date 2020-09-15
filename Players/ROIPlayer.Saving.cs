@@ -16,6 +16,7 @@ namespace ROI.Players
             {
                 if (p.GetCustomAttribute<SaveAttribute>() != null)
                 {
+                    //Mod.Logger.Debug($"Attempted to seralize property '{p.Name}' with value {p.GetValue(this)}");
                     tag.Add(p.Name, p.GetValue(this));
                 }
             }
@@ -29,8 +30,9 @@ namespace ROI.Players
 
             foreach (var p in GetType().GetProperties())
             {
-                if (p.GetCustomAttribute<SaveAttribute>() is var attr)
+                if (p.GetCustomAttribute<SaveAttribute>() != null)
                 {
+                    //Mod.Logger.Debug($"Attempted to deseralize property '{p.Name}' with value {p.GetValue(this)}");
                     p.SetValue(this, tag[p.Name]);
                 }
             }

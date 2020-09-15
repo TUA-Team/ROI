@@ -18,7 +18,7 @@ namespace ROI
         // explicit implementation: it's annoying otherwise, the packet system requires too much strongly typed nonsense to be represented by the abstract type
         public NetworkPacketLoader networkLoader;
         public BaseLoader spawnLoader;
-        public BaseLoader userLoader;
+        public UserLoader userLoader;
 
         private void InitializeLoaders()
         {
