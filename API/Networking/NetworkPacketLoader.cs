@@ -31,7 +31,7 @@ namespace API.Networking
 
         internal void Receive(BinaryReader reader, int sender)
         {
-            (this[reader.ReadByte()] as NetworkPacket).ReceiveData(reader, sender);
+            (this[reader.ReadByte()] as NetworkPacket).ReceiveData(reader, reader.ReadString(), sender);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Terraria;
@@ -39,6 +40,7 @@ namespace API.Networking
                 Write(netID);
 
             Write(MyId);
+            Write(kind);
 
             WriteData(kind, state);
 
@@ -86,7 +88,7 @@ namespace API.Networking
             buf = ((MemoryStream)OutStream).GetBuffer();
         }
 
-        public abstract void ReceiveData(BinaryReader reader, int fromWho);
+        public abstract void ReceiveData(BinaryReader reader, string kind, int fromWho);
 
         protected abstract void WriteData(string kind, object state);
 
@@ -114,17 +116,18 @@ namespace API.Networking
         }
 
 
-        public override void ReceiveData(BinaryReader reader, int fromWho)
+        public override void ReceiveData(BinaryReader reader, string kind, int fromWho)
         {
             var state = instance.Identify(reader.ReadInt32());
-            reader.PopulateObjectWProperties(state);
+            reader.PopulateObjectWProperties(state, x =>
+                x.GetCustomAttributes<SyncKindAttribute>().Any(attr => attr.Kind.EqualsIC(kind)));
         }
 
         protected virtual void WriteData(string kind, T state)
         {
             Write(state.Identifier);
-            this.SerializeProperties(type, state,
-                x => x.GetCustomAttribute<SyncKindAttribute>() is var attr && attr.Kind.EqualsIC(kind));
+            this.SerializeProperties(type, state, x =>
+                x.GetCustomAttributes<SyncKindAttribute>().Any(attr => attr.Kind.EqualsIC(kind)));
         }
 
         protected sealed override void WriteData(string kind, object state) => WriteData(kind, (T)state);
