@@ -1,5 +1,4 @@
-﻿using ROI.Content.Items;
-using ROI.Players;
+﻿using ROI.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;

@@ -1,5 +1,4 @@
-﻿using ROI.Content.Buffs;
-using Terraria;
+﻿using Terraria;
 
 namespace ROI.Content.Buffs.Void
 {

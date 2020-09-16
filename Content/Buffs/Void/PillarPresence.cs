@@ -1,6 +1,4 @@
-﻿using ROI.Content.Buffs;
-
-namespace ROI.Content.Buffs.Void
+﻿namespace ROI.Content.Buffs.Void
 {
     public sealed class PillarPresence : ROIBuff
     {

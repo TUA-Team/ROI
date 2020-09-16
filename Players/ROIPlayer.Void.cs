@@ -97,7 +97,7 @@ namespace ROI.Players
         public uint VoidExposure { get; private set; }
 
         public int VoidEffectAttemptCooldown { get; internal set; }
-        [Save] 
+        [Save]
         public int VoidItemCooldown { get; internal set; }
 
         [Save]

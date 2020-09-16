@@ -7,7 +7,7 @@ namespace ROI.Content.Projectiles
     public abstract class ROIProjectile : ModProjectile
     {
         private readonly string _displayName;
-        private readonly int _width, _height;
+        protected readonly int _width, _height;
 
         protected ROIProjectile(string displayName, int width, int height, bool cloneNewInstances = true)
         {
