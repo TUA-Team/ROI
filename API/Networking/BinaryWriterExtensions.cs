@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace API.Networking
@@ -34,7 +34,7 @@ namespace API.Networking
         /// <param name="reader"></param>
         /// <param name="shouldSerialize"></param>
         public static void PopulateObjectWProperties<T>(this BinaryReader reader, Func<MemberInfo, bool> shouldSerialize) =>
-            PopulateObjectWProperties(reader, typeof(T), null, shouldSerialize);
+            PopulateObjectWProperties(reader, null);
 
         /// <summary>
         /// Strongly typed populate
@@ -44,7 +44,7 @@ namespace API.Networking
         /// <param name="state"></param>
         /// <param name="shouldSerialize"></param>
         public static void PopulateObjectWProperties<T>(this BinaryReader reader, object state, Func<MemberInfo, bool> shouldSerialize) =>
-            PopulateObjectWProperties(reader, typeof(T), state, shouldSerialize);
+            PopulateObjectWProperties(reader, state);
 
         private class PayloadHandler
         {
@@ -70,10 +70,10 @@ namespace API.Networking
                 return list.ToArray();
             }
 
-            public void WriteList(BinaryWriter writer, object[] list)
+            public void WriteList(BinaryWriter writer, List<object> list)
             {
-                writer.Write((ushort)list.Length);
-                for (int i = 0; i < list.Length; i++)
+                writer.Write((ushort)list.Count);
+                for (ushort i = 0; i < list.Count; i++)
                 {
                     Write(writer, list[i]);
                 }
@@ -107,53 +107,106 @@ namespace API.Networking
 
         public static void SerializeProperties(this BinaryWriter writer, Type type, object state, Func<MemberInfo, bool> shouldSerialize)
         {
-            foreach (var p in type.GetProperties())
+            var properties = new Dictionary<string, object>();
+            getPropertiesOf(type, state, ref properties, null);
+            var enumType = typeof(IEnumerable);
+
+            writer.Write((ushort)properties.Count);
+
+            foreach (var p in properties)
             {
-                if (shouldSerialize(p))
+                writer.Write(p.Key);
+
+                var valType = p.Value.GetType();
+                foreach (var handler in handlers)
                 {
-                    var handler = handlers.FirstOrDefault(x => x.PayloadType.IsEquivalentTo(type));
-                    if (handler != default)
+                    if (handler.PayloadType.IsEquivalentTo(valType))
                     {
-                        if (type.IsArray)
+                        if (enumType.IsAssignableFrom(valType))
                         {
-                            handler.WriteList(writer, (object[])p.GetValue(state));
+                            // because linq apparently doesn't support IEnumerable
+                            var arr = (IEnumerable)p.Value;
+                            var enumr = arr.GetEnumerator();
+                            var list = new List<object>();
+                            do
+                            {
+                                list.Add(enumr.Current);
+                            }
+                            while (enumr.MoveNext());
+
+                            handler.WriteList(writer, list);
                         }
                         else
                         {
-                            handler.Write(writer, p.GetValue(state));
+                            handler.Write(writer, p.Value);
                         }
+                        break;
                     }
-                    else
+                }
+            }
+
+            void getPropertiesOf(Type propertyType, object propertyState, ref Dictionary<string, object> dict, string fieldName)
+            {
+                foreach (var p in propertyType.GetProperties())
+                {
+                    if (shouldSerialize(p))
                     {
-                        // serialize non primitive fields
-                        SerializeProperties(writer, type, p.GetValue(state), shouldSerialize);
+                        fieldName = fieldName != null ?
+                            fieldName + '.' + p.Name
+                            : p.Name;
+
+                        if (p.PropertyType.IsPrimitive)
+                        {
+                            dict.Add(fieldName, p.GetValue(propertyState));
+                        }
+                        else
+                        {
+                            getPropertiesOf(p.PropertyType, p.GetValue(propertyState), ref dict, fieldName);
+                        }
                     }
                 }
             }
         }
 
-        public static void PopulateObjectWProperties(this BinaryReader reader, Type type, object state, Func<MemberInfo, bool> shouldSerialize)
+        public static void PopulateObjectWProperties(this BinaryReader reader, object state)
         {
-            foreach (var p in type.GetProperties())
+            var stateType = state.GetType();
+            var enumType = typeof(IEnumerable);
+
+            var count = reader.ReadUInt16();
+
+            for (ushort i = 0; i < count; i++)
             {
-                if (shouldSerialize(p))
+                object propState = null;
+                Type propType = null;
+                PropertyInfo propInfo = null;
+                var propertyName = reader.ReadString();
+                var split = propertyName.Split('.');
+
+                propInfo = stateType.GetProperty(split[0]);
+                propType = propInfo.PropertyType;
+                propState = propInfo.GetValue(state);
+
+                for (byte k = 1; k < split.Length; k++)
                 {
-                    var handler = handlers.FirstOrDefault(x => x.PayloadType.IsEquivalentTo(type));
-                    if (handler != default)
+                    propInfo = propType.GetProperty(split[k]);
+                    propType = propInfo.PropertyType;
+                    propState = propInfo.GetValue(propState);
+                }
+
+                foreach (var handler in handlers)
+                {
+                    if (handler.PayloadType.IsEquivalentTo(propType))
                     {
-                        if (type.IsArray)
+                        if (enumType.IsAssignableFrom(propType))
                         {
-                            p.SetValue(state, handler.ReadList(reader));
+                            propInfo.SetValue(propState, handler.ReadList(reader));
                         }
                         else
                         {
-                            p.SetValue(state, handler.Read(reader));
+                            propInfo.SetValue(propState, handler.Read(reader));
                         }
-                    }
-                    else
-                    {
-                        // serialize non primitive fields
-                        PopulateObjectWProperties(reader, type, p.GetValue(state), shouldSerialize);
+                        break;
                     }
                 }
             }

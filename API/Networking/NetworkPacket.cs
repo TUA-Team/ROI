@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -41,7 +39,6 @@ namespace API.Networking
                 Write(netID);
 
             Write(MyId);
-            Write(kind);
 
             WriteData(kind, state);
 
@@ -89,7 +86,7 @@ namespace API.Networking
             buf = ((MemoryStream)OutStream).GetBuffer();
         }
 
-        public abstract void ReceiveData(BinaryReader reader, string kind, int fromWho);
+        public abstract void ReceiveData(BinaryReader reader, int fromWho);
 
         protected abstract void WriteData(string kind, object state);
 
@@ -117,17 +114,16 @@ namespace API.Networking
         }
 
 
-        public override void ReceiveData(BinaryReader reader, string kind, int fromWho)
+        public override void ReceiveData(BinaryReader reader, int fromWho)
         {
             var state = instance.Identify(reader.ReadInt32());
-            reader.PopulateObjectWProperties(type, state, 
-                x => x.GetCustomAttribute<SyncKindAttribute>() is var attr && attr.Kind.EqualsIC(kind));
+            reader.PopulateObjectWProperties(state);
         }
 
         protected virtual void WriteData(string kind, T state)
         {
             Write(state.Identifier);
-            this.SerializeProperties(type, state, 
+            this.SerializeProperties(type, state,
                 x => x.GetCustomAttribute<SyncKindAttribute>() is var attr && attr.Kind.EqualsIC(kind));
         }
 

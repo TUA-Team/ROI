@@ -50,7 +50,7 @@ namespace ROI.Players
         }
 
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) => 
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) =>
             Mod.networkLoader.Value.Send("sync", this, toWho, fromWho);
 
 
