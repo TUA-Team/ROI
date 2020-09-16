@@ -132,9 +132,8 @@ namespace API.Networking
             }
         }
 
-        public static void PopulateObjectWProperties(this BinaryReader reader, object state, Func<MemberInfo, bool> shouldSerialize)
+        public static void PopulateObjectWProperties(this BinaryReader reader, Type type, object state, Func<MemberInfo, bool> shouldSerialize)
         {
-            var type = state.GetType();
             foreach (var p in type.GetProperties())
             {
                 if (shouldSerialize(p))

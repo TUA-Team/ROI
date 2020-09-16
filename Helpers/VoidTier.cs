@@ -1,4 +1,4 @@
-﻿namespace ROI.Void
+﻿namespace ROI.Helpers
 {
     // literally just Greek letters, System may even have something for this
     public enum VoidTier : byte

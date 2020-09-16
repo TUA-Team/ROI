@@ -19,7 +19,8 @@ namespace ROI.Content.Items.Misc
         }
 
         public override void AddRecipes() => CreateRecipe()
-            .AddIngredient(ItemID.Wood)
-            .Register();
+                .AddCondition((Mod as ROIMod).DevRecipeCondition)
+                .AddIngredient(ItemID.Wood)
+                .Register();
     }
 }

@@ -12,7 +12,7 @@ namespace ROI.Content.Tiles.Wasteland
         {
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
-            //Main.tileMerge[Type][mod.TileType("Wasteland_Dirt")] = true;
+            //Main.tileMerge[Type][ModContent.TileType<Wasteland_Dirt")] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandGrass>()] = true;
             AddMapEntry(new Color(68, 74, 100));
             minPick = 65;

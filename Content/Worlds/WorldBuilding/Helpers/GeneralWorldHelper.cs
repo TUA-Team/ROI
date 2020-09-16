@@ -1,23 +1,13 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
-namespace ROI.Helpers
+namespace ROI.Content.Worlds.WorldBuilding.Helpers
 {
-    // copied from basemod or something
-    internal static class WorldHelper
+    internal static class GeneralWorldHelper
     {
-        public static void TileMergeAttempt(ushort self, ushort merge, int i, int j)
-        {
-            int up = Main.tile[i, j - 1].type;
-            int down = Main.tile[i, j + 1].type;
-            int left = Main.tile[i - 1, j].type;
-            int right = Main.tile[i + 1, j].type;
-
-            WorldGen.TileMergeAttempt(self, merge, ref up, ref down, ref left, ref right);
-        }
-
         public static void TileRunner(int i, int j, double strength, int steps, int type, int wallType = 0, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
         {
             double num = strength;
@@ -67,7 +57,7 @@ namespace ROI.Helpers
                 {
                     for (int l = num5; l < num6; l++)
                     {
-                        if ((double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.5 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.015))
+                        if (Math.Abs(k - value.X) + Math.Abs(l - value.Y) < strength * 0.5 * (1.0 + WorldGen.genRand.Next(-10, 11) * 0.015))
                         {
                             if (type < 0)
                             {
@@ -86,7 +76,7 @@ namespace ROI.Helpers
                                         break;
                                     //Water
                                     case -3:
-                                        if (Main.tile[k, l].active() && (l > WorldGen.waterLine))
+                                        if (Main.tile[k, l].active() && l > WorldGen.waterLine)
                                         {
                                             Main.tile[k, l].liquid = 255;
                                             if (l > WorldGen.waterLine)
@@ -97,7 +87,7 @@ namespace ROI.Helpers
                                         break;
                                     //Honey
                                     case -4:
-                                        if (Main.tile[k, l].active() && (l > WorldGen.waterLine))
+                                        if (Main.tile[k, l].active() && l > WorldGen.waterLine)
                                         {
                                             Main.tile[k, l].liquid = 255;
                                             if (l > WorldGen.waterLine)
@@ -130,11 +120,11 @@ namespace ROI.Helpers
                             }
                             else
                             {
-                                if (flag && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+                                if (flag && Math.Abs(k - value.X) + Math.Abs(l - value.Y) < strength * 0.3 * (1.0 + WorldGen.genRand.Next(-10, 11) * 0.01))
                                 {
                                     WorldGen.PlaceWall(k, l, 180, true);
                                 }
-                                if (flag2 && (double)(Math.Abs((float)k - value.X) + Math.Abs((float)l - value.Y)) < strength * 0.3 * (1.0 + (double)WorldGen.genRand.Next(-10, 11) * 0.01))
+                                if (flag2 && Math.Abs(k - value.X) + Math.Abs(l - value.Y) < strength * 0.3 * (1.0 + WorldGen.genRand.Next(-10, 11) * 0.01))
                                 {
                                     WorldGen.PlaceWall(k, l, 178, true);
                                 }
@@ -142,7 +132,7 @@ namespace ROI.Helpers
                                 {
                                     Tile tile = Main.tile[k, l];
                                     bool flag3 = Main.tileStone[type] && tile.type != 1;
-                                    if (!TileID.Sets.CanBeClearedDuringGeneration[(int)tile.type])
+                                    if (!TileID.Sets.CanBeClearedDuringGeneration[tile.type])
                                     {
                                         flag3 = true;
                                     }
@@ -158,7 +148,7 @@ namespace ROI.Helpers
                                                     break;
                                                 }
                                             }
-                                            else if (type == 59 && (double)l < Main.worldSurface + (double)WorldGen.genRand.Next(-50, 50))
+                                            else if (type == 59 && l < Main.worldSurface + WorldGen.genRand.Next(-50, 50))
                                             {
                                                 flag3 = true;
                                             }
@@ -176,7 +166,7 @@ namespace ROI.Helpers
                                             {
                                                 flag3 = true;
                                             }
-                                            if ((double)l < Main.worldSurface && type != 59)
+                                            if (l < Main.worldSurface && type != 59)
                                             {
                                                 flag3 = true;
                                             }
@@ -235,7 +225,7 @@ namespace ROI.Helpers
                                     Main.tile[k, l].liquid = 0;
                                     Main.tile[k, l].lava(false);
                                 }
-                                if (noYChange && (double)l < Main.worldSurface && type != 59)
+                                if (noYChange && l < Main.worldSurface && type != 59)
                                 {
                                     Main.tile[k, l].wall = 2;
                                 }
@@ -253,74 +243,74 @@ namespace ROI.Helpers
                 {
                     value += value2;
                     num2 -= 1f;
-                    value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                    value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                    value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                    value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                     if (num > 100.0)
                     {
                         value += value2;
                         num2 -= 1f;
-                        value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                        value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                        value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                        value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                         if (num > 150.0)
                         {
                             value += value2;
                             num2 -= 1f;
-                            value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                            value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                            value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                            value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                             if (num > 200.0)
                             {
                                 value += value2;
                                 num2 -= 1f;
-                                value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                 if (num > 250.0)
                                 {
                                     value += value2;
                                     num2 -= 1f;
-                                    value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                    value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                    value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                    value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                     if (num > 300.0)
                                     {
                                         value += value2;
                                         num2 -= 1f;
-                                        value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                        value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                        value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                        value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                         if (num > 400.0)
                                         {
                                             value += value2;
                                             num2 -= 1f;
-                                            value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                            value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                            value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                            value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                             if (num > 500.0)
                                             {
                                                 value += value2;
                                                 num2 -= 1f;
-                                                value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                                value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                                 if (num > 600.0)
                                                 {
                                                     value += value2;
                                                     num2 -= 1f;
-                                                    value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                                    value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                    value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                    value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                                     if (num > 700.0)
                                                     {
                                                         value += value2;
                                                         num2 -= 1f;
-                                                        value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                                        value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                        value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                        value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                                         if (num > 800.0)
                                                         {
                                                             value += value2;
                                                             num2 -= 1f;
-                                                            value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                                            value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                            value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                            value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                                             if (num > 900.0)
                                                             {
                                                                 value += value2;
                                                                 num2 -= 1f;
-                                                                value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
-                                                                value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                                value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
+                                                                value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                                                             }
                                                         }
                                                     }
@@ -333,7 +323,7 @@ namespace ROI.Helpers
                         }
                     }
                 }
-                value2.X += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                value2.X += WorldGen.genRand.Next(-10, 11) * 0.05f;
                 if (value2.X > 1f)
                 {
                     value2.X = 1f;
@@ -344,7 +334,7 @@ namespace ROI.Helpers
                 }
                 if (!noYChange)
                 {
-                    value2.Y += (float)WorldGen.genRand.Next(-10, 11) * 0.05f;
+                    value2.Y += WorldGen.genRand.Next(-10, 11) * 0.05f;
                     if (value2.Y > 1f)
                     {
                         value2.Y = 1f;
@@ -367,19 +357,19 @@ namespace ROI.Helpers
                 }
                 if (type == 59 && !noYChange)
                 {
-                    if ((double)value2.Y > 0.5)
+                    if (value2.Y > 0.5)
                     {
                         value2.Y = 0.5f;
                     }
-                    if ((double)value2.Y < -0.5)
+                    if (value2.Y < -0.5)
                     {
                         value2.Y = -0.5f;
                     }
-                    if ((double)value.Y < Main.rockLayer + 100.0)
+                    if (value.Y < Main.rockLayer + 100.0)
                     {
                         value2.Y = 1f;
                     }
-                    if (value.Y > (float)(Main.maxTilesY - 300))
+                    if (value.Y > Main.maxTilesY - 300)
                     {
                         value2.Y = -1f;
                     }
@@ -405,7 +395,8 @@ namespace ROI.Helpers
 
             WorldGen.TileMergeAttempt(tile.type, Main.tileMerge[current], ref up, ref down, ref left, ref right, ref upLeft, ref upRight, ref downLeft, ref downRight);
 
-            if (tile.frameX != -1 && tile.frameY != -1 && (current > -1 && TileID.Sets.ChecksForMerge[current]))
+
+            if (tile.frameX != -1 && tile.frameY != -1 && current > -1 && TileID.Sets.ChecksForMerge[current])
             {
                 if (up != -1 && down != -1 && left != -1 && right != -1)
                 {
@@ -1689,6 +1680,74 @@ namespace ROI.Helpers
             }
 
             return true;
+        }
+
+        public static void FillTile(int i, int j, int width, int height, ushort[] tile, ushort[] weight, bool replaceTileMode = false)
+        {
+            if (tile.Length != weight.Length) return;
+
+            List<ushort> weightedList = new List<ushort>();
+
+            for (int index = 0; index < weight.Length; index++)
+            {
+                for (int amountOfItem = 0; amountOfItem < weight[index]; amountOfItem++)
+                {
+                    weightedList.Add(tile[index]);
+                }
+            }
+
+            for (int x = i; x < i + width; x++)
+            {
+                for (int y = j; y < j + height; y++)
+                {
+                    if (replaceTileMode && Main.tile[x, y].active())
+                    {
+                        Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
+                        WorldGen.SquareTileFrame(x, y);
+                    }
+                    else if (!replaceTileMode)
+                    {
+                        Main.tile[x, y].active(true);
+                        Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
+                        WorldGen.SquareTileFrame(x, y);
+                    }
+                }
+            }
+        }
+
+        // TODO: liquid api
+        /*
+        public static void FillLiquid(int i, int j, int width, int height, ModLiquid liquidID, bool stopIfTileHit = false)
+        {
+            for (int x = i; x < i + width; x++)
+            {
+                for (int y = j; y < j + height; y++)
+                {
+                    if (Main.tile[i, j].active() && stopIfTileHit)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        LiquidRef liquidRef = LiquidWorld.grid[x, y];
+                        liquidRef.Amount = 255;
+                        liquidRef.Type = liquidID;
+                    }
+                }
+            }
+        }
+        */
+
+        public static void FillAir(int i, int j, int width, int height)
+        {
+            for (int x = i; x < i + width; x++)
+            {
+                for (int y = j; y < j + height; y++)
+                {
+                    if (WorldGen.InWorld(x, y))
+                        Main.tile[x, y].active(false);
+                }
+            }
         }
     }
 }

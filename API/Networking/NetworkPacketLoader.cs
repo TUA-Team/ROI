@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace API.Networking
 {
-    public sealed class NetworkPacketLoader : CollectionLoader<NetworkPacket>
+    public sealed class NetworkPacketLoader : CollectionLoader
     {
         protected override void OnInitialize(Mod mod)
         {

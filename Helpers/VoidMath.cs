@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ROI.Void
+namespace ROI.Helpers
 {
     public static class VoidMath
     {

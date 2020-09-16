@@ -1,7 +1,7 @@
 ﻿using API;
 using API.Networking;
 using Microsoft.Xna.Framework;
-using ROI.Void;
+using ROI.Helpers;
 using Terraria;
 
 namespace ROI.Players

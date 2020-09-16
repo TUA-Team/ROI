@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ROI.Content.Tiles;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Tiles.Wasteland

@@ -26,6 +26,9 @@
   <ItemGroup>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Void\" />
+  </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build &quot;$(ProjectDir)&quot; -eac &quot;$(TargetPath)&quot; -tmlsavedirectory &quot;D:\Terraria Saves\ModLoader\Beta&quot;" />
   </Target>

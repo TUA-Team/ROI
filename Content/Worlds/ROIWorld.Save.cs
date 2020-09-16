@@ -1,15 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.Content.Buffs.Void;
 using ROI.Content.NPCs;
-using ROI.Extensions;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace ROI.Worlds
+namespace ROI.Content.Worlds
 {
-    public sealed class ROIWorld : ModWorld
+    partial class ROIWorld
     {
         public override TagCompound Save()
         {
@@ -66,20 +64,5 @@ namespace ROI.Worlds
                 }
             }
         }
-
-
-        public override void PreUpdate()
-        {
-            if (StrangePresenceDebuff)
-            {
-                for (int i = 0; i < Main.player.Length; i++)
-                    Main.player[i].AddBuff<PillarPresence>(1, true);
-            }
-        }
-
-
-        public bool StrangePresenceDebuff { get; internal set; }
-
-        public int PillarSpawningTime { get; private set; }
     }
 }
