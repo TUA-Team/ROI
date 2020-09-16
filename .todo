@@ -1,30 +1,34 @@
 ﻿import InfCore
+ 	- infcore dependancy
 	- WastelandTree
 
-import LiquidAPI
-	- (?)
+import LiquidAPI (branch: port_liquid-api)
+	- liquidapi dependancy
+	- liquid waste
 
 import wasteland
-	- background / shaders
-	- pick and axe
-	- weapons
 	- heart of the wasteland
+	- general enemies
 
 import armor
 	- armorbase
 	- irrawood (irradiated)
 	- dev
 		- doodle
+	- void armor
 
-import placeables
-	- wasteland -> furniture
-	
 import main menu changes
 	- config
 	- patches
+	
+import void (branch: port_void-rift)
+	- subworld dependancy
+	- necessary generation code
+	
 
-graphical user interfaces
-	- void health (OOP)
-
-additional, debatable todos
-	- move all textures to Assets folder
+movement
+	- general boilerplate
+	- basic dashes
+	
+tracer rifle
+	- boiler plate
