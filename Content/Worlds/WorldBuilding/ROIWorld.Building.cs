@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ROI.Content.Configs;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Generation;
+using Terraria.ModLoader;
 using Terraria.WorldBuilding;
 
 namespace ROI.Content.Worlds
@@ -9,6 +11,8 @@ namespace ROI.Content.Worlds
     {
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
+            if (!(Mod.GetConfig("Debug") as DebugConfig).GenWasteland) return;
+
             int hellGen = tasks.FindIndex(i => i.Name == "Underworld");
             int hellForgeGen = tasks.FindIndex(i => i.Name == "Hellforge");
             //Mod.Logger.Debug("maxTilesX: " + Main.maxTilesX);

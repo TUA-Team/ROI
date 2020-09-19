@@ -8,11 +8,10 @@ namespace ROI.Content.Configs
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        // TODO: wasteland
-        /*[DefaultValue(false)]
+        [DefaultValue(false)]
         [Label("Generate Wasteland")]
         [Tooltip("Generate Wasteland terrain instead of the Underworld.")]
-        public bool GenWasteland { get; set; }*/
+        public bool GenWasteland { get; set; }
 
         [DefaultValue(false)]
         [Label("Download Nightly Builds")]
