@@ -1,8 +1,9 @@
-﻿using Terraria.ModLoader;
+﻿using ROI.Content.Tiles.Furniture.Wasteland;
+using Terraria.ModLoader;
 
-namespace ROI.Items.Placeables.Furniture
+namespace ROI.Content.Items.Placeables.Furniture.Wasteland
 {
-    class Wastebrick_Door : ModItem
+    internal class Wastebrick_Door : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,7 +22,7 @@ namespace ROI.Items.Placeables.Furniture
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = mod.TileType("Wastebrick_Door_Closed");
+            item.createTile = ModContent.TileType<Wastebrick_Door_Closed>();
         }
     }
 }

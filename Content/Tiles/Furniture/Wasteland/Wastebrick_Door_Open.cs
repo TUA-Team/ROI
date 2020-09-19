@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using ROI.Content.Items.Placeables.Furniture.Wasteland;
 using ROI.Content.Tiles.Furniture.Wasteland;
-using ROI.Items.Placeables.Furniture;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;

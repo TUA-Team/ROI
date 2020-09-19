@@ -1,4 +1,5 @@
-﻿using ROI.Content.Tiles.Wasteland;
+﻿using ROI.Content.Tiles.Furniture.Wasteland;
+using ROI.Content.Tiles.Wasteland;
 using ROI.Content.Walls.Wasteland;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,7 +61,7 @@ namespace ROI.Content.Worlds.WorldBuilding.Helpers
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 2);
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 3);
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 4);
-                        WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, ModContent.TileType<WastebrickDoorClosed>());
+                        WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, ModContent.TileType<Wastebrick_Door_Closed>());
                     }
                 }
             }
@@ -153,7 +154,7 @@ namespace ROI.Content.Worlds.WorldBuilding.Helpers
                     if (WorldGen.genRand.Next(20) == 0)
                     {
                         Main.tile[i, y].active(true);
-                        Main.tile[i, y].type = (ushort)ModContent.TileType<WastebrickPlatform>();
+                        Main.tile[i, y].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
                         Main.tile[i, y].frameX = 0;
                         Main.tile[i, y].frameY = 0;
                         //WorldGen.SquareTileFrame(i, y);

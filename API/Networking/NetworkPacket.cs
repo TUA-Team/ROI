@@ -119,7 +119,7 @@ namespace API.Networking
         public override void ReceiveData(BinaryReader reader, string kind, int fromWho)
         {
             var state = instance.Identify(reader.ReadInt32());
-            reader.PopulateObjectWProperties(state, x =>
+            reader.PopulateObjectWProperties(typeof(T), state, x =>
                 x.GetCustomAttributes<SyncKindAttribute>().Any(attr => attr.Kind.EqualsIC(kind)));
         }
 
