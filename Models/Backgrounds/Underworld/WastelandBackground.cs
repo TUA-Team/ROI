@@ -7,12 +7,12 @@ using Terraria.ModLoader;
 
 namespace ROI.Models.Backgrounds.Underworld
 {
-    public class WastelandBackground : Background
+    public sealed class WastelandBackground : Background
     {
         private readonly Texture2D[] _texture = new Texture2D[5];
 
 
-        public override void Init(Mod mod)
+        public override void Load(Mod mod)
         {
             for (int i = 0; i < _texture.Length; i++)
                 mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);

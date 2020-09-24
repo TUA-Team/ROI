@@ -88,37 +88,39 @@ namespace API.Networking
             buf = ((MemoryStream)OutStream).GetBuffer();
         }
 
-        public abstract void ReceiveData(BinaryReader reader, string kind, int fromWho);
+        public void Receive(BinaryReader reader, int fromWho) => ReceiveData(reader, reader.ReadString(), fromWho);
+
+
+        protected abstract void ReceiveData(BinaryReader reader, string kind, int fromWho);
 
         protected abstract void WriteData(string kind, object state);
 
-        public virtual void Init(Mod mod)
+
+        public void Load(Mod mod)
         {
-            netID = (short)mod.GetType().GetField("netID", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(mod);
             this.mod = mod.Name;
+            netID = mod.GetField<short>("netID");
+
+            IdHookLookup<NetworkPacket>.Register(this);
         }
 
-        public void Link(Action<byte> update)
+        public void Unload()
         {
-            update(MyId);
         }
 
-        public byte MyId { get; set; }
+        public int MyId { get; set; }
     }
 
-    public class NetworkPacket<T> : NetworkPacket where T : INeedSync, new()
+    public class NetworkPacket<T> : NetworkPacket where T : class, INeedSync
     {
-        private Type type;
-        private INeedSync instance;
-
         public NetworkPacket() : base(new UTF8Encoding(false, true))
         {
         }
 
 
-        public override void ReceiveData(BinaryReader reader, string kind, int fromWho)
+        protected override void ReceiveData(BinaryReader reader, string kind, int fromWho)
         {
-            var state = instance.Identify(reader.ReadInt32());
+            var state = ContentInstance<T>.Instance.Identify(reader.ReadInt32());
             reader.PopulateObjectWProperties(typeof(T), state, x =>
                 x.GetCustomAttributes<SyncKindAttribute>().Any(attr => attr.Kind.EqualsIC(kind)));
         }
@@ -126,17 +128,18 @@ namespace API.Networking
         protected virtual void WriteData(string kind, T state)
         {
             Write(state.Identifier);
-            this.SerializeProperties(type, state, x =>
+            this.SerializeProperties(typeof(T), state, x =>
                 x.GetCustomAttributes<SyncKindAttribute>().Any(attr => attr.Kind.EqualsIC(kind)));
         }
 
         protected sealed override void WriteData(string kind, object state) => WriteData(kind, (T)state);
 
-        public override void Init(Mod mod)
+
+        public static void RegisterSyncableType()
         {
-            base.Init(mod);
-            type = typeof(T);
-            instance = new T();
+            var p = new NetworkPacket<T>();
+            IdHookLookup<NetworkPacket>.Register(p);
+            ContentInstance.Register(p);
         }
     }
 }

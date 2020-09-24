@@ -1,5 +1,4 @@
 ﻿using API;
-using System;
 using Terraria.ModLoader;
 
 namespace ROI.Models.Backgrounds
@@ -7,14 +6,12 @@ namespace ROI.Models.Backgrounds
     // TODO: (low prio) should eventually be removed
     public abstract class Background : IHaveId
     {
-        public abstract void Init(Mod mod);
+        public abstract void Load(Mod mod);
 
-
-        public void Link(Action<byte> update)
+        public void Unload()
         {
-            update(MyId);
         }
 
-        public byte MyId { get; set; }
+        public int MyId { get; set; }
     }
 }

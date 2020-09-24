@@ -2,7 +2,6 @@
 using API.Networking;
 using API.Users;
 using ROI.Loaders;
-using ROI.Models.Backgrounds;
 using System.Collections.Generic;
 using System.IO;
 using Terraria.ModLoader;
@@ -11,25 +10,13 @@ namespace ROI
 {
     public sealed partial class ROIMod : Mod
     {
-        public CollectionLoader backgroundLoader;
         // internal: see addendum in InterfaceLoader
         internal LateLoader<InterfaceLoader> interfaceLoader;
-        // explicit implementation: it's annoying otherwise, the packet system requires too much strongly typed nonsense to be represented by the abstract type
-        public LateLoader<NetworkPacketLoader> networkLoader;
-        public BaseLoader spawnLoader;
         public LateLoader<UserLoader> userLoader;
 
         private void InitializeLoaders()
         {
-            backgroundLoader = new CollectionLoader<Background>();
-            backgroundLoader.Initialize(this);
-
             interfaceLoader = new LateLoader<InterfaceLoader>(this);
-
-            networkLoader = new LateLoader<NetworkPacketLoader>(this);
-
-            spawnLoader = new SpawnConditionLoader();
-            spawnLoader.Initialize(this);
 
             userLoader = new LateLoader<UserLoader>(this, l => l.ActiveDevelopers = new List<Developer>
                 {
@@ -51,23 +38,14 @@ namespace ROI
 
         private void UnloadLoaders()
         {
-            IdHolder.objsByType?.Clear();
-
-            backgroundLoader = null;
-
             interfaceLoader = null;
-
-            networkLoader = null;
-
-            spawnLoader?.Unload();
-            spawnLoader = null;
 
             userLoader = null;
         }
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            networkLoader.Value.Receive(reader, whoAmI);
+            IdHookLookup<NetworkPacket>.Get(reader.ReadInt32()).Receive(reader, whoAmI);
 
         /*
          * 1.4 totally broke this somehow
