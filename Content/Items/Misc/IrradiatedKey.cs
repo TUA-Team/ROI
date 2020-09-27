@@ -12,7 +12,7 @@ namespace ROI.Content.Items.Misc
             item.maxStack = 1;
         }
 
-        public override void AddRecipes() => CreateRecipe()
+        public override void AddRecipes() => new RecipeBuilder(this)
                 .AddTile(TileID.Hellforge)
                 .AddIngredient(ItemID.ShadowKey)
                 .Register();

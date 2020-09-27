@@ -1,8 +1,6 @@
-﻿using Terraria.ModLoader;
-
-namespace API.Networking
+﻿namespace API.Networking
 {
-    public interface INeedSync : ILoadable
+    public interface INeedSync
     {
         int Identifier { get; }
 

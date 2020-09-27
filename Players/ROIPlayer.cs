@@ -1,5 +1,4 @@
-﻿using API;
-using API.Networking;
+﻿using API.Networking;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -73,12 +72,10 @@ namespace ROI.Players
 
         private List<int> PreviousBuffs { get; set; }
 
-
-        public override void Load()
+        public override bool Autoload(ref string name)
         {
-            base.Load();
-
             NetworkPacket<ROIPlayer>.RegisterSyncableType();
+            return true;
         }
 
 

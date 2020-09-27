@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
@@ -25,7 +24,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
-            TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+            TileObjectData.newTile.HookCheck = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
             TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
             TileObjectData.newTile.StyleHorizontal = true;
@@ -80,7 +79,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
             Chest.DestroyChest(i, j);
         }
 
-        public override bool RightClick(int i, int j)
+        public override bool NewRightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
             Tile tile = Main.tile[i, j];
@@ -97,14 +96,14 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
             }
             if (player.sign >= 0)
             {
-                SoundEngine.PlaySound(SoundID.MenuClose);
+                Main.PlaySound(SoundID.MenuClose);
                 player.sign = -1;
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
             if (Main.editChest)
             {
-                SoundEngine.PlaySound(SoundID.MenuTick);
+                Main.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
@@ -119,7 +118,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                 {
                     player.chest = -1;
                     Recipe.FindRecipes();
-                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    Main.PlaySound(SoundID.MenuClose);
                 }
                 else
                 {
@@ -136,7 +135,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                     if (chest == player.chest)
                     {
                         player.chest = -1;
-                        SoundEngine.PlaySound(SoundID.MenuClose);
+                        Main.PlaySound(SoundID.MenuClose);
                     }
                     else
                     {
@@ -145,7 +144,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                         Main.recBigList = false;
                         player.chestX = left;
                         player.chestY = top;
-                        SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+                        Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                     }
                     Recipe.FindRecipes();
                 }

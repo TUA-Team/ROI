@@ -19,7 +19,7 @@ namespace ROI.Content.Items.Placeables.Furniture.Wasteland
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.value = 500;
             item.createTile = ModContent.TileType<Tiles.Furniture.Wasteland.WastebrickBookcase>();

@@ -32,8 +32,8 @@ namespace ROI.Content.Tiles
         {
             Player plr = Main.player[Main.myPlayer];
             plr.noThrow = 2;
-            plr.cursorItemIconEnabled = true;
-            plr.cursorItemIconID = ModContent.ItemType<Items.Misc.TerraMusicBox>();
+            plr.showItemIcon = true;
+            plr.showItemIcon2 = ModContent.ItemType<Items.Misc.TerraMusicBox>();
         }
     }
 }

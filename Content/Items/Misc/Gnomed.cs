@@ -18,8 +18,8 @@ namespace ROI.Content.Items.Misc
             // item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/GnomedMeme");
         }
 
-        public override void AddRecipes() => CreateRecipe()
-                .AddCondition((Mod as ROIMod).DevRecipeCondition)
+        public override void AddRecipes() => new RecipeBuilder(this)
+                //.AddCondition((Mod as ROIMod).DevRecipeCondition)
                 .AddIngredient(ItemID.Wood)
                 .Register();
     }

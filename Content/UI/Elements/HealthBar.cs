@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
-using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -40,8 +39,8 @@ namespace ROI.Content.UI.Elements
             {
                 offset.Y -= 50;
             }
-            Vector2 textSize = FontAssets.DeathText.Value.MeasureString(name) * 0.5f;
-            Vector2 healthTextSize = FontAssets.DeathText.Value.MeasureString(health) * 0.5f;
+            Vector2 textSize = Main.fontDeathText.MeasureString(name) * 0.5f;
+            Vector2 healthTextSize = Main.fontDeathText.MeasureString(health) * 0.5f;
 
             sb.Draw(_bg,
                 new Rectangle((int)offset.X - 250, (int)offset.Y + 41, 20, 41),
@@ -61,7 +60,7 @@ namespace ROI.Content.UI.Elements
             sb.Draw(_fg, barArea, new Rectangle(23, 0, 24, 41), color);
 
             Utils.DrawBorderStringFourWay(sb,
-                (DynamicSpriteFont)FontAssets.DeathText,
+                (DynamicSpriteFont)Main.fontDeathText,
                 name,
                 (int)offset.X - textSize.X / 2,
                 offset.Y,
@@ -70,7 +69,7 @@ namespace ROI.Content.UI.Elements
                 Vector2.Zero,
                 0.5f);
             Utils.DrawBorderStringFourWay(sb,
-                (DynamicSpriteFont)FontAssets.DeathText,
+                (DynamicSpriteFont)Main.fontDeathText,
                 health,
                 (int)offset.X - healthTextSize.X / 2,
                 offset.Y + healthTextSize.Y + 10,

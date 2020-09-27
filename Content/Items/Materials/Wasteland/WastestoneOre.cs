@@ -15,7 +15,7 @@ namespace ROI.Content.Items.Materials.Wasteland
             item.useTurn = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.autoReuse = true;
             item.createTile = ModContent.TileType<WastelandOre>();
         }

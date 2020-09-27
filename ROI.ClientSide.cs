@@ -1,4 +1,5 @@
 ﻿using ROI.Content.Configs;
+using ROI.Players;
 using System;
 using System.IO;
 using Terraria;
@@ -15,6 +16,10 @@ namespace ROI
         {
             MusicConfig = ModContent.GetInstance<MusicConfig>();
             DebugConfig = ModContent.GetInstance<DebugConfig>();
+
+            AddMusicBox(GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Terra"),
+                ModContent.ItemType<Content.Items.Misc.TerraMusicBox>(),
+                ModContent.TileType<Content.Tiles.TerraMusicBox>());
 
             if (DebugConfig.Nightly)
             {
@@ -37,7 +42,6 @@ namespace ROI
         }
 
 
-        /*
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             // TODO: (low prio) this was in EM, but it might be redundant
@@ -47,11 +51,11 @@ namespace ROI
 
             // TODO: wasteland
             if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland &&
-                MusicConfig.WastelandMusic != WastelandMusicType.Vanilla) {
-                music = GetSoundSlot(SoundType.Music, "Sounds/Music/Wasteland_" + MusicConfig.WastelandMusic);
+                MusicConfig.WastelandMusic != WastelandMusicType.Vanilla)
+            {
+                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Wasteland_" + MusicConfig.WastelandMusic);
                 priority = MusicPriority.Environment;
             }
         }
-        */
     }
 }

@@ -1,8 +1,6 @@
-﻿using Terraria.ModLoader;
-
-namespace API
+﻿namespace API
 {
-    public interface IHaveId : ILoadable
+    public interface IHaveId
     {
         int MyId { get; set; }
     }

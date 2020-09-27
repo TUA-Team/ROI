@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
+using Terraria.World.Generation;
 
 namespace ROI.Content.Worlds
 {

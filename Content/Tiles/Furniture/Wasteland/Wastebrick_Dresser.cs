@@ -1,7 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
@@ -25,7 +23,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
             TileObjectData.newTile.Origin = new Point16(1, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 16 };
-            TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+            TileObjectData.newTile.HookCheck = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
             TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
             TileObjectData.newTile.StyleHorizontal = true;
@@ -47,7 +45,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
             return true;
         }
 
-        public override bool RightClick(int i, int j)
+        public override bool NewRightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
             if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY == 0)
@@ -60,14 +58,14 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                 int top = Player.tileTargetY - (int)(Main.tile[Player.tileTargetX, Player.tileTargetY].frameY / 18);
                 if (player.sign > -1)
                 {
-                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    Main.PlaySound(SoundID.MenuClose);
                     player.sign = -1;
                     Main.editSign = false;
                     Main.npcChatText = string.Empty;
                 }
                 if (Main.editChest)
                 {
-                    SoundEngine.PlaySound(SoundID.MenuTick);
+                    Main.PlaySound(SoundID.MenuTick);
                     Main.editChest = false;
                     Main.npcChatText = string.Empty;
                 }
@@ -82,7 +80,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                     {
                         player.chest = -1;
                         Recipe.FindRecipes();
-                        SoundEngine.PlaySound(SoundID.MenuClose);
+                        Main.PlaySound(SoundID.MenuClose);
                     }
                     else
                     {
@@ -101,14 +99,14 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                         {
                             player.chest = -1;
                             Recipe.FindRecipes();
-                            SoundEngine.PlaySound(SoundID.MenuClose);
+                            Main.PlaySound(SoundID.MenuClose);
                         }
                         else if (num213 != player.chest && player.chest == -1)
                         {
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            SoundEngine.PlaySound(SoundID.MenuOpen);
+                            Main.PlaySound(SoundID.MenuOpen);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -117,7 +115,7 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                             player.chest = num213;
                             Main.playerInventory = true;
                             Main.recBigList = false;
-                            SoundEngine.PlaySound(SoundID.MenuTick);
+                            Main.PlaySound(SoundID.MenuTick);
                             player.chestX = left;
                             player.chestY = top;
                         }
@@ -130,8 +128,8 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                 Main.playerInventory = false;
                 player.chest = -1;
                 Recipe.FindRecipes();
-                Main.interactedDresserTopLeftX = Player.tileTargetX;
-                Main.interactedDresserTopLeftY = Player.tileTargetY;
+                Main.dresserX = Player.tileTargetX;
+                Main.dresserY = Player.tileTargetY;
                 Main.OpenClothesWindow();
             }
             return true;
@@ -149,33 +147,33 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                 top--;
             }
             int chestIndex = Chest.FindChest(left, top);
-            player.cursorItemIconID = -1;
+            player.showItemIcon2 = -1;
             if (chestIndex < 0)
             {
-                player.cursorItemIconText = Language.GetTextValue("LegacyDresserType.0");
+                player.showItemIconText = Language.GetTextValue("LegacyDresserType.0");
             }
             else
             {
                 if (Main.chest[chestIndex].name != "")
                 {
-                    player.cursorItemIconText = Main.chest[chestIndex].name;
+                    player.showItemIconText = Main.chest[chestIndex].name;
                 }
                 else
                 {
-                    player.cursorItemIconText = chest;
+                    player.showItemIconText = chest;
                 }
-                if (player.cursorItemIconText == chest)
+                if (player.showItemIconText == chest)
                 {
-                    player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
-                    player.cursorItemIconText = "";
+                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
+                    player.showItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            if (player.cursorItemIconText == "")
+            player.showItemIcon = true;
+            if (player.showItemIconText == "")
             {
-                player.cursorItemIconEnabled = false;
-                player.cursorItemIconID = 0;
+                player.showItemIcon = false;
+                player.showItemIcon2 = 0;
             }
         }
 
@@ -191,32 +189,32 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
                 top--;
             }
             int num138 = Chest.FindChest(left, top);
-            player.cursorItemIconID = -1;
+            player.showItemIcon2 = -1;
             if (num138 < 0)
             {
-                player.cursorItemIconText = Language.GetTextValue("LegacyDresserType.0");
+                player.showItemIconText = Language.GetTextValue("LegacyDresserType.0");
             }
             else
             {
                 if (Main.chest[num138].name != "")
                 {
-                    player.cursorItemIconText = Main.chest[num138].name;
+                    player.showItemIconText = Main.chest[num138].name;
                 }
                 else
                 {
-                    player.cursorItemIconText = chest;
+                    player.showItemIconText = chest;
                 }
-                if (player.cursorItemIconText == chest)
+                if (player.showItemIconText == chest)
                 {
-                    player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
-                    player.cursorItemIconText = "";
+                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
+                    player.showItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
+            player.showItemIcon = true;
             if (Main.tile[Player.tileTargetX, Player.tileTargetY].frameY > 0)
             {
-                player.cursorItemIconID = ItemID.FamiliarShirt;
+                player.showItemIcon2 = ItemID.FamiliarShirt;
             }
         }
 

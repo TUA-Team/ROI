@@ -7,7 +7,7 @@ namespace ROI.Content.Items.Misc
     {
         public override void SetDefaults()
         {
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTurn = true;
             item.useAnimation = 15;
             item.useTime = 10;

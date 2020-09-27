@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
-using System;
 using System.Linq;
 using Terraria;
-using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
@@ -25,8 +23,8 @@ namespace ROI.Content.Tiles.Wasteland
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
-            TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(new Func<int, int, int, int, int, int, int>(Chest.FindEmptyChest), -1, 0, true);
-            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(new Func<int, int, int, int, int, int, int>(Chest.AfterPlacement_Hook), -1, 0, false);
+            TileObjectData.newTile.HookCheck = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+            TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
             TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
@@ -94,7 +92,7 @@ namespace ROI.Content.Tiles.Wasteland
                 fail = true;
         }
 
-        public override bool RightClick(int i, int j)
+        public override bool NewRightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
             Tile tile = Main.tile[i, j];
@@ -111,14 +109,14 @@ namespace ROI.Content.Tiles.Wasteland
             }
             if (player.sign >= 0)
             {
-                SoundEngine.PlaySound(SoundID.MenuClose);
+                Main.PlaySound(SoundID.MenuClose);
                 player.sign = -1;
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
             if (Main.editChest)
             {
-                SoundEngine.PlaySound(SoundID.MenuTick);
+                Main.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
@@ -134,7 +132,7 @@ namespace ROI.Content.Tiles.Wasteland
                 {
                     player.chest = -1;
                     Recipe.FindRecipes();
-                    SoundEngine.PlaySound(SoundID.MenuClose);
+                    Main.PlaySound(SoundID.MenuClose);
                 }
                 else
                 {
@@ -164,7 +162,7 @@ namespace ROI.Content.Tiles.Wasteland
                         if (chest == player.chest)
                         {
                             player.chest = -1;
-                            SoundEngine.PlaySound(SoundID.MenuClose);
+                            Main.PlaySound(SoundID.MenuClose);
                         }
                         else
                         {
@@ -173,7 +171,7 @@ namespace ROI.Content.Tiles.Wasteland
                             Main.recBigList = false;
                             player.chestX = left;
                             player.chestY = top;
-                            SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+                            Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                         }
                         Recipe.FindRecipes();
                     }
@@ -197,35 +195,35 @@ namespace ROI.Content.Tiles.Wasteland
                 top--;
             }
             int chest = Chest.FindChest(left, top);
-            player.cursorItemIconID = -1;
+            player.showItemIcon2 = -1;
             if (chest < 0)
             {
-                player.cursorItemIconText = Language.GetTextValue("LegacyChestType.0");
+                player.showItemIconText = Language.GetTextValue("LegacyChestType.0");
             }
             else
             {
                 // TODO: (low prio) localization support
-                player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
-                if (player.cursorItemIconText == "Irradiated Chest")
+                player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
+                if (player.showItemIconText == "Irradiated Chest")
                 {
-                    player.cursorItemIconID = ModContent.ItemType<Items.Placeables.Wasteland.IrradiatedChest>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Wasteland.IrradiatedChest>();
                     if (Main.tile[left, top].frameX / 36 == 1)
-                        player.cursorItemIconID = ModContent.ItemType<Items.Misc.IrradiatedKey>();
-                    player.cursorItemIconText = "";
+                        player.showItemIcon2 = ModContent.ItemType<Items.Misc.IrradiatedKey>();
+                    player.showItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
+            player.showItemIcon = true;
         }
 
         public override void MouseOverFar(int i, int j)
         {
             MouseOver(i, j);
             Player player = Main.LocalPlayer;
-            if (player.cursorItemIconText == "")
+            if (player.showItemIconText == "")
             {
-                player.cursorItemIconEnabled = false;
-                player.cursorItemIconID = -1;
+                player.showItemIcon = false;
+                player.showItemIcon2 = -1;
             }
         }
 

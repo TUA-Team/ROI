@@ -18,8 +18,8 @@ namespace ROI.Loaders
         public VoidAffinity vAffinityState;
         public ROIUserInterface<VoidAffinity> vAffinityInterface;
 
-        public VoidPillarHealthBar vPillarHealthState;
-        public ROIUserInterface<VoidPillarHealthBar> vPillarHealthInterface;
+        //public VoidPillarHealthBar vPillarHealthState;
+        //public ROIUserInterface<VoidPillarHealthBar> vPillarHealthInterface;
 
 
         private GameTime lastGameTime;
@@ -32,9 +32,9 @@ namespace ROI.Loaders
             vAffinityInterface = new ROIUserInterface<VoidAffinity>();
             vAffinityInterface.SetState(vAffinityState);
 
-            vPillarHealthState = new VoidPillarHealthBar(mod);
-            vPillarHealthState.Activate();
-            vPillarHealthInterface = new ROIUserInterface<VoidPillarHealthBar>();
+            //vPillarHealthState = new VoidPillarHealthBar(mod);
+            //vPillarHealthState.Activate();
+            //vPillarHealthInterface = new ROIUserInterface<VoidPillarHealthBar>();
             // implicit: vPillarHealthInterface.SetState(null);
         }
 
@@ -43,10 +43,10 @@ namespace ROI.Loaders
             lastGameTime = gameTime;
 
             // TODO: (super low prio) write simple ?. based way to do this
-            if (vPillarHealthInterface.CurrentState != null)
-            {
-                vPillarHealthInterface.Update(lastGameTime);
-            }
+            //if (vPillarHealthInterface.CurrentState != null)
+            //{
+            //    vPillarHealthInterface.Update(lastGameTime);
+            //}
         }
 
         // list of failedInterfaces is there to debug any possible problems with

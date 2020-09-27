@@ -1,10 +1,12 @@
 ﻿using API;
 using API.Networking;
 using API.Users;
+using Microsoft.Xna.Framework;
 using ROI.Loaders;
 using System.Collections.Generic;
 using System.IO;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace ROI
 {
@@ -34,6 +36,8 @@ namespace ROI
                     new Developer(76561198008064465, "Rartrin", 0),
                     new Developer(76561198843721841, "Skeletony", 0)
                 });
+
+
         }
 
         private void UnloadLoaders()
@@ -47,18 +51,15 @@ namespace ROI
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
             IdHookLookup<NetworkPacket>.Get(reader.ReadInt32()).Receive(reader, whoAmI);
 
-        /*
-         * 1.4 totally broke this somehow
         public override void UpdateUI(GameTime gameTime)
         {
-            interfaceLoader?.UpdateUI(gameTime);
+            interfaceLoader.Value.UpdateUI(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
             // see addendum in InterfaceLoader.ModifyInterfaceLayers
-            interfaceLoader?.ModifyInterfaceLayers(layers, out _);
+            interfaceLoader.Value.ModifyInterfaceLayers(layers, out _);
         }
-        */
     }
 }

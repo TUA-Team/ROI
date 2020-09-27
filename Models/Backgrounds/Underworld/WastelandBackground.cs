@@ -2,7 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
-using Terraria.GameContent;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
 namespace ROI.Models.Backgrounds.Underworld
@@ -18,6 +19,10 @@ namespace ROI.Models.Backgrounds.Underworld
                 mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);
 
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
+
+            Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(
+                new Ref<Effect>(mod.GetEffect($"Assets/Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
+            Filters.Scene["ROI:UnderworldFilter"].Load();
         }
 
 
@@ -99,7 +104,7 @@ namespace ROI.Models.Backgrounds.Underworld
                     if (i == 0)
                     {
                         int num8 = (int)(position.Y + (float)value3.Height * num3);
-                        Main.spriteBatch.Draw((Texture2D)TextureAssets.BlackTile,
+                        Main.spriteBatch.Draw(Main.blackTileTexture,
                             new Rectangle((int)position.X, num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)),
                             new Color(11, 3, 7));
                     }

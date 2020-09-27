@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Content.Items.Placeables.Furniture.Wasteland;
-using ROI.Content.Tiles.Furniture.Wasteland;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -87,8 +86,8 @@ namespace ROI.Content.Tiles.Furniture.Wasteland
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            player.cursorItemIconEnabled = true;
-            player.cursorItemIconID = ModContent.ItemType<Wastebrick_Door>();
+            player.showItemIcon = true;
+            player.showItemIcon2 = ModContent.ItemType<Wastebrick_Door>();
         }
     }
 }

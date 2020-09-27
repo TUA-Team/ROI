@@ -12,7 +12,7 @@ namespace ROI.Content.Items.Placeables.Wasteland
             item.height = 32;
             item.useTime = 1;
             item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandView>();
         }
     }

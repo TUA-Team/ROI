@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.WorldBuilding;
+using Terraria.World.Generation;
 
 namespace ROI.Content.Worlds
 {
@@ -227,9 +227,9 @@ namespace ROI.Content.Worlds
                 int x = Main.rand.Next(200, Main.maxTilesX - 200);
                 if (Scan(x, Main.maxTilesY - 175, out int yGen, (tile =>
                 {
-                     if (tile.type != ModContent.TileType<WastelandDirt>() || tile.liquid > 0)
-                         return false;
-                     return true;
+                    if (tile.type != ModContent.TileType<WastelandDirt>() || tile.liquid > 0)
+                        return false;
+                    return true;
                 })))
                 {
                     if (bigLake++ != AmountOfBigLakePerWorld)

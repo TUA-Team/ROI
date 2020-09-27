@@ -13,7 +13,11 @@ namespace ROI.Content.Walls.Wasteland
 
     internal class WastelandDirtWallSafe : ModWall
     {
-        public override string Texture => ContentInstance<WastelandDirtWall>.Instance.Texture;
+        public override bool Autoload(ref string name, ref string texture)
+        {
+            texture = "ROI/Content/Walls/Wasteland/WastelandDirtWall";
+            return true;
+        }
 
         public override void SetDefaults()
         {

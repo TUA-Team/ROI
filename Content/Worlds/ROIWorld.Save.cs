@@ -2,7 +2,6 @@
 using ROI.Content.NPCs;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace ROI.Content.Worlds
@@ -27,7 +26,7 @@ namespace ROI.Content.Worlds
 
                     npcTag.Add(nameof(NPC.position), npc.position);
                     npcTag.Add(nameof(NPC.modNPC.Name), npc.modNPC.Name);
-                    npcTag.Add(nameof(NPC.modNPC.Mod), npc.modNPC.Mod.Name);
+                    npcTag.Add(nameof(NPC.modNPC.mod), npc.modNPC.mod.Name);
 
                     if (saveable.SaveHP)
                         npcTag.Add(nameof(NPC.life), npc.life);
@@ -50,9 +49,10 @@ namespace ROI.Content.Worlds
             foreach (TagCompound currentTag in npcs)
             {
                 Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
-                if (ModContent.TryFind<ModNPC>(currentTag.GetString(nameof(NPC.modNPC.Name)), out var npc))
+                var npc = mod.GetNPC(currentTag.GetString(nameof(NPC.modNPC.Name)))?.npc;
+                if (npc != null)
                 {
-                    int npcIndex = NPC.NewNPC((int)position.X, (int)position.Y, npc.Type);
+                    int npcIndex = NPC.NewNPC((int)position.X, (int)position.Y, npc.type);
 
                     if (Main.npc[npcIndex].modNPC is ISaveableEntity saveable)
                     {

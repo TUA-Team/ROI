@@ -10,7 +10,7 @@ namespace ROI.Content.Items.Misc
         {
             item.width = 30;
             item.height = 30;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 10;
             item.useAnimation = 20;
             item.rare = 99;

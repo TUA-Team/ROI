@@ -12,13 +12,13 @@ namespace ROI.Content.Items.Placeables.Wasteland
             item.scale *= 0.5f;
             item.maxStack = 999;
             item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 10;
             item.consumable = true;
             item.createWall = ModContent.WallType<Walls.Wasteland.WastelandRockWallSafe>();
         }
 
-        public override void AddRecipes() => CreateRecipe(4)
+        public override void AddRecipes() => new RecipeBuilder(this, 4)
                 .AddIngredient<WastelandRock>()
                 .AddTile(TileID.WorkBenches)
                 .Register();

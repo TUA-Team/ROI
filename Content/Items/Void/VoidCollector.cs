@@ -73,7 +73,7 @@ namespace ROI.Content.Items.Void
                 }
             }
 
-            public override Rectangle GetFrame(Texture2D texture, int frameCounterOverride = -1)
+            public override Rectangle GetFrame(Texture2D texture)
             {
                 return texture.Frame(1, FrameCount, 0, Frame);
             }

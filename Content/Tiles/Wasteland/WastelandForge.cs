@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Terraria.ID;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
@@ -22,9 +22,9 @@ namespace ROI.Content.Tiles.Wasteland
 
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wasteland Forge");
-            AddMapEntry(new Color(34,139,34), name);
+            AddMapEntry(new Color(34, 139, 34), name);
             disableSmartCursor = true;
-            adjTiles = new int[] {TileID.Hellforge, TileID.Furnaces};
+            adjTiles = new int[] { TileID.Hellforge, TileID.Furnaces };
             drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandForge>();
         }
 

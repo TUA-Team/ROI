@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace ROI
@@ -9,14 +8,9 @@ namespace ROI
     {
         public static ROIMod Instance { get; private set; }
 
-        public Recipe.Condition DevRecipeCondition { get; private set; }
-
         public override void Load()
         {
             Instance = this;
-
-            DevRecipeCondition = new Recipe.Condition(NetworkText.FromLiteral("This recipe requires you to be a developer"), 
-                r => userLoader.Value.IsDeveloper);
 
             InitializeLoaders();
 
@@ -26,6 +20,8 @@ namespace ROI
             {
                 LoadClient();
             }
+
+            Backporting.Init(this);
         }
 
         public override void Unload()
@@ -38,6 +34,8 @@ namespace ROI
             {
                 UnloadClient();
             }
+
+            Backporting.Clear();
         }
     }
 }

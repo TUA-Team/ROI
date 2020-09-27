@@ -14,7 +14,7 @@ namespace ROI.Content.Items.Placeables.Wasteland
             item.useAnimation = 15;
             item.autoReuse = true;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTurn = true;
             item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandDirt>();
         }

@@ -1,3 +1,4 @@
+/*
 using Microsoft.Xna.Framework;
 using ROI.Content.NPCs.Bosses.VoidPillar;
 using ROI.Content.UI.Elements;
@@ -53,4 +54,4 @@ namespace ROI.Content.UI.Void
         }
     }
 }
-
+*/

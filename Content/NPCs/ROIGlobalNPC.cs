@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿/*
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Content.NPCs
@@ -21,3 +22,4 @@ namespace ROI.Content.NPCs
         public override bool InstancePerEntity => true;
     }
 }
+*/

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Generation;
-using Terraria.ModLoader;
-using Terraria.WorldBuilding;
+using Terraria.World.Generation;
 
 namespace ROI.Content.Worlds
 {
@@ -11,7 +10,7 @@ namespace ROI.Content.Worlds
     {
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
-            if (!(Mod.GetConfig("Debug") as DebugConfig).GenWasteland) return;
+            if (!(mod.GetConfig("Debug") as DebugConfig).GenWasteland) return;
 
             int hellGen = tasks.FindIndex(i => i.Name == "Underworld");
             int hellForgeGen = tasks.FindIndex(i => i.Name == "Hellforge");
@@ -19,7 +18,7 @@ namespace ROI.Content.Worlds
             //Mod.Logger.Debug("maxTilesY" + Main.maxTilesY);
             if (hellGen != -1)
             {
-                tasks[hellGen] = new PassLegacy("Underworld", (progress, conf) =>
+                tasks[hellGen] = new PassLegacy("Underworld", (progress) =>
                 {
                     if (WorldGen.crimson)
                     {
@@ -34,7 +33,7 @@ namespace ROI.Content.Worlds
 
             if (hellForgeGen != -1)
             {
-                tasks[hellForgeGen] = new PassLegacy("Hellforge", (progress, conf) =>
+                tasks[hellForgeGen] = new PassLegacy("Hellforge", (progress) =>
                 {
                     // Why the fuck is this it's own phase in the first place
                     // TODO: (high prio)

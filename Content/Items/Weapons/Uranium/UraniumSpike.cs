@@ -12,7 +12,7 @@ namespace ROI.Content.Items.Weapons.Uranium
 
         public override void SetDefaults()
         {
-            item.useStyle = ItemUseStyleID.Swing;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 20;
             item.useAnimation = 20;
             item.noUseGraphic = true;
@@ -31,8 +31,8 @@ namespace ROI.Content.Items.Weapons.Uranium
             return true;
         }
 
-        public override void AddRecipes() => CreateRecipe()
-            .AddCondition((Mod as ROIMod).DevRecipeCondition)
+        public override void AddRecipes() => new RecipeBuilder(this)
+            //.AddCondition((Mod as ROIMod).DevRecipeCondition)
             .AddIngredient(ItemID.Wood)
             .Register();
     }

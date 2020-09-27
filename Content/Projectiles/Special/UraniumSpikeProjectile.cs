@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.ModLoader;
 
 namespace ROI.Content.Projectiles.Special
 {
@@ -31,7 +30,7 @@ namespace ROI.Content.Projectiles.Special
             int srcHeight = (int)(_height * (isLowering
                 ? (1 - ((projectile.timeLeft - 30) / 30f))
                 : (projectile.timeLeft / 30f)));
-            spriteBatch.Draw(Mod.GetTexture("Content/Projectiles/Special/" + nameof(UraniumSpikeProjectile)).Value,
+            spriteBatch.Draw(mod.GetTexture("Content/Projectiles/Special/" + nameof(UraniumSpikeProjectile)),
                 pos - Main.screenPosition, new Rectangle(0, 0, _width, srcHeight), Color.White);
 
             return false;
