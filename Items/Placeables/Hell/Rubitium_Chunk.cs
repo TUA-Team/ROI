@@ -27,7 +27,8 @@ namespace ROI.Items.Placeables.Hell
             item.useTime = 10;
             item.useStyle = 1;
             item.useTurn = true;
-            item.createTile = mod.TileType("Rubitium_Ore");
+            //item.createTile = mod.TileType("Rubitium_Ore");
+            item.createTile = mod.TileType("VoidBrick");
         }
     }
 }

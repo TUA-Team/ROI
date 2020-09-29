@@ -49,8 +49,8 @@ namespace ROI.Projectiles
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-            List<Vector2> pointList = curve.GetPoints(75);
+            
+            List<Vector2> pointList = curve.GetPoints(1000);
             for (int i = 1; i < pointList.Count; i++)
             {
                 float deltaX = pointList[i].X - pointList[i - 1].X;

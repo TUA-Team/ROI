@@ -40,6 +40,23 @@ namespace ROI.Worlds.Subworlds
                             
                         }
                     }
+                }),
+                new PassLegacy("Determining Room Position", progress =>
+                {
+                    progress.Message = "Loading"; //Sets the text above the worldgen progress bar
+                    Main.worldSurface = Main.maxTilesY - 42; //Hides the underground layer just out of bounds
+                    Main.rockLayer = Main.maxTilesY; //Hides the cavern layer way out of bounds
+                    for (int i = 0; i < Main.maxTilesX; i++)
+                    {
+                        for (int j = 0; j < Main.maxTilesY; j++)
+                        {
+                            progress.Set((j + i * Main.maxTilesY) / (float)(Main.maxTilesX * Main.maxTilesY)); //Controls the progress bar, should only be set between 0f and 1f
+                            Main.tile[i, j].active(true);
+                            Main.tile[i, j].type = TileID.Stone;
+
+                            
+                        }
+                    }
                 })
             };
         }

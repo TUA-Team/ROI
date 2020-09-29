@@ -24,6 +24,8 @@ using Terraria.UI;
 using Terraria.Utilities;
 using ReLogic.Graphics;
 using ROI.NPCs.Void;
+using ROI.Worlds.Subworlds;
+using SubworldLibrary;
 using Terraria.ID;
 using Terraria.Localization;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -241,6 +243,16 @@ namespace ROI
             TextureCache.Unload();
         }
         #endregion
+
+        public override void UpdateMusic(ref int music, ref MusicPriority priority)
+        {
+            if (Subworld.IsActive<VoidRiftSubworld>())
+            {
+                priority = MusicPriority.BiomeHigh;
+                //music = 
+
+            }
+        }
 
         public override void UpdateUI(GameTime gameTime)
         {

@@ -63,6 +63,7 @@
     <Folder Include="Liquids\" />
     <Folder Include="NPCs\Globals\" />
     <Folder Include="NPCs\Wasteland\" />
+    <Folder Include="Worlds\Structures\VoidRift\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.1" />
