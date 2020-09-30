@@ -1,10 +1,11 @@
-﻿using Terraria;
+﻿using InfinityCore.API.Interface;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IPlayerExtension
     {
         private int _radiationTimer;
         private int _removeRadiationTimer;

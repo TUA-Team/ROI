@@ -6,6 +6,7 @@ using ROI.NPCs.Void.VoidPillar;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using InfinityCore.API.Interface;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
@@ -17,7 +18,7 @@ namespace ROI.Players
     /// <summary>
     /// Use this to store the main player data, otherwise create a partial class
     /// </summary>
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IPlayerExtension
     {
         private Dictionary<string, PlayerDeathReason> deathReasonList = new Dictionary<string, PlayerDeathReason>();
 
@@ -238,6 +239,12 @@ namespace ROI.Players
             {
                 SkyManager.Instance.Deactivate("ROI:VoidSky");
             }
+        }
+
+        public bool ModifyBorderMovement(Player player)
+        {
+
+            return false;
         }
     }
 }

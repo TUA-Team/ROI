@@ -1,8 +1,9 @@
-﻿using Terraria.ModLoader;
+﻿using InfinityCore.API.Interface;
+using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IPlayerExtension
     {
         internal bool irrawoodSet = false;
         internal bool irradiatedSet = false;

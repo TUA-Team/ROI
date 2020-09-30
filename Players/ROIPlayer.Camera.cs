@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.NPCs.Void.VoidPillar;
 using System.Linq;
+using InfinityCore.API.Interface;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IPlayerExtension
     {
         private const float _cameraFocusSpeed = 1f;
 

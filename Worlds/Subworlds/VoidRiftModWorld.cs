@@ -1,92 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Worlds.Subworlds
 {
     class VoidRiftModWorld : ModWorld
-    { 
-        /// <summary>
-        /// Will be mainly used for the overlay
-        /// </summary>
-        internal class FloorInfo
-        {
-            public string floorName;
-
-            public int dungeonLevel;
-            public int score;
-            public int kill;
-
-            
-
-            public bool completed; 
-
-            public TimeSpan timeSpent;
-
-            public DateTime startedTime; //Generally refer to system timespan
-
-            public FloorInfo(int dungeonLevel, string floorName)
-            {
-                this.dungeonLevel = dungeonLevel;
-                this.score = 0;
-                this.kill = 0;
-                this.completed = false;
-                this.floorName = floorName;
-
-                
-
-                timeSpent = TimeSpan.Zero;
-                 
-                startedTime = DateTime.Now;
-            }
-
-            public void Update()
-            {
-                timeSpent = DateTime.Now - startedTime;
-            }
-        }
-
-        class DungeonInfo
-        {
-            public int dungeonWidth;
-            public int dungeonHeight;
-
-            
-
-            public List<>
-        }
-
-        class RoomInfo
-        {
-            public bool cleared; 
-        }
-
+    {
         public static bool InVoidRift { get; set; }
 
-        internal static List<FloorInfo> previousFloorInfoList;
-        internal static FloorInfo currentFloorInfo;
+        internal static Information.DungeonInfo currentDungeon;
+        internal static Information.FloorInfo currentFloorInfo;
 
-        public override void Initialize()
-        {
-            if (InVoidRift && currentFloorInfo != null)
-            {
-                previousFloorInfoList.Add(currentFloorInfo);
-                currentFloorInfo = new FloorInfo(previousFloorInfoList[previousFloorInfoList.Count - 1].dungeonLevel + 1, $"Void rift Floor {previousFloorInfoList[previousFloorInfoList.Count - 1].dungeonLevel + 2}");
-            }
-
-            if (InVoidRift && currentFloorInfo == null)
-            {
-                currentFloorInfo = new FloorInfo(0, "Void rift Floor 1");
-            }
-        }
+        internal static bool continueDungeon;
 
         public override void PreUpdate()
         {
-            
-
-            if(InVoidRift)
+            if (InVoidRift)
                 currentFloorInfo?.Update();
             base.PreUpdate();
+        }
+
+        public override void PostDrawTiles()
+        {
+            if (!InVoidRift) return;
+            Point startingRoom = currentFloorInfo.startingRoomLocation;
+            if (currentFloorInfo.dungeonLevel == 0 && currentFloorInfo.timeSpent < new TimeSpan(0, 0 , 5, 0))
+            {
+                Main.spriteBatch.Begin();
+                string welcomeText = "Welcome to the void rift!\n" +
+                                     "In this dungeon, your skill will be tested to the extreme.\n" +
+                                     "Fight strong monster, loot special room and come back with everything or nothing!\n" +
+                                     "Do you think you have what it take to take over the void rift and destroy the original pillar?\n" +
+                                     "Go in the next room to start your adventure";
+
+
+                Vector2 textSize = Main.fontDeathText.MeasureString(welcomeText);
+                Point startingRoomLocation = new Point(currentFloorInfo.roomList[0].roomX, currentFloorInfo.roomList[0].roomY);
+
+                Vector2 textLocation = new Vector2(startingRoomLocation.X * 16 - textSize.X / 2, startingRoomLocation.Y * 16 - textSize.Y / 2);
+
+                Utils.DrawBorderString(Main.spriteBatch, welcomeText, textLocation - Main.screenPosition, Color.White);
+                Main.spriteBatch.End();
+            }
+            base.PostDrawTiles();
         }
     }
 }

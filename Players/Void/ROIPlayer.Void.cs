@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using InfinityCore.API.Interface;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer : ModPlayer
+    public sealed partial class ROIPlayer : ModPlayer, IPlayerExtension
     {
         /// <summary>
         /// 1 minute cooldown

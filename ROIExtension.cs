@@ -1,9 +1,11 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using Microsoft.Xna.Framework;
 using ROI.Globals;
 using ROI.Manager;
 using System.Reflection;
 using Terraria;
+using Terraria.ModLoader;
 using ROIPlayer = ROI.Players.ROIPlayer;
 
 namespace ROI

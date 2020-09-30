@@ -339,6 +339,11 @@ namespace ROI
 
         public bool ModifyCameraBound()
         {
+            if (Subworld.IsActive<VoidRiftSubworld>())
+            {
+                
+                return true;
+            }
             return false;
         }
     }

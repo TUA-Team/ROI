@@ -9,7 +9,7 @@ using Terraria.Utilities;
 
 namespace Bubble_Defender.Algorithm
 {
-    class DradonGenAlgorithm
+    public class DradonGenAlgorithm
     {
         public UnifiedRandom ran = new UnifiedRandom((int) DateTime.Now.Ticks);
 
@@ -19,11 +19,11 @@ namespace Bubble_Defender.Algorithm
         public int passAmount = 0;
         public int chanceForNextPass = 5;
 
-        public int canvaWidth = 600;
-        public int canvaHeight = 350;
+        public int canvaWidth;
+        public int canvaHeight;
 
-        public Point StartingPoint;
-        public Point EndingPoint;
+        public Point startingPoint;
+        public Point endingPoint;
 
         public int minDistanceX;
         public int minDistanceY;
@@ -65,7 +65,19 @@ namespace Bubble_Defender.Algorithm
 
         public DradonGenAlgorithm SetStartingPoint(Point point)
         {
-            this.StartingPoint = point;
+            this.startingPoint = point;
+            return this;
+        }
+
+        public DradonGenAlgorithm SetCanvaWidth(int width)
+        {
+            this.canvaWidth = width;
+            return this;
+        }
+
+        public DradonGenAlgorithm SetCanvaHeight(int height)
+        {
+            this.canvaHeight = height;
             return this;
         }
 
@@ -80,9 +92,9 @@ namespace Bubble_Defender.Algorithm
 
         public void GenerateMainBranch()
         {
-            Point currentPoint = StartingPoint;
+            Point currentPoint = startingPoint;
             Point previousPoint;
-            mainLineList.Add(StartingPoint);
+            mainLineList.Add(startingPoint);
             while (InCanvasX(currentPoint.X) && InCanvasY(currentPoint.Y))
             {
                 previousPoint = currentPoint;
@@ -112,14 +124,14 @@ namespace Bubble_Defender.Algorithm
                     currentPoint.Y += (int) (nextPointMovementY);
                     if (!InCanvas(currentPoint.X, currentPoint.Y))
                     {
-                        EndingPoint = previousPoint;
+                        endingPoint = previousPoint;
                         break;
                     }
 
                 }
                 mainLineList.Add(currentPoint);
             }
-            mainLineList.Add(EndingPoint);
+            mainLineList.Add(endingPoint);
             List<Vector2> vector = new List<Vector2>();
             foreach (Point point in mainLineList)
             {
@@ -132,7 +144,7 @@ namespace Bubble_Defender.Algorithm
         {
             foreach (var point in mainLineList)
             {
-                if (point == StartingPoint || point == EndingPoint)
+                if (point == startingPoint || point == endingPoint)
                 {
                     continue;
                 }

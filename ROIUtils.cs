@@ -75,8 +75,11 @@ namespace ROI
             vector.X = (cosTheta * (vector.X - centerPoint.X) -
                                sinTheta * (vector.Y - centerPoint.Y) + centerPoint.X);
             vector.Y = (sinTheta * (vector.X - centerPoint.X) +
-                               cosTheta * (vector.Y - centerPoint.Y) + centerPoint.Y);
+                        cosTheta * (vector.Y - centerPoint.Y) + centerPoint.Y);
             return vector;
         }
+
+        public static ushort TileType<T>() where T : ModTile
+            => ModContent.GetInstance<T>().Type;
     }
 }

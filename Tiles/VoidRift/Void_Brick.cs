@@ -10,12 +10,13 @@ using Terraria.ModLoader;
 
 namespace ROI.Tiles.VoidRift
 {
-    class VoidBrick : ModTile
+    class Void_Brick : ModTile
     {
         public override void SetDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
+            AddMapEntry(new Color(193, 193, 193));
         }
     }
 }
