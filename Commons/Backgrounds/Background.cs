@@ -1,7 +1,7 @@
 ﻿using API;
 using Terraria.ModLoader;
 
-namespace ROI.Models.Backgrounds
+namespace ROI.Commons.Backgrounds
 {
     // TODO: (low prio) should eventually be removed
     public abstract class Background : IHaveId

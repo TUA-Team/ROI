@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-namespace ROI.Models
+namespace ROI.Commons
 {
     /*
 	public interface ITreeHook

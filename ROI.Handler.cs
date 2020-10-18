@@ -1,5 +1,4 @@
 ﻿using API;
-using API.Networking;
 using API.Users;
 using Microsoft.Xna.Framework;
 using ROI.Loaders;
@@ -45,11 +44,13 @@ namespace ROI
             interfaceLoader = null;
 
             userLoader = null;
+
+            IdHookLookup.Clear();
         }
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            IdHookLookup<NetworkPacket>.Get(reader.ReadInt32()).Receive(reader, whoAmI);
+            IdHookLookup<NetworkPacket>.Get(reader.ReadByte()).Receive(reader, whoAmI);
 
         public override void UpdateUI(GameTime gameTime)
         {

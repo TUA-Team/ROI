@@ -1,4 +1,4 @@
-﻿using API.Networking;
+﻿using ROI.Commons.Packets;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ROI.Players
 {
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
-    public sealed partial class ROIPlayer : ModPlayer, INeedSync
+    public sealed partial class ROIPlayer : ModPlayer
     {
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
@@ -51,7 +51,7 @@ namespace ROI.Players
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) =>
-            ContentInstance<NetworkPacket<ROIPlayer>>.Instance.Send("sync", this, toWho, fromWho);
+            ContentInstance<PlayerSyncPacket>.Instance.Send(this, toWho, fromWho);
 
 
         public override void PostUpdate()
@@ -71,16 +71,5 @@ namespace ROI.Players
         }
 
         private List<int> PreviousBuffs { get; set; }
-
-        public override bool Autoload(ref string name)
-        {
-            NetworkPacket<ROIPlayer>.RegisterSyncableType();
-            return true;
-        }
-
-
-        public INeedSync Identify(int identity) => Get(Main.player[identity]);
-
-        public int Identifier => player.whoAmI;
     }
 }

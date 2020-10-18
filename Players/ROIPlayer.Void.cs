@@ -1,12 +1,11 @@
 ﻿using API;
-using API.Networking;
 using Microsoft.Xna.Framework;
 using ROI.Helpers;
 using Terraria;
 
 namespace ROI.Players
 {
-    public sealed partial class ROIPlayer
+    partial class ROIPlayer
     {
         public const int AFFINITY_STANDARD_LIMIT = 50;
 
@@ -87,9 +86,8 @@ namespace ROI.Players
         // TODO: Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
 
-        [Save, SyncKind("sync")]
         public short VoidAffinity { get; internal set; }
-        [Save, SyncKind("sync")]
+
         public short MaxVoidAffinity { get; internal set; }
 
         public VoidTier VoidTier { get; internal set; }

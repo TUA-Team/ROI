@@ -6,7 +6,7 @@ using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace ROI.Models.Backgrounds.Underworld
+namespace ROI.Commons.Backgrounds.Underworld
 {
     public sealed class WastelandBackground : Background
     {
