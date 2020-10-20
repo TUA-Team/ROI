@@ -330,3 +330,6 @@ ASALocalRun/
 .mfractor/
 libs/
 *.DotSettings
+
+# Vim
+*.swp
