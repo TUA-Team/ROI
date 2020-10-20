@@ -27,7 +27,7 @@ namespace ROI.Content.UI.Void
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            ROIPlayer player = ROIPlayer.Get(Main.LocalPlayer);
+            ROIPlayer player = ROIPlayer.Get();
             float percent = player.VoidAffinity / player.MaxVoidAffinity / 100f;
 
             spriteBatch.Draw(voidMeterEmpty,

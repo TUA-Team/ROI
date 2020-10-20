@@ -1,4 +1,4 @@
-using System.ComponentModel;
+/*using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 namespace ROI.Content.Configs
@@ -22,4 +22,4 @@ namespace ROI.Content.Configs
         Legacy,
         Vanilla
     }
-}
+}*/

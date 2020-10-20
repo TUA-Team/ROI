@@ -9,12 +9,12 @@ namespace ROI
 {
     public sealed partial class ROIMod
     {
-        public MusicConfig MusicConfig;
+        //public MusicConfig MusicConfig;
         public DebugConfig DebugConfig;
 
         private void LoadClient()
         {
-            MusicConfig = ModContent.GetInstance<MusicConfig>();
+            //MusicConfig = ModContent.GetInstance<MusicConfig>();
             DebugConfig = ModContent.GetInstance<DebugConfig>();
 
             AddMusicBox(GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Terra"),
@@ -51,12 +51,11 @@ namespace ROI
 
             // Highest to lowest priority here, just return if a condition is validated
 
-            // TODO: wasteland
-            if (Main.LocalPlayer.GetModPlayer<ROIPlayer>().ZoneWasteland &&
-                MusicConfig.WastelandMusic != WastelandMusicType.Vanilla)
+            if (ROIPlayer.Get().ZoneWasteland)
             {
-                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Wasteland_" + MusicConfig.WastelandMusic);
+                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Wasteland");
                 priority = MusicPriority.Environment;
+                return;
             }
         }
     }

@@ -51,26 +51,27 @@ namespace ROI.Players
         }
         */
 
-        bool underworldFilter;
+        bool wastelandFilter;
         readonly Color color = new Color(64, 0, 0);
         public override void UpdateBiomeVisuals()
         {
             if (ZoneWasteland)
             {
                 float percent = (player.position.Y / 16 - Main.maxTilesY + 300) / 300;
-                if (!underworldFilter)
+                if (!wastelandFilter)
                 {
                     Filters.Scene.Activate("ROI:UnderworldFilter", player.Center)
                         .GetShader().UseColor(color).UseIntensity(percent).UseOpacity(percent);
-                    underworldFilter = true;
+                    wastelandFilter = true;
                 }
                 Filters.Scene["ROI:UnderworldFilter"].GetShader().UseColor(0f, 0f, 1f).UseIntensity(0.5f).UseOpacity(1f);
             }
             else
             {
-                if (underworldFilter)
+                if (wastelandFilter)
                 {
                     Filters.Scene["ROI:UnderworldFilter"].Deactivate();
+                    wastelandFilter = false;
                 }
             }
         }

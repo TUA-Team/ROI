@@ -9,7 +9,7 @@ using Terraria.UI;
 
 namespace ROI
 {
-    public sealed partial class ROIMod : Mod
+    partial class ROIMod : Mod
     {
         // internal: see addendum in InterfaceLoader
         internal LateLoader<InterfaceLoader> interfaceLoader;
