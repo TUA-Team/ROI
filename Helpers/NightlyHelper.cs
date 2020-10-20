@@ -11,16 +11,19 @@ namespace ROI.Helpers
     {
         public static string CheckForNightly(DateTime currentVersion)
         {
-            if (!NetworkAvailable()) return null;
+            if (!NetworkAvailable())
+                return null;
 
             var json = IssueCommentsJson();
 
             var comments = JArray.Parse(json);
             foreach (JObject comm in comments)
             {
-                if (Convert.ToUInt64(comm["user"]["id"]) != 42445050) continue;
+                if (Convert.ToUInt64(comm["user"]["id"]) != 42445050)
+                    continue;
                 var availableVersion = DateTime.Parse(comm["created_at"].ToString());
-                if (availableVersion <= currentVersion) continue;
+                if (availableVersion <= currentVersion)
+                    continue;
                 Process.Start(comm["body"].ToString());
                 return comm["created_at"].ToString();
             }

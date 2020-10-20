@@ -32,7 +32,8 @@ namespace ROI
                 else
                 {
                     var data = Helpers.NightlyHelper.CheckForNightly(DateTime.MinValue);
-                    if (data != null) File.WriteAllText(path, data);
+                    if (data != null)
+                        File.WriteAllText(path, data);
                 }
             }
         }
@@ -45,7 +46,8 @@ namespace ROI
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
             // TODO: (low prio) this was in EM, but it might be redundant
-            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) return;
+            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
+                return;
 
             // Highest to lowest priority here, just return if a condition is validated
 

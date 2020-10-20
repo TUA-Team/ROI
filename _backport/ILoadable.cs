@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace ROI
+﻿namespace Terraria.ModLoader
 {
     public interface ILoadable
     {

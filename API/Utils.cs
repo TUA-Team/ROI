@@ -46,7 +46,8 @@ namespace API
         public static T GetOrAdd<T>(this ICollection<T> col, Func<T, bool> predicate, Func<T> factory)
         {
             var val = col.FirstOrDefault(predicate);
-            if (val != null) return val;
+            if (val != null)
+                return val;
             val = factory();
             col.Add(val);
             return val;

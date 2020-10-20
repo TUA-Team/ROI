@@ -12,10 +12,13 @@ namespace ROI
         {
             foreach (var type in mod.Code.DefinedTypes)
             {
-                if (type.IsAbstract) continue;
-                if (type.ContainsGenericParameters) continue;
+                if (type.IsAbstract)
+                    continue;
+                if (type.ContainsGenericParameters)
+                    continue;
 
-                if (!typeof(ILoadable).IsAssignableFrom(type)) continue;
+                if (!typeof(ILoadable).IsAssignableFrom(type))
+                    continue;
 
                 var obj = (ILoadable)Activator.CreateInstance(type);
                 obj.Load(mod);

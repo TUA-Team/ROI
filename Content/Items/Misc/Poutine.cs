@@ -21,7 +21,8 @@ namespace ROI.Content.Items.Misc
 
         public override bool UseItem(Player player)
         {
-            if (player.HasBuff(BuffID.PotionSickness)) return false;
+            if (player.HasBuff(BuffID.PotionSickness))
+                return false;
 
             player.HealEffect(500, true);
             player.AddBuff(BuffID.PotionSickness, 1800, true);

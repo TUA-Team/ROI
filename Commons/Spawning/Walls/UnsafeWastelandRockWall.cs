@@ -1,4 +1,4 @@
-﻿using ROI.Content.Walls.Wasteland;
+﻿using ROI.Content.Biomes.Wasteland.WorldBuilding.Walls;
 using Terraria;
 using Terraria.ModLoader;
 

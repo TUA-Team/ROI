@@ -25,7 +25,8 @@ namespace API.Users
                 mod.Logger.Info("Unable to fetch SteamID, assuming no Steam is present.");
             }
 
-            if (!HasSteamId64) return;
+            if (!HasSteamId64)
+                return;
 
             foreach (Developer developer in ActiveDevelopers)
                 if (developer.SteamId64 == SteamId64)

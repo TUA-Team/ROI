@@ -32,11 +32,13 @@ namespace ROI.Content.Items.Void
                 if (plr.VoidAffinity < plr.MaxVoidAffinity)
                 {
                     plr.VoidAffinity += (short)item.stack;
-                    if (plr.VoidAffinity > plr.MaxVoidAffinity) plr.VoidAffinity = plr.MaxVoidAffinity;
+                    if (plr.VoidAffinity > plr.MaxVoidAffinity)
+                        plr.VoidAffinity = plr.MaxVoidAffinity;
                 }
                 used = true;
             }
-            if (item.stack > 0 && --item.stack == 0) item.TurnToAir();
+            if (item.stack > 0 && --item.stack == 0)
+                item.TurnToAir();
         }
 
         public override TagCompound Save() => new TagCompound { [nameof(used)] = used };
