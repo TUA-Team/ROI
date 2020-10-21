@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using ROI.Loaders;
 using System.Collections.Generic;
 using System.IO;
+using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
@@ -17,7 +18,10 @@ namespace ROI
 
         private void InitializeLoaders()
         {
-            interfaceLoader = new LateLoader<InterfaceLoader>(this);
+            if (!Main.dedServ)
+            {
+                interfaceLoader = new LateLoader<InterfaceLoader>(this);
+            }
 
             userLoader = new LateLoader<UserLoader>(this, l => l.ActiveDevelopers = new List<Developer>
                 {
