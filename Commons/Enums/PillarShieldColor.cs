@@ -1,4 +1,4 @@
-﻿namespace ROI.Commons.Enums
+﻿/*namespace ROI.Commons.Enums
 {
     public enum PillarShieldColor : byte
     {
@@ -32,3 +32,4 @@
         none = 6
     }
 }
+*/

@@ -1,9 +1,8 @@
 ﻿using API;
-using ROI.Players;
 using System.IO;
 using Terraria;
 
-namespace ROI.Commons.Packets
+namespace ROI.Players.Packets
 {
     public sealed class PlayerSyncPacket : NetworkPacket<ROIPlayer>
     {

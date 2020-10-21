@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ROI.Commons;
 using System;
 using Terraria;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace ROI.Commons.Backgrounds.Underworld
+namespace ROI.Content.Biomes.Wasteland
 {
     public sealed class WastelandBackground : Background
     {
@@ -35,7 +36,7 @@ namespace ROI.Commons.Backgrounds.Underworld
             }
 
             for (int i = 0; i < _texture.Length; i++)
-                _texture[i] = (Texture2D)ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
+                _texture[i] = ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
 
             if (!Main.ActiveWorldFileData.HasCrimson)
             {
@@ -43,18 +44,18 @@ namespace ROI.Commons.Backgrounds.Underworld
                 return;
             }
 
-            if (Main.screenPosition.Y + (float)Main.screenHeight < (float)(Main.maxTilesY - 220) * 16f)
+            if (Main.screenPosition.Y + Main.screenHeight < (Main.maxTilesY - 220) * 16f)
                 return;
 
-            Vector2 value = Main.screenPosition + new Vector2((float)(Main.screenWidth >> 1), (float)(Main.screenHeight >> 1));
+            Vector2 value = Main.screenPosition + new Vector2(Main.screenWidth >> 1, Main.screenHeight >> 1);
             float num = (Main.GameViewMatrix.Zoom.Y - 1f) * 0.5f * 200f;
 
             for (int i = 4; i >= 0; i--)
             {
                 Texture2D texture2D = _texture[i];
-                Vector2 vector = new Vector2((float)texture2D.Width, (float)texture2D.Height) * 0.5f;
+                Vector2 vector = new Vector2(texture2D.Width, texture2D.Height) * 0.5f;
 
-                float num2 = flat ? 1f : ((float)(i * 2) + 3f);
+                float num2 = flat ? 1f : i * 2 + 3f;
                 Vector2 value2 = new Vector2(1f / num2);
                 Rectangle value3 = new Rectangle(0, 0, texture2D.Width, texture2D.Height);
 
@@ -89,21 +90,21 @@ namespace ROI.Commons.Backgrounds.Underworld
                 vector *= num3;
 
                 if (flat)
-                    zero.Y += (float)(_texture[0].Height >> 1) * 1.3f - vector.Y;
+                    zero.Y += (_texture[0].Height >> 1) * 1.3f - vector.Y;
 
                 zero.Y -= num;
-                float num5 = num3 * (float)value3.Width;
-                float num6 = value.X * value2.X - vector.X + zero.X - (float)(Main.screenWidth >> 1);
+                float num5 = num3 * value3.Width;
+                float num6 = value.X * value2.X - vector.X + zero.X - (Main.screenWidth >> 1);
                 int num7 = (int)(num6 / num5);
 
-                for (int j = num7 - 2; j < num7 + 4 + (int)((float)Main.screenWidth / num5); j++)
+                for (int j = num7 - 2; j < num7 + 4 + (int)(Main.screenWidth / num5); j++)
                 {
-                    Vector2 value4 = new Vector2((float)j * num3 * ((float)value3.Width / value2.X), (float)(Main.maxTilesY - 200) * 16f) + vector;
+                    Vector2 value4 = new Vector2(j * num3 * (value3.Width / value2.X), (Main.maxTilesY - 200) * 16f) + vector;
                     Vector2 position = (value4 - value) * value2 + value - Main.screenPosition - vector + zero;
                     Main.spriteBatch.Draw(texture2D, position, new Rectangle?(value3), /*Microsoft.Xna.Framework.Color.White*/Color.Cyan, 0f, Vector2.Zero, num3, SpriteEffects.None, 0f);
                     if (i == 0)
                     {
-                        int num8 = (int)(position.Y + (float)value3.Height * num3);
+                        int num8 = (int)(position.Y + value3.Height * num3);
                         Main.spriteBatch.Draw(Main.blackTileTexture,
                             new Rectangle((int)position.X, num8, (int)(value3.Width * num3), Math.Max(0, Main.screenHeight - num8)),
                             new Color(11, 3, 7));

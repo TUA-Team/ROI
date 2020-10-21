@@ -1,6 +1,7 @@
-﻿using Terraria;
+﻿using ROI.Commons.Spawning;
+using Terraria;
 
-namespace ROI.Commons.Spawning.Wasteland
+namespace ROI.Content.Biomes.Wasteland.Spawning
 {
     public class WastelandSpawnCondition : SpawnCondition
     {
