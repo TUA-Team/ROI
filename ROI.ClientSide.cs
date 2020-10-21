@@ -58,5 +58,11 @@ namespace ROI
                 return;
             }
         }
+
+        public override void ModifyLightingBrightness(ref float scale)
+        {
+            if (ROIPlayer.Get().ZoneWasteland)
+                scale *= 0.7f;
+        }
     }
 }
