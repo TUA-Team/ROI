@@ -16,5 +16,15 @@ namespace ROI.Helpers
 
         //simple exponential cap
         public static float ExpCap(this float x, float yintercept, float plateau, float increase) => (float)(plateau - (plateau - yintercept) * Math.Exp(-increase * x));
+
+        public static float GetRadiantAngle(Vector2 point1, Vector2 point2)
+        {
+            return (float)Math.Atan((point2.X - point1.X) / (point2.Y - point1.Y));
+        }
+
+        public static Vector2 GetMiddleOfTriangle(Vector2 point1, Vector2 point2, Vector2 point3)
+        {
+            return new Vector2((point1.X + point2.X + point3.X) / 3, (point1.Y + point2.Y + point3.Y) / 3);
+        }
     }
 }

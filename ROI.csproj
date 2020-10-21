@@ -32,6 +32,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commons\Spawning\Walls\" />
+    <Folder Include="Commons\Packets\" />
   </ItemGroup>
 </Project>

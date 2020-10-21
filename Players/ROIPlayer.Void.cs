@@ -13,14 +13,14 @@ namespace ROI.Players
         public bool voidCollector;
 
 
-        public void UnlockVoidTier(VoidTier tier)
+        /*public void UnlockVoidTier(VoidTier tier)
         {
             if (VoidTier != tier - 1) // Player cannot skip tiers.
                 return;
 
             VoidTier = tier;
             MaxVoidAffinity = (short)VoidMath.GetMaxVoidAffinity(VoidTier);
-        }
+        }*/
 
         public void RewardAffinity(ushort amount, ushort limit = AFFINITY_STANDARD_LIMIT) =>
             AddVoidAffinity(amount > limit ? limit : amount);
@@ -90,7 +90,7 @@ namespace ROI.Players
 
         public short MaxVoidAffinity { get; internal set; }
 
-        public VoidTier VoidTier { get; internal set; }
+        //public VoidTier VoidTier { get; internal set; }
 
         public uint VoidExposure { get; private set; }
 
