@@ -1,7 +1,7 @@
 ﻿using API;
 using Microsoft.Xna.Framework;
-using ROI.Helpers;
 using Terraria;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Players
 {
@@ -13,14 +13,68 @@ namespace ROI.Players
         public bool voidCollector;
 
 
-        /*public void UnlockVoidTier(VoidTier tier)
+        private void InitializeVoid()
         {
-            if (VoidTier != tier - 1) // Player cannot skip tiers.
-                return;
+            VoidAffinity = 0;
+            MaxVoidAffinity = 100;
 
-            VoidTier = tier;
-            MaxVoidAffinity = (short)VoidMath.GetMaxVoidAffinity(VoidTier);
-        }*/
+            //VoidExposure = 0;
+
+            //VoidEffectAttemptCooldown = 60 * Constants.TICKS_PER_SECOND;
+            VoidItemCooldown = 300 * Constants.TICKS_PER_SECOND;
+        }
+
+        private void ResetEffectsVoid()
+        {
+            DebuffDurationMultiplier = 1f;
+
+            //MaxVoidHearts2 = MaxVoidHearts;
+
+            voidCollector = false;
+        }
+
+
+        private void PostUpdateVoid()
+        {
+            if (VoidItemCooldown > 0)
+                VoidItemCooldown--;
+
+            // VoidExposure += VoidAffinity; // What
+        }
+
+
+        private void ModifyHitByNPCVoid(NPC npc, ref int damage, ref bool crit) =>
+            AttemptDamageVoidHeart(ref damage);
+
+        private void ModifyHitByProjectileVoid(Projectile projectile, ref int damage, ref bool crit) =>
+            AttemptDamageVoidHeart(ref damage);
+
+
+        private TagCompound SaveVoid()
+        {
+            return new TagCompound
+            {
+                [nameof(VoidItemCooldown)] = VoidItemCooldown,
+                //[nameof(VoidHeartHP)] = VoidHeartHP,
+                //[nameof(MaxVoidHearts)] = MaxVoidHearts
+            };
+        }
+
+        private void LoadVoid(TagCompound tag)
+        {
+            VoidItemCooldown = tag.GetAsInt(nameof(VoidItemCooldown));
+            //VoidHeartHP = tag.GetAsInt(nameof(VoidHeartHP));
+        }
+
+
+/*        public void UnlockVoidTier(VoidTier tier)
+{
+    if (VoidTier != tier - 1) // Player cannot skip tiers.
+        return;
+
+    VoidTier = tier;
+    MaxVoidAffinity = (short)VoidMath.GetMaxVoidAffinity(VoidTier);
+}*/
 
         public void RewardAffinity(ushort amount, ushort limit = AFFINITY_STANDARD_LIMIT) =>
             AddVoidAffinity(amount > limit ? limit : amount);
@@ -32,13 +86,13 @@ namespace ROI.Players
 
         public void AttemptDamageVoidHeart(ref int damage)
         {
-            int postNullificationDamage = damage - VoidHeartHP;
+            int postNullificationDamage = damage/* - VoidHeartHP*/;
 
             if (postNullificationDamage <= 0)
             {
                 CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width, player.height), Color.Black, damage, true, true);
 
-                VoidHeartHP -= damage;
+                //VoidHeartHP -= damage;
             }
 
             if (postNullificationDamage > 0)
@@ -48,43 +102,8 @@ namespace ROI.Players
         }
 
 
-        private void InitializeVoid()
-        {
-            VoidAffinity = 0;
-            MaxVoidAffinity = 100;
-
-            VoidExposure = 0;
-
-            VoidEffectAttemptCooldown = 60 * Constants.TICKS_PER_SECOND;
-            VoidItemCooldown = 300 * Constants.TICKS_PER_SECOND;
-        }
-
-        private void ResetEffectsVoid()
-        {
-            DebuffDurationMultiplier = 1f;
-
-            MaxVoidHearts2 = MaxVoidHearts;
-
-            voidCollector = false;
-        }
-
-        private void PostUpdateVoid()
-        {
-            if (VoidItemCooldown > 0)
-                VoidItemCooldown--;
-
-            // VoidExposure += VoidAffinity; // What
-        }
-
-        private void ModifyHitByNPCVoid(NPC npc, ref int damage, ref bool crit) =>
-            AttemptDamageVoidHeart(ref damage);
-
-        private void ModifyHitByProjectileVoid(Projectile projectile, ref int damage, ref bool crit) =>
-            AttemptDamageVoidHeart(ref damage);
-
-
-        // TODO: Go through these and verify is protection level is accurate.
         public float DebuffDurationMultiplier { get; set; }
+
 
         public short VoidAffinity { get; internal set; }
 
@@ -92,20 +111,20 @@ namespace ROI.Players
 
         //public VoidTier VoidTier { get; internal set; }
 
+
         public uint VoidExposure { get; private set; }
 
-        public int VoidEffectAttemptCooldown { get; internal set; }
-        [Save]
+        //public int VoidEffectAttemptCooldown { get; internal set; }
+
         public int VoidItemCooldown { get; internal set; }
 
-        [Save]
-        public int VoidHeartHP { get; set; }
+
+/*        public int VoidHeartHP { get; set; }
 
         /// <summary>Just like player.statLifeMax, you shouldn't change this property with potions and buffs. Use <see cref="MaxVoidHearts2"/>.</summary>
-        [Save]
         public int MaxVoidHearts { get; set; }
 
         /// <summary>Just like player.statLifeMax2. Resets every frame via <see cref="ResetEffects"/>.</summary>
-        public int MaxVoidHearts2 { get; set; }
+        public int MaxVoidHearts2 { get; set; }*/
     }
 }

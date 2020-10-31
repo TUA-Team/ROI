@@ -14,8 +14,11 @@
     <Exec Command="&quot;$(tMLBuildServerPath)&quot; -build $(ProjectDir) -eac $(TargetPath) -define &quot;$(DefineConstants)&quot; -unsafe $(AllowUnsafeBlocks)" />
   </Target>
   <ItemGroup>
+    <Compile Remove="Commons\Packets\**" />
     <Compile Remove="Void\**" />
+    <EmbeddedResource Remove="Commons\Packets\**" />
     <EmbeddedResource Remove="Void\**" />
+    <None Remove="Commons\Packets\**" />
     <None Remove="Void\**" />
   </ItemGroup>
   <ItemGroup>
@@ -30,8 +33,5 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commons\Packets\" />
   </ItemGroup>
 </Project>
