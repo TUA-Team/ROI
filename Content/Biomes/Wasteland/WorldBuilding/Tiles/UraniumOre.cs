@@ -12,7 +12,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandRock>()] = true;
-            drop = ModContent.ItemType<Uranium_Chunk>();
+            drop = ModContent.ItemType<UraniumChunk>();
             AddMapEntry(new Color(93, 202, 49));
         }
 

@@ -11,7 +11,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = true;
             Main.tileBlockLight[Type] = true;
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.Wastebrick>();
+            drop = ModContent.ItemType<Items.Wastebrick>();
             AddMapEntry(new Color(173, 255, 47));
         }
     }

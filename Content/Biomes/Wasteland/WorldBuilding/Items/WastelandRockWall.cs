@@ -15,7 +15,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 10;
             item.consumable = true;
-            item.createWall = ModContent.WallType<Walls.Wasteland.WastelandRockWallSafe>();
+            item.createWall = ModContent.WallType<Walls.WastelandRockWallSafe>();
         }
 
         public override void AddRecipes() => new RecipeBuilder(this, 4)

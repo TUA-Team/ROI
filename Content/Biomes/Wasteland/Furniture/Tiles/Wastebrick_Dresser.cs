@@ -37,7 +37,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Dressers };
             dresser = "Wastebrick Dresser";
-            dresserDrop = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
+            dresserDrop = ModContent.ItemType<Items.Wastebrick_Dresser>();
         }
 
         public override bool HasSmartInteract()
@@ -164,7 +164,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
                 }
                 if (player.showItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Dresser>();
                     player.showItemIconText = "";
                 }
             }
@@ -206,7 +206,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
                 }
                 if (player.showItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Dresser>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Dresser>();
                     player.showItemIconText = "";
                 }
             }

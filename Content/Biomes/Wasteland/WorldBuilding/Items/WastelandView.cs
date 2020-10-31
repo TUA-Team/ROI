@@ -13,7 +13,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
             item.useTime = 1;
             item.useAnimation = 15;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandView>();
+            item.createTile = ModContent.TileType<Tiles.WastelandView>();
         }
     }
 }

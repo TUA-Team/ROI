@@ -23,9 +23,9 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 
         public override bool UseItem(Player player)
         {
-            if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == ModContent.TileType<Tiles.Wasteland.WastelandDirt>())
+            if (Main.tile[Player.tileTargetX, Player.tileTargetY].type == ModContent.TileType<Tiles.WastelandDirt>())
             {
-                Main.tile[Player.tileTargetX, Player.tileTargetY].type = (ushort)ModContent.TileType<Tiles.Wasteland.WastelandGrass>();
+                Main.tile[Player.tileTargetX, Player.tileTargetY].type = (ushort)ModContent.TileType<Tiles.WastelandGrass>();
                 WorldGen.TileFrame(Player.tileTargetX, Player.tileTargetY);
                 Dust.NewDust(new Vector2(Player.tileTargetX, Player.tileTargetY), 5, 5, DustID.Grass, 0, 0.2f, 255, new Color(152, 208, 113), 1f);
                 return true;

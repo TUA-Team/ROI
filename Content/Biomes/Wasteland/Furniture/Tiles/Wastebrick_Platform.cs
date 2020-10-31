@@ -29,7 +29,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AddMapEntry(new Color(48, 44, 65));
-            drop = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Platform>();
+            drop = ModContent.ItemType<Items.WastebrickPlatform>();
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Platforms };
         }

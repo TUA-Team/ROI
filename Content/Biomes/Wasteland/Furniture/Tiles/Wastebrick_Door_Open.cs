@@ -63,7 +63,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             AddMapEntry(new Color(48, 44, 65), name);
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.OpenDoor };
-            closeDoorID = ModContent.TileType<Wastebrick_Door_Closed>();
+            closeDoorID = ModContent.TileType<WastebrickDoorClosed>();
         }
 
         public override bool HasSmartInteract()
@@ -78,7 +78,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 48, ModContent.ItemType<Wastebrick_Door>());
+            Item.NewItem(i * 16, j * 16, 32, 48, ModContent.ItemType<Items.Wastebrick_Door>());
         }
 
         public override void MouseOver(int i, int j)
@@ -86,7 +86,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = ModContent.ItemType<Wastebrick_Door>();
+            player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Door>();
         }
     }
 }

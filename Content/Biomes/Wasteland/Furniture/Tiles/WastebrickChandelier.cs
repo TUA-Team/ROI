@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    class Wastebrick_Chandelier : ModTile
+    internal class WastebrickChandelier : ModTile
     {
         public override void SetDefaults()
         {
@@ -29,7 +29,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Chandelier");
             AddMapEntry(new Color(48, 44, 65), name);
-            drop = ModContent.ItemType<Content.Items.Placeables.Furniture.Wasteland.Wastebrick_Chandelier>();
+            drop = ModContent.ItemType<Items.Wastebrick_Chandelier>();
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Torches };
         }

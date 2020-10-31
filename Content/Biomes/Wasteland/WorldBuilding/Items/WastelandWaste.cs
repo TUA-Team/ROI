@@ -20,7 +20,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
             item.useTime = 10;
             item.useStyle = 1;
             item.autoReuse = true;
-            item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandWaste>();
+            item.createTile = ModContent.TileType<Tiles.WastelandWaste>();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             ModTranslation translation = CreateMapEntryName("ROI.Painting.WastelandView");
             translation.SetDefault("Painting");
             AddMapEntry(new Color(152, 208, 113), translation);
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandView>();
+            drop = ModContent.ItemType<Items.WastelandView>();
         }
     }
 }

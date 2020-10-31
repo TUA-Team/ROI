@@ -22,7 +22,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Items
             item.useTurn = true;
             item.autoReuse = true;
             item.maxStack = 999;
-            item.createWall = ModContent.WallType<Walls.Wasteland.WastestoneBrickWall>();
+            item.createWall = ModContent.WallType<Walls.WastestoneBrickWall>();
         }
     }
 }

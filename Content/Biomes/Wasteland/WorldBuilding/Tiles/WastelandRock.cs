@@ -16,7 +16,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             Main.tileMerge[Type][ModContent.TileType<WastelandGrass>()] = true;
             AddMapEntry(new Color(68, 74, 100));
             minPick = 65;
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandRock>();
+            drop = ModContent.ItemType<Items.WastelandRock>();
             TileID.Sets.ChecksForMerge[Type] = true;
         }
 

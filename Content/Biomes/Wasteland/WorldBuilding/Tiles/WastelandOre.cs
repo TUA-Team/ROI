@@ -14,7 +14,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Toxic Ore");
             AddMapEntry(Color.YellowGreen, name);
-            drop = ModContent.ItemType<Items.Materials.Wasteland.WastestoneOre>();
+            drop = ModContent.ItemType<Materials.WastestoneOre>();
         }
     }
 }

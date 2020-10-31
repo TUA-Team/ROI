@@ -62,7 +62,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 2);
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 3);
                         WorldGen.KillTile(roomLocation.X, roomLocation.Y + roomLocation.Height - 4);
-                        WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, ModContent.TileType<Wastebrick_Door_Closed>());
+                        WorldGen.PlaceObject(roomLocation.X, roomLocation.Y + roomLocation.Height - 3, ModContent.TileType<WastebrickDoorClosed>());
                     }
                 }
             }

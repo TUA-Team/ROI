@@ -16,7 +16,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
             item.useTime = 10;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTurn = true;
-            item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandRock>();
+            item.createTile = ModContent.TileType<Tiles.WastelandRock>();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandGrass>()] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandRock>()] = true;
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandDirt>();
+            drop = ModContent.ItemType<Items.WastelandDirt>();
             AddMapEntry(new Color(130, 114, 109));
         }
 

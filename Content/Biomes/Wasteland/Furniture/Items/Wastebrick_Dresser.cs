@@ -21,7 +21,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.Furniture.Wasteland.Wastebrick_Dresser>();
+            item.createTile = ModContent.TileType<Tiles.Wastebrick_Dresser>();
         }
     }
 }

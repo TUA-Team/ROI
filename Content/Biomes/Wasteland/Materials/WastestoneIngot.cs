@@ -13,7 +13,7 @@ namespace ROI.Content.Biomes.Wasteland.Materials
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.value = Item.sellPrice(0, 0, 99, 0);
             item.maxStack = 999;
-            item.createTile = ModContent.TileType<Content.Tiles.Wasteland.WastestoneIngot>();
+            item.createTile = ModContent.TileType<Furniture.Tiles.WastestoneIngot>();
             item.consumable = true;
         }
 

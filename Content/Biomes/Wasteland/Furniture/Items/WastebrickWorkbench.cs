@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Items
 {
-    internal class Wastebrick_Workbench : ModItem
+    internal class WastebrickWorkbench : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -21,7 +21,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.Furniture.Wasteland.Wastebrick_Workbench>();
+            item.createTile = ModContent.TileType<Tiles.Wastebrick_Workbench>();
         }
     }
 }

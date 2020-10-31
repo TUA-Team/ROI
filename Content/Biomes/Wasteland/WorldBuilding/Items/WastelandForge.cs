@@ -1,4 +1,5 @@
 ﻿using Terraria.ModLoader;
+using Terraria.ID;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
@@ -14,10 +15,10 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
         {
             item.maxStack = 99;
             item.useAnimation = 15;
-            item.useStyle = 1;
+            item.useStyle = ItemUseStyleID.SwingThrow;
             item.useTime = 10;
             item.consumable = true;
-            item.createTile = ModContent.TileType<Tiles.Wasteland.WastelandForge>();
+            item.createTile = ModContent.TileType<Tiles.WastelandForge>();
         }
     }
 }

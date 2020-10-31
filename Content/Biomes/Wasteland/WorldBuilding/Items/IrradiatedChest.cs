@@ -17,7 +17,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.Wasteland.IrradiatedChest>();
+            item.createTile = ModContent.TileType<Tiles.IrradiatedChest>();
         }
     }
 }

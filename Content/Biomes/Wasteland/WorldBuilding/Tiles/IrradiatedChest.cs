@@ -40,7 +40,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Containers };
             chest = "Irradiated Chest";
-            chestDrop = ModContent.ItemType<Items.Placeables.Wasteland.IrradiatedChest>();
+            chestDrop = ModContent.ItemType<Items.IrradiatedChest>();
         }
 
         public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].frameX / 36);
@@ -144,7 +144,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             {
                 if (isLocked)
                 {
-                    int key = ModContent.ItemType<Items.Misc.IrradiatedKey>();
+                    int key = ModContent.ItemType<Misc.IrradiatedKey>();
                     if (player.inventory.Any(x => x.type == key) && Chest.Unlock(left, top))
                     {
                         if (Main.netMode == NetmodeID.MultiplayerClient)
@@ -206,9 +206,9 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
                 player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
                 if (player.showItemIconText == "Irradiated Chest")
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Placeables.Wasteland.IrradiatedChest>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.IrradiatedChest>();
                     if (Main.tile[left, top].frameX / 36 == 1)
-                        player.showItemIcon2 = ModContent.ItemType<Items.Misc.IrradiatedKey>();
+                        player.showItemIcon2 = ModContent.ItemType<Misc.IrradiatedKey>();
                     player.showItemIconText = "";
                 }
             }

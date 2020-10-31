@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    class Wastebrick_Chest : ModTile
+    internal class WastebrickChest : ModTile
     {
         public override void SetDefaults()
         {
@@ -37,7 +37,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Containers };
             chest = "Wastebrick Chest";
-            chestDrop = ModContent.ItemType<Items.Placeables.Furniture.Wasteland.Wastebrick_Chest>();
+            chestDrop = ModContent.ItemType<Items.Wastebrick_Chest>();
         }
 
         public string MapChestName(string name, int i, int j)

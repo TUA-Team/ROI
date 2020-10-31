@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    internal class Wastebrick_Door_Closed : ModTile
+    internal class WastebrickDoorClosed : ModTile
     {
         public override void SetDefaults()
         {
@@ -58,7 +58,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Wastebrick_Door>());
+            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Items.Wastebrick_Door>());
         }
 
         public override void MouseOver(int i, int j)
@@ -66,7 +66,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = ModContent.ItemType<Wastebrick_Door>();
+            player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Door>();
         }
     }
 }

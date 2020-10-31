@@ -22,7 +22,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 
         public override void SetDefaults()
         {
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandRockWall>();
+            drop = ModContent.ItemType<Items.WastelandRockWall>();
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(34, 27, 43));
         }

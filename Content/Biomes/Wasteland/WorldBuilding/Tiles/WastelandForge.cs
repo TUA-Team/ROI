@@ -25,7 +25,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             AddMapEntry(new Color(34, 139, 34), name);
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Hellforge, TileID.Furnaces };
-            drop = ModContent.ItemType<Items.Placeables.Wasteland.WastelandForge>();
+            drop = ModContent.ItemType<Items.WastelandForge>();
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

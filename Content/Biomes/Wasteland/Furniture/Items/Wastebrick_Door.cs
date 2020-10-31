@@ -21,7 +21,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Wastebrick_Door_Closed>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickDoorClosed>();
         }
     }
 }

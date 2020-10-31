@@ -22,7 +22,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Items
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.Furniture.Wasteland.WastebrickBookcase>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickBookcase>();
         }
     }
 }
