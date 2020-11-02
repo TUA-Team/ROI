@@ -7,16 +7,12 @@ namespace API
     {
         private bool initialized;
         private T instance;
-        private readonly Action<T> onLoad;
+
+        public event Action<T> OnLoad;
 
         public LateLoader(Mod mod)
         {
             Mod = mod;
-        }
-
-        public LateLoader(Mod mod, Action<T> onLoad) : this(mod)
-        {
-            this.onLoad = onLoad;
         }
 
 
@@ -31,7 +27,7 @@ namespace API
 
                 instance = new T();
                 instance.Initialize(Mod);
-                onLoad?.Invoke(instance);
+                OnLoad?.Invoke(instance);
                 initialized = true;
 
                 return instance;

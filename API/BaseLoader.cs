@@ -6,11 +6,12 @@ namespace API
     {
         public void Initialize(Mod mod)
         {
-            OnInitialize(Mod = mod);
+            Mod = mod;
+            OnInitialize();
         }
 
 
-        protected virtual void OnInitialize(Mod mod)
+        protected virtual void OnInitialize()
         {
         }
 

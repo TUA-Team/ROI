@@ -1,12 +1,11 @@
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ROI.Content.UI.Elements
 {
     public abstract class ROIState : UIState
     {
-        protected readonly Mod _mod;
+        protected readonly ROIMod _mod;
 
-        public ROIState(Mod mod) => _mod = mod;
+        public ROIState(ROIMod mod) => _mod = mod;
     }
 }

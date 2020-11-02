@@ -25,9 +25,9 @@ namespace ROI.Loaders
         private GameTime lastGameTime;
 
 
-        protected override void OnInitialize(Mod mod)
+        protected override void OnInitialize()
         {
-            vAffinityState = new VoidAffinity(mod);
+            vAffinityState = new VoidAffinity(Mod);
             vAffinityState.Activate();
             vAffinityInterface = new ROIUserInterface<VoidAffinity>();
             vAffinityInterface.SetState(vAffinityState);
@@ -51,7 +51,41 @@ namespace ROI.Loaders
 
         // list of failedInterfaces is there to debug any possible problems with
         // other mods disabling layers
-        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
+        public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            var failed = new List<string>();
+
+            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out int index);
+
+
+            // indexes are named i and j because I was too lazy to figure out
+            // how to name it `index` without breaking stuff - Agrair
+            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i)
+            {
+                i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
+                insertLayer(i, name, draw);
+            }
+
+            void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw)
+            {
+                if (j == -1)
+                {
+                    failed.Add(name);
+                    return;
+                }
+                layers.Insert(j, new LegacyGameInterfaceLayer(
+                    $"ROI: {name}",
+                    delegate
+                    {
+                        draw(Main.spriteBatch, lastGameTime);
+                        return true;
+                    }, InterfaceScaleType.UI));
+            }
+        }
+
+        // list of failedInterfaces is there to debug any possible problems with
+        // other mods disabling layers
+/*        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
         {
             var failed = new List<string>();
 
@@ -83,6 +117,6 @@ namespace ROI.Loaders
             }
 
             return (failedInterfaces = failed.Count != 0 ? failed : null) == null;
-        }
+        }*/
     }
 }

@@ -1,4 +1,4 @@
-﻿using API;
+﻿using API.Networking;
 using System.IO;
 using Terraria;
 
@@ -13,7 +13,7 @@ namespace ROI.Players.Packets
             plr.MaxVoidAffinity = reader.ReadInt16();
         }
 
-        protected override void WriteData(BinaryWriter writer, ROIPlayer state)
+        protected override void WriteData(BinaryWriter writer)
         {
             writer.Write(state.VoidAffinity);
             writer.Write(state.MaxVoidAffinity);

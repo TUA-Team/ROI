@@ -1,3 +1,4 @@
+using API;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -34,6 +35,8 @@ namespace ROI
             {
                 UnloadClient();
             }
+
+            IdHookLookup.Clear();
 
             Backporting.Clear();
         }
