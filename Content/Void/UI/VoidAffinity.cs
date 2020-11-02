@@ -7,7 +7,7 @@ using Terraria;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
 
-namespace ROI.Content.UI.Void
+namespace ROI.Content.Void.UI
 {
     internal class VoidAffinity : ROIState
     {
@@ -19,10 +19,10 @@ namespace ROI.Content.UI.Void
         public VoidAffinity(Mod mod) : base(mod)
         {
             GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(
-                new Ref<Effect>((Effect)mod.GetEffect("Assets/Effects/RadialProgress")), "progress");
+                new Ref<Effect>(mod.GetEffect("Assets/Effects/RadialProgress")), "progress");
 
-            voidMeterFilled = (Texture2D)mod.GetTexture("Assets/Textures/Elements/VoidMeterFull");
-            voidMeterEmpty = (Texture2D)mod.GetTexture("Assets/Textures/Elements/VoidMeterEmpty");
+            voidMeterFilled = mod.GetTexture("Assets/Textures/Elements/VoidMeterFull");
+            voidMeterEmpty = mod.GetTexture("Assets/Textures/Elements/VoidMeterEmpty");
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -74,8 +74,8 @@ namespace ROI.Content.UI.Void
             if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
             {
                 Main.hoverItemName = $"Void meter : {player.VoidAffinity}/{player.MaxVoidAffinity}\n" +
-                    $"Percent : {percent * 100}%\n" +
-                    $"Tier : {player.VoidTier}";
+                    $"Percent : {percent * 100}%\n"/* +
+                    $"Tier : {player.VoidTier}";*/
             }
         }
 

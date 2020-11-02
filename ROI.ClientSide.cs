@@ -1,4 +1,5 @@
 ﻿using ROI.Content.Configs;
+using ROI.Content.Items;
 using ROI.Players;
 using System;
 using System.IO;
@@ -18,7 +19,7 @@ namespace ROI
             DebugConfig = ModContent.GetInstance<DebugConfig>();
 
             AddMusicBox(GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Terra"),
-                ModContent.ItemType<Content.Items.Misc.TerraMusicBox>(),
+                ModContent.ItemType<TerraMusicBox>(),
                 ModContent.TileType<Content.Tiles.TerraMusicBox>());
 
             if (DebugConfig.Nightly)

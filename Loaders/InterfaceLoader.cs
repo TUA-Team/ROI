@@ -2,7 +2,7 @@ using API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Content.UI.Elements;
-using ROI.Content.UI.Void;
+using ROI.Content.Void.UI;
 using System;
 using System.Collections.Generic;
 using Terraria;

@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ROI.Content.Items;
 using ROI.Players;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Items.Void
+namespace ROI.Content.Void.Items
 {
     internal class VoidCollector : ROIItem
     {
@@ -14,8 +15,7 @@ namespace ROI.Content.Items.Void
         public override void SetStaticDefaults()
         {
             base.SetStaticDefaults();
-            // TODO: (med prio) this is broken
-            //Main.RegisterItemAnimation(item.type, new DrawAnimationVoidCollector());
+            Main.RegisterItemAnimation(item.type, new DrawAnimationVoidCollector());
         }
 
         public override void UpdateInventory(Player player)

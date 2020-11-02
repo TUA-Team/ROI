@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Items.Misc
+namespace ROI.Content.Items
 {
     public class TerraMusicBox : ModItem
     {
@@ -13,7 +13,7 @@ namespace ROI.Content.Items.Misc
             item.useTime = 10;
             item.autoReuse = true;
             item.consumable = true;
-            item.createTile = ModContent.TileType<Content.Tiles.TerraMusicBox>();
+            item.createTile = ModContent.TileType<Tiles.TerraMusicBox>();
             item.width = 30;
             item.height = 10;
             item.rare = ItemRarityID.LightRed;

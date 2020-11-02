@@ -25,7 +25,7 @@ namespace ROI.Content.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Content.Items.Misc.TerraMusicBox>());
+            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Items.TerraMusicBox>());
         }
 
         public override void MouseOver(int i, int j)
@@ -33,7 +33,7 @@ namespace ROI.Content.Tiles
             Player plr = Main.player[Main.myPlayer];
             plr.noThrow = 2;
             plr.showItemIcon = true;
-            plr.showItemIcon2 = ModContent.ItemType<Items.Misc.TerraMusicBox>();
+            plr.showItemIcon2 = ModContent.ItemType<Items.TerraMusicBox>();
         }
     }
 }

@@ -34,4 +34,7 @@
   <ItemGroup>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Items\Void\" />
+  </ItemGroup>
 </Project>

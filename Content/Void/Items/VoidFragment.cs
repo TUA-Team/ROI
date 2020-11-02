@@ -1,9 +1,10 @@
-﻿using ROI.Players;
+﻿using ROI.Content.Items;
+using ROI.Players;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
 
-namespace ROI.Content.Items.Void
+namespace ROI.Content.Void.Items
 {
     internal class VoidFragment : ROIItem
     {
