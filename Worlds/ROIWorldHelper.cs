@@ -1693,6 +1693,18 @@ namespace ROI.Worlds
             }
         }
 
+        public static void FillInvertYAxis(int x, int startingY, int one, int depth, ushort tile)
+        {
+            for (int i = startingY; i > startingY - depth; i--)
+            {
+                if (!WorldGen.InWorld(x, i))
+                {
+                    return;
+                }
+                WorldGen.PlaceTile(x, i, tile, false, true);
+            }
+        }
+
         public static void FillAir(int x, int depth, int one, int startingY)
         {
             for (int i = startingY; i < startingY + depth; i++)

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.World.Generation;
 
 namespace ROI.Worlds.Structures
 {
@@ -17,8 +18,8 @@ namespace ROI.Worlds.Structures
         {
 
             int floor = WorldGen.genRand.Next(5, 10);
-            int height = WorldGen.genRand.Next(8, 11);
-            int width = WorldGen.genRand.Next(20, 25);
+            int height = WorldGen.genRand.Next(7, 10);
+            int width = WorldGen.genRand.Next(10, 15);
 
             List<Rectangle> roomLocation = new List<Rectangle>();
 
@@ -50,6 +51,24 @@ namespace ROI.Worlds.Structures
             for (int i = 0; i < roomLocation.Count; i++)
             {
                 GenerateChest(roomLocation[i]);
+            }
+
+            foreach (Rectangle rectangle in roomLocation)
+            {
+                List<Rectangle> roomListWithoutCurrent = new List<Rectangle>(roomLocation);
+                roomListWithoutCurrent.Remove(rectangle);
+
+                Point bottomLeft = rectangle.BottomLeft().ToPoint();
+                bottomLeft.X += 2;
+                if (!Main.tile[bottomLeft.X, bottomLeft.Y].active())
+                {
+                    int columnStart = bottomLeft.Y;
+                    while (!Main.tile[bottomLeft.X, columnStart].active() && WorldGen.InWorld(bottomLeft.X, columnStart))
+                    {
+                        WorldGen.PlaceTile(bottomLeft.X, columnStart, TileID.WoodenBeam);
+                    }
+                }
+
             }
         }
 
@@ -135,10 +154,12 @@ namespace ROI.Worlds.Structures
                     continue;
                 //Main.tile[i, v].active(true);
 
-                if (Main.tile[i, v].type != (ushort)mod.TileType("Wasteland_Brick"))
+                if (Main.tile[i, v + 1].wall == mod.WallType("WastestoneBrickWall") && Main.tile[i, v].type != (ushort)mod.TileType("Wasteland_Brick"))
                 {
                     // TODO: WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
-                    WorldGen.PlaceTile(i, v, TileID.Platforms, true, true);
+                    //WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
+                    Main.tile[i, v].active(true);
+                    Main.tile[i, v].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
                 }
                 //WorldGen.SquareTileFrame(i, y + height);
             }
@@ -162,13 +183,8 @@ namespace ROI.Worlds.Structures
 
                     if (WorldGen.genRand.Next(20) == 0)
                     {
-                        Main.tile[i, y].active(true);
-                        Main.tile[i, y].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
-                        Main.tile[i, y].frameX = 0;
-                        Main.tile[i, y].frameY = 0;
-                        //WorldGen.SquareTileFrame(i, y);
+                        WorldGen.PlaceTile(i, y, ModContent.TileType<Wastebrick_Platform>(), true, true);
                     }
-
                 }
             }
         }

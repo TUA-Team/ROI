@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ROI.Worlds.Subworlds;
+using ROI.Worlds.Subworlds.Wasteland;
 using SubworldLibrary;
 using Terraria.ModLoader;
 
@@ -26,6 +27,15 @@ namespace ROI.Commands
                     {
                         throw new Exception("Cannot enter dimension");
                     }
+                    break;
+                case "wasteland":
+                    if (!Subworld.Enter<TheWastelandDepthSubworld>())
+                    {
+                        throw new Exception("Cannot enter dimension");
+                    }
+                    break;
+                case "overworld":
+                    Subworld.Exit();
                     break;
             }
         }

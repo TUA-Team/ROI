@@ -25,6 +25,10 @@ namespace ROI.Helpers
             {
                 for (int y = j; y < j + height; y++)
                 {
+                    if (!WorldGen.InWorld(x, y))
+                    {
+                        break;
+                    }
                     if (replaceTileMode && Main.tile[x, y].active())
                     {
                         Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
@@ -46,6 +50,10 @@ namespace ROI.Helpers
             {
                 for (int y = j; y < j + height; y++)
                 {
+                    if (!WorldGen.InWorld(x, y))
+                    {
+                        break;
+                    }
                     if (Main.tile[i, j].active() && stopIfTileHit)
                     {
                         continue;

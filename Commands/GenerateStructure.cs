@@ -22,10 +22,6 @@ namespace ROI.Commands
                 case "wastelandgrotto":
                     WastelandGrotto.Generate(positionInWorld.X, positionInWorld.Y);
                     break;
-                case "wasteland":
-                    ROIWorld instance = (ROIWorld)mod.GetModWorld("ROIWorld");
-                    instance.WastelandGeneration(new GenerationProgress());
-                    break;
                 case "wastelake":
                     WastelandLake.Generate(position);
                     break;

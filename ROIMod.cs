@@ -25,6 +25,7 @@ using Terraria.Utilities;
 using ReLogic.Graphics;
 using ROI.NPCs.Void;
 using ROI.Worlds.Subworlds;
+using ROI.Worlds.Subworlds.Wasteland;
 using SubworldLibrary;
 using Terraria.ID;
 using Terraria.Localization;
@@ -246,10 +247,13 @@ namespace ROI
 
         public override void UpdateMusic(ref int music, ref MusicPriority priority)
         {
-            if (Subworld.IsActive<VoidRiftSubworld>())
+            if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active) {
+                return;
+            }
+            if (Subworld.IsActive<TheWastelandDepthSubworld>())
             {
-                priority = MusicPriority.BiomeHigh;
-                //music = 
+                music = GetSoundSlot(SoundType.Music,"Sounds/Music/wasteland_underground");
+                priority = MusicPriority.Environment;
 
             }
         }
