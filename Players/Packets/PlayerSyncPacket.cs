@@ -6,7 +6,7 @@ namespace ROI.Players.Packets
 {
     public sealed class PlayerSyncPacket : NetworkPacket<ROIPlayer>
     {
-        protected override void ReceiveData(BinaryReader reader, int fromWho)
+        public override void Receive(BinaryReader reader, int fromWho)
         {
             var plr = ROIPlayer.Get(Main.player[fromWho]);
             plr.VoidAffinity = reader.ReadInt16();
@@ -14,6 +14,11 @@ namespace ROI.Players.Packets
         }
 
         protected override void WriteData(BinaryWriter writer)
+        {
+
+        }
+
+        protected override void WriteData(BinaryWriter writer, ROIPlayer state)
         {
             writer.Write(state.VoidAffinity);
             writer.Write(state.MaxVoidAffinity);
