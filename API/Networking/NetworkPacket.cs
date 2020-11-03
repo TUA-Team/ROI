@@ -53,10 +53,7 @@ namespace API.Networking
         protected abstract void WriteData(BinaryWriter writer, T state);
 
 
-        protected override void SendStyle(ModPacket packet, int toClient, int ignoreClient)
-        {
-            WriteData(packet, LocalDefault);
-        }
+        protected sealed override void WriteData(BinaryWriter writer) => WriteData(writer, LocalDefault);
 
         protected virtual T LocalDefault => throw new System.NotImplementedException();
     }
