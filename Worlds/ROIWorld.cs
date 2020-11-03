@@ -10,9 +10,11 @@ using System.Linq;
 using LiquidAPI;
 using LiquidAPI.LiquidMod;
 using ROI.NPCs.Void;
+using ROI.Projectiles;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.Graphics.Effects;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
@@ -32,7 +34,7 @@ namespace ROI.Worlds
 
         internal static List<Tentacle> tenctacleList = new List<Tentacle>();
 
-        
+
 
         public override TagCompound Save()
         {
@@ -84,7 +86,7 @@ namespace ROI.Worlds
             {
                 version = new Version(0, 0, 0, 0);
             }
-            
+
         }
 
         private static void LoadModNPCData(TagCompound tag)
@@ -142,20 +144,34 @@ namespace ROI.Worlds
             }
             Main.spriteBatch.End();
             ModLiquid waste = LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste");
-            for (int i = (int) (Main.screenPosition.X - 3)  / 16; i < (Main.screenPosition.X - 3 + Main.graphics.PreferredBackBufferWidth + 3)  / 16; i++)
+            ModLiquid lava = LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "Lava");
+            for (int i = (int)(Main.screenPosition.X) / 16 - 16; i < (Main.screenPosition.X + Main.graphics.PreferredBackBufferWidth) / 16 + 16; i++)
             {
-                for (int j = (int) (Main.screenPosition.Y - 3)  / 16; j < (Main.screenPosition.Y - 3 + Main.graphics.PreferredBackBufferWidth + 3)  / 16; j++)
+                for (int j = (int)(Main.screenPosition.Y) / 16 - 16; j < (Main.screenPosition.Y + Main.graphics.PreferredBackBufferWidth) / 16 + 16; j++)
                 {
-                    if (!WorldGen.InWorld(i, j) || !WorldGen.InWorld(i, j - 1))
+                    if (!WorldGen.InWorld(i, j) || !WorldGen.InWorld(i, j - 1))
                         break;
 
                     LiquidRef reference = LiquidWorld.grid[i, j];
                     LiquidRef referenceUp = LiquidWorld.grid[i, j - 1];
-                    if (reference.Type.Type == waste.Type && !referenceUp.Tile.active() && !referenceUp.HasLiquid)
+                    if (reference.Type.Type == waste.Type && !referenceUp.HasLiquid && reference.HasLiquid)
                     {
-                     
-                        Lighting.AddLight(i, j , 0.01f, 1f * 0.8f, 0.01f);
-                        
+                        float preBrightness = Lighting.brightness;
+                        Lighting.brightness = 0.2f;
+                        Lighting.AddLight(i, j, 0.01f, 0.5f, 0.01f);
+                        Lighting.brightness = preBrightness;
+                        if (Main.netMode != NetmodeID.Server && Main.rand.Next(5000) == 0)
+                        {
+                            int properOffset = (j * 16) + 16 - (16 - reference.Amount / 16); 
+                            Projectile.NewProjectile(new Vector2(i * 16, properOffset + 2), Vector2.Zero, ModContent.ProjectileType<Wasteland_Surface_Bubble>(), 0, 0);
+                        }
+                    }
+                    if (reference.Type.Type == lava.Type)
+                    {
+                        float preBrightness = Lighting.brightness;
+                        Lighting.brightness = 0.7f;
+                        Lighting.AddLight(i, j, 1.00f, 0.25f, 0.10f);
+                        Lighting.brightness = preBrightness;
                     }
                 }
             }
@@ -191,6 +207,6 @@ namespace ROI.Worlds
             version = ROIMod.instance.Version;
         }
 
-        
+
     }
 }

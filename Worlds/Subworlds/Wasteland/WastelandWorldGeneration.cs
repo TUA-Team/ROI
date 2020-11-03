@@ -127,7 +127,7 @@ namespace ROI.Worlds
                 int dirtDepth = WorldGen.genRand.Next(10, 15);
                 ROIWorldHelper.Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort) mod.TileType("Wasteland_Dirt"));
                 ROIWorldHelper.Fill(i, totalDisplacements[i] + dirtDepth, 1, 600, (ushort) mod.TileType("Wasteland_Rock"));
-                ROIWorldHelper.FillAir(i, 0, 1, totalDisplacements[i]);
+                //ROIWorldHelper.FillAir(i, 0, 1, totalDisplacements[i]);
             }
         }
         else
@@ -241,7 +241,6 @@ namespace ROI.Worlds
                     {
                         nextHouseCooldown = WorldGen.genRand.Next(100, 150);
                         WastelandRuins.PlaceHouse(i, j);
-                        break;
                     }
                 }
             }
