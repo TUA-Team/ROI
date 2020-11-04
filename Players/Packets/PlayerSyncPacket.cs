@@ -13,11 +13,6 @@ namespace ROI.Players.Packets
             plr.MaxVoidAffinity = reader.ReadInt16();
         }
 
-        protected override void WriteData(BinaryWriter writer)
-        {
-
-        }
-
         protected override void WriteData(BinaryWriter writer, ROIPlayer state)
         {
             writer.Write(state.VoidAffinity);

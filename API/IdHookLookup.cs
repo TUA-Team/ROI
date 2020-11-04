@@ -12,6 +12,7 @@ namespace API
 
     public static class IdHookLookup<T> where T : IHaveId
     {
+        public static IReadOnlyList<T> Instances => dict;
         private static readonly List<T> dict;
 
         static IdHookLookup()
