@@ -17,10 +17,14 @@ namespace API.Terraria.Biomes
         public bool CustomBiomesMatch(Player other)
         {
             var otherRegistry = other.GetModPlayer<StandardPlayer>().BiomeRegistry;
-            for (int i = 0; i < RegisteredComponents.Count; i++)
+            var enumerator = RegisteredComponents.GetEnumerator();
+            var otherEnumerator = otherRegistry.RegisteredComponents.GetEnumerator();
+            
+            while (enumerator.MoveNext() && otherEnumerator.MoveNext())
             {
-                BiomeBase biome = RegisteredComponents[i];
-                BiomeBase otherBiome = otherRegistry.RegisteredComponents[i];
+                var biome = enumerator.Current;
+                var otherBiome = otherEnumerator.Current;
+
                 if (biome.Active ^ otherBiome.Active)
                     return false;
             }
