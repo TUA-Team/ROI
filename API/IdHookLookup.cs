@@ -23,7 +23,6 @@ namespace API
 
         public static void Register(T hook)
         {
-            hook.MyId = dict.Count;
             dict.Add(hook);
         }
 

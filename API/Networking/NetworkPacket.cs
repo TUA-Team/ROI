@@ -25,10 +25,11 @@ namespace API.Networking
 
         protected sealed override void Register()
         {
+            MyId = IdHookLookup<NetworkPacket>.Instances.Count;
             IdHookLookup<NetworkPacket>.Register(this);
         }
 
-        public int MyId { get; set; }
+        public int MyId { get; private set; }
 
 
         public static TPacket Get<TPacket>(Mod mod) where TPacket : NetworkPacket, new()

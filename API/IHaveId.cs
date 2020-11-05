@@ -4,6 +4,6 @@ namespace API
 {
     public interface IHaveId:ILoadable
     {
-        int MyId { get; set; }
+        int MyId { get; }
     }
 }
