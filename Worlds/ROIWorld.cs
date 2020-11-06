@@ -11,6 +11,9 @@ using LiquidAPI;
 using LiquidAPI.LiquidMod;
 using ROI.NPCs.Void;
 using ROI.Projectiles;
+using ROI.Projectiles.VoidPillarProjectiles;
+using ROI.Worlds.Subworlds.Wasteland;
+using SubworldLibrary;
 using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.Graphics.Effects;
@@ -154,16 +157,26 @@ namespace ROI.Worlds
 
                     LiquidRef reference = LiquidWorld.grid[i, j];
                     LiquidRef referenceUp = LiquidWorld.grid[i, j - 1];
+                    LiquidRef referenceUpRight = LiquidWorld.grid[i + 1, j - 1];
                     if (reference.Type.Type == waste.Type && !referenceUp.HasLiquid && reference.HasLiquid)
                     {
                         float preBrightness = Lighting.brightness;
                         Lighting.brightness = 0.2f;
                         Lighting.AddLight(i, j, 0.01f, 0.5f, 0.01f);
                         Lighting.brightness = preBrightness;
-                        if (Main.netMode != NetmodeID.Server && Main.rand.Next(5000) == 0)
+                        // TODO: Move this into a proper method for server
+                        if (Main.netMode != NetmodeID.Server && Main.rand.Next(5000) == 0 && reference.Amount > 200 && !referenceUpRight.Tile.active() && Main.hasFocus)
                         {
                             int properOffset = (j * 16) + 16 - (16 - reference.Amount / 16); 
-                            Projectile.NewProjectile(new Vector2(i * 16, properOffset + 2), Vector2.Zero, ModContent.ProjectileType<Wasteland_Surface_Bubble>(), 0, 0);
+                            Projectile.NewProjectile(new Vector2(i * 16, (j - 1) * 16 + 8f), Vector2.Zero, ModContent.ProjectileType<Wasteland_Surface_Bubble>(), 0, 0);
+                        }
+
+                        if (Main.netMode != NetmodeID.Server && Subworld.IsActive<TheWastelandDepthSubworld>() && Main.rand.Next(5000) == 0  && Main.hasFocus)
+                        {
+                            int bubbleType = Main.rand.Next(0, 3);
+                            
+                            int projectile = Projectile.NewProjectile(new Vector2(i * 16, (j + 2) * 16), new Vector2(Main.rand.NextFloat(-0.36f, 0.36f), -0.5f), ModContent.ProjectileType<Wasteland_Bubble>(), 0, 0, 255, bubbleType);
+                            Main.projectile[projectile].ai[0] = bubbleType;
                         }
                     }
                     if (reference.Type.Type == lava.Type)
