@@ -6,13 +6,8 @@ using static API.Terraria.EntityComponents.HookLoader;
 
 namespace API.Terraria.EntityComponents
 {
-    public class EntityComponentProvider : EntityComponent,IEnumerable<EntityComponent>
+    public class EntityComponentProvider : EntityComponent, IEnumerable<EntityComponent>
     {
-        protected override void OnActivate()
-        {
-            AddComponent(GetType(), this);
-        }
-
         public void ActivateComponent<T>(T component) where T : EntityComponent => ActivateComponent(typeof(T), component);
 
         public void ActivateComponent(Type type, EntityComponent component)
@@ -34,6 +29,15 @@ namespace API.Terraria.EntityComponents
         public virtual EntityComponent GetComponent(Type type)
         {
             return dict.TryGetValue(type, out var result) ? result : default;
+        }
+
+        public virtual void DeactivateComponent<T>() where T : EntityComponent
+        {
+            if (dict.TryGetValue(typeof(T), out var comp))
+            {
+                comp.OnDeactivate();
+                dict.Remove(typeof(T));
+            }
         }
 
 
@@ -61,7 +65,7 @@ namespace API.Terraria.EntityComponents
         IEnumerator IEnumerable.GetEnumerator() => dict.Values.GetEnumerator();
     }
 
-    public class EntityComponentProvider<T> : EntityComponentProvider,IEnumerable<T> where T:EntityComponent
+    public class EntityComponentProvider<T> : EntityComponentProvider, IEnumerable<T> where T : EntityComponent
     {
         public new void ActivateComponent<S>(S component) where S : T => base.ActivateComponent(component);
 

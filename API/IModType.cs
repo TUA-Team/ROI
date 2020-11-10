@@ -2,7 +2,7 @@
 
 namespace API
 {
-    public interface IModType:ILoadable
+    public interface IModType : ILoadable
     {
         Mod Mod { get; }
     }

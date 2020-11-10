@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace API.Networking
 {
-    public abstract class ReboundPacket:NetworkPacket
+    public abstract class ReboundPacket : NetworkPacket
     {
         public override void Receive(BinaryReader reader, int fromWho)
         {

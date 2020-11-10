@@ -6,7 +6,7 @@ using static API.Terraria.EntityComponents.HookLoader;
 
 namespace API.Terraria.EntityComponents
 {
-    public abstract class ComponentRegistry<T>:EntityBehavior where T:EntityComponent
+    public abstract class ComponentRegistry<T> : EntityBehavior where T : EntityComponent
     {
         public EntityComponentProvider<T> RegisteredComponents { get; private set; }
 

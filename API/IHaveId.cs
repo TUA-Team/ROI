@@ -2,7 +2,7 @@
 
 namespace API
 {
-    public interface IHaveId:ILoadable
+    public interface IHaveId : ILoadable
     {
         int MyId { get; }
     }
