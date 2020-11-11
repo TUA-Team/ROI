@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using static API.Terraria.EntityComponents.HookLoader;
 
 namespace API.Terraria.EntityComponents
 {
@@ -19,6 +18,7 @@ namespace API.Terraria.EntityComponents
         public virtual void AddComponent(Type type, EntityComponent component)
         {
             dict.Add(type, component);
+            update += component.UpdateComponent;
         }
 
         public virtual T GetComponent<T>() where T : EntityComponent
@@ -33,26 +33,17 @@ namespace API.Terraria.EntityComponents
 
         public virtual void DeactivateComponent<T>() where T : EntityComponent
         {
-            if (dict.TryGetValue(typeof(T), out var comp))
+            if (dict.TryGetValue(typeof(T), out var component))
             {
-                comp.OnDeactivate();
+                component.OnDeactivate();
                 dict.Remove(typeof(T));
+                update -= component.UpdateComponent;
             }
         }
 
 
-        public override void UpdateComponent()
-        {
-            foreach (var comp in updateHooks.Impls)
-            {
-                comp.UpdateComponent();
-            }
-        }
-
-        public void Build() => updateHooks.Build(dict.Values);
-
-
-        protected readonly HookList<EntityComponent> updateHooks = HookList<EntityComponent>.Create<Action>(x => x.UpdateComponent);
+        private Action update;
+        public override void UpdateComponent() => update?.Invoke();
 
 
         protected readonly Dictionary<Type, EntityComponent> dict = new Dictionary<Type, EntityComponent>();
