@@ -32,6 +32,9 @@
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="LiquidAPI">
+      <HintPath>..\LiquidAPI\bin\Debug\net45\LiquidAPI.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>

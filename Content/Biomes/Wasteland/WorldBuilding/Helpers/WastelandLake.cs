@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LiquidAPI;
+using Microsoft.Xna.Framework;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
 using ROI.Helpers;
 using System;
@@ -40,15 +41,12 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers
 
             for (int i = -(xModifier + 7) / 2; i < (xModifier + 7) / 2; i++)
             {
-                // TODO: liquid api
-                /*
                 Point point = new Point(x + i, y + i * i / 25 * -1);
                 if (dirt)
-                    ROIWorldGenHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandDirt>() }, new ushort[] { 2, 4 }, true);
+                    GeneralWorldHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandDirt>() }, new ushort[] { 2, 4 }, true);
                 else
-                    ROIWorldGenHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandWaste>() }, new ushort[] { 4, 2 }, true);
-                ROIWorldGenHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
-                */
+                    GeneralWorldHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandWaste>() }, new ushort[] { 4, 2 }, true);
+                GeneralWorldHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
             }
 
             for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)

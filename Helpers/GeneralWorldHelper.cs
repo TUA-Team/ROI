@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using LiquidAPI;
+using LiquidAPI.LiquidMod;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -1716,8 +1718,6 @@ namespace ROI.Helpers
             }
         }
 
-        // TODO: liquid api
-        /*
         public static void FillLiquid(int i, int j, int width, int height, ModLiquid liquidID, bool stopIfTileHit = false)
         {
             for (int x = i; x < i + width; x++)
@@ -1737,7 +1737,6 @@ namespace ROI.Helpers
                 }
             }
         }
-        */
 
         public static void FillAir(int i, int j, int width, int height)
         {
