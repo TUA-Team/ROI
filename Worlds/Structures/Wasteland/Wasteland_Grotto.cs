@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ROI.Worlds.Structures.Wasteland
 {
-    class WastelandGrotto
+    class Wasteland_Grotto
     {
         internal static int numberOfGrotto = 0;
 

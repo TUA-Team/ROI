@@ -12,6 +12,7 @@ using LiquidAPI.LiquidMod;
 using ROI.NPCs.Void;
 using ROI.Projectiles;
 using ROI.Projectiles.VoidPillarProjectiles;
+using ROI.Worlds.Structures.Wasteland;
 using ROI.Worlds.Subworlds.Wasteland;
 using SubworldLibrary;
 using Terraria;
@@ -37,6 +38,7 @@ namespace ROI.Worlds
 
         internal static List<Tentacle> tenctacleList = new List<Tentacle>();
 
+        internal static List<Wasteland_Cave> wastelandCaves;
 
 
         public override TagCompound Save()

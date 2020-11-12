@@ -10,7 +10,7 @@ using Terraria.World.Generation;
 
 namespace ROI.Worlds.Structures
 {
-    class WastelandRuins
+    class Wasteland_Ruins
     {
         internal static ROIMod mod => ROIMod.instance;
 

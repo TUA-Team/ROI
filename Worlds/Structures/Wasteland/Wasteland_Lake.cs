@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Worlds.Structures.Wasteland
 {
-    class WastelandLake
+    class Wasteland_Lake
     {
         internal static void Generate(Vector2 fromEntityPosition)
         {

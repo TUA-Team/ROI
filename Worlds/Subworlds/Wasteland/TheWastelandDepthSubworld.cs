@@ -13,7 +13,7 @@ namespace ROI.Worlds.Subworlds.Wasteland
     public class TheWastelandDepthSubworld : Subworld
     {
         public override int width => Main.maxTilesX;
-        public override int height => 1000;
+        public override int height => 1200;
         public override bool saveModData => true;
         public override bool disablePlayerSaving => false;
         public override bool saveSubworld => false;

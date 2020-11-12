@@ -20,10 +20,10 @@ namespace ROI.Commands
             switch (args[0].ToLower())
             {
                 case "wastelandgrotto":
-                    WastelandGrotto.Generate(positionInWorld.X, positionInWorld.Y);
+                    Wasteland_Grotto.Generate(positionInWorld.X, positionInWorld.Y);
                     break;
                 case "wastelake":
-                    WastelandLake.Generate(position);
+                    Wasteland_Lake.Generate(position);
                     break;
             }
         }
