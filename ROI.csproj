@@ -35,6 +35,9 @@
     <Reference Include="LiquidAPI">
       <HintPath>..\LiquidAPI\bin\Debug\net45\LiquidAPI.dll</HintPath>
     </Reference>
+    <Reference Include="SubworldLibrary">
+      <HintPath>..\..\modReferences\SubworldLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>

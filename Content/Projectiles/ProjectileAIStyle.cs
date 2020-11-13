@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.Content.Biomes.Wasteland.HeartOfTheWasteland.Projectiles;
+using ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Projectiles;
 using System;
 using Terraria;
 using Terraria.GameContent.Shaders;

@@ -74,7 +74,7 @@ namespace ROI.Content.Void.UI
             if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
             {
                 Main.hoverItemName = $"Void meter : {player.VoidAffinity}/{player.MaxVoidAffinity}\n" +
-                    $"Percent : {percent * 100}%\n"/* +
+                    $"Percent : {percent * 100}%\n";/* +
                     $"Tier : {player.VoidTier}";*/
             }
         }

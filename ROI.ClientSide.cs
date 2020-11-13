@@ -1,10 +1,15 @@
-﻿using ROI.Content.Configs;
+﻿using Microsoft.Xna.Framework;
+using ROI.Content.Configs;
 using ROI.Content.Items;
+using ROI.Content.Subworlds.Wasteland;
 using ROI.Players;
+using SubworldLibrary;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace ROI
 {
@@ -52,9 +57,9 @@ namespace ROI
 
             // Highest to lowest priority here, just return if a condition is validated
 
-            if (ROIPlayer.Get().ZoneWasteland)
+            if (Subworld.IsActive<WastelandDepthSubworld>())
             {
-                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Wasteland");
+                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/WastelandDepth");
                 priority = MusicPriority.Environment;
                 return;
             }
@@ -64,6 +69,16 @@ namespace ROI
         {
             if (ROIPlayer.Get().ZoneWasteland)
                 scale *= 0.7f;
+        }
+
+        public override void UpdateUI(GameTime gameTime)
+        {
+            interfaceLoader.UpdateUI(gameTime);
+        }
+
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
+        {
+            interfaceLoader.ModifyInterfaceLayers(layers);
         }
     }
 }
