@@ -36,6 +36,7 @@ namespace API.Networking
         {
             var packet = new TPacket();
             packet.Instantiate(mod);
+            packet.MyId = IdByType<TPacket>.Id;
             return packet;
         }
     }
