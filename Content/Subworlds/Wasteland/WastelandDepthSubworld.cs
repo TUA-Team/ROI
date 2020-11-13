@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ROI.Content.Worlds;
+using ROI.Content.Subworlds.Wasteland.WorldBuilding;
 using SubworldLibrary;
 using Terraria;
 using Terraria.GameContent.Generation;
@@ -24,17 +24,12 @@ namespace ROI.Content.Subworlds.Wasteland
         public override List<GenPass> tasks => GetPassList();
 
 
-        public List<GenPass> GetPassList()
-        {
-            return new List<GenPass>()
+        public List<GenPass> GetPassList() => new List<GenPass>()
             {
                 new PassLegacy("WastelandGeneration", delegate(GenerationProgress progress)
                 {
-                    ROIWorld.WastelandGeneration(progress);
+                    WastelandWorldBuilding.WastelandGeneration(progress);
                 })
             };
-        }
-
-
     }
 }

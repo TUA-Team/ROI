@@ -1,6 +1,4 @@
 ﻿using API.Terraria.Biomes;
-using API.Terraria.EntityComponents;
-using API.Terraria.EntityComponents.Behaviors;
 using System.IO;
 using Terraria;
 using Terraria.ModLoader;
@@ -12,15 +10,10 @@ namespace API.Terraria
         public static StandardPlayer Get(Player plr) => plr.GetModPlayer<StandardPlayer>();
 
 
-        private EntityComponentProvider components;
-
         public BiomeRegistry BiomeRegistry { get; private set; }
 
         public override void Initialize()
         {
-            components = new EntityComponentProvider();
-            components.Activate(player);
-
             BiomeRegistry = new BiomeRegistry();
             for (int i = 0; i < IdHookLookup<BiomeBase>.Instances.Count; i++)
             {
@@ -28,15 +21,12 @@ namespace API.Terraria
                 BiomeRegistry.Register(biome);
             }
             BiomeRegistry.Build();
-
-            components.ActivateComponent(BiomeRegistry);
-            components.Build();
         }
 
 
         public override void UpdateBiomes()
         {
-            BiomeRegistry.UpdateComponent();
+            BiomeRegistry.Update();
         }
 
         public override void CopyCustomBiomesTo(Player other)
@@ -58,19 +48,5 @@ namespace API.Terraria
         {
             BiomeRegistry.ReceiveCustomBiomes(reader);
         }
-
-
-        public void AttachBehavior<T>(T behavior) where T : EntityBehavior
-        {
-            behavior.Components = components;
-            components.ActivateComponent(behavior);
-        }
-
-        public void AttachComponent<T>(T component) where T : EntityComponent
-        {
-            components.ActivateComponent(component);
-        }
-
-        public void DeactivateComponent<T>() where T : EntityComponent => components.DeactivateComponent<T>();
     }
 }

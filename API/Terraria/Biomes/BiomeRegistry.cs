@@ -1,28 +1,27 @@
 ﻿using API.Terraria.EntityComponents;
-using System.Collections;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using Terraria;
 
 namespace API.Terraria.Biomes
 {
-    public sealed class BiomeRegistry : ComponentRegistry<BiomeBase>
+    public sealed class BiomeRegistry : HookRegistry<BiomeBase>
     {
-        public bool IsBiomeActive<T>() where T : BiomeBase => RegisteredComponents.GetComponent<T>().Active;
+        public bool IsBiomeActive<T>() where T : BiomeBase =>
+            registered.TryGetValue(typeof(T), out var b) && b.Active;
 
 
         public void CopyCustomBiomesTo(Player other)
         {
-            foreach (BiomeBase comp in RegisteredComponents)
+            foreach (BiomeBase comp in registered.Values)
                 comp.CopyCustomBiomesTo(other);
         }
 
         public bool CustomBiomesMatch(Player other)
         {
             var otherRegistry = other.GetModPlayer<StandardPlayer>().BiomeRegistry;
-            var enumerator = RegisteredComponents.GetEnumerator();
-            var otherEnumerator = otherRegistry.RegisteredComponents.GetEnumerator();
+            var enumerator = registered.Values.GetEnumerator();
+            var otherEnumerator = otherRegistry.registered.Values.GetEnumerator();
 
             while (enumerator.MoveNext() && otherEnumerator.MoveNext())
             {
@@ -38,7 +37,7 @@ namespace API.Terraria.Biomes
 
         public void SendCustomBiomes(BinaryWriter writer)
         {
-            var bits = new BitArrayU8(Enumerable.Select<BiomeBase, bool>(RegisteredComponents,
+            var bits = new BitArrayU8(Enumerable.Select(registered.Values,
                 x => x.Active).ToArray());
 
             //writer.Write((byte)arr.Length);
@@ -59,7 +58,7 @@ namespace API.Terraria.Biomes
 
             var bits = new BitArrayU8(arr);
             int index = 0;
-            foreach (BiomeBase biome in RegisteredComponents)
+            foreach (BiomeBase biome in registered.Values)
             {
                 biome.ReceiveBiome(bits.Get(index));
             }

@@ -2,7 +2,7 @@
 
 namespace API.Terraria.EntityComponents
 {
-    public abstract class EntityComponent
+    public abstract class EntityHook
     {
         protected Entity Entity { get; private set; }
 
@@ -21,7 +21,7 @@ namespace API.Terraria.EntityComponents
         {
         }
 
-        public virtual void UpdateComponent()
+        public virtual void Update()
         {
         }
     }

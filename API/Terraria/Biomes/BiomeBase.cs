@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 
 namespace API.Terraria.Biomes
 {
-    public abstract class BiomeBase : EntityComponent, IHaveId
+    public abstract class BiomeBase : EntityHook, IHaveId
     {
         public void Load(Mod mod)
         {
@@ -14,7 +14,7 @@ namespace API.Terraria.Biomes
             IdHookLookup<BiomeBase>.Register(this);
         }
 
-        public sealed override void UpdateComponent()
+        public sealed override void Update()
         {
             var prev = Active;
             Active = IsBiomeActive();
@@ -30,7 +30,7 @@ namespace API.Terraria.Biomes
         {
             var modPlayer = other.GetModPlayer<StandardPlayer>();
             var registry = modPlayer.BiomeRegistry;
-            var biome = registry.RegisteredComponents.GetComponent(GetType());
+            var biome = registry.RegisteredHooks.GetComponent(GetType());
             biome.Active = Active;
         }
 

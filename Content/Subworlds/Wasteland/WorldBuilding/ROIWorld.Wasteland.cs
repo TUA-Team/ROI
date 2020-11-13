@@ -3,6 +3,7 @@ using ROI.Content.Subworlds.Wasteland.Furniture.Walls;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Walls;
+using ROI.Worlds;
 using System;
 using System.Collections.Generic;
 using Terraria;

@@ -13,7 +13,7 @@ using static Terraria.WorldGen;
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
     //Contain wasteland world gen
-    internal static class WastelandWorldGeneration
+    internal static class WastelandWorldBuilding
     {
         internal static Dictionary<int, int> SurfaceLevel;
         internal static int HighestLevel = 300;

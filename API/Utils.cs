@@ -54,6 +54,6 @@ namespace API
             return val;
         }
 
-        public static bool EqualsIC(this string str, string str2) => str.ToUpper().Equals(str2);
+        public static bool EqualsIC(this string str, string str2) => str.Equals(str2, StringComparison.OrdinalIgnoreCase);
     }
 }

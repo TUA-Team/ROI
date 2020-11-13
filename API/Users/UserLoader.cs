@@ -8,7 +8,7 @@ namespace API.Users
     // web's code
     public sealed class UserLoader : BaseLoader
     {
-        protected override void OnInitialize(Mod mod)
+        protected override void OnInitialize()
         {
             try
             {
@@ -22,7 +22,7 @@ namespace API.Users
             }
             catch (Exception)
             {
-                mod.Logger.Info("Unable to fetch SteamID, assuming no Steam is present.");
+                Mod.Logger.Info("Unable to fetch SteamID, assuming no Steam is present.");
             }
 
             if (!HasSteamId64)

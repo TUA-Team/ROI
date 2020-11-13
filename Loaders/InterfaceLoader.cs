@@ -6,7 +6,6 @@ using ROI.Content.Void.UI;
 using System;
 using System.Collections.Generic;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace ROI.Loaders

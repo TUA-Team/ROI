@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Void.UI
 {
-    internal class VoidAffinity : ROIState
+    internal class VoidAffinity : ModUIState
     {
         private readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
 

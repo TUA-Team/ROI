@@ -15,11 +15,6 @@ namespace ROI.Players.Packets
 
         protected override void WriteData(BinaryWriter writer, ROIPlayer state)
         {
-
-        }
-
-        protected override void WriteData(BinaryWriter writer, ROIPlayer state)
-        {
             writer.Write(state.VoidAffinity);
             writer.Write(state.MaxVoidAffinity);
         }

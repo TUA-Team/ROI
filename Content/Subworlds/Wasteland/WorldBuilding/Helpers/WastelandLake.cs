@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 using ROI.Content.Worlds;
+using ROI.Worlds;
 using System;
 using Terraria;
 using Terraria.ModLoader;

@@ -20,14 +20,14 @@ namespace ROI.Extensions
             var list = new List<T>();
             for (int i = 0; i < types.Length; i++)
             {
-                var type = types[i];
-                if (type.IsAbstract)
+                var nested = types[i];
+                if (nested.IsAbstract)
                     continue;
-                if (type.ContainsGenericParameters)
+                if (nested.ContainsGenericParameters)
                     continue;
-                if (type.IsSubclassOf(typeof(T)))
+                if (nested.IsSubclassOf(typeof(T)))
                 {
-                    list.Add((T)Activator.CreateInstance(type));
+                    list.Add((T)Activator.CreateInstance(nested));
                 }
             }
             return list.ToArray();
