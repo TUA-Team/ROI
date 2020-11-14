@@ -57,6 +57,6 @@ namespace API.Networking
 
         protected sealed override void WriteData(BinaryWriter writer) => WriteData(writer, LocalDefault);
 
-        protected virtual T LocalDefault => throw new System.NotImplementedException();
+        protected virtual T LocalDefault => throw new System.NotImplementedException(nameof(LocalDefault));
     }
 }

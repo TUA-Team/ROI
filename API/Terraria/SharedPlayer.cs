@@ -5,9 +5,9 @@ using Terraria.ModLoader;
 
 namespace API.Terraria
 {
-    public sealed class StandardPlayer : ModPlayer
+    public sealed class SharedPlayer : ModPlayer
     {
-        public static StandardPlayer Get(Player plr) => plr.GetModPlayer<StandardPlayer>();
+        public static SharedPlayer Get(Player plr) => plr.GetModPlayer<SharedPlayer>();
 
 
         public BiomeRegistry BiomeRegistry { get; private set; }

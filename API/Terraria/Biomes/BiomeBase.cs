@@ -28,7 +28,7 @@ namespace API.Terraria.Biomes
 
         public virtual void CopyCustomBiomesTo(Player other)
         {
-            var modPlayer = other.GetModPlayer<StandardPlayer>();
+            var modPlayer = other.GetModPlayer<SharedPlayer>();
             var registry = modPlayer.BiomeRegistry;
             var biome = registry.RegisteredHooks.GetComponent(GetType());
             biome.Active = Active;

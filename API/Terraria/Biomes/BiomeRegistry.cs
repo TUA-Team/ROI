@@ -19,7 +19,7 @@ namespace API.Terraria.Biomes
 
         public bool CustomBiomesMatch(Player other)
         {
-            var otherRegistry = other.GetModPlayer<StandardPlayer>().BiomeRegistry;
+            var otherRegistry = other.GetModPlayer<SharedPlayer>().BiomeRegistry;
             var enumerator = registered.Values.GetEnumerator();
             var otherEnumerator = otherRegistry.registered.Values.GetEnumerator();
 

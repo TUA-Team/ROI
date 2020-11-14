@@ -5,7 +5,7 @@ using Terraria.World.Generation;
 
 namespace API.Terraria
 {
-    public sealed class StandardWorld : ModWorld
+    public sealed class SharedWorld : ModWorld
     {
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
