@@ -2,7 +2,6 @@
 using ROI.Content.Configs;
 using ROI.Content.Items;
 using ROI.Content.Subworlds.Wasteland;
-using ROI.Players;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -67,7 +66,7 @@ namespace ROI
 
         public override void ModifyLightingBrightness(ref float scale)
         {
-            if (ROIPlayer.Get().ZoneWasteland)
+            if (Subworld.IsActive<WastelandDepthSubworld>())
                 scale *= 0.7f;
         }
 
