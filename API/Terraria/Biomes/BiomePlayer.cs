@@ -1,4 +1,6 @@
-﻿using Terraria.ModLoader;
+﻿using System.IO;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace API.Terraria.Biomes
 {

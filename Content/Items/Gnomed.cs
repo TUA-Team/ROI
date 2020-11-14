@@ -1,7 +1,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Items.Misc
+namespace ROI.Content.Items
 {
     internal class Gnomed : ModItem
     {

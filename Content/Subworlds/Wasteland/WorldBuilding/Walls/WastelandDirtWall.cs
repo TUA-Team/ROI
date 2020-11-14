@@ -15,7 +15,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Walls
     {
         public override bool Autoload(ref string name, ref string texture)
         {
-            texture = "ROI/Biomes/Wasteland/WorldBuilding/Walls/WastelandDirtWall";
+            texture = "ROI/Content/Subworlds/Wasteland/WorldBuilding/Walls/WastelandDirtWall";
             return true;
         }
 

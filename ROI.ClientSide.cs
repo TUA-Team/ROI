@@ -22,7 +22,7 @@ namespace ROI
             //MusicConfig = ModContent.GetInstance<MusicConfig>();
             DebugConfig = ModContent.GetInstance<DebugConfig>();
 
-            AddMusicBox(GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/Terra"),
+            AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terra"),
                 ModContent.ItemType<TerraMusicBox>(),
                 ModContent.TileType<Content.Tiles.TerraMusicBox>());
 
@@ -58,7 +58,7 @@ namespace ROI
 
             if (Subworld.IsActive<WastelandDepthSubworld>())
             {
-                music = GetSoundSlot(SoundType.Music, "Assets/Sounds/Music/WastelandDepth");
+                music = GetSoundSlot(SoundType.Music, "Sounds/Music/WastelandDepth");
                 priority = MusicPriority.Environment;
                 return;
             }

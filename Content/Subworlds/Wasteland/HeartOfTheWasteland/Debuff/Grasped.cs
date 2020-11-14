@@ -2,7 +2,7 @@
 using ROI.Players;
 using Terraria;
 
-namespace ROI.Buffs.Boss
+namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff
 {
     internal class Grasped : ROIBuff
     {

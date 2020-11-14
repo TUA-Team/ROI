@@ -28,6 +28,7 @@ namespace ROI
 
         private void UnloadLoaders()
         {
+            interfaceLoader?.Unload();
             interfaceLoader = null;
 
             userLoader = null;

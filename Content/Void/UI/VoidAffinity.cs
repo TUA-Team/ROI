@@ -1,114 +1,87 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Content.UI.Elements;
+using ReLogic.Graphics;
 using ROI.Players;
 using System;
 using Terraria;
-using Terraria.Graphics.Shaders;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Void.UI
 {
-    internal class VoidAffinity : ModUIState
+    //TODO: make the move to UIState
+    internal sealed class VoidAffinity
     {
-        private readonly Vector2 DrawingOffset = new Vector2(20f, 170f);
+        private static Vector2 Offset => Main.playerInventory ? new Vector2(30, 270) : new Vector2(30, Main.LocalPlayer.buffTime[9] > 0 ? 185 : 130);
 
-        private readonly Texture2D voidMeterFilled;
-        private readonly Texture2D voidMeterEmpty;
+        private static Texture2D voidMeterFilled;
+        private static Texture2D voidMeterEmpty;
 
-        public VoidAffinity(Mod mod) : base(mod)
+        public static void Load()
         {
-            GameShaders.Misc["ROI:RadialProgress"] = new MiscShaderData(
-                new Ref<Effect>(mod.GetEffect("Assets/Effects/RadialProgress")), "progress");
-
-            voidMeterFilled = mod.GetTexture("Assets/Textures/Elements/VoidMeterFull");
-            voidMeterEmpty = mod.GetTexture("Assets/Textures/Elements/VoidMeterEmpty");
+            voidMeterFilled = ModContent.GetTexture("ROI/Assets/Textures/Elements/VoidMeterFull");
+            voidMeterEmpty = ModContent.GetTexture("ROI/Assets/Textures/Elements/VoidMeterEmpty");
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public static void Unload()
         {
-            ROIPlayer player = ROIPlayer.Get();
-            float percent = player.VoidAffinity / player.MaxVoidAffinity / 100f;
+            voidMeterFilled?.Dispose();
+            voidMeterEmpty?.Dispose();
+        }
 
-            spriteBatch.Draw(voidMeterEmpty,
-                DrawingOffset,
-                null,
-                Color.White,
-                0f,
-                Vector2.Zero,
-                new Vector2(1f, 1f),
-                SpriteEffects.None,
-                1f);
+        static float drawPercent;
+        static Texture2D tex;
+        public static void Draw(SpriteBatch spriteBatch)
+        {
+            ROIPlayer player = Main.LocalPlayer.GetModPlayer<ROIPlayer>();
 
-            spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-
-            var radialShader = GameShaders.Misc["ROI:RadialProgress"];
-            radialShader.Shader.Parameters["progress"].SetValue(percent);
-            radialShader.Shader.CurrentTechnique.Passes[0].Apply();
-
-            spriteBatch.Draw(voidMeterFilled,
-                DrawingOffset,
-                null,
-                Color.White,
-                0f,
-                Vector2.Zero,
-                new Vector2(1f, 1f),
-                SpriteEffects.None,
-                1f);
-
-            spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.Deferred,
-                BlendState.AlphaBlend,
-                Main.DefaultSamplerState,
-                DepthStencilState.None,
-                RasterizerState.CullCounterClockwise,
-                null,
-                Main.GameViewMatrix.TransformationMatrix);
-
-            Rectangle textureBound = new Rectangle((int)DrawingOffset.X,
-                (int)DrawingOffset.Y,
-                voidMeterEmpty.Width,
-                voidMeterFilled.Height);
-
-            if (textureBound.Contains((int)Main.MouseScreen.X, (int)Main.MouseScreen.Y))
+            var percent = player.VoidAffinity / (float)player.MaxVoidAffinity;
+            if (drawPercent != percent)
             {
-                Main.hoverItemName = $"Void meter : {player.VoidAffinity}/{player.MaxVoidAffinity}\n" +
-                    $"Percent : {percent * 100}%\n";/* +
-                    $"Tier : {player.VoidTier}";*/
+                if (Math.Abs(percent - drawPercent) <= 0.1f)
+                    drawPercent = percent;
+                else
+                    drawPercent += drawPercent < percent ? 0.01f : -0.01f;
+                tex = DrawPercent(drawPercent);
+            }
+            if (drawPercent != 0)
+            {
+                spriteBatch.Draw(voidMeterEmpty, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1f);
+                spriteBatch.Draw(tex, Offset, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+
+                Rectangle rect = new Rectangle((int)Offset.X, (int)Offset.Y, voidMeterFilled.Width, voidMeterFilled.Height);
+
+                if (rect.Contains(Main.MouseScreen.ToPoint()))
+                {
+                    var text = $"Affinity: {player.VoidAffinity}/{player.MaxVoidAffinity}";
+                    Main.spriteBatch.DrawString(Main.fontMouseText, text,
+                        Main.MouseScreen - new Vector2(0, Main.fontMouseText.MeasureString(text).Y), Color.White);
+                }
             }
         }
 
-
-        // TODO: (low prio) Move this to DrawUtils
-        public Texture2D DrawCircle(int diameter, int diameterInterior, float percent)
+        public static Texture2D DrawPercent(float percent)
         {
-            Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, diameter, diameter);
-            Color[] colorData = new Color[diameter * diameter];
+            Texture2D texture = new Texture2D(Main.graphics.GraphicsDevice, voidMeterFilled.Width, voidMeterFilled.Height);
+            Color[] colorData = new Color[voidMeterFilled.Width * voidMeterFilled.Height];
+            Color[] refTex = new Color[colorData.Length];
+            voidMeterFilled.GetData(refTex);
 
-            float radius = diameter / 2f;
-            float radiusInterior = diameterInterior / 2f;
-            float radiusSquared = radius * radius;
-            float radiusSquaredInterior = radiusInterior * radiusInterior;
-
-            for (int x = 0; x < diameter; x++)
+            var radian = Math.PI / 180;
+            var offset = MathHelper.ToRadians(180);
+            var max = 6.28318530718 * percent;
+            var center = (voidMeterFilled.Size() * .5f).ToPoint16();
+            for (double delta = 0; delta < max; delta += radian)
             {
-                for (int y = 0; y < diameter; y++)
+                var unit = new Vector2((float)Math.Sin(delta + offset), (float)Math.Cos(delta + offset));
+                for (int k = 0; k < 60; k++)
                 {
-
-                    int index = x * diameter + y;
-                    Vector2 pos = new Vector2(x - radius, y - radius);
-                    float anglePercent = percent * MathHelper.TwoPi - MathHelper.Pi;
-                    float angle = (float)Math.Atan2(pos.Y, pos.X);
-
-                    if (anglePercent > angle && pos.LengthSquared() < radiusSquared && pos.LengthSquared() > radiusSquaredInterior)
-                    {
-                        colorData[index] = Color.White;
-                    }
-                    else
-                    {
-                        colorData[index] = Color.Transparent;
-                    }
+                    var pos = center + new Point16(
+                        Utils.Clamp((int)(unit.X * k), -center.X, center.X - 1),
+                        Utils.Clamp((int)(unit.Y * k), -center.Y, center.Y - 1)
+                    );
+                    var index = pos.Y * voidMeterFilled.Width + pos.X;
+                    colorData[index] = refTex[index];
                 }
             }
 

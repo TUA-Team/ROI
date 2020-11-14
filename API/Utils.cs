@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
 
 namespace API
 {
@@ -55,5 +56,24 @@ namespace API
         }
 
         public static bool EqualsIC(this string str, string str2) => str.Equals(str2, StringComparison.OrdinalIgnoreCase);
+
+        // TODO: (low prio) make sure this actually works, but it probably does
+        // https://www.geeksforgeeks.org/find-two-rectangles-overlap/
+        public static bool IntersectsWith(this Rectangle r1, Rectangle r2)
+        {
+            // If one rectangle is on left side of other  
+            if (r1.X >= r2.X + r2.Width || r2.X >= r1.X + r2.Width)
+            {
+                return false;
+            }
+
+            // If one rectangle is above other  
+            if (r1.Y <= r2.Y + r2.Height || r2.Y <= r1.Y + r1.Height)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

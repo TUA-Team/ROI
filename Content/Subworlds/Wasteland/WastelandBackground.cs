@@ -22,7 +22,7 @@ namespace ROI.Content.Subworlds.Wasteland
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
 
             Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(
-                new Ref<Effect>(mod.GetEffect($"Assets/Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
+                new Ref<Effect>(mod.GetEffect($"Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
             Filters.Scene["ROI:UnderworldFilter"].Load();
         }
 

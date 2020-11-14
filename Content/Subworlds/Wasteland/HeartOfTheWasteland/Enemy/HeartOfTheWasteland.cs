@@ -10,7 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
+namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Enemy
 {
     /// <summary>
     /// ai[0] = AI mode
@@ -24,7 +24,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
     {
         public bool IsSleeping { get; private set; }
 
-        private const string BOSS_HEAD_PATH = "ROI/NPCs/HeartOfTheWasteland/HeartOfTheWasteland_head";
+        private const string BOSS_HEAD_PATH = "ROI/Content/Subworlds/Wasteland/HeartOfTheWasteland/Enemy/HeartOfTheWasteland_head";
 
         private static Texture2D _tentacle;
 
@@ -62,14 +62,14 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
             get { return TargetPlayer.Distance(npc.Center) > 16 * 200; }
         }
 
-        public override string BossHeadTexture => "ROI/NPCs/HeartOfTheWasteland/HeartOfTheWasteland_head0";
+        public override string BossHeadTexture => "ROI/Content/Subworlds/Wasteland/HeartOfTheWasteland/Enemy/HeartOfTheWasteland_head0";
 
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Heart of the Wasteland");
             Main.npcFrameCount[npc.type] = 2;
 
-            _tentacle = mod.GetTexture("NPCs/HeartOfTheWasteland/Heart_Tentacle");
+            _tentacle = mod.GetTexture("Content/Subworlds/Wasteland/HeartOfTheWasteland/Enemy/Heart_Tentacle");
         }
 
 

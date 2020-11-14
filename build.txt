@@ -5,3 +5,5 @@ version = 0.1
 buildIgnore = .vs/ , bin/ , obj/ , .todo , ROI.csproj , ROI.sln , .gitignore , README.md
 
 includePDB = true
+
+modReferences = LiquidAPI, SubworldLibrary

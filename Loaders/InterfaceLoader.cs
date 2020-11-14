@@ -14,9 +14,6 @@ namespace ROI.Loaders
     // possible choices: use normal UserInterfaces, use public properties, use public setter methods, use public states
     internal sealed class InterfaceLoader : BaseLoader
     {
-        public VoidAffinity vAffinityState;
-        public ROIUserInterface<VoidAffinity> vAffinityInterface;
-
         //public VoidPillarHealthBar vPillarHealthState;
         //public ROIUserInterface<VoidPillarHealthBar> vPillarHealthInterface;
 
@@ -26,10 +23,7 @@ namespace ROI.Loaders
 
         protected override void OnInitialize()
         {
-            vAffinityState = new VoidAffinity(Mod);
-            vAffinityState.Activate();
-            vAffinityInterface = new ROIUserInterface<VoidAffinity>();
-            vAffinityInterface.SetState(vAffinityState);
+            VoidAffinity.Load();
 
             //vPillarHealthState = new VoidPillarHealthBar(mod);
             //vPillarHealthState.Activate();
@@ -54,7 +48,7 @@ namespace ROI.Loaders
         {
             var failed = new List<string>();
 
-            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out int index);
+            insertLayerViaVanilla("Resources Bars", "Void Affinity", (sb, _) => VoidAffinity.Draw(sb), out int index);
 
 
             // indexes are named i and j because I was too lazy to figure out
@@ -82,40 +76,45 @@ namespace ROI.Loaders
             }
         }
 
+        public override void Unload()
+        {
+            VoidAffinity.Unload();
+        }
+
         // list of failedInterfaces is there to debug any possible problems with
         // other mods disabling layers
-/*        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
-        {
-            var failed = new List<string>();
-
-            insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out int index);
-
-
-            // indexes are named i and j because I was too lazy to figure out
-            // how to name it `index` without breaking stuff - Agrair
-            void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i)
-            {
-                i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
-                insertLayer(i, name, draw);
-            }
-
-            void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw)
-            {
-                if (j == -1)
+        /*        public bool ModifyInterfaceLayers(List<GameInterfaceLayer> layers, out ICollection<string> failedInterfaces)
                 {
-                    failed.Add(name);
-                    return;
-                }
-                layers.Insert(j, new LegacyGameInterfaceLayer(
-                    $"ROI: {name}",
-                    delegate
-                    {
-                        draw(Main.spriteBatch, lastGameTime);
-                        return true;
-                    }, InterfaceScaleType.UI));
-            }
+                    var failed = new List<string>();
 
-            return (failedInterfaces = failed.Count != 0 ? failed : null) == null;
-        }*/
+                    insertLayerViaVanilla("Resources Bars", "Void Affinity", vAffinityInterface.Draw, out int index);
+
+
+                    // indexes are named i and j because I was too lazy to figure out
+                    // how to name it `index` without breaking stuff - Agrair
+                    void insertLayerViaVanilla(string vanillaLayer, string name, Action<SpriteBatch, GameTime> draw, out int i)
+                    {
+                        i = layers.FindIndex(l => l.Name.Equals($"Vanilla: {vanillaLayer}"));
+                        insertLayer(i, name, draw);
+                    }
+
+                    void insertLayer(int j, string name, Action<SpriteBatch, GameTime> draw)
+                    {
+                        if (j == -1)
+                        {
+                            failed.Add(name);
+                            return;
+                        }
+                        layers.Insert(j, new LegacyGameInterfaceLayer(
+                            $"ROI: {name}",
+                            delegate
+                            {
+                                draw(Main.spriteBatch, lastGameTime);
+                                return true;
+                            }, InterfaceScaleType.UI));
+                    }
+
+                    return (failedInterfaces = failed.Count != 0 ? failed : null) == null;
+                }*/
     }
 }

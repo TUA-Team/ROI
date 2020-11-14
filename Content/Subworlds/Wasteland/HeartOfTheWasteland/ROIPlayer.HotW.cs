@@ -1,4 +1,4 @@
-﻿using ROI.Buffs.Boss;
+﻿using ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff;
 using ROI.Content.Worlds;
 using Terraria;
 using Terraria.ID;
