@@ -30,12 +30,15 @@ namespace API.Terraria.EntityComponents
         }
 
 
+        public T GetHook(Type type) => registered[type];
+
+
         private readonly List<HookList<T>> hooks = new List<HookList<T>>();
 
         public void Build()
         {
             for (int i = 0; i < hooks.Count; i++)
-                hooks[i].Build(RegisteredHooks);
+                hooks[i].Build(registered.Values);
         }
 
         protected HookList<T> AddHook<F>(Expression<Func<T, F>> expr)

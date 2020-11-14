@@ -30,7 +30,7 @@ namespace API.Terraria.Biomes
         {
             var modPlayer = other.GetModPlayer<SharedPlayer>();
             var registry = modPlayer.BiomeRegistry;
-            var biome = registry.RegisteredHooks.GetComponent(GetType());
+            var biome = registry.GetHook(GetType());
             biome.Active = Active;
         }
 
