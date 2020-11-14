@@ -1,4 +1,5 @@
 ﻿using API.Terraria.EntityComponents;
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -6,7 +7,7 @@ using Terraria.World.Generation;
 
 namespace API.Terraria.Biomes
 {
-    public abstract class BiomeBase : EntityHook, IHaveId
+    public abstract class BiomeBase : EntityHook, IHaveId, ICloneable
     {
         public void Load(Mod mod)
         {
@@ -41,7 +42,7 @@ namespace API.Terraria.Biomes
         }
 
 
-        protected abstract bool IsBiomeActive();
+        protected virtual bool IsBiomeActive() => false;
 
         public virtual void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
@@ -66,5 +67,7 @@ namespace API.Terraria.Biomes
         public void Unload()
         {
         }
+
+        public virtual object Clone() => MemberwiseClone();
     }
 }

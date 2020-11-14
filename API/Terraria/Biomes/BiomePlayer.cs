@@ -13,7 +13,7 @@ namespace API.Terraria.Biomes
             BiomeRegistry = new BiomeRegistry();
             for (int i = 0; i < IdHookLookup<BiomeBase>.Instances.Count; i++)
             {
-                var biome = IdHookLookup<BiomeBase>.Instances[i];
+                var biome = IdHookLookup<BiomeBase>.Instances[i].Clone() as BiomeBase;
                 BiomeRegistry.Register(biome);
             }
             BiomeRegistry.Build();
