@@ -1,15 +1,9 @@
-﻿using API.Terraria.Biomes;
-using System.IO;
-using Terraria;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
-namespace API.Terraria
+namespace API.Terraria.Biomes
 {
-    public sealed class SharedPlayer : ModPlayer
+    public sealed class BiomePlayer : ModPlayer
     {
-        public static SharedPlayer Get(Player plr) => plr.GetModPlayer<SharedPlayer>();
-
-
         public BiomeRegistry BiomeRegistry { get; private set; }
 
         public override void Initialize()
