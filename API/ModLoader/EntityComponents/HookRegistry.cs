@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using static API.Terraria.EntityComponents.HookLoader;
+using static API.ModLoader.EntityComponents.HookLoader;
 
-namespace API.Terraria.EntityComponents
+namespace API.ModLoader.EntityComponents
 {
     public abstract class HookRegistry<T> where T : EntityHook
     {

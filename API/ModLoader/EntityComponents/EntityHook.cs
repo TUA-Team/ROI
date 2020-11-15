@@ -1,6 +1,6 @@
 ﻿using Terraria;
 
-namespace API.Terraria.EntityComponents
+namespace API.ModLoader.EntityComponents
 {
     public abstract class EntityHook
     {

@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace API.Terraria.Biomes
+namespace API.ModLoader.Biomes
 {
     public sealed class BiomePlayer : ModPlayer
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace API.Terraria.EntityComponents
+namespace API.ModLoader.EntityComponents
 {
     public static class HookLoader
     {
