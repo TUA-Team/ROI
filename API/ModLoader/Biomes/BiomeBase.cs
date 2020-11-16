@@ -1,11 +1,11 @@
-﻿using API.ModLoader.EntityComponents;
+﻿using API.CustomModLoader.EntityComponents;
 using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace API.ModLoader.Biomes
+namespace API.CustomModLoader.Biomes
 {
     public abstract class BiomeBase : EntityHook, IHaveId, ICloneable
     {

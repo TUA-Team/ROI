@@ -9,6 +9,7 @@ namespace ROI.Helpers
 {
     public static class NightlyHelper
     {
+        // TODO: (med prio) change this to use actual beta releases, not silly issue posts
         public static string CheckForNightly(DateTime currentVersion)
         {
             if (!NetworkAvailable())

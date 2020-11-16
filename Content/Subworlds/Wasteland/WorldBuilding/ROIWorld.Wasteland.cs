@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*using Microsoft.Xna.Framework;
 using ROI.Content.Subworlds.Wasteland.Furniture.Walls;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
@@ -79,7 +79,7 @@ namespace ROI.Content.Worlds
             BaseTerrain(new float[] { 0.0001f, 0.00011f, 0.01f }, new float[] { 0.2f, 0.02f, 0.02f }, true);
             progress.Message = "Accumulating waste";
             //actual world gen
-            /*if (WorldGen.gen)
+            *//*if (WorldGen.gen)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -90,7 +90,7 @@ namespace ROI.Content.Worlds
             else
             {
                 TerrainTop(progress);
-            }*/
+            }*//*
             //TerrainBottom(progress);
             StructureMap map = new StructureMap();
 
@@ -378,8 +378,8 @@ namespace ROI.Content.Worlds
         {
             int MAX_WASTELAND_HEIGHT = Main.maxTilesY - 130;
             int MIN_WASTELAND_HEIGHT = Main.maxTilesY - 90;
-            int MAX_WASTELAND_ROCK_HEIGHT = Main.maxTilesY - 90;
-            int MIN_WASTELAND_ROCK_HEIGHT = Main.maxTilesY - 70;
+            int MAX_WastelandRock_HEIGHT = Main.maxTilesY - 90;
+            int MIN_WastelandRock_HEIGHT = Main.maxTilesY - 70;
 
             int wastelandHeight = Main.maxTilesY - 100;
             int wastelandRock = Main.maxTilesY - 85;
@@ -451,14 +451,14 @@ namespace ROI.Content.Worlds
                     wastelandHeight = MIN_WASTELAND_HEIGHT - WorldGen.genRand.Next(4, 6);
                 }
 
-                if (wastelandRock <= MAX_WASTELAND_ROCK_HEIGHT)
+                if (wastelandRock <= MAX_WastelandRock_HEIGHT)
                 {
-                    wastelandRock = MAX_WASTELAND_ROCK_HEIGHT + WorldGen.genRand.Next(4, 6);
+                    wastelandRock = MAX_WastelandRock_HEIGHT + WorldGen.genRand.Next(4, 6);
                 }
 
-                if (wastelandRock >= MIN_WASTELAND_ROCK_HEIGHT)
+                if (wastelandRock >= MIN_WastelandRock_HEIGHT)
                 {
-                    wastelandRock = MIN_WASTELAND_ROCK_HEIGHT - WorldGen.genRand.Next(4, 6);
+                    wastelandRock = MIN_WastelandRock_HEIGHT - WorldGen.genRand.Next(4, 6);
                 }
 
                 for (int j = wastelandHeight; j < wastelandRock; j++)
@@ -523,3 +523,4 @@ namespace ROI.Content.Worlds
         }
     }
 }
+*/

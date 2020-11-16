@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using static API.ModLoader.EntityComponents.HookLoader;
+using static API.CustomModLoader.EntityComponents.HookLoader;
 
-namespace API.ModLoader.EntityComponents
+namespace API.CustomModLoader.EntityComponents
 {
     public abstract class HookRegistry<T> where T : EntityHook
     {

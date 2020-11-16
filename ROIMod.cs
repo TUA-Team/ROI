@@ -13,12 +13,8 @@ namespace ROI
         public const bool debug = false;
 #endif
 
-        public static ROIMod Instance { get; private set; }
-
         public override void Load()
         {
-            Instance = this;
-
             InitializeLoaders();
 
             // Utils.GenerateLocalization(this);
@@ -33,8 +29,6 @@ namespace ROI
 
         public override void Unload()
         {
-            Instance = null;
-
             UnloadLoaders();
 
             if (!Main.dedServ)

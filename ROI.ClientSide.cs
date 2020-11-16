@@ -70,14 +70,8 @@ namespace ROI
                 scale *= 0.7f;
         }
 
-        public override void UpdateUI(GameTime gameTime)
-        {
-            interfaceLoader.UpdateUI(gameTime);
-        }
+        public override void UpdateUI(GameTime gameTime) => interfaceLoader.UpdateUI(gameTime);
 
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
-        {
-            interfaceLoader.ModifyInterfaceLayers(layers);
-        }
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => interfaceLoader.ModifyInterfaceLayers(layers);
     }
 }

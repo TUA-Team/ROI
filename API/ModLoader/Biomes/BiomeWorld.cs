@@ -2,7 +2,7 @@
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace API.ModLoader.Biomes
+namespace API.CustomModLoader.Biomes
 {
     public sealed class BiomeWorld : ModWorld
     {

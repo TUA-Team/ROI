@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace API.ModLoader.EntityComponents
+namespace API.CustomModLoader.EntityComponents
 {
     public static class HookLoader
     {

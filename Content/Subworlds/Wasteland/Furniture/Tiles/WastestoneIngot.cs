@@ -1,4 +1,4 @@
-using API;
+using API.CustomModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 

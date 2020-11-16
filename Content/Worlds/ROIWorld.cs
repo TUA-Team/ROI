@@ -20,7 +20,7 @@ namespace ROI.Content.Worlds
 
         public override void PostDrawTiles()
         {
-            ModLiquid waste = LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste");
+/*            ModLiquid waste = LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste");
             for (int i = (int)(Main.screenPosition.X - 3) / 16; i < (Main.screenPosition.X - 3 + Main.graphics.PreferredBackBufferWidth + 3) / 16; i++)
             {
                 for (int j = (int)(Main.screenPosition.Y - 3) / 16; j < (Main.screenPosition.Y - 3 + Main.graphics.PreferredBackBufferWidth + 3) / 16; j++)
@@ -35,7 +35,7 @@ namespace ROI.Content.Worlds
                         Lighting.AddLight(i, j, 0.01f, 1f * 0.8f, 0.01f);
                     }
                 }
-            }
+            }*/
         }
 
 

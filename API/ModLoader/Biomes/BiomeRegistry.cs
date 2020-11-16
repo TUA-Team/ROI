@@ -1,9 +1,9 @@
-﻿using API.ModLoader.EntityComponents;
+﻿using API.CustomModLoader.EntityComponents;
 using System.IO;
 using System.Linq;
 using Terraria;
 
-namespace API.ModLoader.Biomes
+namespace API.CustomModLoader.Biomes
 {
     public sealed class BiomeRegistry : HookRegistry<BiomeBase>
     {

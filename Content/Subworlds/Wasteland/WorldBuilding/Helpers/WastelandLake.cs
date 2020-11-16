@@ -1,7 +1,5 @@
-﻿using LiquidAPI;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
-using ROI.Content.Worlds;
 using ROI.Worlds;
 using System;
 using Terraria;
@@ -47,7 +45,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
                     GeneralWorldHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandDirt>() }, new ushort[] { 2, 4 }, true);
                 else
                     GeneralWorldHelper.FillTile(point.X, maxY, 1, point.Y - maxY, new ushort[] { (ushort)ModContent.TileType<WastelandRock>(), (ushort)ModContent.TileType<WastelandWaste>() }, new ushort[] { 4, 2 }, true);
-                GeneralWorldHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
+                //GeneralWorldHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
             }
 
             for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)

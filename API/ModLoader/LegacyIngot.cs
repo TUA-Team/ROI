@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace API.ModLoader
+namespace API.CustomModLoader
 {
     internal abstract class LegacyIngot : ModTile
     {
