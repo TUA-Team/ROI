@@ -14,9 +14,11 @@ namespace ROI.Content.Subworlds.Wasteland
         public override int height => 1000;
         public override bool saveModData => true;
 
+        //public override UIState loadingUIState => new UIState();
+
         public override List<GenPass> tasks => new List<GenPass>()
             {
-                new PassLegacy("WastelandGeneration", delegate (GenerationProgress progress)
+                new PassLegacy("ROI: WastelandGeneration", delegate (GenerationProgress progress)
                 {
                     WastelandWorldBuilding.WastelandGeneration(progress);
                 })

@@ -16,34 +16,21 @@ namespace ROI.Content.Subworlds.Wasteland
 
         public override void Load(Mod mod)
         {
+            if (Main.dedServ)
+                return;
+
             for (int i = 0; i < _texture.Length; i++)
                 mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);
 
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
 
-            Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(
-                new Ref<Effect>(mod.GetEffect($"Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
+            Filters.Scene["ROI:UnderworldFilter"] = new Filter(new ScreenShaderData(new Ref<Effect>(mod.GetEffect("Effects/UnderworldFilter")), "UnderworldFilter"), EffectPriority.VeryHigh);
             Filters.Scene["ROI:UnderworldFilter"].Load();
         }
 
 
         public void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
-            if (Main.ActiveWorldFileData.HasCorruption)
-            {
-                orig(instance, flat);
-                return;
-            }
-
-            for (int i = 0; i < _texture.Length; i++)
-                _texture[i] = ModContent.GetTexture("ROI/Backgrounds/Underworld/Wasteland_" + i);
-
-            if (!Main.ActiveWorldFileData.HasCrimson)
-            {
-                orig(instance, flat);
-                return;
-            }
-
             if (Main.screenPosition.Y + Main.screenHeight < (Main.maxTilesY - 220) * 16f)
                 return;
 

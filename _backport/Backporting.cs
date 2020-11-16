@@ -13,19 +13,19 @@ namespace ROI
         {
             foreach (var type in mod.Code.DefinedTypes)
             {
-                if (!type.IsSubclassOf(typeof(ILoadable)))
-                    continue;
-
                 if (type.IsAbstract)
                     continue;
                 if (type.ContainsGenericParameters)
                     continue;
 
-                var obj = (ILoadable)Activator.CreateInstance(type);
-                obj.Load(mod);
+                if (typeof(ILoadable).IsAssignableFrom(type))
+                {
+                    var obj = (ILoadable)Activator.CreateInstance(type);
+                    obj.Load(mod);
 
-                ContentInstance.Register(obj);
-                loadables.Add(obj);
+                    ContentInstance.Register(obj);
+                    loadables.Add(obj);
+                }
             }
         }
 

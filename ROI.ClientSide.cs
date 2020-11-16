@@ -67,7 +67,7 @@ namespace ROI
         public override void ModifyLightingBrightness(ref float scale)
         {
             if (Subworld.IsActive<WastelandDepthSubworld>())
-                scale *= 0.7f;
+                scale *= 1.1f;
         }
 
         public override void UpdateUI(GameTime gameTime) => interfaceLoader.UpdateUI(gameTime);
