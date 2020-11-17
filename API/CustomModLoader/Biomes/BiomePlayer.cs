@@ -6,6 +6,10 @@ namespace API.CustomModLoader.Biomes
 {
     public sealed class BiomePlayer : ModPlayer
     {
+        public bool IsBiomeActive<T>() where T : BiomeBase =>
+            BiomeRegistry.IsBiomeActive<T>();
+
+
         public BiomeRegistry BiomeRegistry { get; private set; }
 
         public override void Initialize()
