@@ -15,6 +15,7 @@ BuffName.VoidSlowness=Void Slowness
 BuffTooltip.VoidSlowness=The void is dragging you down\n-75% movement speed
 
 NPCName.VoidPillar=Void Pillar
+NPCName.MutatedDemon=Mutated Demon
 
 Common.LoreIntro=Intro to Lore
 Common.LoreIntroDesc=Handed down from the ancients, this book is a log of almost every danger that awaits you, and may even reveal secrets that you would never know otherwise. After unlocking a lore entry, you may read it at any time. If you lose possession of it in any way, perhaps the wandering salesman who journeys by night may be willing to hand over his copy. Every adventurer holds a Lore Book, for for him/her, it may be the difference between life or gruesome death.

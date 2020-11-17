@@ -14,14 +14,14 @@ namespace ROI.Content.Commands
 
             switch (args[0])
             {
-/*                case "rift":
-                    List<Subworld> loaded = (List<Subworld>)typeof(Subworld).GetField("subworlds", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
-                    //typeof(SLWorld).GetField("loading", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, true);
-                    if (!Subworld.Enter<VoidRiftSubworld>())
-                    {
-                        throw new Exception("Cannot enter dimension");
-                    }
-                    break;*/
+                /*                case "rift":
+                                    List<Subworld> loaded = (List<Subworld>)typeof(Subworld).GetField("subworlds", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+                                    //typeof(SLWorld).GetField("loading", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, true);
+                                    if (!Subworld.Enter<VoidRiftSubworld>())
+                                    {
+                                        throw new Exception("Cannot enter dimension");
+                                    }
+                                    break;*/
                 case "wasteland":
                     if (!Subworld.Enter<WastelandDepthSubworld>())
                     {

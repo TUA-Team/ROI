@@ -52,11 +52,11 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
                         num3 = npcCenterX - vector.X;
                         num4 = npcCenterY - vector.Y;
                         //Color color = Lighting.GetColor((int)vector.X / 16, (int)(vector.Y / 16f));
-                        Main.spriteBatch.Draw(Main.chain12Texture, 
-                            vector - Main.screenPosition, 
+                        Main.spriteBatch.Draw(Main.chain12Texture,
+                            vector - Main.screenPosition,
                             new Rectangle(0, 0, Main.chain12Texture.Width, Main.chain12Texture.Height),
-                            Color.ForestGreen, 
-                            rotation, 
+                            Color.ForestGreen,
+                            rotation,
                             Main.chain12Texture.Size() * 0.5f,
                             1f, SpriteEffects.None, 0f);
                     }

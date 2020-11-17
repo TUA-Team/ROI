@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using SubworldLibrary;
+﻿using SubworldLibrary;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Generation;
-using Terraria.ModLoader;
-using Terraria.UI;
 using Terraria.World.Generation;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    public class WastelandDepthSubworld : Subworld
+    public sealed class WastelandDepthSubworld : Subworld
     {
         public override int width => Main.maxTilesX;
         public override int height => 1000;
