@@ -7,7 +7,7 @@ namespace ROI.Content.Commands
 {
     public class EnterDimension : ModCommand
     {
-        public override bool Autoload(ref string name) => ROIMod.debug;
+        public override bool Autoload(ref string name) => ROIMod.DEBUG;
 
         public override void Action(CommandCaller caller, string input, string[] args)
         {
