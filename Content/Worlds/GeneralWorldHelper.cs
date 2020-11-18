@@ -162,7 +162,12 @@ namespace ROI.Worlds
                                         break;
                                     //Radioactive Waste
                                     case -5:
-                                        //TODO: Introduce Unstable liquid goo
+                                        LiquidRef liqRef = LiquidWorld.grid[k, l];
+                                        if (!Main.tile[k, l].active())
+                                        {
+                                            liqRef.Amount = 255;
+                                            liqRef.LiquidType = LiquidRegistry.GetLiquid(LiquidAPI.LiquidAPI.Instance, "PlutonicWaste");
+                                        }
                                         break;
                                     //Processed radioactive goo
                                     case -6:
@@ -1746,7 +1751,7 @@ namespace ROI.Worlds
             return true;
         }
 
-        public static void Fill(int x, int startingY, int one, int depth, ushort tile)
+        public static void Fill(int x, int startingY, int width, int depth, ushort tile)
         {
             for (int i = startingY; i < startingY + depth; i++)
             {
@@ -1758,7 +1763,7 @@ namespace ROI.Worlds
             }
         }
 
-        public static void FillInvertYAxis(int x, int startingY, int one, int depth, ushort tile)
+        public static void FillInvertYAxis(int x, int startingY, int width, int depth, ushort tile)
         {
             for (int i = startingY; i > startingY - depth; i--)
             {
@@ -1770,7 +1775,7 @@ namespace ROI.Worlds
             }
         }
 
-        public static void FillAir(int x, int depth, int one, int startingY)
+        public static void FillAir(int x, int depth, int width, int startingY)
         {
             for (int i = startingY; i < startingY + depth; i++)
             {

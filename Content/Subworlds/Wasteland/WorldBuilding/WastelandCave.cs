@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.IO;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.IO;
@@ -11,11 +11,9 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
     /// <summary>
     /// Welcome to the Terraria cave update, oh wait, wrong game :/
     /// </summary>
-    abstract class WastelandCave : TagSerializable
+    internal abstract class WastelandCave : TagSerializable
     {
         public int x, y, width, height;
-
-        public static readonly Func<TagCompound, WastelandCave> DESERIALIZER = Load;
 
         public abstract string caveTypeName { get; }
 
@@ -69,7 +67,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
             };
         }
 
-        public static WastelandCave Load(TagCompound tag)
+        private static readonly Func<TagCompound, WastelandCave> DESERIALIZER = tag =>
         {
             string caveType = tag.GetString("caveType");
             switch (caveType)
@@ -78,6 +76,6 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                     return new WastelandLostCave(tag.Get<Rectangle>("bound"));
             }
             throw new Exception("Invalid cave type");
-        }
+        };
     }
 }

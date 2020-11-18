@@ -1,14 +1,14 @@
-﻿using Microsoft.Xna.Framework;
-using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
-using ROI.Worlds;
+﻿using Terraria.ID;
+using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
+using ROI.Worlds;
+using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
-    class WastelandLostCave : WastelandCave
+    internal class WastelandLostCave : WastelandCave
     {
         public WastelandLostCave(Rectangle rectangle) : base(rectangle)
         {
@@ -105,7 +105,9 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                             Main.tile[i, j].type = TileID.GreenMoss;
                         }
 
-                        if (Main.tile[i, j - 1].type == ModContent.TileType<WastelandRock>() || Main.tile[i, j - 1].type == ModContent.TileType<WastelandGrass>() || Main.tile[i, j - 1].type == ModContent.TileType<WastelandDirt>())
+                        if (Main.tile[i, j - 1].type == ModContent.TileType<WastelandRock>() ||
+                            Main.tile[i, j - 1].type == ModContent.TileType<WastelandGrass>() ||
+                            Main.tile[i, j - 1].type == ModContent.TileType<WastelandDirt>())
                         {
                             int leaveHeight = WorldGen.genRand.Next(3, 10);
                             for (int k = 0; k < leaveHeight; k++)

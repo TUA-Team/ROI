@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent.Generation;
+using Terraria.ModLoader;
 using Terraria.World.Generation;
 
 namespace ROI.Content.Subworlds.Wasteland
@@ -11,8 +12,10 @@ namespace ROI.Content.Subworlds.Wasteland
         public override bool noWorldUpdate => false;
 
         public override int width => Main.maxTilesX;
-        public override int height => 1000;
+        public override int height => 1200;
         public override bool saveModData => true;
+
+        public override ModWorld modWorld => ModContent.GetInstance<WastelandWorld>();
 
         //public override UIState loadingUIState => new UIState();
 
@@ -20,7 +23,7 @@ namespace ROI.Content.Subworlds.Wasteland
             {
                 new PassLegacy("Wasteland Generation", delegate (GenerationProgress progress)
                 {
-                    WastelandWorldBuilding.WastelandGeneration(progress);
+                    new WastelandWorldMaker(modWorld.mod).Make(progress);
                 }),
                 new PassLegacy("Settle Liquid", delegate(GenerationProgress progress)
                 {

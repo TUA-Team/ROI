@@ -13,33 +13,59 @@ using static Terraria.WorldGen;
 namespace ROI.Content.Subworlds.Wasteland
 {
     //Contain wasteland world gen
-    internal static class WastelandWorldBuilding
+    internal sealed class WastelandWorldMaker
     {
-        internal static Dictionary<int, int> SurfaceLevel;
-        internal static int HighestLevel = 300;
-        internal static Mod Mod => ModContent.GetInstance<ROIMod>();
+        private readonly Dictionary<int, int> SurfaceLevel;
+        private int HighestLevel = 300;
+        private Mod Mod { get; }
 
-        internal static int AmountOfBigLakePerWorld
+        public WastelandWorldMaker(Mod mod)
         {
-            get
+            Mod = mod;
+            SurfaceLevel = new Dictionary<int, int>();
+        }
+
+        public void Make(GenerationProgress progress)
+        {
+            // Bottom
+            BaseTerrain(new float[] { 0.0077f, 0.0011f, 0.022f, 0.04f }, new float[] { 0.7f, 0.05f, 0.02f, 0.01f }, new int[] { 5, 5, 5, 5 }, 450);
+            // Top
+            BaseTerrain(new float[] { 0.07f, 0.04f, 0.03f }, new float[] { 0.7f, 0.04f, 0.06f }, new int[] { 5, 5, 5, 5 }, 200, true);
+            progress.Message = "Accumulating waste";
+            // actual world gen
+            //StructureMap map = new StructureMap();
+
+            SpreadingGrass(progress);
+            GeneratePerlinCavern(progress);
+            GenerateMossCavern(progress);
+            GenerateWasteLake(progress);
+            WastelandOreGeneration(progress);
+            //GeneratingRuins(progress);
+            //WastelandForgeGen(progress);
+            WastelandUraniumOreGen(progress);
+            //GrowingTree(progress);
+            //GenerateMysteriousGrotto(progress);
+        }
+
+
+        private int GetAmountOfBigLakes()
+        {
+            switch (Main.maxTilesX)
             {
-                switch (Main.maxTilesX)
-                {
-                    case 4200:
-                        return 2;
-                    case 6400:
-                        return 3;
-                    case 8400:
-                        return 3;
-                    case 16800:
-                        return 5;
-                    default:
-                        return 1;
-                }
+                case 4200:
+                    return 2;
+                case 6400:
+                    return 3;
+                case 8400:
+                    return 3;
+                case 16800:
+                    return 5;
+                default:
+                    return 1;
             }
         }
 
-        public static int[] GetPerlinDisplacements(int displacementCount, float frequency, int maxLimit, float multiplier, int octave, int seed)
+        private int[] GetPerlinDisplacements(int displacementCount, float frequency, int maxLimit, float multiplier, int octave, int seed)
         {
             FastNoise noise = new FastNoise(seed);
             noise.SetNoiseType(FastNoise.NoiseType.Perlin);
@@ -53,7 +79,7 @@ namespace ROI.Content.Subworlds.Wasteland
             return displacements;
         }
 
-        public static int[,] GetPerlinDisplacements2D(int width, int height, float frequency, int maxLimit, float multiplier, int octave, int seed)
+        private int[,] GetPerlinDisplacements2D(int width, int height, float frequency, int maxLimit, float multiplier, int octave, int seed)
         {
             FastNoise noise = new FastNoise(seed);
             noise.SetNoiseType(FastNoise.NoiseType.Perlin);
@@ -72,7 +98,7 @@ namespace ROI.Content.Subworlds.Wasteland
             return displacements;
         }
 
-        public static FastNoise GeneratePerlin(float gain, float lucanarity, float frequency, int octave, int seed)
+        private FastNoise GeneratePerlin(float gain, float lucanarity, float frequency, int octave, int seed)
         {
             FastNoise noise = new FastNoise(seed);
             noise.SetNoiseType(FastNoise.NoiseType.Perlin);
@@ -82,30 +108,7 @@ namespace ROI.Content.Subworlds.Wasteland
             return noise;
         }
 
-
-        internal static void WastelandGeneration(GenerationProgress progress)
-        {
-            //Bottom
-            BaseTerrain(new float[] { 0.0077f, 0.0011f, 0.022f, 0.04f }, new float[] { 0.7f, 0.05f, 0.02f, 0.01f }, new int[] { 5, 5, 5, 5 }, 450);
-            //Top
-            BaseTerrain(new float[] { 0.07f, 0.04f, 0.03f }, new float[] { 0.7f, 0.04f, 0.06f }, new int[] { 5, 5, 5, 5 }, 200, true);
-            progress.Message = "Accumulating waste";
-            //actual world gen
-            StructureMap map = new StructureMap();
-
-            SpreadingGrass(progress);
-            GeneratePerlinCavern(progress);
-            GenerateMossCavern(progress);
-            GenerateWasteLake(progress);
-            WastelandOreGeneration(progress);
-            //GeneratingRuins(progress);
-            //WastelandForgeGen(progress);
-            WastelandUraniumOreGen(progress);
-            //GrowingTree(progress);
-            //GenerateMysteriousGrotto(progress);
-        }
-
-        private static void WastelandUraniumOreGen(GenerationProgress progress)
+        private void WastelandUraniumOreGen(GenerationProgress progress)
         {
             for (int i = 0; i < 50; i++)
             {
@@ -121,7 +124,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void BaseTerrain(float[] freq, float[] limit, int[] octave, int startingHeight, bool top = false)
+        private void BaseTerrain(float[] freq, float[] limit, int[] octave, int startingHeight, bool top = false)
         {
             int[][] displacements = new int[freq.Length][];
             for (int i = 0; i < freq.Length; i++)
@@ -139,7 +142,6 @@ namespace ROI.Content.Subworlds.Wasteland
                 }
             }
 
-            SurfaceLevel = new Dictionary<int, int>();
             if (!top)
             {
                 for (int i = 0; i < Main.maxTilesX; i++)
@@ -183,7 +185,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void WastelandOreGeneration(GenerationProgress progress)
+        private void WastelandOreGeneration(GenerationProgress progress)
         {
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
@@ -192,7 +194,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void GenerateWasteLake(GenerationProgress progress)
+        private void GenerateWasteLake(GenerationProgress progress)
         {
             int smallLake = 0;
             int bigLake = 0;
@@ -208,7 +210,7 @@ namespace ROI.Content.Subworlds.Wasteland
                     return true;
                 })))
                 {
-                    if (bigLake != AmountOfBigLakePerWorld)
+                    if (bigLake != GetAmountOfBigLakes())
                     {
                         WastelandLake.Generate(x, yGen, 40, 55, 8f, 3, 3, false);
                         bigLake++;
@@ -216,14 +218,12 @@ namespace ROI.Content.Subworlds.Wasteland
                     }
 
                     WastelandLake.Generate(x, yGen, 20, 24, 5f, 3, 3, true);
-
                 }
             }
         }
 
 
-
-        private static bool Scan(int x, int y, out int yGen, Func<Tile, bool> condition = null)
+        private bool Scan(int x, int y, out int yGen, Func<Tile, bool> condition = null)
         {
             for (int i = y; i < Main.maxTilesX; i++)
             {
@@ -251,7 +251,7 @@ namespace ROI.Content.Subworlds.Wasteland
             return false;
         }
 
-        private static void GeneratingRuins(GenerationProgress progress)
+        private void GeneratingRuins(GenerationProgress progress)
         {
             int nextHouseCooldown = 0;
             for (int i = (int)(Main.maxTilesX * 0.30); i < Main.maxTilesX * 0.70; i++)
@@ -278,7 +278,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void SpreadingGrass(GenerationProgress progress)
+        private void SpreadingGrass(GenerationProgress progress)
         {
             ushort dirtType = (ushort)Mod.TileType("WastelandDirt");
             ushort grassType = (ushort)ModContent.TileType<WastelandGrass>();
@@ -310,7 +310,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void GeneratePerlinCavern(GenerationProgress progress)
+        private void GeneratePerlinCavern(GenerationProgress progress)
         {
             int MAX_WASTELAND_HEIGHT = 600;
 
@@ -351,7 +351,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void GenerateMossCavern(GenerationProgress progress)
+        private void GenerateMossCavern(GenerationProgress progress)
         {
             int MAX_WASTELAND_HEIGHT = 600;
 
@@ -361,7 +361,7 @@ namespace ROI.Content.Subworlds.Wasteland
             lostCave.Generate(progress);
         }
 
-        internal static void TerrainTop(GenerationProgress progress)
+        internal void TerrainTop(GenerationProgress progress)
         {
             //Create the top of the wasteland
             for (int i = 0; i < Main.maxTilesX; i++)
@@ -391,7 +391,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private static void WastelandForgeGen(GenerationProgress progress)
+        private void WastelandForgeGen(GenerationProgress progress)
         {
             progress.Message = "Adding wasteland forge";
             for (int num258 = 0; num258 < Main.maxTilesX / 200; num258++)
@@ -404,30 +404,24 @@ namespace ROI.Content.Subworlds.Wasteland
                 {
                     int num260 = genRand.Next(1, Main.maxTilesX);
                     int num261 = genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 5);
-                    try
+                    if (Main.tile[num260, num261].wall == ModContent.WallType<WastestoneBrickWall>())
                     {
-                        if (Main.tile[num260, num261].wall == ModContent.WallType<WastestoneBrickWall>())
+                        for (; !Main.tile[num260, num261].active(); num261++)
                         {
-                            for (; !Main.tile[num260, num261].active(); num261++)
-                            {
-                            }
-
-                            num261--;
-                            PlaceTile(num260, num261, ModContent.TileType<WastelandForge>());
-                            if (Main.tile[num260, num261].type == ModContent.TileType<WastelandForge>())
-                            {
-                                flag17 = true;
-                            }
-                            else
-                            {
-                                num259++;
-                                if (num259 >= 10000)
-                                    flag17 = true;
-                            }
                         }
-                    }
-                    catch
-                    {
+
+                        num261--;
+                        PlaceTile(num260, num261, ModContent.TileType<WastelandForge>());
+                        if (Main.tile[num260, num261].type == ModContent.TileType<WastelandForge>())
+                        {
+                            flag17 = true;
+                        }
+                        else
+                        {
+                            num259++;
+                            if (num259 >= 10000)
+                                flag17 = true;
+                        }
                     }
                 }
             }
