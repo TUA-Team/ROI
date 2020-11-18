@@ -40,6 +40,6 @@ namespace ROI
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            IdHookLookup<NetworkPacket>.Get(reader.ReadByte()).Receive(reader, whoAmI);
+            PacketManager.Handle(reader, whoAmI);
     }
 }

@@ -40,8 +40,8 @@ namespace API.Networking
 
                 if (type.IsSubclassOf(typeof(NetworkPacket)))
                 {
-                    var instance = (NetworkPacket)FormatterServices.GetUninitializedObject(type);
-                    var style = new PacketStyleInfo(mod, styles.Count, instance.Read);
+                    var style = new PacketStyleInfo(mod, styles.Count,
+                        ((NetworkPacket)FormatterServices.GetUninitializedObject(type)).Read);
 
                     IdByType.Register(type, style.id);
                     styles.Add(style);
