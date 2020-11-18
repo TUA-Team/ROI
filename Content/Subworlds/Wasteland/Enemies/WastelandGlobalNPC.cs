@@ -12,6 +12,8 @@ namespace ROI.Content.Subworlds.Wasteland.Enemies
                 return;
 
             pool.Clear();
+
+            pool.Add(ModContent.NPCType<MutatedDemon>(), 3);
         }
     }
 }

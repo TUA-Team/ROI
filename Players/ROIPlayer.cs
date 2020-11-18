@@ -1,5 +1,4 @@
-﻿using API.Networking;
-using ROI.Players.Packets;
+﻿using ROI.Players.Packets;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -9,7 +8,8 @@ namespace ROI.Players
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
     public sealed partial class ROIPlayer : ModPlayer
     {
-        public static ROIPlayer Get() => Get(Main.LocalPlayer);
+        public static ROIPlayer Get() => Get(Main.myPlayer);
+        public static ROIPlayer Get(int who) => Get(Main.player[who]);
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
 
@@ -54,7 +54,7 @@ namespace ROI.Players
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) =>
-            new PlayerSyncPacket().Send(this, toWho, fromWho);
+            new PlayerSyncPacket(this).Send(toWho, fromWho);
 
 
         public override void PostUpdate()

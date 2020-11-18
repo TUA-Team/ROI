@@ -24,6 +24,8 @@ namespace ROI
             }
 
             userLoader = new LateLoader<UserLoader>(this);
+
+            PacketManager.LoadPacketsFrom(this);
         }
 
         private void UnloadLoaders()

@@ -7,12 +7,11 @@ using Terraria.World.Generation;
 
 namespace API.CustomModLoader.Biomes
 {
+    // TODO: scrap this
     public abstract class BiomeBase : EntityHook, IHaveId, ICloneable
     {
         public void Load(Mod mod)
         {
-            MyId = IdHookLookup<BiomeBase>.Instances.Count;
-            IdHookLookup<BiomeBase>.Register(this);
         }
 
         public sealed override void Update()

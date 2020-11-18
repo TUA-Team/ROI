@@ -10,7 +10,7 @@ namespace ROI.Content.Subworlds.Wasteland
     {
         bool wastelandFilter;
         readonly Color color = new Color(64, 0, 0);
-        public override void UpdateBiomeVisuals()
+/*        public override void UpdateBiomeVisuals()
         {
             if (Subworld.IsActive<WastelandDepthSubworld>())
             {
@@ -31,6 +31,6 @@ namespace ROI.Content.Subworlds.Wasteland
                     wastelandFilter = false;
                 }
             }
-        }
+        }*/
     }
 }

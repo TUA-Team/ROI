@@ -21,10 +21,10 @@ namespace API
             IdHookLookup.OnClear += dict.Clear;
         }
 
-        public static void Register<S>(S hook) where S : T
+        public static void Register(T hook)
         {
             dict.Add(hook);
-            IdByType.Register(typeof(S), hook.MyId);
+            IdByType.Register(hook.GetType(), hook.MyId);
         }
 
         public static T Get(int id) => dict[id];
