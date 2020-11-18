@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
+using LiquidAPI.LiquidMod;
 
 namespace ROI.Content.Subworlds.Wasteland.Projectiles
 {
@@ -12,13 +13,13 @@ namespace ROI.Content.Subworlds.Wasteland.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            Main.projFrames[projectile.type] = 2;
+            Main.projFrames[projectile.type] = 6;
         }
 
         public override void SetDefaults()
         {
-            projectile.width = 8;
-            projectile.height = 4;
+            projectile.width = 32;
+            projectile.height = 32;
             projectile.aiStyle = -1;
             projectile.friendly = false;
             projectile.penetrate = -1;
@@ -26,14 +27,33 @@ namespace ROI.Content.Subworlds.Wasteland.Projectiles
             projectile.scale = 0.5f;
             projectile.damage = 100;
             projectile.ignoreWater = true;
-            if (!Main.gameMenu)
+            // TODO: why was this here?
+            //if (!Main.gameMenu)
             {
-                projectile.timeLeft = Main.rand.Next(200, 300);
+                projectile.timeLeft = 200;
+                projectile.frame = 0;
             }
         }
 
         public override void AI()
         {
+            if (projectile.timeLeft < 175)
+            {
+                projectile.frame = 1;
+            }
+            if (projectile.timeLeft < 150)
+            {
+                projectile.frame = 2;
+            }
+            if (projectile.timeLeft < 125)
+            {
+                projectile.frame = 3;
+            }
+            if (projectile.timeLeft < 100)
+            {
+                projectile.frame = 4;
+            }
+
             if (projectile.timeLeft < 25)
             {
                 if (projectile.ai[0] == 0)
@@ -43,20 +63,22 @@ namespace ROI.Content.Subworlds.Wasteland.Projectiles
                     Dust.NewDust(projectile.position, 4, 4, DustID.Stone, 0f, 0.3f, 0, new Color(0, 255, 0, 255));
                 }
                 projectile.ai[0] = 1;
-                projectile.velocity = Vector2.Zero;
                 projectile.Opacity -= 0.05f;
-                projectile.frame = 1;
+                projectile.frame = 5;
             }
             else
             {
-                if (projectile.scale < 1f)
-                {
-                    projectile.scale += 0.005f;
-                }
+            }
+
+            Vector2 projectileInWorldPosition = projectile.BottomLeft / 16;
+            LiquidRef liquid = LiquidWorld.grid[(int)projectileInWorldPosition.X, (int)(projectileInWorldPosition.Y)];
+            if (liquid.Amount < 200)
+            {
+                //projectile.Kill();
             }
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+    public override bool OnTileCollide(Vector2 oldVelocity)
         {
             if (projectile.ai[0] == 0)
             {
