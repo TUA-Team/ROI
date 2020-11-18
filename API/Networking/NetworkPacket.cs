@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Terraria.ModLoader;
 
@@ -5,6 +6,19 @@ namespace API.Networking
 {
     public abstract class NetworkPacket : ModType, IHaveId
     {
+        protected Action<BinaryWriter> WriteData;
+
+        public NetworkPacket()
+        {
+            MyId = IdHookLookup<NetworkPacket>.Instances.Count;
+        }
+
+        protected NetworkPacket(Action<BinaryWriter> write)
+        {
+            Instantiate();
+            WriteData = write;
+        }
+
         public void Send(int toClient = -1, int ignoreClient = -1)
         {
             var p = Mod.GetPacket();
@@ -20,43 +34,40 @@ namespace API.Networking
 
         public abstract void Receive(BinaryReader reader, int fromWho);
 
-        protected abstract void WriteData(BinaryWriter writer);
-
 
         protected sealed override void Register()
         {
-            MyId = IdHookLookup<NetworkPacket>.Instances.Count;
             IdHookLookup<NetworkPacket>.Register(this);
         }
 
-        public int MyId { get; private set; }
-
-
-        public static TPacket Get<TPacket>(Mod mod) where TPacket : NetworkPacket, new()
+        protected void Instantiate()
         {
-            var packet = new TPacket();
-            packet.Instantiate(mod);
-            packet.MyId = IdByType<TPacket>.Id;
-            return packet;
+            MyId = IdByType.Get(GetType());
+            Load(IdHookLookup<NetworkPacket>.Get(MyId).Mod);
         }
+
+        public int MyId { get; private set; }
     }
 
     public abstract class NetworkPacket<T> : NetworkPacket
     {
+        protected Action<BinaryWriter, T> WriteDataG;
+
+        public NetworkPacket(Action<BinaryWriter, T> write)
+        {
+            Instantiate();
+            WriteDataG = write;
+            WriteData = w => write(w, LocalDefault);
+        }
+
         public void Send(T state, int toClient = -1, int ignoreClient = -1)
         {
             var p = Mod.GetPacket();
             p.Write((byte)MyId);
-            WriteData(p, state);
+            WriteDataG(p, state);
             p.Send(toClient, ignoreClient);
         }
 
-
-        protected abstract void WriteData(BinaryWriter writer, T state);
-
-
-        protected sealed override void WriteData(BinaryWriter writer) => WriteData(writer, LocalDefault);
-
-        protected virtual T LocalDefault => throw new System.NotImplementedException(nameof(LocalDefault));
+        protected virtual T LocalDefault => throw new NotImplementedException();
     }
 }

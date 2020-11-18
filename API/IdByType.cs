@@ -12,10 +12,7 @@ namespace API
             typeToId.Add(type, id);
         }
 
-        public static void Link(Type type, Action<int> action)
-        {
-            action(typeToId[type]);
-        }
+        public static int Get(Type type) => typeToId[type];
     }
 
     public static class IdByType<T> where T : IHaveId
@@ -24,7 +21,7 @@ namespace API
 
         static IdByType()
         {
-            IdByType.Link(typeof(T), i => Id = i);
+            IdByType.Get(typeof(T));
         }
     }
 }

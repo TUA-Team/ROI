@@ -8,13 +8,8 @@ namespace Terraria.ModLoader
 
         public void Load(Mod mod)
         {
-            Instantiate(mod);
-            Register();
-        }
-
-        protected void Instantiate(Mod mod)
-        {
             Mod = mod;
+            Register();
         }
 
         protected abstract void Register();
