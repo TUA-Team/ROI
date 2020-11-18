@@ -9,7 +9,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
     public static class WastelandRuins
     {

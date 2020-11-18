@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
     /// <summary>
     /// Welcome to the Terraria cave update, oh wait, wrong game :/

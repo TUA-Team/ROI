@@ -15,9 +15,9 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Walls
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 0.8f;
-            g = 0.2f;
-            b = 0.3f;
+            r = 0.01f;
+            g = 0.8f;
+            b = 0.2f;
         }
     }
 }

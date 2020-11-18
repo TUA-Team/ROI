@@ -26,7 +26,6 @@ namespace ROI.Content.Worlds
 
                     npcTag.Add(nameof(NPC.position), npc.position);
                     npcTag.Add(nameof(NPC.modNPC.Name), npc.modNPC.Name);
-                    npcTag.Add(nameof(NPC.modNPC.mod), npc.modNPC.mod.Name);
 
                     if (saveable.SaveHP)
                         npcTag.Add(nameof(NPC.life), npc.life);
@@ -44,22 +43,23 @@ namespace ROI.Content.Worlds
 
         public override void Load(TagCompound tag)
         {
-            List<TagCompound> npcs = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
+            StrangePresenceDebuff = tag.GetBool(nameof(StrangePresenceDebuff));
 
-            foreach (TagCompound currentTag in npcs)
+            List<TagCompound> npcTags = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
+
+            foreach (TagCompound npcTag in npcTags)
             {
-                Vector2 position = currentTag.Get<Vector2>(nameof(NPC.position));
-                var npc = mod.GetNPC(currentTag.GetString(nameof(NPC.modNPC.Name)))?.npc;
-                if (npc != null)
+                Vector2 position = npcTag.Get<Vector2>(nameof(NPC.position));
+                if (mod.GetNPC(npcTag.GetString(nameof(NPC.modNPC.Name))).npc is NPC npc)
                 {
-                    int npcIndex = NPC.NewNPC((int)position.X, (int)position.Y, npc.type);
+                    int index = NPC.NewNPC((int)position.X, (int)position.Y, npc.type);
 
-                    if (Main.npc[npcIndex].modNPC is ISaveableEntity saveable)
+                    if (Main.npc[index].modNPC is ISaveableEntity saveable)
                     {
-                        saveable.Load(currentTag);
+                        saveable.Load(npcTag);
 
-                        if (saveable.SaveHP && currentTag.ContainsKey(nameof(NPC.life)))
-                            Main.npc[npcIndex].life = tag.GetAsInt(nameof(NPC.life));
+                        if (saveable.SaveHP && npcTag.ContainsKey(nameof(NPC.life)))
+                            Main.npc[index].life = tag.GetAsInt(nameof(NPC.life));
                     }
                 }
             }

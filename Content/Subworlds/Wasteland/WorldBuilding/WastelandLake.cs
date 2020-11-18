@@ -5,7 +5,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
     internal static class WastelandLake
     {
@@ -22,18 +22,18 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
             int xModifier = WorldGen.genRand.Next(minRadius, maxRadius);
             //int maxY = ParabolaEquation(curveModifier, WorldGen.genRand.Next(30, 55), xModifier);
             int maxY = y + xModifier / 2 * xModifier / 2 / 25 * -1;
-            y += (y + 0 * 0 / 25 * -1) - maxY;
+            y += y + 0 * 0 / 25 * -1 - maxY;
 
-            for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)
+            for (int i = -xModifier / 2; i < xModifier / 2; i++)
             {
                 Point point = new Point(x + i, y + i * i / 25 * -1);
                 GeneralWorldHelper.FillAir(point.X, maxY, 1, point.Y - maxY);
             }
 
-            for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)
+            for (int i = -xModifier / 2; i < xModifier / 2; i++)
             {
                 Point point = new Point(x + i, y + i * i / 25 * -1);
-                ushort tilePlace = (ushort)((WorldGen.genRand.Next(4) == 0) ? ModContent.TileType<WastelandWaste>() : ModContent.TileType<WastelandRock>());
+                ushort tilePlace = (ushort)(WorldGen.genRand.Next(4) == 0 ? ModContent.TileType<WastelandWaste>() : ModContent.TileType<WastelandRock>());
                 if (!dirt)
                     WorldGen.TileRunner(point.X, point.Y, strengh, steps, ModContent.TileType<WastelandRock>(), true);
             }
@@ -48,7 +48,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
                 //GeneralWorldHelper.FillLiquid(point.X, maxY, 1, point.Y - maxY, LiquidRegistry.GetLiquid(ModLoader.GetMod("LiquidAPI"), "PlutonicWaste"), true);
             }
 
-            for (int i = -(xModifier) / 2; i < (xModifier) / 2; i++)
+            for (int i = -xModifier / 2; i < xModifier / 2; i++)
             {
                 Point point = new Point(x + i, y + i * i / 25 * -1);
             }

@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
     class WastelandLostCave : WastelandCave
     {
@@ -24,10 +24,10 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
 
         public override void Generate(GenerationProgress progress)
         {
-            Rectangle bound = this.CaveBound;
+            Rectangle bound = CaveBound;
 
-            WorldGen.TileRunner(CaveBound.Center.X, CaveBound.Center.Y, WorldGen.genRand.Next(70, 100), 30, -1, true, (float)WorldGen.genRand.Next(7, 10), (float)WorldGen.genRand.Next(-2, 2));
-            WorldGen.TileRunner(CaveBound.Center.X, CaveBound.Center.Y, WorldGen.genRand.Next(70, 100), 30, -1, true, (float)WorldGen.genRand.Next(-10, -7), (float)WorldGen.genRand.Next(-2, 2));
+            WorldGen.TileRunner(CaveBound.Center.X, CaveBound.Center.Y, WorldGen.genRand.Next(70, 100), 30, -1, true, WorldGen.genRand.Next(7, 10), WorldGen.genRand.Next(-2, 2));
+            WorldGen.TileRunner(CaveBound.Center.X, CaveBound.Center.Y, WorldGen.genRand.Next(70, 100), 30, -1, true, WorldGen.genRand.Next(-10, -7), WorldGen.genRand.Next(-2, 2));
 
             for (int i = bound.Y; i < bound.Y + height; i++)
             {
