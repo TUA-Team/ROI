@@ -66,7 +66,7 @@ namespace ROI.Worlds
                     {
                         LiquidRef liquidRef = LiquidWorld.grid[x, y];
                         liquidRef.Amount = 255;
-                        liquidRef.Type = liquidID;
+                        liquidRef.LiquidType = liquidID;
                     }
                 }
             }
