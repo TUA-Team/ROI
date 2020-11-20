@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    public sealed class WastelandPlayer : ModPlayer
+    internal sealed class WastelandPlayer : ModPlayer
     {
         bool wastelandFilter;
         readonly Color color = new Color(64, 0, 0);

@@ -6,7 +6,7 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.Content.Void.Items
 {
-    internal class VoidFragment : ROIItem
+    public sealed class VoidFragment : ROIItem
     {
         public VoidFragment() : base("Void Affinity", "", 28, 40, 1000, -1, 3, 999) { }
 

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Items
 {
-    internal class Poutine : ModItem
+    public sealed class Poutine : ModItem
     {
         public override void SetDefaults()
         {

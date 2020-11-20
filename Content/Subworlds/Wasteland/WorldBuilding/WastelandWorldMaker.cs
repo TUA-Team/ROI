@@ -10,6 +10,7 @@ using Terraria.ModLoader;
 using Terraria.World.Generation;
 using static Terraria.WorldGen;
 
+// TODO: (low prio) torches
 namespace ROI.Content.Subworlds.Wasteland
 {
     //Contain wasteland world gen

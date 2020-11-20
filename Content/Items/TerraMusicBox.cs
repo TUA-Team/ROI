@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Items
 {
-    public class TerraMusicBox : ModItem
+    public sealed class TerraMusicBox : ModItem
     {
         public override void SetDefaults()
         {

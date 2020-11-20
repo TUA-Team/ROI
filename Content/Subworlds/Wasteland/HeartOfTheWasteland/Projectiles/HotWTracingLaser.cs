@@ -12,7 +12,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Projectiles
     /// ai[1] = projectile mode
     /// localAI[0] = Rotation
     /// </summary>
-    internal class HotWTracingLaser : ModProjectile
+    public sealed class HotWTracingLaser : ModProjectile
     {
         public const int BEAM_LENGTH = 2400;
         private const float MOVE_DISTANCE = 60f;

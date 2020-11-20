@@ -43,7 +43,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
             AddMapEntry(new Color(48, 44, 65), name);
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.ClosedDoor };
-            openDoorID = ModContent.TileType<Wastebrick_Door_Open>();
+            openDoorID = ModContent.TileType<WastebrickDoorOpen>();
         }
 
         public override bool HasSmartInteract()
@@ -58,7 +58,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Items.Wastebrick_Door>());
+            Item.NewItem(i * 16, j * 16, 16, 48, ModContent.ItemType<Items.WastebrickDoor>());
         }
 
         public override void MouseOver(int i, int j)
@@ -66,7 +66,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
             player.showItemIcon = true;
-            player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Door>();
+            player.showItemIcon2 = ModContent.ItemType<Items.WastebrickDoor>();
         }
     }
 }

@@ -155,7 +155,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                     // TODO: WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
                     //WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
                     Main.tile[i, v].active(true);
-                    Main.tile[i, v].type = (ushort)ModContent.TileType<Wastebrick_Platform>();
+                    Main.tile[i, v].type = (ushort)ModContent.TileType<WastebrickPlatform>();
                 }
                 //WorldGen.SquareTileFrame(i, y + height);
             }
@@ -177,7 +177,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                     if (WorldGen.genRand.Next(20) == 0)
                     {
                         //WorldGen.SquareTileFrame(i, y);
-                        WorldGen.PlaceTile(i, y, ModContent.TileType<Wastebrick_Platform>(), true, true);
+                        WorldGen.PlaceTile(i, y, ModContent.TileType<WastebrickPlatform>(), true, true);
                     }
                 }
             }

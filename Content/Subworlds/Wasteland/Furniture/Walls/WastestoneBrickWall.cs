@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Walls
 {
-    internal class WastestoneBrickWall : ModWall
+    public sealed class WastestoneBrickWall : ModWall
     {
         public override void SetDefaults()
         {

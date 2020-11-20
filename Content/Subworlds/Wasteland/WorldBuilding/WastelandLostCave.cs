@@ -8,7 +8,7 @@ using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
-    internal class WastelandLostCave : WastelandCave
+    internal sealed class WastelandLostCave : WastelandCave
     {
         public WastelandLostCave(Rectangle rectangle) : base(rectangle)
         {

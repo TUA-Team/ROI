@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Misc
 {
-    internal class IrradiatedKey : ModItem
+    public sealed class IrradiatedKey : ModItem
     {
         public override void SetDefaults()
         {

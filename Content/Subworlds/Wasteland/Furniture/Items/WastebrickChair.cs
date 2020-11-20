@@ -2,11 +2,11 @@
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
 {
-    internal class Wastebrick_Door : ModItem
+    public sealed class WastebrickChair : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick Door");
+            DisplayName.SetDefault("Wastebrick Chair");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.WastebrickDoorClosed>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickChair>();
         }
     }
 }

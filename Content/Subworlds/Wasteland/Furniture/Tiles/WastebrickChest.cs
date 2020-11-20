@@ -37,7 +37,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Containers };
             chest = "Wastebrick Chest";
-            chestDrop = ModContent.ItemType<Items.Wastebrick_Chest>();
+            chestDrop = ModContent.ItemType<Items.WastebrickChest>();
         }
 
         public string MapChestName(string name, int i, int j)

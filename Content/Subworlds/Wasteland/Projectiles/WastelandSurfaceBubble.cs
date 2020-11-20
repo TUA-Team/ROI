@@ -9,7 +9,7 @@ namespace ROI.Content.Subworlds.Wasteland.Projectiles
     /// <summary>
     /// ai[0] = popped out
     /// </summary>
-    internal class WastelandSurfaceBubble : ModProjectile
+    public sealed class WastelandSurfaceBubble : ModProjectile
     {
         public override void SetStaticDefaults()
         {

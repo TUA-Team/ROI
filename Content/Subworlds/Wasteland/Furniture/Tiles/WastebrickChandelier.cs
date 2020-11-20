@@ -29,7 +29,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Chandelier");
             AddMapEntry(new Color(48, 44, 65), name);
-            drop = ModContent.ItemType<Items.Wastebrick_Chandelier>();
+            drop = ModContent.ItemType<Items.WastebrickChandelier>();
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Torches };
         }

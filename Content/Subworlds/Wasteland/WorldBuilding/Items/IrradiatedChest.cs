@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Items
 {
-    internal class IrradiatedChest : ModItem
+    public sealed class IrradiatedChest : ModItem
     {
         public override void SetDefaults()
         {

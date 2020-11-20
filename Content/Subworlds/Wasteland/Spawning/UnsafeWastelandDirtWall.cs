@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Spawning
 {
-    public class UnsafeWastelandDirtWall : Commons.Spawning.SpawnCondition
+    public sealed class UnsafeWastelandDirtWall : Commons.Spawning.SpawnCondition
     {
         public override bool Active(int x, int y) =>
             Main.tile[x, y].wall == ModContent.WallType<WastelandDirtWall>() && y > Main.maxTilesY - 200;

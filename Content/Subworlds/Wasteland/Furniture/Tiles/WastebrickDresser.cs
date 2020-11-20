@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
 {
-    class Wastebrick_Dresser : ModTile
+    public sealed class WastebrickDresser : ModTile
     {
         public override void SetDefaults()
         {
@@ -37,7 +37,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
             disableSmartCursor = true;
             adjTiles = new int[] { TileID.Dressers };
             dresser = "Wastebrick Dresser";
-            dresserDrop = ModContent.ItemType<Items.Wastebrick_Dresser>();
+            dresserDrop = ModContent.ItemType<Items.WastebrickDresser>();
         }
 
         public override bool HasSmartInteract()
@@ -164,7 +164,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
                 }
                 if (player.showItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Dresser>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.WastebrickDresser>();
                     player.showItemIconText = "";
                 }
             }
@@ -206,7 +206,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
                 }
                 if (player.showItemIconText == chest)
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.Wastebrick_Dresser>();
+                    player.showItemIcon2 = ModContent.ItemType<Items.WastebrickDresser>();
                     player.showItemIconText = "";
                 }
             }

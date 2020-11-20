@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Items
 {
-    internal class WastelandView : ModItem
+    public sealed class WastelandView : ModItem
     {
         public override void SetDefaults()
         {

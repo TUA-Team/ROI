@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Weapons.Uranium
 {
-    internal class UraniumSpike : ROIItem
+    public sealed class UraniumSpike : ROIItem
     {
         public UraniumSpike() : base("Uranium Spike", "Launches a ground-spike wave", 32, 64) { }
 

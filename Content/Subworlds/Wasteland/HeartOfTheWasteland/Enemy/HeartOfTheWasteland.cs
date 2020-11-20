@@ -20,7 +20,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Enemy
     /// localAI[0] = Opacity while spawning
     /// </summary>
     [AutoloadBossHead]
-    class HeartOfTheWasteland : ModNPC
+    public sealed class HeartOfTheWasteland : ModNPC
     {
         public bool IsSleeping { get; private set; }
 

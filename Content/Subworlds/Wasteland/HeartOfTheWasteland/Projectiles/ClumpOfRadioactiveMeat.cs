@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Projectiles
 {
-    internal class ClumpOfRadioactiveMeat : ModProjectile
+    public sealed class ClumpOfRadioactiveMeat : ModProjectile
     {
         private bool bossSummoned;
 

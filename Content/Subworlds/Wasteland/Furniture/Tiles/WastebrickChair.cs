@@ -7,7 +7,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
 {
-    internal class Wastebrick_Chair : ModTile
+    public sealed class WastebrickChair : ModTile
     {
         public override void SetDefaults()
         {
@@ -39,7 +39,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Tiles
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<Items.Wastebrick_Chair>());
+            Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<Items.WastebrickChair>());
         }
     }
 }

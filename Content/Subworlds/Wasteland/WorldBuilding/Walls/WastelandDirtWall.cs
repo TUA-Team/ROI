@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Walls
 {
-    internal class WastelandDirtWall : ModWall
+    public sealed class WastelandDirtWall : ModWall
     {
         public override void SetDefaults()
         {
@@ -11,7 +11,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Walls
         }
     }
 
-    internal class WastelandDirtWallSafe : ModWall
+    public sealed class WastelandDirtWallSafe : ModWall
     {
         public override bool Autoload(ref string name, ref string texture)
         {

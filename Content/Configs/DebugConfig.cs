@@ -4,7 +4,7 @@ using Terraria.ModLoader.Config;
 namespace ROI.Content.Configs
 {
     [Label("Debug")]
-    public sealed class DebugConfig : ModConfig
+    internal sealed class DebugConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 

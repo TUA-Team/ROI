@@ -1,7 +1,7 @@
 ﻿namespace ROI.Helpers
 {
     // literally just Greek letters, System may even have something for this
-    public enum VoidTier : byte
+/*    public enum VoidTier : byte
     {
         Alpha,
         Beta,
@@ -9,5 +9,5 @@
         Delta,
         Epsilon,
         Zeta
-    }
+    }*/
 }

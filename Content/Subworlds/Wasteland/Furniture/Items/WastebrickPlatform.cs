@@ -21,7 +21,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.Wastebrick_Platform>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickPlatform>();
         }
     }
 }

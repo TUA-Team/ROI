@@ -4,7 +4,7 @@ using Terraria;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff
 {
-    internal class Grasped : ROIBuff
+    public sealed class Grasped : ROIBuff
     {
         public Grasped() : base("Grasped", "The heart of the wasteland is pulling you",
             hideTime: true, persistent: true, canBeCleared: false, debuff: true, longerExpertDebuff: true)

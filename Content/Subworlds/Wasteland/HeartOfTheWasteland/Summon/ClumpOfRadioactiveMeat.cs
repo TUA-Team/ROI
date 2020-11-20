@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Summon
 {
-    internal class ClumpOfRadioactiveMeat : ModItem
+    public sealed class ClumpOfRadioactiveMeat : ModItem
     {
         public override void SetStaticDefaults()
         {

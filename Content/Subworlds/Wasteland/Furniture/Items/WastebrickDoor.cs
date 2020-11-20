@@ -1,13 +1,12 @@
-﻿using Terraria.ID;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
 {
-    internal class Wastebrick_Bookcase : ModItem
+    public sealed class WastebrickDoor : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick Bookcase");
+            DisplayName.SetDefault("Wastebrick Door");
         }
 
         public override void SetDefaults()
@@ -19,10 +18,10 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
             item.autoReuse = true;
             item.useAnimation = 15;
             item.useTime = 10;
-            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.WastebrickBookcase>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickDoorClosed>();
         }
     }
 }

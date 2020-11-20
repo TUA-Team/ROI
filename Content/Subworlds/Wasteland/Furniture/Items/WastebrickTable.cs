@@ -2,11 +2,11 @@
 
 namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
 {
-    class Wastebrick_Chandelier : ModItem
+    public sealed class WastebrickTable : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Wastebrick Chandelier");
+            DisplayName.SetDefault("Wastebrick Table");
         }
 
         public override void SetDefaults()
@@ -21,7 +21,7 @@ namespace ROI.Content.Subworlds.Wasteland.Furniture.Items
             item.useStyle = 1;
             item.consumable = true;
             item.value = 500;
-            item.createTile = ModContent.TileType<Tiles.WastebrickChandelier>();
+            item.createTile = ModContent.TileType<Tiles.WastebrickTable>();
         }
     }
 }

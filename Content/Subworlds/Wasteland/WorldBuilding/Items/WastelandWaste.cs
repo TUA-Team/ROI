@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Items
 {
-    internal class WastelandWaste : ModItem
+    public sealed class WastelandWaste : ModItem
     {
         public override void SetStaticDefaults()
         {

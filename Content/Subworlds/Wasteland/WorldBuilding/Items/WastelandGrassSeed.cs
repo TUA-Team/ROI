@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Items
 {
     //TODO: MP for this
-    internal class WastelandGrassSeed : ModItem
+    public sealed class WastelandGrassSeed : ModItem
     {
         public override void SetDefaults()
         {

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Commons;
 using System;
 using Terraria;
 using Terraria.Graphics.Effects;
@@ -9,12 +8,12 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    public sealed class WastelandBackground : Background
+    public sealed class WastelandBackground : ILoadable
     {
         private readonly Texture2D[] _texture = new Texture2D[5];
 
 
-        public override void Load(Mod mod)
+        public void Load(Mod mod)
         {
             if (Main.dedServ)
                 return;
@@ -99,5 +98,7 @@ namespace ROI.Content.Subworlds.Wasteland
                 }
             }
         }
+
+        void ILoadable.Unload() { }
     }
 }

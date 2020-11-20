@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Materials
 {
-    internal class WastestoneOre : ModItem
+    public sealed class WastestoneOre : ModItem
     {
         public override void SetDefaults()
         {

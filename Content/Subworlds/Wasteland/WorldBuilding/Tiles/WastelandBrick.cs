@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles
 {
-    internal class WastelandBrick : ModTile
+    public sealed class WastelandBrick : ModTile
     {
         public override void SetDefaults()
         {

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
 {
-    internal class TongueDrawingPatch : ILoadable
+    internal sealed class TongueDrawingPatch : ILoadable
     {
         public void Load(Mod mod)
         {

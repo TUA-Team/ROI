@@ -12,7 +12,7 @@ namespace ROI.Content.Subworlds.Wasteland.Projectiles
     /// ai[1] = state
     /// localai[0] = property setted
     /// </summary>
-    internal class WastelandBubble : ModProjectile
+    public sealed class WastelandBubble : ModProjectile
     {
 
         private static readonly List<Rectangle> smallBubble = new List<Rectangle>()

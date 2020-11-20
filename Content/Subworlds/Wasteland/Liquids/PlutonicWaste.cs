@@ -5,7 +5,7 @@ using Terraria.ID;
 
 namespace ROI.Content.Subworlds.Wasteland.Liquids
 {
-    internal class PlutonicWaste : ModLiquid
+    public sealed class PlutonicWaste : ModLiquid
     {
         public override Color LiquidColor => Color.GreenYellow;
 

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.Enemies
 {
-    internal class MutatedDemon : ModNPC
+    public sealed class MutatedDemon : ModNPC
     {
         public override string Texture => "Terraria/NPC_" + NPCID.VoodooDemon;
 

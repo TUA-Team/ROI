@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles
 {
-    internal class WastelandSapling : ModTile
+    public sealed class WastelandSapling : ModTile
     {
         public override void SetDefaults()
         {

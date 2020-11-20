@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles
 {
-    internal class WastelandRock : ModTile
+    public sealed class WastelandRock : ModTile
     {
         public override void SetDefaults()
         {

@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Void.Items
 {
-    internal class VoidCollector : ROIItem
+    public sealed class VoidCollector : ROIItem
     {
         public VoidCollector() : base("Void Collector", "A mysterious orb used to collect void", 32, 32) { }
 

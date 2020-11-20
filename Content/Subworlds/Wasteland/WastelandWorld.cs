@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    internal class WastelandWorld : ModWorld
+    internal sealed class WastelandWorld : ModWorld
     {
         public override void PostDrawTiles()
         {
