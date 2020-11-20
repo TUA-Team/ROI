@@ -21,6 +21,6 @@ namespace API.Networking
         public abstract void Read(BinaryReader reader, int sender);
 
 
-        protected BinaryWriter Writer => writer;
+        public BinaryWriter Writer => writer;
     }
 }
