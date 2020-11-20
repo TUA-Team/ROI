@@ -3,7 +3,6 @@ using API.Networking;
 using API.Users;
 using ROI.Loaders;
 using System.IO;
-using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI
@@ -17,15 +16,11 @@ namespace ROI
 
         private void InitializeLoaders()
         {
-            if (!Main.dedServ)
-            {
-                interfaceLoader = new InterfaceLoader();
-                interfaceLoader.Initialize(this);
-            }
-
             userLoader = new LateLoader<UserLoader>(this);
 
             PacketManager.LoadPacketsFrom(this);
+
+            LiquidAPI.LiquidAPI.Autoload(this);
         }
 
         private void UnloadLoaders()

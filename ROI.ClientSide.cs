@@ -2,6 +2,7 @@
 using ROI.Content.Configs;
 using ROI.Content.Items;
 using ROI.Content.Subworlds.Wasteland;
+using ROI.Loaders;
 using SubworldLibrary;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,9 @@ namespace ROI
                         File.WriteAllText(path, data);
                 }
             }
+
+            interfaceLoader = new InterfaceLoader();
+            interfaceLoader.Initialize(this);
         }
 
         private void UnloadClient()
