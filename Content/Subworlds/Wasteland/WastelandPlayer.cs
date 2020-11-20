@@ -1,15 +1,40 @@
 ﻿using Microsoft.Xna.Framework;
-using SubworldLibrary;
 using Terraria;
-using Terraria.Graphics.Effects;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
     internal sealed class WastelandPlayer : ModPlayer
     {
-        bool wastelandFilter;
-        readonly Color color = new Color(64, 0, 0);
+        public bool grasped;
+
+        public override void ResetEffects()
+        {
+            grasped = false;
+        }
+
+        public override void PreUpdateBuffs()
+        {
+            if (WastelandWorld.activeHotW != -1)
+            {
+                if (player.position.Y / 16 > Main.maxTilesY - 250)
+                {
+                    player.AddBuff(BuffID.Horrified, 2);
+                }
+
+                if (Main.npc[WastelandWorld.activeHotW].ai[0] == 1 &&
+                    player.position.X / 16 > Main.npc[WastelandWorld.activeHotW].position.X / 16 - 300 ||
+                    player.position.X / 16 < Main.npc[WastelandWorld.activeHotW].position.X / 16 + 300)
+                {
+                    grasped = true;
+                    player.AddBuff(ModContent.BuffType<HeartOfTheWasteland.Debuff.Grasped>(), 2);
+                }
+            }
+        }
+
+        /*bool wastelandFilter;
+        readonly Color color = new Color(64, 0, 0);*/
 /*        public override void UpdateBiomeVisuals()
         {
             if (Subworld.IsActive<WastelandDepthSubworld>())

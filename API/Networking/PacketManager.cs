@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
 using Terraria.ModLoader;
 
 namespace API.Networking
@@ -31,22 +30,13 @@ namespace API.Networking
 
         private static readonly List<PacketStyleInfo> styles = new List<PacketStyleInfo>();
 
-        public static void LoadPacketsFrom(Mod mod)
+        public static void Register(Mod mod, NetworkPacket packet)
         {
-            foreach (var type in mod.Code.DefinedTypes)
-            {
-                if (type.IsAbstract)
-                    continue;
+            var type = packet.GetType();
+            var style = new PacketStyleInfo(mod, styles.Count, packet.Read);
 
-                if (type.IsSubclassOf(typeof(NetworkPacket)))
-                {
-                    var style = new PacketStyleInfo(mod, styles.Count,
-                        ((NetworkPacket)FormatterServices.GetUninitializedObject(type)).Read);
-
-                    IdByType.Register(type, style.id);
-                    styles.Add(style);
-                }
-            }
+            IdByType.Register(type, style.id);
+            styles.Add(style);
         }
 
         public static ModPacket GetPacketFor(Type type) => styles[IdByType.Get(type)].MakePacket();

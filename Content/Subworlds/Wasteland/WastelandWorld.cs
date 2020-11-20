@@ -10,6 +10,15 @@ namespace ROI.Content.Subworlds.Wasteland
 {
     internal sealed class WastelandWorld : ModWorld
     {
+        public static int activeHotW;
+
+
+        public override void Initialize()
+        {
+            activeHotW = -1;
+        }
+
+
         public override void PostDrawTiles()
         {
             ModLiquid waste = LiquidRegistry.GetLiquid(mod, nameof(Liquids.PlutonicWaste));

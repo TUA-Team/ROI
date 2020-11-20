@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    public sealed class WastelandBackground : ILoadable
+    public sealed class WastelandBackground : API.IOnLoad
     {
         private readonly Texture2D[] _texture = new Texture2D[5];
 
@@ -98,7 +98,5 @@ namespace ROI.Content.Subworlds.Wasteland
                 }
             }
         }
-
-        void ILoadable.Unload() { }
     }
 }

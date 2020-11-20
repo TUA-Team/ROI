@@ -1,14 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Content.Worlds;
-using ROI.Players;
 using System;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
 {
-    internal sealed class TongueDrawingPatch : ILoadable
+    internal sealed class TongueDrawingPatch : API.IOnLoad
     {
         public void Load(Mod mod)
         {
@@ -17,19 +15,19 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
 
         public static void DrawBossTongues(On.Terraria.Main.orig_DrawWoF orig, Main instance)
         {
-            if (ROIWorld.activeHotWID >= 0)
+            if (WastelandWorld.activeHotW >= 0)
             {
                 // TO DO: Document this
                 for (int i = 0; i < Main.maxPlayers; i++)
                 {
-                    if (!Main.player[i].active ||
-                        !Main.player[i].GetModPlayer<ROIPlayer>().grasped ||
+                    if (!(Main.player[i].active &&
+                        Main.player[i].GetModPlayer<WastelandPlayer>().grasped) ||
                         Main.player[i].dead)
                         continue;
 
 
-                    float npcCenterX = Main.npc[ROIWorld.activeHotWID].position.X + (float)(Main.npc[ROIWorld.activeHotWID].width / 2);
-                    float npcCenterY = Main.npc[ROIWorld.activeHotWID].position.Y + (float)(Main.npc[ROIWorld.activeHotWID].height / 2);
+                    float npcCenterX = Main.npc[WastelandWorld.activeHotW].position.X + (float)(Main.npc[WastelandWorld.activeHotW].width / 2);
+                    float npcCenterY = Main.npc[WastelandWorld.activeHotW].position.Y + (float)(Main.npc[WastelandWorld.activeHotW].height / 2);
                     Vector2 vector = new Vector2(Main.player[i].position.X + (float)Main.player[i].width * 0.5f, Main.player[i].position.Y + (float)Main.player[i].height * 0.5f);
                     float num3 = npcCenterX - vector.X;
                     float num4 = npcCenterY - vector.Y;
@@ -65,10 +63,6 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland
 
 
             orig(Main.instance);
-        }
-
-        public void Unload()
-        {
         }
     }
 }

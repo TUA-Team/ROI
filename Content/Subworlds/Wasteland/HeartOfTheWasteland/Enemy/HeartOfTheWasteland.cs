@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Content.NPCs;
-using ROI.Content.Worlds;
 using ROI.Helpers;
 using System;
 using System.IO;
@@ -107,11 +106,11 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Enemy
 
         public override bool PreAI()
         {
-            if (ROIWorld.activeHotWID == -1)
+            if (WastelandWorld.activeHotW == -1)
             {
-                ROIWorld.activeHotWID = npc.whoAmI;
+                WastelandWorld.activeHotW = npc.whoAmI;
             }
-            if (ROIWorld.activeHotWID != npc.whoAmI)
+            if (WastelandWorld.activeHotW != npc.whoAmI)
             {
                 npc.active = false;
                 return false;
@@ -376,7 +375,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Enemy
 
         public override void NPCLoot()
         {
-            ROIWorld.activeHotWID = -1;
+            WastelandWorld.activeHotW = -1;
             if (!Main.hardMode)
             {
                 Main.NewText("The spirits of the ancient gods have been unleashed.", Color.LightSeaGreen);

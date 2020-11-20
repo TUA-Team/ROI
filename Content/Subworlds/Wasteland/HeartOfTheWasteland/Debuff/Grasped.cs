@@ -1,5 +1,4 @@
 ﻿using ROI.Content.Buffs;
-using ROI.Players;
 using Terraria;
 
 namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff
@@ -14,7 +13,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<ROIPlayer>().grasped = true;
+            player.GetModPlayer<HotWPlayer>().grasped = true;
             player.buffTime[buffIndex] = 2;
         }
     }

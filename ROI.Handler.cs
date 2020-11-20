@@ -16,9 +16,9 @@ namespace ROI
 
         private void InitializeLoaders()
         {
-            userLoader = new LateLoader<UserLoader>(this);
+            SimpleLoadables.Load(this);
 
-            PacketManager.LoadPacketsFrom(this);
+            userLoader = new LateLoader<UserLoader>(this);
 
             LiquidAPI.LiquidAPI.Autoload(this);
         }
