@@ -45,5 +45,7 @@ namespace API.Networking
         {
             styles[reader.ReadInt32()].Read(reader, sender);
         }
+
+        public static void Clear() => styles?.Clear();
     }
 }

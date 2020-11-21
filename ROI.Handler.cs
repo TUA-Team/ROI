@@ -31,6 +31,8 @@ namespace ROI
             userLoader = null;
 
             IdHookLookup.Clear();
+
+            PacketManager.Clear();
         }
 
 
