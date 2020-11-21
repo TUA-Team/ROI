@@ -16,7 +16,7 @@ namespace ROI
     public sealed partial class ROIMod
     {
         //public MusicConfig MusicConfig;
-        public DebugConfig DebugConfig;
+        internal DebugConfig DebugConfig;
 
         private void LoadClient()
         {
