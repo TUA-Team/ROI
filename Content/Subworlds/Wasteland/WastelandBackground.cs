@@ -8,7 +8,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Subworlds.Wasteland
 {
-    public sealed class WastelandBackground : API.IOnLoad
+    public sealed class WastelandBackground : ILoadable
     {
         private Texture2D[] _texture;
 
@@ -29,7 +29,7 @@ namespace ROI.Content.Subworlds.Wasteland
         }
 
 
-        public void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
+        private void DrawUnderworldBackground(On.Terraria.Main.orig_DrawUnderworldBackground orig, Main instance, bool flat)
         {
             if (Main.screenPosition.Y + Main.screenHeight < (Main.maxTilesY - 220) * 16f)
                 return;
@@ -99,5 +99,8 @@ namespace ROI.Content.Subworlds.Wasteland
                 }
             }
         }
+
+
+        void ILoadable.Unload() { }
     }
 }
