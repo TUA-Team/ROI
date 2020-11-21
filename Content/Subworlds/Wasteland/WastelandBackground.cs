@@ -10,7 +10,7 @@ namespace ROI.Content.Subworlds.Wasteland
 {
     public sealed class WastelandBackground : API.IOnLoad
     {
-        private readonly Texture2D[] _texture = new Texture2D[5];
+        private Texture2D[] _texture;
 
 
         public void Load(Mod mod)
@@ -18,8 +18,9 @@ namespace ROI.Content.Subworlds.Wasteland
             if (Main.dedServ)
                 return;
 
-            for (int i = 0; i < _texture.Length; i++)
-                mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);
+            _texture = new Texture2D[5];
+            for (int i = 0; i < 5; i++)
+                _texture[i] = mod.GetTexture("Assets/Textures/Backgrounds/WastelandBackground" + i);
 
             On.Terraria.Main.DrawUnderworldBackground += DrawUnderworldBackground;
 
