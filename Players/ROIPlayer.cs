@@ -48,7 +48,6 @@ namespace ROI.Players
 
         public override void ResetEffects()
         {
-            ResetEffectsWasteland();
             ResetEffectsVoid();
         }
 
@@ -59,7 +58,6 @@ namespace ROI.Players
 
         public override void PostUpdate()
         {
-            PostUpdateWasteland();
             PostUpdateVoid();
         }
 

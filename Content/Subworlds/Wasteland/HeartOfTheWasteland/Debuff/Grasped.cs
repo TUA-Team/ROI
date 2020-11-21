@@ -13,7 +13,7 @@ namespace ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Debuff
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<HotWPlayer>().grasped = true;
+            player.GetModPlayer<WastelandPlayer>().grasped = true;
             player.buffTime[buffIndex] = 2;
         }
     }
