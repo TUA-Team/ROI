@@ -39,8 +39,4 @@
     <None Remove="description.txt" />
     <None Remove="README.MD" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="API\Loot\Targets\" />
-  </ItemGroup>
 </Project>
