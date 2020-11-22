@@ -8,11 +8,9 @@ namespace ROI.Content.Subworlds.Wasteland.Enemies
     // Reference: Voodoo Demon
     public sealed class MutatedDemon : ModNPC
     {
-        public override string Texture => "Terraria/NPC_" + NPCID.VoodooDemon;
-
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = Main.npcFrameCount[NPCID.VoodooDemon];
+            Main.npcFrameCount[npc.type] = 2;
         }
 
         public override void SetDefaults()
@@ -20,8 +18,8 @@ namespace ROI.Content.Subworlds.Wasteland.Enemies
             npc.npcSlots = 2f;
             npc.aiStyle = -1;
 
-            npc.width = 28;
-            npc.height = 48;
+            npc.width = 82;
+            npc.height = 68;
 
             npc.lifeMax = 140;
             npc.damage = 32;
