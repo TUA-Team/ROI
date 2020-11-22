@@ -1,14 +1,11 @@
-﻿using ROI.Commons.Spawning;
+﻿using SubworldLibrary;
 using Terraria;
 
 namespace ROI.Content.Subworlds.Wasteland.Spawning
 {
-    public sealed class WastelandSpawnCondition : SpawnCondition
+    internal abstract class WastelandSpawnCondition : Commons.Spawning.SpawnCondition
     {
-        public override bool Active(int x, int y) =>
-            Main.ActiveWorldFileData.HasCrimson && y > Main.maxTilesY - 200;
-
-
-        public override float SpawnChance => 1;
+        public override bool Active(Player player, int x, int y) =>
+            Subworld.IsActive<WastelandDepthSubworld>();
     }
 }
