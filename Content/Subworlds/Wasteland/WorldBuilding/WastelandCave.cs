@@ -67,15 +67,18 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
             };
         }
 
+#pragma warning disable IDE0052 // Remove unread private members
         private static readonly Func<TagCompound, WastelandCave> DESERIALIZER = tag =>
+#pragma warning restore IDE0052 // Remove unread private members
         {
             string caveType = tag.GetString("caveType");
             switch (caveType)
             {
                 case "Lost_Wood":
                     return new WastelandLostCave(tag.Get<Rectangle>("bound"));
+                default:
+                    throw new Exception("Invalid cave type");
             }
-            throw new Exception("Invalid cave type");
         };
     }
 }

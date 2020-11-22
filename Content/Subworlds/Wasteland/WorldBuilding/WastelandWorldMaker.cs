@@ -20,9 +20,20 @@ namespace ROI.Content.Subworlds.Wasteland
         private int HighestLevel = 300;
         private Mod Mod { get; }
 
+        private readonly ushort UraniumOreType;
+        private readonly ushort OreType;
+        private readonly ushort DirtType;
+        private readonly ushort RockType;
+
         public WastelandWorldMaker(Mod mod)
         {
             Mod = mod;
+
+            UraniumOreType = (ushort)mod.TileType(nameof(UraniumOre));
+            OreType = (ushort)mod.TileType(nameof(WastelandOre));
+            DirtType = (ushort)mod.TileType(nameof(UraniumOre));
+            RockType = (ushort)mod.TileType(nameof(WastelandRock));
+
             SurfaceLevel = new Dictionary<int, int>();
         }
 
@@ -114,12 +125,11 @@ namespace ROI.Content.Subworlds.Wasteland
             for (int i = 0; i < 50; i++)
             {
                 int x = Main.rand.Next(25, Main.maxTilesX - 25);
-                int yGen = 0;
-                if (Scan(x, 300, out yGen, (tile => { return true; })))
+                if (Scan(x, 300, out int yGen, tile => true))
                 {
                     WorldUtils.Gen(new Point(x, yGen), new Shapes.Tail(WorldGen.genRand.Next(10, 13), new Vector2(WorldGen.genRand.Next(-10, 10), WorldGen.genRand.Next(20, 25))), Actions.Chain(new GenAction[]
                     {
-                    new Actions.PlaceTile((ushort) Mod.TileType("Uranium_Ore"), 0)
+                        new Actions.PlaceTile(UraniumOreType, 0)
                     }));
                 }
             }
@@ -156,8 +166,8 @@ namespace ROI.Content.Subworlds.Wasteland
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    GeneralWorldHelper.Fill(i, totalDisplacements[i], 1, dirtDepth, (ushort)ModContent.TileType<WastelandDirt>());
-                    GeneralWorldHelper.Fill(i, totalDisplacements[i] + dirtDepth, 1, 900, (ushort)Mod.TileType("WastelandRock"));
+                    GeneralWorldHelper.Fill(i, totalDisplacements[i], 1, dirtDepth, DirtType);
+                    GeneralWorldHelper.Fill(i, totalDisplacements[i] + dirtDepth, 1, 900, RockType);
                     //GeneralWorldHelper.FillAir(i, 0, 1, totalDisplacements[i]);
                 }
             }
@@ -174,7 +184,7 @@ namespace ROI.Content.Subworlds.Wasteland
                     }
 
                     int dirtDepth = WorldGen.genRand.Next(10, 15);
-                    GeneralWorldHelper.FillInvertYAxis(i, totalDisplacements[i], 1, 400, (ushort)Mod.TileType("WastelandRock"));
+                    GeneralWorldHelper.FillInvertYAxis(i, totalDisplacements[i], 1, 400, RockType);
                 }
             }
 
@@ -191,7 +201,7 @@ namespace ROI.Content.Subworlds.Wasteland
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
                 if (WorldGen.genRand.Next(20) == 0)
-                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(400, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), ModContent.TileType<WastelandOre>(), false, 0f, 0f, false, true);
+                    WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), WorldGen.genRand.Next(400, Main.maxTilesY), (double)WorldGen.genRand.Next(2, 7), WorldGen.genRand.Next(3, 7), OreType, false, 0f, 0f, false, true);
             }
         }
 
@@ -203,13 +213,7 @@ namespace ROI.Content.Subworlds.Wasteland
             for (int i = 0; i < 25; i++)
             {
                 int x = Main.rand.Next(200, Main.maxTilesX - 200);
-                int yGen = 0;
-                if (Scan(x, 200, out yGen, (tile =>
-                {
-                    if (tile.type != ModContent.TileType<WastelandDirt>() || tile.liquid > 0)
-                        return false;
-                    return true;
-                })))
+                if (Scan(x, 200, out int yGen, tile => !(tile.type != DirtType && tile.liquid > 0)))
                 {
                     if (bigLake != GetAmountOfBigLakes())
                     {
@@ -240,7 +244,7 @@ namespace ROI.Content.Subworlds.Wasteland
                 }
                 else
                 {
-                    if (condition.Invoke(Main.tile[x, i]))
+                    if (condition?.Invoke(Main.tile[x, i]) ?? false)
                     {
                         yGen = i;
                         return true;
@@ -259,15 +263,9 @@ namespace ROI.Content.Subworlds.Wasteland
             {
                 if (nextHouseCooldown <= 0 && WorldGen.genRand.Next(5) == 0)
                 {
-                    int j = 0;
-                    if (Scan(i, 250, out j, tile =>
+                    if (Scan(i, 250, out int j, tile => !(tile.type != DirtType && tile.liquid > 0)))
                     {
-                        if (tile.type != ModContent.TileType<WastelandDirt>() || tile.liquid > 0)
-                            return false;
-                        return true;
-                    }))
-                    {
-                        if (Main.tile[i, j].type == Mod.TileType("WastelandDirt"))
+                        if (Main.tile[i, j].type == DirtType)
                         {
                             nextHouseCooldown = WorldGen.genRand.Next(100, 150);
                             WastelandRuins.PlaceHouse(i, j);
@@ -281,7 +279,6 @@ namespace ROI.Content.Subworlds.Wasteland
 
         private void SpreadingGrass(GenerationProgress progress)
         {
-            ushort dirtType = (ushort)Mod.TileType("WastelandDirt");
             ushort grassType = (ushort)ModContent.TileType<WastelandGrass>();
             for (int i = 0; i < Main.maxTilesX; i++)
             {
@@ -289,17 +286,17 @@ namespace ROI.Content.Subworlds.Wasteland
                 progress.Set(percent);
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
-                    if (Main.tile[i, j].type == dirtType && !Main.tile[i, j - 1].active())
+                    if (Main.tile[i, j].type == DirtType && !Main.tile[i, j - 1].active())
                     {
                         Main.tile[i, j].wall = 0;
-                        WorldGen.SpreadGrass(i, j, dirtType, grassType, true);
+                        SpreadGrass(i, j, DirtType, grassType, true);
                     }
                 }
             }
 
             for (int i = 0; i < Main.maxTilesX; i++)
             {
-                float percent = (float)(i / Main.maxTilesX);
+                float percent = i / Main.maxTilesX;
                 progress.Set(percent);
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
@@ -319,7 +316,7 @@ namespace ROI.Content.Subworlds.Wasteland
 
             for (int i = 0; i < 1000; i++)
             {
-                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), 500 + WorldGen.genRand.Next(0, 800), (double)WorldGen.genRand.Next(30, 50), 70, Mod.TileType("Wasteland_Dirt"), false);
+                WorldGen.TileRunner(WorldGen.genRand.Next(0, Main.maxTilesX), 500 + WorldGen.genRand.Next(0, 800), (double)WorldGen.genRand.Next(30, 50), 70, DirtType, false);
             }
 
             for (int i = 0; i < 300; i++)
@@ -371,7 +368,7 @@ namespace ROI.Content.Subworlds.Wasteland
                 {
                     if (WorldGen.genRand.Next(20) == 0)
                     {
-                        WorldGen.TileRunner(i, j, (double)WorldGen.genRand.Next(4, 6), 50, Mod.TileType("WastelandRock"), true);
+                        WorldGen.TileRunner(i, j, (double)WorldGen.genRand.Next(4, 6), 50, RockType, true);
                     }
                 }
             }
@@ -381,7 +378,7 @@ namespace ROI.Content.Subworlds.Wasteland
             {
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
-                    if (Main.tile[i, j].type != Mod.TileType("WastelandRock"))
+                    if (Main.tile[i, j].type != RockType)
                     {
                         Main.tile[i, j].active(false);
                         Main.tile[i, j].liquid = 0;
@@ -405,15 +402,15 @@ namespace ROI.Content.Subworlds.Wasteland
                 {
                     int num260 = genRand.Next(1, Main.maxTilesX);
                     int num261 = genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 5);
-                    if (Main.tile[num260, num261].wall == ModContent.WallType<WastestoneBrickWall>())
+                    if (Main.tile[num260, num261].wall == Mod.WallType(nameof(WastestoneBrickWall)))
                     {
-                        for (; !Main.tile[num260, num261].active(); num261++)
+                        /*for (; !Main.tile[num260, num261].active(); num261++)
                         {
-                        }
+                        }*/
 
                         num261--;
-                        PlaceTile(num260, num261, ModContent.TileType<WastelandForge>());
-                        if (Main.tile[num260, num261].type == ModContent.TileType<WastelandForge>())
+                        PlaceTile(num260, num261, Mod.TileType(nameof(WastelandForge)));
+                        if (Main.tile[num260, num261].type == Mod.TileType(nameof(WastelandForge)))
                         {
                             flag17 = true;
                         }
