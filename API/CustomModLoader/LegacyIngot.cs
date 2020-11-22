@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 
-namespace API.CustomModLoader
+namespace ROI.API.CustomModLoader
 {
-    internal abstract class LegacyIngot : ModTile
+    public abstract class LegacyIngot : ModTile
     {
         public abstract Color MapEntryColor { get; }
         public abstract string MapNameLegend { get; }

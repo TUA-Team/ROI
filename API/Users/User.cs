@@ -1,4 +1,4 @@
-﻿namespace API.Users
+﻿namespace ROI.API.Users
 {
     public class User
     {

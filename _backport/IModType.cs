@@ -1,6 +1,4 @@
-﻿using Terraria.ModLoader;
-
-namespace API
+﻿namespace Terraria.ModLoader
 {
     public interface IModType : ILoadable
     {

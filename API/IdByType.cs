@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace API
+namespace ROI.API
 {
     public static class IdByType
     {
@@ -15,7 +15,7 @@ namespace API
         public static int Get(Type type) => typeToId[type];
     }
 
-    public static class IdByType<T> where T : IHaveId
+    public static class IdByType<T>
     {
         public static int Id { get; private set; }
 

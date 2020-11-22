@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria.ModLoader;
 
-namespace API.Networking
+namespace ROI.API.Networking
 {
     public static class PacketManager
     {

@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Terraria.ModLoader;
 
-namespace API
+namespace ROI.API
 {
     public interface IOnLoad
     {

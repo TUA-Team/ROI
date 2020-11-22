@@ -1,4 +1,4 @@
-using API;
+using ROI.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Content.Void.UI;
@@ -11,7 +11,7 @@ namespace ROI.Loaders
 {
     // this is internal because all of the UI states are internal
     // possible choices: use normal UserInterfaces, use public properties, use public setter methods, use public states
-    internal sealed class InterfaceLoader : BaseLoader
+    internal sealed class InterfaceLoader : Singleton<InterfaceLoader>
     {
         //public VoidPillarHealthBar vPillarHealthState;
         //public ROIUserInterface<VoidPillarHealthBar> vPillarHealthInterface;
@@ -19,8 +19,7 @@ namespace ROI.Loaders
 
         private GameTime lastGameTime;
 
-
-        protected override void OnInitialize()
+        public override void Load()
         {
             VoidAffinity.Load();
 
@@ -29,6 +28,7 @@ namespace ROI.Loaders
             //vPillarHealthInterface = new ROIUserInterface<VoidPillarHealthBar>();
             // implicit: vPillarHealthInterface.SetState(null);
         }
+
 
         public void UpdateUI(GameTime gameTime)
         {

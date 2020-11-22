@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Reflection;
 using Terraria.ModLoader;
 
-namespace API.Users
+namespace ROI.API.Users
 {
     // web's code
-    public sealed class UserLoader : BaseLoader
+    // TODO: make this somehow verify users properly
+    public sealed class UserLoader : ModType
     {
-        protected override void OnInitialize()
+        public override void Load()
         {
             try
             {
-                string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null).ToString();
+                string unparsedSteamID64 = typeof(ModLoader).GetProperty("SteamID64", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null, null).ToString();
 
                 if (!string.IsNullOrWhiteSpace(unparsedSteamID64))
                 {

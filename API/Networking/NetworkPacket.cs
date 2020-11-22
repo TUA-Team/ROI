@@ -1,7 +1,7 @@
 using System.IO;
 using Terraria.ModLoader;
 
-namespace API.Networking
+namespace ROI.API.Networking
 {
     public abstract class NetworkPacket : IOnLoad
 	{

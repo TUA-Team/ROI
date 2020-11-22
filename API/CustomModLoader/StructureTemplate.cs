@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace API.CustomModLoader
+namespace ROI.API.CustomModLoader
 {
 	// TODO: Make this work with tile entities, somehow
     public sealed class StructureTemplate

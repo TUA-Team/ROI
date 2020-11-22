@@ -42,9 +42,6 @@ namespace ROI
                         File.WriteAllText(path, data);
                 }
             }
-
-            interfaceLoader = new InterfaceLoader();
-            interfaceLoader.Initialize(this);
         }
 
         private void UnloadClient()
@@ -74,8 +71,8 @@ namespace ROI
                 scale *= 1.1f;
         }*/
 
-        public override void UpdateUI(GameTime gameTime) => interfaceLoader.UpdateUI(gameTime);
+        public override void UpdateUI(GameTime gameTime) => InterfaceLoader.Instance.UpdateUI(gameTime);
 
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => interfaceLoader.ModifyInterfaceLayers(layers);
+        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => InterfaceLoader.Instance.ModifyInterfaceLayers(layers);
     }
 }

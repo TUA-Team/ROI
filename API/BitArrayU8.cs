@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace API
+namespace ROI.API
 {
     public sealed class BitArrayU8
     {

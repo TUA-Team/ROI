@@ -79,7 +79,7 @@ namespace ROI.Helpers
                 {
                     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");
                     client.DefaultRequestHeaders.Add("User-Agent", "RealmsOfInfinityNightly");
-                    var response = client.GetAsync("https://api.github.com/repos/TUA-Team/ROI/issues/3/comments").Result;
+                    var response = client.GetAsync("https://ROI.API.github.com/repos/TUA-Team/ROI/issues/3/comments").Result;
                     json = response.Content.ReadAsStringAsync().Result;
                 }
             }

@@ -7,7 +7,7 @@ using System.Reflection;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace API
+namespace ROI.API
 {
     public static class Utils
     {
