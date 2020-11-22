@@ -97,7 +97,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                     if (GeneralWorldHelper.CanPlaceTile(i, j, 2, 2) && WorldGen.genRand.Next(20) == 0)
                     {
                         int index = WorldGen.PlaceChest(i, j, (ushort)ModContent.TileType<IrradiatedChest>(), false, 1);
-                        new WastelandChestLoot(index).Fill();
+                        new WastelandChestLoot(index).Populate();
                     }
                 }
             }

@@ -1,29 +1,22 @@
-﻿using ROI.Content.Items;
+﻿using ROI.API.Loot;
+using ROI.API.Loot.Chest;
+using ROI.Content.Items;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
-    internal sealed class WastelandChestLoot : ROIChestLoot
+    internal sealed class WastelandChestLoot : ChestLootTable
     {
         public WastelandChestLoot(int chest) : base(chest)
         {
         }
 
-        protected override LootEntry[] MakeTable() => new LootEntry[]
+
+        protected override LootRule[] MakeTable() => new LootRule[]
         {
-            // Debug entry
-            new LootEntry(0, Mod.ItemType(nameof(Poutine)), x => ROIMod.DEBUG),
+            new ChestTreasureRule
+            {
+                (new LootEntry(ROIMod.Instance.ItemType(nameof(Poutine))), 0.1)
+            }
         };
-
-        protected override LootEntry[] GetChestPool() => new LootEntry[]
-        {
-
-        };
-
-        public override void Fill()
-        {
-            //items[index++].SetDefaults();
-
-            base.Fill();
-        }
     }
 }
