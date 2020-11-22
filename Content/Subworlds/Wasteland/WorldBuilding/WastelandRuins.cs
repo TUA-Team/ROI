@@ -96,13 +96,8 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
                     //Chest
                     if (GeneralWorldHelper.CanPlaceTile(i, j, 2, 2) && WorldGen.genRand.Next(20) == 0)
                     {
-                        int chestID = WorldGen.PlaceChest(i, j, (ushort)ModContent.TileType<IrradiatedChest>(), false, 1);
-                        if (chestID != -1)
-                        {
-                            //TODO: Proper loot
-                            Chest chest = Main.chest[chestID];
-                            chest.item[0].SetDefaults(ItemID.Actuator);
-                        }
+                        int index = WorldGen.PlaceChest(i, j, (ushort)ModContent.TileType<IrradiatedChest>(), false, 1);
+                        new WastelandChestLoot(index).Fill();
                     }
                 }
             }
@@ -152,7 +147,6 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 
                 if (Main.tile[i, v + 1].wall == ModContent.WallType<WastestoneBrickWall>() && Main.tile[i, v].type != (ushort)ModContent.TileType<WastelandBrick>())
                 {
-                    // TODO: WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
                     //WorldGen.PlaceTile(i, v, ModContent.TileType<Wastebrick_Platform>(), true, true);
                     Main.tile[i, v].active(true);
                     Main.tile[i, v].type = (ushort)ModContent.TileType<WastebrickPlatform>();
