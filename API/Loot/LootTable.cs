@@ -5,11 +5,13 @@
     /// </summary>
     public abstract class LootTable
     {
-        private readonly LootRule[] table;
+        private readonly ILootTarget Target;
+        private readonly ILootRule[] Rules;
 
-        public LootTable()
+        public LootTable(ILootTarget target)
         {
-            table = MakeTable();
+            Target = target;
+            Rules = GetRules();
         }
 
 
@@ -17,13 +19,7 @@
         /// The loot rules to use
         /// </summary>
         /// <returns></returns>
-        protected abstract LootRule[] MakeTable();
-
-        /// <summary>
-        /// What to do when an item is picked
-        /// </summary>
-        /// <param name="loot"></param>
-        protected abstract void SpawnItem(LootEntry loot);
+        protected abstract ILootRule[] GetRules();
 
 
         /// <summary>
@@ -31,12 +27,9 @@
         /// </summary>
         public void Populate()
         {
-            foreach (var entry in table)
+            foreach (var rule in Rules)
             {
-                foreach (var item in entry.GetLoot())
-                {
-                    SpawnItem(item);
-                }
+                rule.SpawnLoot(Target);
             }
         }
     }

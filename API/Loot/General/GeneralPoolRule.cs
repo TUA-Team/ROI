@@ -1,24 +1,25 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Terraria;
 
 namespace ROI.API.Loot.General
 {
     public sealed class GeneralPoolRule : EntryCollectionRule
     {
-        public override LootEntry[] GetLoot()
+        public override void SpawnLoot(ILootTarget target)
         {
-            var list = new List<LootEntry>();
-            var avg = entries.Sum(x => x.weight) / entries.Count;
-            var rand = WorldGen.genRand.NextDouble() * avg;
+            var sum = entries.Sum(x => x.weight);
+            var rand = WorldGen.genRand.NextDouble() * sum;
 
             foreach (var (item, weight) in entries)
             {
-                if (weight > rand)
-                    list.Add(item);
-            }
+                if (weight <= rand)
+                {
+                    item.SpawnLoot(target);
+                    continue;
+                }
 
-            return list.ToArray();
+                rand -= weight;
+            }
         }
     }
 }

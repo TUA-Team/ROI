@@ -4,44 +4,46 @@ using System.Collections.Generic;
 namespace ROI.API.Loot.General
 {
     /// <summary>
-    /// Base type for all rules that have multiple entries
+    /// Base type for rules that have multiple entries
     /// </summary>
-    public abstract class EntryCollectionRule : LootRule, ICollection<(LootEntry item, double weight)>
+    public abstract class EntryCollectionRule : ILootRule, ICollection<(ILootRule rule, double weight)>
     {
-        protected readonly HashSet<(LootEntry item, double weight)> entries = new HashSet<(LootEntry item, double weight)>();
+        protected readonly HashSet<(ILootRule rule, double weight)> entries = new HashSet<(ILootRule rule, double weight)>();
 
-        public int Count => ((ICollection<(LootEntry item, double weight)>)entries).Count;
+        public abstract void SpawnLoot(ILootTarget target);
 
-        public bool IsReadOnly => ((ICollection<(LootEntry item, double weight)>)entries).IsReadOnly;
+        public int Count => ((ICollection<(ILootRule rule, double weight)>)entries).Count;
 
-        public void Add((LootEntry item, double weight) item)
+        public bool IsReadOnly => ((ICollection<(ILootRule rule, double weight)>)entries).IsReadOnly;
+
+        public void Add((ILootRule rule, double weight) item)
         {
-            ((ICollection<(LootEntry item, double weight)>)entries).Add(item);
+            ((ICollection<(ILootRule rule, double weight)>)entries).Add(item);
         }
 
         public void Clear()
         {
-            ((ICollection<(LootEntry item, double weight)>)entries).Clear();
+            ((ICollection<(ILootRule rule, double weight)>)entries).Clear();
         }
 
-        public bool Contains((LootEntry item, double weight) item)
+        public bool Contains((ILootRule rule, double weight) item)
         {
-            return ((ICollection<(LootEntry item, double weight)>)entries).Contains(item);
+            return ((ICollection<(ILootRule rule, double weight)>)entries).Contains(item);
         }
 
-        public void CopyTo((LootEntry item, double weight)[] array, int arrayIndex)
+        public void CopyTo((ILootRule rule, double weight)[] array, int arrayIndex)
         {
-            ((ICollection<(LootEntry item, double weight)>)entries).CopyTo(array, arrayIndex);
+            ((ICollection<(ILootRule rule, double weight)>)entries).CopyTo(array, arrayIndex);
         }
 
-        public IEnumerator<(LootEntry item, double weight)> GetEnumerator()
+        public IEnumerator<(ILootRule rule, double weight)> GetEnumerator()
         {
-            return ((IEnumerable<(LootEntry item, double weight)>)entries).GetEnumerator();
+            return ((IEnumerable<(ILootRule rule, double weight)>)entries).GetEnumerator();
         }
 
-        public bool Remove((LootEntry item, double weight) item)
+        public bool Remove((ILootRule rule, double weight) item)
         {
-            return ((ICollection<(LootEntry item, double weight)>)entries).Remove(item);
+            return ((ICollection<(ILootRule rule, double weight)>)entries).Remove(item);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
