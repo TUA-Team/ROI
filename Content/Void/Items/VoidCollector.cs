@@ -1,7 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿/*using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Content.Items;
-using ROI.Players;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
@@ -80,3 +79,4 @@ namespace ROI.Content.Void.Items
         }
     }
 }
+*/

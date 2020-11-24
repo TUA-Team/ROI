@@ -3,8 +3,8 @@
     /// <summary>
     /// Defines some behavior for spawning an item
     /// </summary>
-    public interface ILootTarget
+    public abstract class LootTarget
     {
-        void Spawn(LootEntry item);
+        public abstract void Spawn(LootEntry item);
     }
 }

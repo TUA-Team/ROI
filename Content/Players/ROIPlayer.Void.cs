@@ -1,4 +1,4 @@
-﻿using ROI.API;
+﻿/*using ROI.API;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader.IO;
@@ -67,14 +67,14 @@ namespace ROI.Players
         }
 
 
-        /*        public void UnlockVoidTier(VoidTier tier)
+        *//*        public void UnlockVoidTier(VoidTier tier)
         {
             if (VoidTier != tier - 1) // Player cannot skip tiers.
                 return;
 
             VoidTier = tier;
             MaxVoidAffinity = (short)VoidMath.GetMaxVoidAffinity(VoidTier);
-        }*/
+        }*//*
 
         public void RewardAffinity(ushort amount, ushort limit = AFFINITY_STANDARD_LIMIT) =>
             AddVoidAffinity(amount > limit ? limit : amount);
@@ -86,7 +86,7 @@ namespace ROI.Players
 
         public void AttemptDamageVoidHeart(ref int damage)
         {
-            int postNullificationDamage = damage/* - VoidHeartHP*/;
+            int postNullificationDamage = damage*//* - VoidHeartHP*//*;
 
             if (postNullificationDamage <= 0)
             {
@@ -119,12 +119,13 @@ namespace ROI.Players
         public int VoidItemCooldown { get; internal set; }
 
 
-        /*        public int VoidHeartHP { get; set; }
+        *//*        public int VoidHeartHP { get; set; }
 
                 /// <summary>Just like player.statLifeMax, you shouldn't change this property with potions and buffs. Use <see cref="MaxVoidHearts2"/>.</summary>
                 public int MaxVoidHearts { get; set; }
 
                 /// <summary>Just like player.statLifeMax2. Resets every frame via <see cref="ResetEffects"/>.</summary>
-                public int MaxVoidHearts2 { get; set; }*/
+                public int MaxVoidHearts2 { get; set; }*//*
     }
 }
+*/

@@ -6,11 +6,11 @@ using Terraria.Utilities;
 
 namespace ROI.API.Loot.Chest
 {
-    public sealed class TreasureRule : EntryCollectionRule, ILootRule
+    public sealed class TreasureRule : EntryCollectionRule
     {
-        public override void SpawnLoot(ILootTarget target)
+        public override void SpawnLoot(LootTarget target)
         {
-            var rand = new WeightedRandom<ILootRule>(WorldGen.genRand,
+            var rand = new WeightedRandom<LootRule>(WorldGen.genRand,
                 theElements: entries.Select(x => Tuple.Create(x.rule, x.weight)).ToArray());
 
             rand.Get().SpawnLoot(target);

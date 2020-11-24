@@ -1,4 +1,4 @@
-﻿using ROI.Content.Items;
+﻿/*using ROI.Content.Items;
 using ROI.Players;
 using Terraria;
 using Terraria.ID;
@@ -47,3 +47,4 @@ namespace ROI.Content.Void.Items
         public override void Load(TagCompound tag) => used = tag.GetBool(nameof(used));
     }
 }
+*/

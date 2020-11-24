@@ -1,4 +1,4 @@
-﻿using ROI.Content.Buffs.Void;
+﻿/*using ROI.Content.Buffs.Void;
 using ROI.Extensions;
 using Terraria;
 using Terraria.ModLoader;
@@ -21,4 +21,4 @@ namespace ROI.Content.Worlds
 
         public int PillarSpawningTime { get; private set; }
     }
-}
+}*/

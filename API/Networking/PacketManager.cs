@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.API.Networking
 {
-    public static class PacketManager
+    public sealed class PacketManager : ModType
     {
         private struct PacketStyleInfo
         {
@@ -46,6 +46,6 @@ namespace ROI.API.Networking
             styles[reader.ReadInt32()].Read(reader, sender);
         }
 
-        public static void Clear() => styles?.Clear();
+        public override void Unload() => styles.Clear();
     }
 }

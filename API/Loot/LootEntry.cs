@@ -3,13 +3,13 @@
     /// <summary>
     /// A single item to spawn in a loot table
     /// </summary>
-    public struct LootEntry : ILootRule
+    public sealed class LootEntry : LootRule
     {
         public readonly int Type;
         public readonly int Min;
         public readonly int Max;
 
-        public LootEntry(int type) : this(type, 0)
+        public LootEntry(int type) : this(type, 1)
         {
         }
 
@@ -24,7 +24,7 @@
             Max = max;
         }
 
-        public void SpawnLoot(ILootTarget target)
+        public override void SpawnLoot(LootTarget target)
         {
             target.Spawn(this);
         }

@@ -1,5 +1,4 @@
-﻿using ROI.Players;
-using Terraria;
+﻿using Terraria;
 
 namespace ROI.Content.Buffs.Void
 {
@@ -11,10 +10,11 @@ namespace ROI.Content.Buffs.Void
 
         public override void Update(Player player, ref int buffIndex)
         {
-            ROIPlayer roiPlayer = ROIPlayer.Get(player);
+            // TODO: something for this
+            /*ROIPlayer roiPlayer = ROIPlayer.Get(player);
 
             player.allDamageMult -= 0.5f;
-            roiPlayer.DebuffDurationMultiplier += 0.5f;
+            roiPlayer.DebuffDurationMultiplier += 0.5f;*/
         }
     }
 }

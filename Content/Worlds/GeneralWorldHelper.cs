@@ -125,6 +125,7 @@ namespace ROI.Worlds
                         {
                             if (type < 0)
                             {
+                                // TODO: this should not be in this method
                                 switch (type)
                                 {
                                     //Lava
@@ -166,7 +167,7 @@ namespace ROI.Worlds
                                         if (!Main.tile[k, l].active())
                                         {
                                             liqRef.Amount = 255;
-                                            liqRef.LiquidType = LiquidRegistry.GetLiquid(LiquidAPI.LiquidAPI.Instance, "PlutonicWaste");
+                                            liqRef.LiquidType = LiquidRegistry.GetLiquid(ROIMod.Instance, "PlutonicWaste");
                                         }
                                         break;
                                     //Processed radioactive goo

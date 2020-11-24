@@ -5,10 +5,10 @@
     /// </summary>
     public abstract class LootTable
     {
-        private readonly ILootTarget Target;
-        private readonly ILootRule[] Rules;
+        private readonly LootTarget Target;
+        private readonly LootRule[] Rules;
 
-        public LootTable(ILootTarget target)
+        public LootTable(LootTarget target)
         {
             Target = target;
             Rules = GetRules();
@@ -19,7 +19,7 @@
         /// The loot rules to use
         /// </summary>
         /// <returns></returns>
-        protected abstract ILootRule[] GetRules();
+        protected abstract LootRule[] GetRules();
 
 
         /// <summary>

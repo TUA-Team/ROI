@@ -5,7 +5,7 @@ namespace ROI.API.Loot.General
 {
     public sealed class GeneralPoolRule : EntryCollectionRule
     {
-        public override void SpawnLoot(ILootTarget target)
+        public override void SpawnLoot(LootTarget target)
         {
             var sum = entries.Sum(x => x.weight);
             var rand = WorldGen.genRand.NextDouble() * sum;

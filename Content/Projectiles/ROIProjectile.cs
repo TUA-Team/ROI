@@ -1,5 +1,4 @@
-﻿using ROI.Players;
-using Terraria;
+﻿using Terraria;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Projectiles
@@ -37,14 +36,14 @@ namespace ROI.Content.Projectiles
 
         public override bool PreAI()
         {
-            if (Owner == null)
-                Owner = ROIPlayer.Get(Main.player[projectile.owner]);
+            //if (Owner == null)
+            //    Owner = ROIPlayer.Get(Main.player[projectile.owner]);
 
             return base.PreAI();
         }
 
 
-        public ROIPlayer Owner { get; protected set; }
+        //public ROIPlayer Owner { get; protected set; }
 
         public override bool CloneNewInstances { get; }
     }

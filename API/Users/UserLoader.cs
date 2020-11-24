@@ -44,7 +44,7 @@ namespace ROI.API.Users
         }
 
 
-        public List<Developer> ActiveDevelopers { get; internal set; }
+        public List<Developer> ActiveDevelopers { get; } = new List<Developer>();
 
 
         public bool HasSteamId64 { get; private set; }

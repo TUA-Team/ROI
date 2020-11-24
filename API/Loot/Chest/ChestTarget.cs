@@ -2,7 +2,7 @@
 
 namespace ROI.API.Loot.Chest
 {
-    public struct ChestTarget : ILootTarget
+    public sealed class ChestTarget : LootTarget
     {
         private readonly Item[] items;
 
@@ -11,7 +11,7 @@ namespace ROI.API.Loot.Chest
             items = Main.chest[chest].item;
         }
 
-        public void Spawn(LootEntry item)
+        public override void Spawn(LootEntry item)
         {
             int index;
             do

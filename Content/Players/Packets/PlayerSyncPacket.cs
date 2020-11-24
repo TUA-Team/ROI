@@ -1,4 +1,4 @@
-﻿using ROI.API.Networking;
+﻿/*using ROI.API.Networking;
 using System.IO;
 
 namespace ROI.Players.Packets
@@ -20,3 +20,4 @@ namespace ROI.Players.Packets
         }
     }
 }
+*/

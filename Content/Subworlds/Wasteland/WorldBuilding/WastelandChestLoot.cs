@@ -6,14 +6,14 @@ using Terraria.ID;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
 {
-    internal sealed class WastelandChestLoot : ChestLootTable
+    internal sealed class WastelandChestLoot : LootTable
     {
-        public WastelandChestLoot(int chest) : base(chest)
+        public WastelandChestLoot(LootTarget target) : base(target)
         {
         }
 
 
-        protected override ILootRule[] GetRules() => new ILootRule[]
+        protected override LootRule[] GetRules() => new LootRule[]
         {
             new TreasureRule
             {

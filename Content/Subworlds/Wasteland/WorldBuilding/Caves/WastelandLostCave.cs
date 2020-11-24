@@ -6,7 +6,7 @@ using Terraria.World.Generation;
 using ROI.Worlds;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
 {
     internal sealed class WastelandLostCave : WastelandCave
     {

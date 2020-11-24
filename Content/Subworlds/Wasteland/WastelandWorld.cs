@@ -33,6 +33,11 @@ namespace ROI.Content.Subworlds.Wasteland
                     LiquidRef reference = LiquidWorld.grid[i, j];
                     LiquidRef referenceUp = LiquidWorld.grid[i, j - 1];
                     LiquidRef referenceUpRight = LiquidWorld.grid[i + 1, j - 1];
+
+                    // TODO: this will be eventually removed when LiquidAPI is refactored
+                    if (reference.LiquidType == null)
+                        continue;
+
                     if (reference.LiquidType.Type == waste.Type && !referenceUp.HasLiquid && reference.HasLiquid)
                     {
                         float preBrightness = Lighting.brightness;

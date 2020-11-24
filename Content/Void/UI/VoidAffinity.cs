@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework;
+/*using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using ROI.Players;
 using System;
 using Terraria;
 using Terraria.DataStructures;
@@ -89,4 +88,4 @@ namespace ROI.Content.Void.UI
             return texture;
         }
     }
-}
+}*/

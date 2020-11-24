@@ -1,7 +1,6 @@
 using ROI.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Content.Void.UI;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -21,7 +20,7 @@ namespace ROI.Loaders
 
         public override void Load()
         {
-            VoidAffinity.Load();
+            //VoidAffinity.Load();
 
             //vPillarHealthState = new VoidPillarHealthBar(mod);
             //vPillarHealthState.Activate();
@@ -45,9 +44,11 @@ namespace ROI.Loaders
         // other mods disabling layers
         public void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
+            return;
+
             var failed = new List<string>();
 
-            insertLayerViaVanilla("Resources Bars", "Void Affinity", (sb, _) => VoidAffinity.Draw(sb), out int index);
+            //insertLayerViaVanilla("Resources Bars", "Void Affinity", (sb, _) => VoidAffinity.Draw(sb), out int index);
 
 
             // indexes are named i and j because I was too lazy to figure out
@@ -77,7 +78,7 @@ namespace ROI.Loaders
 
         public override void Unload()
         {
-            VoidAffinity.Unload();
+            //VoidAffinity.Unload();
         }
 
         // list of failedInterfaces is there to debug any possible problems with

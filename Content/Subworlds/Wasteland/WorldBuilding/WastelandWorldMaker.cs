@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Content.Subworlds.Wasteland.Furniture.Walls;
-using ROI.Content.Subworlds.Wasteland.WorldBuilding;
+using ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves;
+using ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 using ROI.Worlds;
 using System;

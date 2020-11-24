@@ -5,7 +5,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Subworlds.Wasteland.WorldBuilding
+namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers
 {
     internal static class WastelandLake
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.ModLoader;
 
 namespace ROI.API
 {
-    public static class IdByType
+    public sealed class IdByType : ModType
     {
         private static readonly Dictionary<Type, int> typeToId = new Dictionary<Type, int>();
 
@@ -13,6 +14,8 @@ namespace ROI.API
         }
 
         public static int Get(Type type) => typeToId[type];
+
+        public override void Unload() => typeToId.Clear();
     }
 
     public static class IdByType<T>

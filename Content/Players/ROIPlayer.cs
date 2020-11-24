@@ -1,4 +1,4 @@
-﻿using ROI.Players.Packets;
+﻿/*using ROI.Players.Packets;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -74,4 +74,4 @@ namespace ROI.Players
 
         private List<int> PreviousBuffs { get; set; }
     }
-}
+}*/

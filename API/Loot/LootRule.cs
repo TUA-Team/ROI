@@ -3,8 +3,8 @@
     /// <summary>
     /// A object that spawns some items for a target
     /// </summary>
-    public interface ILootRule
+    public abstract class LootRule
     {
-        void SpawnLoot(ILootTarget target);
+        public abstract void SpawnLoot(LootTarget target);
     }
 }
