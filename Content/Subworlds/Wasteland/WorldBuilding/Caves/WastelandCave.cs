@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Xna.Framework;
-using ROI.API.WorldBuilding;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 
@@ -13,7 +11,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
     /// <summary>
     /// Welcome to the Terraria cave update, oh wait, wrong game :/
     /// </summary>
-    internal abstract class WastelandCave : GenStep, TagSerializable
+    internal abstract class WastelandCave : TagSerializable
     {
         public int x, y, width, height;
 
@@ -21,7 +19,9 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
 
         public Rectangle CaveBound => new Rectangle(x, y, width, height);
 
-        public WastelandCave(Rectangle rectangle, GenerationProgress prog) : base(ROIMod.Instance, prog)
+        public abstract void Generate(GenerationProgress progress);
+
+        public WastelandCave(Rectangle rectangle)
         {
             x = rectangle.X;
             y = rectangle.Y;

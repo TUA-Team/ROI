@@ -23,7 +23,7 @@ namespace ROI.Content.Subworlds.Wasteland
             {
                 new PassLegacy("Wasteland Generation", delegate (GenerationProgress progress)
                 {
-                    new WastelandWorldMaker(modWorld.mod, progress).Make();
+                    new WastelandWorldMaker(modWorld.mod).Make(progress);
                 }),
                 new PassLegacy("Settle Liquid", delegate(GenerationProgress progress)
                 {

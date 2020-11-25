@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.API.WorldBuilding;
 using ROI.Content.Subworlds.Wasteland.Furniture.Walls;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers;
@@ -16,18 +15,21 @@ using static Terraria.WorldGen;
 namespace ROI.Content.Subworlds.Wasteland
 {
     //Contain wasteland world gen
-    internal sealed class WastelandWorldMaker : GenStep
+    internal sealed class WastelandWorldMaker
     {
         private readonly Dictionary<int, int> SurfaceLevel;
         private int HighestLevel = 300;
+        private Mod Mod { get; }
 
         private readonly ushort UraniumOreType;
         private readonly ushort OreType;
         private readonly ushort DirtType;
         private readonly ushort RockType;
 
-        public WastelandWorldMaker(Mod mod, GenerationProgress prog) : base(mod, prog)
+        public WastelandWorldMaker(Mod mod)
         {
+            Mod = mod;
+
             UraniumOreType = (ushort)mod.TileType(nameof(UraniumOre));
             OreType = (ushort)mod.TileType(nameof(WastelandOre));
             DirtType = (ushort)mod.TileType(nameof(UraniumOre));
@@ -36,26 +38,24 @@ namespace ROI.Content.Subworlds.Wasteland
             SurfaceLevel = new Dictionary<int, int>();
         }
 
-        public override void Make()
+        public void Make(GenerationProgress progress)
         {
             // Bottom
             BaseTerrain(new float[] { 0.0077f, 0.0011f, 0.022f, 0.04f }, new float[] { 0.7f, 0.05f, 0.02f, 0.01f }, new int[] { 5, 5, 5, 5 }, 450);
             // Top
             BaseTerrain(new float[] { 0.07f, 0.04f, 0.03f }, new float[] { 0.7f, 0.04f, 0.06f }, new int[] { 5, 5, 5, 5 }, 200, true);
-            Progress.Message = "Accumulating waste";
+            progress.Message = "Accumulating waste";
             // actual world gen
             //StructureMap map = new StructureMap();
 
-            SpreadingGrass();
-            GeneratePerlinCavern();
-
-            GenerateMossCave();
-            GenerateWasteLake();
-
-            WastelandOreGeneration();
+            SpreadingGrass(progress);
+            GeneratePerlinCavern(progress);
+            GenerateMossCavern(progress);
+            GenerateWasteLake(progress);
+            WastelandOreGeneration(progress);
             //GeneratingRuins(progress);
             //WastelandForgeGen(progress);
-            WastelandUraniumOreGen();
+            WastelandUraniumOreGen(progress);
             //GrowingTree(progress);
             //GenerateMysteriousGrotto(progress);
         }
@@ -121,12 +121,12 @@ namespace ROI.Content.Subworlds.Wasteland
             return noise;
         }
 
-        private void WastelandUraniumOreGen()
+        private void WastelandUraniumOreGen(GenerationProgress progress)
         {
             for (int i = 0; i < 50; i++)
             {
                 int x = Main.rand.Next(25, Main.maxTilesX - 25);
-                if (Scan(x, 300, out int yGen, (tile => { return true; })))
+                if (Scan(x, 300, out int yGen, tile => true))
                 {
                     WorldUtils.Gen(new Point(x, yGen), new Shapes.Tail(WorldGen.genRand.Next(10, 13), new Vector2(WorldGen.genRand.Next(-10, 10), WorldGen.genRand.Next(20, 25))), Actions.Chain(new GenAction[]
                     {
@@ -193,11 +193,11 @@ namespace ROI.Content.Subworlds.Wasteland
             for (int i = 0; i < Main.maxTilesX; i++)
             {
                 if (WorldGen.genRand.Next(20) == 0)
-                    GeneralWorldHelper.TileRunner(i, SurfaceLevel[i] + WorldGen.genRand.Next(20, 50), WorldGen.genRand.Next(14, 20), WorldGen.genRand.Next(20, 28), -1, addTile: true);
+                    WorldGen.TileRunner(i, SurfaceLevel[i] + WorldGen.genRand.Next(20, 50), WorldGen.genRand.Next(14, 20), WorldGen.genRand.Next(20, 28), -1, true);
             }
         }
 
-        private void WastelandOreGeneration()
+        private void WastelandOreGeneration(GenerationProgress progress)
         {
             for (int num11 = 0; num11 < (int)((double)(Main.maxTilesX * Main.maxTilesY) * 0.0008); num11++)
             {
@@ -206,7 +206,7 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private void GenerateWasteLake()
+        private void GenerateWasteLake(GenerationProgress progress)
         {
             int smallLake = 0;
             int bigLake = 0;
@@ -257,7 +257,7 @@ namespace ROI.Content.Subworlds.Wasteland
             return false;
         }
 
-        private void GeneratingRuins()
+        private void GeneratingRuins(GenerationProgress progress)
         {
             int nextHouseCooldown = 0;
             for (int i = (int)(Main.maxTilesX * 0.30); i < Main.maxTilesX * 0.70; i++)
@@ -278,13 +278,13 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private void SpreadingGrass()
+        private void SpreadingGrass(GenerationProgress progress)
         {
             ushort grassType = (ushort)ModContent.TileType<WastelandGrass>();
             for (int i = 0; i < Main.maxTilesX; i++)
             {
                 float percent = (float)(i / Main.maxTilesX);
-                Progress.Set(percent);
+                progress.Set(percent);
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
                     if (Main.tile[i, j].type == DirtType && !Main.tile[i, j - 1].active())
@@ -298,7 +298,7 @@ namespace ROI.Content.Subworlds.Wasteland
             for (int i = 0; i < Main.maxTilesX; i++)
             {
                 float percent = i / Main.maxTilesX;
-                Progress.Set(percent);
+                progress.Set(percent);
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
                     if (Main.tile[i, j].type == grassType)
@@ -309,11 +309,11 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private void GeneratePerlinCavern()
+        private void GeneratePerlinCavern(GenerationProgress progress)
         {
             int MAX_WASTELAND_HEIGHT = 600;
 
-            Progress.Message = "Digging the wasteland for research";
+            progress.Message = "Digging the wasteland for research";
 
             for (int i = 0; i < 1000; i++)
             {
@@ -350,16 +350,17 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private void GenerateMossCave()
+        private void GenerateMossCavern(GenerationProgress progress)
         {
             int MAX_WASTELAND_HEIGHT = 600;
 
-            Progress.Message = "Creating the Lost Cave";
+            progress.Message = "Creating Moss Cave";
 
-            new WastelandMossCave(new Rectangle(50, 500, 200, 200), Progress).Make();
+            WastelandLostCave lostCave = new WastelandLostCave(new Rectangle(50, 500, 200, 200));
+            lostCave.Generate(progress);
         }
 
-        private void TerrainTop()
+        internal void TerrainTop(GenerationProgress progress)
         {
             //Create the top of the wasteland
             for (int i = 0; i < Main.maxTilesX; i++)
@@ -389,13 +390,13 @@ namespace ROI.Content.Subworlds.Wasteland
             }
         }
 
-        private void WastelandForgeGen()
+        private void WastelandForgeGen(GenerationProgress progress)
         {
-            Progress.Message = "Adding wasteland forge";
+            progress.Message = "Adding wasteland forge";
             for (int num258 = 0; num258 < Main.maxTilesX / 200; num258++)
             {
                 float value = num258 / (Main.maxTilesX / 200);
-                Progress.Set(value);
+                progress.Set(value);
                 bool flag17 = false;
                 int num259 = 0;
                 while (!flag17)
