@@ -11,6 +11,15 @@ namespace ROI.API
 {
     public static class Utils
     {
+        public static IEnumerable<Type> Concrete<T>(this IEnumerable<Type> types)
+        {
+            foreach (var type in types)
+            {
+                if (!type.IsAbstract && type.IsSubclassOf(typeof(T)))
+                    yield return type;
+            }
+        }
+
         // TODO: (low prio) cache these
         public static T GetField<T>(this object parent, string name,
             BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance)

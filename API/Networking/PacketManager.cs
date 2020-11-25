@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
 using Terraria.ModLoader;
 
 namespace ROI.API.Networking
@@ -9,41 +10,32 @@ namespace ROI.API.Networking
     {
         private struct PacketStyleInfo
         {
-            private readonly Mod mod;
-            public readonly int id;
+            public readonly int Id;
             public readonly Action<BinaryReader, int> Read;
 
-            public PacketStyleInfo(Mod mod, int id, Action<BinaryReader, int> read)
+            public PacketStyleInfo(int id, Action<BinaryReader, int> read)
             {
-                this.mod = mod;
-                this.id = id;
+                Id = id;
                 Read = read;
             }
-
-            public ModPacket MakePacket()
-            {
-                var p = mod.GetPacket();
-                p.Write(id);
-                return p;
-            }
         }
 
-        private readonly List<PacketStyleInfo> styles = new List<PacketStyleInfo>();
+        private PacketStyleInfo[] styles;
 
-        public void Register(Mod mod, NetworkPacket packet)
+        public override void Load()
         {
-            var type = packet.GetType();
-            var style = new PacketStyleInfo(mod, styles.Count, packet.Read);
-
-            IdByType.Register(type, style.id);
-            styles.Add(style);
+            styles = Mod.Code.DefinedTypes.Concrete<NetworkPacket>()
+                .Select((t, i) => new PacketStyleInfo(i, ((NetworkPacket)FormatterServices.GetUninitializedObject(t)).Read))
+                .ToArray();
         }
 
-        public ModPacket GetPacketFor(Type type) => styles[IdByType.Get(type)].MakePacket();
-
-        public void Handle(BinaryReader reader, int sender)
+        public ModPacket GetPacketFor(Type type)
         {
-            styles[reader.ReadInt32()].Read(reader, sender);
+            var packet = Mod.GetPacket();
+            packet.Write(styles[IdByType.Get(type)].Id);
+            return packet;
         }
+
+        public void Handle(BinaryReader reader, int sender) => styles[reader.ReadInt32()].Read(reader, sender);
     }
 }

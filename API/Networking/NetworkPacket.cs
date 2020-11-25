@@ -3,14 +3,8 @@ using Terraria.ModLoader;
 
 namespace ROI.API.Networking
 {
-    public abstract class NetworkPacket : IOnLoad
+    public abstract class NetworkPacket
 	{
-        void IOnLoad.Load(Mod mod)
-        {
-            PacketManager.Instance.Register(mod, this);
-        }
-
-
         private readonly ModPacket writer;
 
         protected NetworkPacket()
