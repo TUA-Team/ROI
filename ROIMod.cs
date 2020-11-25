@@ -13,6 +13,8 @@ namespace ROI
 
         public override void Load()
         {
+            Backporting.Init(this);
+
             InitializeLoaders();
 
             // Utils.GenerateLocalization(this);
@@ -23,8 +25,6 @@ namespace ROI
             }
 
             SimpleLoadables.Load(this);
-
-            Backporting.Init(this);
         }
 
         public override void Unload()

@@ -7,7 +7,7 @@ namespace ROI.API.Networking
 	{
         void IOnLoad.Load(Mod mod)
         {
-            PacketManager.Register(mod, this);
+            PacketManager.Instance.Register(mod, this);
         }
 
 
@@ -15,7 +15,7 @@ namespace ROI.API.Networking
 
         protected NetworkPacket()
         {
-            writer = PacketManager.GetPacketFor(GetType());
+            writer = PacketManager.Instance.GetPacketFor(GetType());
         }
 
         public void Send(int to = -1, int ignore = -1)
