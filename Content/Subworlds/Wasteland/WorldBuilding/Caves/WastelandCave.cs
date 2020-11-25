@@ -8,6 +8,7 @@ using Terraria.World.Generation;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
 {
+    // TODO: make these hooks work
     /// <summary>
     /// Welcome to the Terraria cave update, oh wait, wrong game :/
     /// </summary>

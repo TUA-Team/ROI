@@ -19,7 +19,6 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
         //Insert shader effect here but without being a real shader so Idk
         public override void ClientSideVisualEffect(Player player)
         {
-            base.ClientSideVisualEffect(player);
         }
 
         public override void Generate(GenerationProgress progress)

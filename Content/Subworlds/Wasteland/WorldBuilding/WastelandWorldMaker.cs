@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using ROI.Content.Subworlds.Wasteland.Furniture.Walls;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves;
 using ROI.Content.Subworlds.Wasteland.WorldBuilding.Helpers;
@@ -32,7 +32,7 @@ namespace ROI.Content.Subworlds.Wasteland
 
             UraniumOreType = (ushort)mod.TileType(nameof(UraniumOre));
             OreType = (ushort)mod.TileType(nameof(WastelandOre));
-            DirtType = (ushort)mod.TileType(nameof(UraniumOre));
+            DirtType = (ushort)mod.TileType(nameof(WastelandDirt));
             RockType = (ushort)mod.TileType(nameof(WastelandRock));
 
             SurfaceLevel = new Dictionary<int, int>();
