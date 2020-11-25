@@ -8,9 +8,9 @@ using ROI.Content.Subworlds.Wasteland.WorldBuilding.Tiles;
 
 namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
 {
-    internal sealed class WastelandLostCave : WastelandCave
+    internal sealed class WastelandMossCave : WastelandCave
     {
-        public WastelandLostCave(Rectangle rectangle) : base(rectangle)
+        public WastelandMossCave(Rectangle rectangle, GenerationProgress prog) : base(rectangle, prog)
         {
         }
 
@@ -22,7 +22,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
             base.ClientSideVisualEffect(player);
         }
 
-        public override void Generate(GenerationProgress progress)
+        public override void Make()
         {
             Rectangle bound = CaveBound;
 
