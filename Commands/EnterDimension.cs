@@ -3,7 +3,7 @@ using SubworldLibrary;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Commands
+namespace ROI.Commands
 {
     internal sealed class EnterDimension : ModCommand
     {

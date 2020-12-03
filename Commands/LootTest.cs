@@ -2,7 +2,7 @@
 using ROI.Content.Subworlds.Wasteland.WorldBuilding;
 using Terraria.ModLoader;
 
-namespace ROI.Content.Commands
+namespace ROI.Commands
 {
     internal sealed class LootTest : ModCommand
     {
