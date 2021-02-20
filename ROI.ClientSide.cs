@@ -1,9 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Content.Configs;
 using ROI.Content.Items;
-using ROI.Content.Subworlds.Wasteland;
 using ROI.Loaders;
-using SubworldLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,12 +55,12 @@ namespace ROI
 
             // Highest to lowest priority here, just return if a condition is validated
 
-            if (Subworld.IsActive<WastelandDepthSubworld>())
+            /*if (Subworld.IsActive<WastelandDepthSubworld>())
             {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/WastelandDepth");
                 priority = MusicPriority.Environment;
                 return;
-            }
+            }*/
         }
 
 /*        public override void ModifyLightingBrightness(ref float scale)

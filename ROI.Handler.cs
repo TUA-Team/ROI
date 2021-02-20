@@ -8,7 +8,6 @@ namespace ROI
     {
         private void InitializeLoaders()
         {
-            LiquidAPI.LiquidAPI.Autoload(this);
         }
 
         private void UnloadLoaders()
@@ -17,6 +16,6 @@ namespace ROI
 
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>
-            PacketManager.Handle(reader, whoAmI);
+            PacketManager.Instance.Handle(reader, whoAmI);
     }
 }

@@ -1,4 +1,3 @@
-using ROI.API;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -23,8 +22,6 @@ namespace ROI
             {
                 LoadClient();
             }
-
-            SimpleLoadables.Load(this);
         }
 
         public override void Unload()

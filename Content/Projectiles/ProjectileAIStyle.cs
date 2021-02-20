@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using ROI.Content.Subworlds.Wasteland.HeartOfTheWasteland.Projectiles;
 using System;
 using Terraria;
 using Terraria.GameContent.Shaders;
@@ -7,7 +6,7 @@ using Terraria.Graphics.Effects;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-// TODO: (low prio) This needs to be reworked
+// TODO: (low prio) This needs to be reworked to some kind of OOP system
 namespace ROI.Content.Projectiles
 {
     /// <summary>
@@ -51,10 +50,10 @@ namespace ROI.Content.Projectiles
             float rotation = projectile.velocity.ToRotation();
             if (projectile.type == 455)
                 rotation += projectile.ai[0];
-            else if (projectile.type == ModContent.ProjectileType<HotWTracingLaser>())
+            /*else if (projectile.type == ModContent.ProjectileType<HotWTracingLaser>())
             {
                 rotation += projectile.localAI[0];
-            }
+            }*/
 
 
             projectile.rotation = rotation - (float)Math.PI / 2f;

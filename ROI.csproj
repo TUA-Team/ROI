@@ -19,16 +19,16 @@
   </Target>
   
   <ItemGroup>
+    <Compile Remove="_archive\**" />
+    <EmbeddedResource Remove="_archive\**" />
+    <None Remove="_archive\**" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
   </ItemGroup>
   
   <ItemGroup>
-    <Reference Include="LiquidAPI">
-      <HintPath>..\LiquidAPI\bin\Debug\net45\LiquidAPI.dll</HintPath>
-    </Reference>
-    <Reference Include="SubworldLibrary">
-      <HintPath>..\..\modReferences\SubworldLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   
@@ -38,5 +38,10 @@
     <None Remove="build.txt" />
     <None Remove="description.txt" />
     <None Remove="README.MD" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Assets\Textures\Backgrounds\" />
+    <Folder Include="_archive\Wasteland\" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-﻿using ROI.API.Loot.Targets;
-using ROI.Content.Subworlds.Wasteland.WorldBuilding;
-using Terraria.ModLoader;
+﻿using Terraria.ModLoader;
 
 namespace ROI.Commands
 {
@@ -12,9 +10,6 @@ namespace ROI.Commands
         {
             switch (args[0])
             {
-                case "wasteland":
-                    new WastelandChestLoot(new PlayerTarget(caller.Player.whoAmI)).Populate();
-                    break;
             }
         }
 

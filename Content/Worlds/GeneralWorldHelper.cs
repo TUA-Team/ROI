@@ -1,8 +1,4 @@
-﻿using LiquidAPI;
-using LiquidAPI.LiquidMod;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 
@@ -48,7 +44,9 @@ namespace ROI.Worlds
             }
         }
 
-        public static void FillLiquid(int i, int j, int width, int height, ModLiquid liquidID, bool stopIfTileHit = false)
+        #region Obsolete liquid utils
+
+        /*public static void FillLiquid(int i, int j, int width, int height, ModLiquid liquidID, bool stopIfTileHit = false)
         {
             for (int x = i; x < i + width; x++)
             {
@@ -70,9 +68,9 @@ namespace ROI.Worlds
                     }
                 }
             }
-        }
+        }*/
 
-        public static void TileRunner(int i, int j, double strength, int steps, int type, int wallType = 0, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
+        /*public static void TileRunner(int i, int j, double strength, int steps, int type, int wallType = 0, bool addTile = false, float speedX = 0f, float speedY = 0f, bool noYChange = false, bool overRide = true)
         {
             double num = strength;
             float num2 = (float)steps;
@@ -445,7 +443,9 @@ namespace ROI.Worlds
                     }
                 }
             }
-        }
+        }*/
+
+        #endregion
 
         public static void SpecialTileMerge(int i, int j, int tileToSearch)
         {

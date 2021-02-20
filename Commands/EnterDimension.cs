@@ -1,4 +1,4 @@
-﻿using ROI.Content.Subworlds.Wasteland;
+﻿/*using ROI.Content.Subworlds.Wasteland;
 using SubworldLibrary;
 using Terraria;
 using Terraria.ModLoader;
@@ -14,14 +14,14 @@ namespace ROI.Commands
 
             switch (args[0])
             {
-                /*                case "rift":
+                *//*                case "rift":
                                     List<Subworld> loaded = (List<Subworld>)typeof(Subworld).GetField("subworlds", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
                                     //typeof(SLWorld).GetField("loading", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, true);
                                     if (!Subworld.Enter<VoidRiftSubworld>())
                                     {
                                         throw new Exception("Cannot enter dimension");
                                     }
-                                    break;*/
+                                    break;*//*
                 case "wasteland":
                     if (!Subworld.Enter<WastelandDepthSubworld>())
                     {
@@ -38,3 +38,4 @@ namespace ROI.Commands
         public override CommandType Type => CommandType.World;
     }
 }
+*/
