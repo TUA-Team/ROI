@@ -2,6 +2,6 @@ displayName = Realms Of Infinity - Hunt for the Void
 author = TUA Team
 version = 0.1
 
-buildIgnore = .vs/ , bin/ , obj/ , .todo , ROI.csproj , ROI.sln , .gitignore , README.md , _archive/
+buildIgnore = .vs/* , bin/* , obj/* , .todo , ROI.csproj , ROI.sln , .gitignore , README.md , _archive/*
 
 includePDB = true
