@@ -1,46 +1,26 @@
-﻿using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 
 namespace ROI.Worlds
 {
     public static class GeneralWorldHelper
     {
-        public static void FillTile(int i, int j, int width, int height, ushort[] tile, ushort[] weight, bool replaceTileMode = false)
+        public static void TrimTileRunnerAftermath(int x, int y, int width, int height)
         {
-            if (tile.Length != weight.Length)
-                return;
-
-            List<ushort> weightedList = new List<ushort>();
-
-            for (int index = 0; index < weight.Length; index++)
+            for (int i = x; i < x + width; i++)
             {
-                for (int amountOfItem = 0; amountOfItem < weight[index]; amountOfItem++)
+                for (int j = y; j < y + height; j++)
                 {
-                    weightedList.Add(tile[index]);
+                    if (!IsTileTouchingDirectly(i, j))
+                    {
+                        Main.tile[i, j].active(false);
+                    }
                 }
             }
 
-            for (int x = i; x < i + width; x++)
+            bool IsTileTouchingDirectly(int i, int j)
             {
-                for (int y = j; y < j + height; y++)
-                {
-                    if (!WorldGen.InWorld(x, y))
-                    {
-                        break;
-                    }
-                    if (replaceTileMode && Main.tile[x, y].active())
-                    {
-                        Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
-                        WorldGen.SquareTileFrame(x, y);
-                    }
-                    else if (!replaceTileMode)
-                    {
-                        Main.tile[x, y].active(true);
-                        Main.tile[x, y].type = WorldGen.genRand.Next(weightedList);
-                        WorldGen.SquareTileFrame(x, y);
-                    }
-                }
+                return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active();
             }
         }
 

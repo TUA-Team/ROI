@@ -16,7 +16,7 @@ namespace ROI.Content.Subworlds.Wasteland.WorldBuilding.Caves
 
         public override string caveTypeName => "Lost_Wood";
 
-        //Insert shader effect here but without being a real shader so Idk
+        // TODO: (low prio) Insert shader effect here but without being a real shader so Idk
         public override void ClientSideVisualEffect(Player player)
         {
         }

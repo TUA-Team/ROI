@@ -13,7 +13,7 @@ namespace ROI.Commands
             }
         }
 
-        public override string Command => "loottest";
+        public override string Command => "testloot";
         public override CommandType Type => CommandType.World;
     }
 }
