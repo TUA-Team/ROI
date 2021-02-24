@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ROI.Extensions
+namespace ROI.API.Extensions
 {
     public static class TypeExtensions
     {

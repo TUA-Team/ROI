@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 
-namespace ROI.Extensions
+namespace ROI.API.Extensions
 {
     public static class SpatialExtensions
     {

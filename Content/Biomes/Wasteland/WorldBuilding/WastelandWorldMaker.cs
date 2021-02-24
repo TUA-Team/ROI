@@ -77,7 +77,25 @@ namespace ROI.Content.Biomes.Wasteland
 
         private void GenerateBiome(int x, int y)
         {
+            TileRunner(x, y, genRand.Next(70, 100), 30, DirtType, true, genRand.Next(7, 10), genRand.Next(-2, 2));
+            TileRunner(x, y, genRand.Next(70, 100), 30, DirtType, true, genRand.Next(-10, -7), genRand.Next(-2, 2));
 
+            var noise = new FastNoiseLite();
+            noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
+            noise.SetFractalOctaves(5);
+            noise.SetFrequency(0.05f);
+
+            for (int i = x - 60; i < x + 60; i++) {
+                for (int j = y - 30; j < y + 30; j++) {
+                    var rand = noise.GetNoise(i, j);
+                    if (rand < -0.1f) {
+                        Main.tile[i, j].type = RockType;
+                        //KillTile(x, y, noItem: true);
+                        //PlaceTile(x, y, ModContent.TileType<WastelandRock>());
+                        //WorldGen.TileRunner(pos.X, i, WorldGen.genRand.Next(5, 10), WorldGen.genRand.Next(50, 60), ModContent.TileType<WastelandRock>());
+                    }
+                }
+            }
         }
 
 

@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Extensions
+namespace ROI.API.Extensions
 {
     public static class BuffCheckExtensions
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Extensions
+namespace ROI.API.Extensions
 {
     public static class ItemCheckExtensions
     {
@@ -67,6 +67,8 @@ namespace ROI.Extensions
                 if (item != null && item.modItem != null && item.IsOfType<T>())
                     filtered.Add(item.modItem as T);
         }
+
+        public static bool IsOfType<T>(this Item item, out T mod) where T : ModItem => (mod = item as T) != null;
 
         public static bool IsOfType<T>(this Item item) where T : ModItem => item.modItem is T;
     }
