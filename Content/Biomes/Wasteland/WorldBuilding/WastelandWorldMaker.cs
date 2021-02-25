@@ -6,6 +6,7 @@ using ROI.Worlds;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
 using static Terraria.WorldGen;
@@ -44,13 +45,32 @@ namespace ROI.Content.Biomes.Wasteland
 
             int count = Main.maxTilesX / 2100;
 
-            for (int i = 0; i < count; i++)
-            {
-                int x = genRand.Next((int)(Main.maxTilesX * 0.25), (int)(Main.maxTilesX * 0.75));
-                int y = genRand.Next((int)Main.rockLayer + 100, Main.maxTilesY - 300);
+            for (int i = 0; i < count; i++) {
+                bool flag = true;
+                var pos = getLocation();
 
-                GenerateBiome(x, y);
+                while (flag) {
+                    var tile = Main.tile[pos.X, pos.Y];
+                    if (!tile.active() &&
+                        tile.type != TileID.Granite &&
+                        tile.wall != WallID.GraniteUnsafe) {
+
+                        goto GEN;
+                    }
+
+                    pos = getLocation();
+                }
+
+            GEN:
+                GenerateBiome(pos);
             }
+
+
+            Point getLocation() {
+                return new Point(genRand.Next((int)(Main.maxTilesX * 0.25), (int)(Main.maxTilesX * 0.75)),
+                    genRand.Next((int)Main.rockLayer + 100, Main.maxTilesY - 300));
+            }
+
 
             return;
 
@@ -75,24 +95,42 @@ namespace ROI.Content.Biomes.Wasteland
         }
 
 
-        private void GenerateBiome(int x, int y)
+        private void GenerateBiome(Point center)
         {
-            TileRunner(x, y, genRand.Next(70, 100), 30, DirtType, true, genRand.Next(7, 10), genRand.Next(-2, 2));
-            TileRunner(x, y, genRand.Next(70, 100), 30, DirtType, true, genRand.Next(-10, -7), genRand.Next(-2, 2));
+            // Generate dirt with some anchor points
+            for (int i = 0; i < 3; i++) {
+                var angle = MathHelper.ToRadians(genRand.Next(360));
+                var dist = genRand.Next(20, 30);
+                int x = (int)(Math.Sin(angle) * dist) + center.X;
+                int y = (int)(Math.Cos(angle) * dist) + center.Y;
 
+                TileRunner(x, y, genRand.Next(30, 50), 30, DirtType, true, genRand.Next(7, 10), genRand.Next(-2, 2));
+                TileRunner(x, y, genRand.Next(30, 50), 30, DirtType, true, genRand.Next(-10, -7), genRand.Next(-2, 2));
+            }
+
+            // Generate holes
             var noise = new FastNoiseLite();
             noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
             noise.SetFractalOctaves(5);
-            noise.SetFrequency(0.05f);
+            noise.SetFrequency(0.06f);
 
-            for (int i = x - 60; i < x + 60; i++) {
-                for (int j = y - 30; j < y + 30; j++) {
-                    var rand = noise.GetNoise(i, j);
+            for (int x = center.X - 80; x < center.X + 80; x++) {
+                for (int y = center.Y - 50; y < center.Y + 50; y++) {
+                    var rand = noise.GetNoise(x, y);
                     if (rand < -0.1f) {
-                        Main.tile[i, j].type = RockType;
-                        //KillTile(x, y, noItem: true);
-                        //PlaceTile(x, y, ModContent.TileType<WastelandRock>());
-                        //WorldGen.TileRunner(pos.X, i, WorldGen.genRand.Next(5, 10), WorldGen.genRand.Next(50, 60), ModContent.TileType<WastelandRock>());
+                        var tile = Main.tile[x, y];
+                        if (tile.type == DirtType) {
+                            tile.active(false);
+                        }
+                    }
+                }
+            }
+
+            // Add rocks
+            for (int x = center.X - 80; x < center.X + 80; x++) {
+                for (int y = center.Y - 50; y < center.Y + 50; y++) {
+                    if (genRand.Next(2000) == 0) {
+                        TileRunner(x, y, genRand.Next(15, 20), genRand.Next(2, 5), RockType, false, genRand.Next(-3, 3), genRand.Next(-6, 6));
                     }
                 }
             }
