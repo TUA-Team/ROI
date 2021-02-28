@@ -12,10 +12,10 @@ using Terraria.World.Generation;
 using static Terraria.WorldGen;
 
 // TODO: (low prio) torches
-namespace ROI.Content.Biomes.Wasteland
+namespace ROI.Content.Biomes.Wasteland.WorldBuilding
 {
     //Contain wasteland world gen
-    internal sealed class WastelandWorldMaker
+    public class WastelandWorldMaker
     {
         private readonly Dictionary<int, int> SurfaceLevel;
         private int HighestLevel = 300;
@@ -25,6 +25,7 @@ namespace ROI.Content.Biomes.Wasteland
         private readonly ushort OreType;
         private readonly ushort DirtType;
         private readonly ushort RockType;
+        private readonly ushort GrassType;
 
         public WastelandWorldMaker(Mod mod)
         {
@@ -34,6 +35,7 @@ namespace ROI.Content.Biomes.Wasteland
             OreType = (ushort)mod.TileType(nameof(WastelandOre));
             DirtType = (ushort)mod.TileType(nameof(WastelandDirt));
             RockType = (ushort)mod.TileType(nameof(WastelandRock));
+            GrassType = (ushort)mod.TileType(nameof(WastelandGrass));
 
             SurfaceLevel = new Dictionary<int, int>();
         }
@@ -45,15 +47,18 @@ namespace ROI.Content.Biomes.Wasteland
 
             int count = Main.maxTilesX / 2100;
 
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 bool flag = true;
                 var pos = getLocation();
 
-                while (flag) {
+                while (flag)
+                {
                     var tile = Main.tile[pos.X, pos.Y];
                     if (!tile.active() &&
                         tile.type != TileID.Granite &&
-                        tile.wall != WallID.GraniteUnsafe) {
+                        tile.wall != WallID.GraniteUnsafe)
+                    {
 
                         goto GEN;
                     }
@@ -66,7 +71,8 @@ namespace ROI.Content.Biomes.Wasteland
             }
 
 
-            Point getLocation() {
+            Point getLocation()
+            {
                 return new Point(genRand.Next((int)(Main.maxTilesX * 0.25), (int)(Main.maxTilesX * 0.75)),
                     genRand.Next((int)Main.rockLayer + 100, Main.maxTilesY - 300));
             }
@@ -97,15 +103,20 @@ namespace ROI.Content.Biomes.Wasteland
 
         private void GenerateBiome(Point center)
         {
+            Point pos = new Point(center.X - 100, center.Y - 70);
+            int width = 200;
+            int height = 140;
+
             // Generate dirt with some anchor points
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 var angle = MathHelper.ToRadians(genRand.Next(360));
                 var dist = genRand.Next(20, 30);
                 int x = (int)(Math.Sin(angle) * dist) + center.X;
                 int y = (int)(Math.Cos(angle) * dist) + center.Y;
 
-                TileRunner(x, y, genRand.Next(30, 50), 30, DirtType, true, genRand.Next(7, 10), genRand.Next(-2, 2));
-                TileRunner(x, y, genRand.Next(30, 50), 30, DirtType, true, genRand.Next(-10, -7), genRand.Next(-2, 2));
+                TileRunner(x, y, genRand.Next(50, 120), 30, DirtType, true, genRand.Next(7, 10), genRand.Next(-2, 2));
+                TileRunner(x, y, genRand.Next(50, 120), 30, DirtType, true, genRand.Next(-10, -7), genRand.Next(-2, 2));
             }
 
             // Generate holes
@@ -114,26 +125,42 @@ namespace ROI.Content.Biomes.Wasteland
             noise.SetFractalOctaves(5);
             noise.SetFrequency(0.06f);
 
-            for (int x = center.X - 80; x < center.X + 80; x++) {
-                for (int y = center.Y - 50; y < center.Y + 50; y++) {
+            for (int x = pos.X; x < pos.X + width; x++)
+            {
+                for (int y = pos.Y; y < pos.Y + height; y++)
+                {
                     var rand = noise.GetNoise(x, y);
-                    if (rand < -0.1f) {
+                    if (rand < -0.1f)
+                    {
                         var tile = Main.tile[x, y];
-                        if (tile.type == DirtType) {
+                        if (tile.type == DirtType)
+                        {
                             tile.active(false);
                         }
                     }
                 }
             }
 
-            // Add rocks
-            for (int x = center.X - 80; x < center.X + 80; x++) {
-                for (int y = center.Y - 50; y < center.Y + 50; y++) {
-                    if (genRand.Next(2000) == 0) {
+            // Add rocks and grass
+            for (int x = pos.X; x < pos.X + width; x++)
+            {
+                for (int y = pos.Y; y < pos.Y + height; y++)
+                {
+                    if (GeneralWorldHelper.IsExposed(x, y) &&
+                        Main.tile[x, y].type == DirtType)
+                    {
+
+                        Main.tile[x, y].type = GrassType;
+                    }
+
+                    else if (genRand.Next(1400) == 0)
+                    {
                         TileRunner(x, y, genRand.Next(15, 20), genRand.Next(2, 5), RockType, false, genRand.Next(-3, 3), genRand.Next(-6, 6));
                     }
                 }
             }
+
+            GeneralWorldHelper.TrimTileRunnerAftermath(pos.X, pos.Y, width, height);
         }
 
 
@@ -299,7 +326,7 @@ namespace ROI.Content.Biomes.Wasteland
                         continue;
                     }
 
-//                    WastelandLake.Generate(x, yGen, 20, 24, 5f, 3, 3, true);
+                    //                    WastelandLake.Generate(x, yGen, 20, 24, 5f, 3, 3, true);
                 }
             }
         }
@@ -436,7 +463,7 @@ namespace ROI.Content.Biomes.Wasteland
             //lostCave.Generate(progress);
         }
 
-        internal void TerrainTop(GenerationProgress progress)
+        public void TerrainTop(GenerationProgress progress)
         {
             //Create the top of the wasteland
             for (int i = 0; i < Main.maxTilesX; i++)

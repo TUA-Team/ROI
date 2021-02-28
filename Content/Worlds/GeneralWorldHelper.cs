@@ -1,10 +1,41 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 
 namespace ROI.Worlds
 {
     public static class GeneralWorldHelper
     {
+        public static bool IsExposed(int x, int y) => CountNeighbors(x, y) <= 3;
+
+        public static int CountNeighbors(int x, int y, Func<int, int, bool> isValid = null)
+        {
+            int count = 0;
+            if (checkValid(x + 1, y))
+            {
+                count += 1;
+            }
+            if (checkValid(x - 1, y))
+            {
+                count += 1;
+            }
+            if (checkValid(x, y + 1))
+            {
+                count += 1;
+            }
+            if (checkValid(x, y - 2))
+            {
+                count += 1;
+            }
+
+            return count;
+
+            bool checkValid(int i, int j)
+            {
+                return Main.tile[i, j].active() && (isValid == null || isValid(i, j));
+            }
+        }
+
         public static void TrimTileRunnerAftermath(int x, int y, int width, int height)
         {
             for (int i = x; i < x + width; i++)
