@@ -1,12 +1,46 @@
-﻿using System.Collections.Generic;
+﻿using ROI.Content.Biomes.Wasteland.WorldBuilding;
+using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
+using System.Collections.Generic;
+using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 
 namespace ROI.Content.Biomes.Wasteland
 {
-    internal sealed class WastelandWorld : ModWorld
+    public class WastelandWorld : ModWorld
     {
+        public static WastelandVineContext vineContext;
+
+
+        public override void Initialize()
+        {
+            vineContext = new WastelandVineContext();
+        }
+
+        public override TagCompound Save() => new TagCompound
+        {
+            [nameof(vineContext)] = vineContext
+        };
+
+        public override void Load(TagCompound tag)
+        {
+            vineContext = tag.Get<WastelandVineContext>(nameof(vineContext));
+        }
+
+
+        public override void PostUpdate()
+        {
+            vineContext.Update();
+        }
+
+        public override void PostDrawTiles()
+        {
+            vineContext.Draw(Main.spriteBatch);
+        }
+
+
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
         {
             var index = tasks.FindIndex(x => x.Name.Equals("Granite"));
