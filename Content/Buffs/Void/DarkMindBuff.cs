@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Buffs.Void
 {
-    public sealed class DarkMindBuff : ROIBuff
+    public class DarkMindBuff : ROIBuff
     {
         public DarkMindBuff() : base("Dark Mind", "-50% less damamage\n+50% debuff duration", persistent: true, canBeCleared: false, longerExpertDebuff: true)
         {

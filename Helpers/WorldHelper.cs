@@ -6,7 +6,7 @@ using Terraria.ID;
 namespace ROI.Helpers
 {
     // copied from basemod or something
-    internal static class WorldHelper
+    public static class WorldHelper
     {
         public static void TileMergeAttempt(ushort self, ushort merge, int i, int j)
         {

@@ -20,7 +20,7 @@ namespace ROI.Content.Projectiles
     /// <b>Charged cannon blaster laser (ID: 461)</b> = Laser lifetime, if above 300 (5 sec) kill it<br />
     /// <b>Moon lord death ray (small and big, ID: 455)</b> = Speed of the death ray rotation?<br />
     /// </summary>
-    public sealed class ProjectileAIStyle : GlobalProjectile
+    public class ProjectileAIStyle : GlobalProjectile
     {
         public override bool PreAI(Projectile projectile)
         {
@@ -200,109 +200,109 @@ namespace ROI.Content.Projectiles
             switch (projectile.type)
             {
                 case 455:
+                {
+                    Vector2 vector40 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
+                    for (int num695 = 0; num695 < 2; num695++)
                     {
-                        Vector2 vector40 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
-                        for (int num695 = 0; num695 < 2; num695++)
-                        {
-                            float num696 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
-                            float num697 = (float)Main.rand.NextDouble() * 2f + 2f;
-                            Vector2 vector41 = new Vector2((float)Math.Cos(num696) * num697, (float)Math.Sin(num696) * num697);
-                            int num698 = Dust.NewDust(vector40, 0, 0, 229, vector41.X, vector41.Y);
-                            Main.dust[num698].noGravity = true;
-                            Main.dust[num698].scale = 1.7f;
-                        }
-
-                        if (Main.rand.Next(5) == 0)
-                        {
-                            Vector2 value30 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
-                            int num699 = Dust.NewDust(vector40 + value30 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
-                            Dust dust = Main.dust[num699];
-                            dust.velocity *= 0.5f;
-                            Main.dust[num699].velocity.Y = 0f - Math.Abs(Main.dust[num699].velocity.Y);
-                        }
-
-                        DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
-                        Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
-                        break;
+                        float num696 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
+                        float num697 = (float)Main.rand.NextDouble() * 2f + 2f;
+                        Vector2 vector41 = new Vector2((float)Math.Cos(num696) * num697, (float)Math.Sin(num696) * num697);
+                        int num698 = Dust.NewDust(vector40, 0, 0, 229, vector41.X, vector41.Y);
+                        Main.dust[num698].noGravity = true;
+                        Main.dust[num698].scale = 1.7f;
                     }
+
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Vector2 value30 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
+                        int num699 = Dust.NewDust(vector40 + value30 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
+                        Dust dust = Main.dust[num699];
+                        dust.velocity *= 0.5f;
+                        Main.dust[num699].velocity.Y = 0f - Math.Abs(Main.dust[num699].velocity.Y);
+                    }
+
+                    DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
+                    Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
+                    break;
+                }
                 case 642:
+                {
+                    Vector2 vector42 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
+                    for (int num700 = 0; num700 < 2; num700++)
                     {
-                        Vector2 vector42 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 14f);
-                        for (int num700 = 0; num700 < 2; num700++)
-                        {
-                            float num701 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
-                            float num702 = (float)Main.rand.NextDouble() * 2f + 2f;
-                            Vector2 vector43 = new Vector2((float)Math.Cos(num701) * num702, (float)Math.Sin(num701) * num702);
-                            int num703 = Dust.NewDust(vector42, 0, 0, 229, vector43.X, vector43.Y);
-                            Main.dust[num703].noGravity = true;
-                            Main.dust[num703].scale = 1.7f;
-                        }
-
-                        if (Main.rand.Next(5) == 0)
-                        {
-                            Vector2 value31 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
-                            int num704 = Dust.NewDust(vector42 + value31 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
-                            Dust dust = Main.dust[num704];
-                            dust.velocity *= 0.5f;
-                            Main.dust[num704].velocity.Y = 0f - Math.Abs(Main.dust[num704].velocity.Y);
-                        }
-
-                        DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
-                        Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
-                        break;
+                        float num701 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
+                        float num702 = (float)Main.rand.NextDouble() * 2f + 2f;
+                        Vector2 vector43 = new Vector2((float)Math.Cos(num701) * num702, (float)Math.Sin(num701) * num702);
+                        int num703 = Dust.NewDust(vector42, 0, 0, 229, vector43.X, vector43.Y);
+                        Main.dust[num703].noGravity = true;
+                        Main.dust[num703].scale = 1.7f;
                     }
+
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Vector2 value31 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
+                        int num704 = Dust.NewDust(vector42 + value31 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
+                        Dust dust = Main.dust[num704];
+                        dust.velocity *= 0.5f;
+                        Main.dust[num704].velocity.Y = 0f - Math.Abs(Main.dust[num704].velocity.Y);
+                    }
+
+                    DelegateMethods.v3_1 = new Vector3(0.3f, 0.65f, 0.7f);
+                    Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
+                    break;
+                }
                 case 461:
+                {
+                    Vector2 vector44 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 8f);
+                    for (int num705 = 0; num705 < 2; num705++)
                     {
-                        Vector2 vector44 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 8f);
-                        for (int num705 = 0; num705 < 2; num705++)
-                        {
-                            float num706 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
-                            float num707 = (float)Main.rand.NextDouble() * 0.8f + 1f;
-                            Vector2 vector45 = new Vector2((float)Math.Cos(num706) * num707, (float)Math.Sin(num706) * num707);
-                            int num708 = Dust.NewDust(vector44, 0, 0, 226, vector45.X, vector45.Y);
-                            Main.dust[num708].noGravity = true;
-                            Main.dust[num708].scale = 1.2f;
-                        }
-
-                        if (Main.rand.Next(5) == 0)
-                        {
-                            Vector2 value32 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
-                            int num709 = Dust.NewDust(vector44 + value32 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
-                            Dust dust = Main.dust[num709];
-                            dust.velocity *= 0.5f;
-                            Main.dust[num709].velocity.Y = 0f - Math.Abs(Main.dust[num709].velocity.Y);
-                        }
-
-                        DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
-                        Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
-                        break;
+                        float num706 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
+                        float num707 = (float)Main.rand.NextDouble() * 0.8f + 1f;
+                        Vector2 vector45 = new Vector2((float)Math.Cos(num706) * num707, (float)Math.Sin(num706) * num707);
+                        int num708 = Dust.NewDust(vector44, 0, 0, 226, vector45.X, vector45.Y);
+                        Main.dust[num708].noGravity = true;
+                        Main.dust[num708].scale = 1.2f;
                     }
+
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Vector2 value32 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
+                        int num709 = Dust.NewDust(vector44 + value32 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
+                        Dust dust = Main.dust[num709];
+                        dust.velocity *= 0.5f;
+                        Main.dust[num709].velocity.Y = 0f - Math.Abs(Main.dust[num709].velocity.Y);
+                    }
+
+                    DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
+                    Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
+                    break;
+                }
                 case 537:
+                {
+                    Vector2 vector46 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 8f);
+                    for (int num710 = 0; num710 < 2; num710++)
                     {
-                        Vector2 vector46 = projectile.Center + projectile.velocity * (projectile.localAI[1] - 8f);
-                        for (int num710 = 0; num710 < 2; num710++)
-                        {
-                            float num711 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
-                            float num712 = (float)Main.rand.NextDouble() * 0.8f + 1f;
-                            Vector2 vector47 = new Vector2((float)Math.Cos(num711) * num712, (float)Math.Sin(num711) * num712);
-                            int num713 = Dust.NewDust(vector46, 0, 0, 226, vector47.X, vector47.Y);
-                            Main.dust[num713].noGravity = true;
-                            Main.dust[num713].scale = 1.2f;
-                        }
-
-                        if (Main.rand.Next(5) == 0)
-                        {
-                            Vector2 value33 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
-                            int num714 = Dust.NewDust(vector46 + value33 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
-                            Dust dust = Main.dust[num714];
-                            dust.velocity *= 0.5f;
-                            Main.dust[num714].velocity.Y = 0f - Math.Abs(Main.dust[num714].velocity.Y);
-                        }
-
-                        DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
-                        Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
-                        break;
+                        float num711 = projectile.velocity.ToRotation() + (Main.rand.Next(2) == 1 ? -1f : 1f) * ((float)Math.PI / 2f);
+                        float num712 = (float)Main.rand.NextDouble() * 0.8f + 1f;
+                        Vector2 vector47 = new Vector2((float)Math.Cos(num711) * num712, (float)Math.Sin(num711) * num712);
+                        int num713 = Dust.NewDust(vector46, 0, 0, 226, vector47.X, vector47.Y);
+                        Main.dust[num713].noGravity = true;
+                        Main.dust[num713].scale = 1.2f;
                     }
+
+                    if (Main.rand.Next(5) == 0)
+                    {
+                        Vector2 value33 = projectile.velocity.RotatedBy(MathHelper.PiOver2) * ((float)Main.rand.NextDouble() - 0.5f) * projectile.width;
+                        int num714 = Dust.NewDust(vector46 + value33 - Vector2.One * 4f, 8, 8, 31, 0f, 0f, 100, default, 1.5f);
+                        Dust dust = Main.dust[num714];
+                        dust.velocity *= 0.5f;
+                        Main.dust[num714].velocity.Y = 0f - Math.Abs(Main.dust[num714].velocity.Y);
+                    }
+
+                    DelegateMethods.v3_1 = new Vector3(0.4f, 0.85f, 0.9f);
+                    Utils.PlotTileLine(projectile.Center, projectile.Center + projectile.velocity * projectile.localAI[1], projectile.width * projectile.scale, DelegateMethods.CastLight);
+                    break;
+                }
             }
         }
 
@@ -311,70 +311,70 @@ namespace ROI.Content.Projectiles
             switch (projectile.type)
             {
                 case ProjectileID.ChargedBlasterLaser:
+                {
+                    projectile.ai[0]++;
+                    if (projectile.ai[0] >= 300f)
                     {
-                        projectile.ai[0]++;
-                        if (projectile.ai[0] >= 300f)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
-
-                        projectile.scale = (float)Math.Sin(projectile.ai[0] * (float)Math.PI / 300f) * 10f;
-                        if (projectile.scale > 1f)
-                            projectile.scale = 1f;
-                        break;
+                        projectile.Kill();
+                        return true;
                     }
+
+                    projectile.scale = (float)Math.Sin(projectile.ai[0] * (float)Math.PI / 300f) * 10f;
+                    if (projectile.scale > 1f)
+                        projectile.scale = 1f;
+                    break;
+                }
                 case ProjectileID.PhantasmalDeathray:
+                {
+                    if (projectile.localAI[0] == 0f)
+                        Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104);
+
+                    float num687 = 1f;
+                    if (Main.npc[(int)projectile.ai[1]].type == NPCID.MoonLordFreeEye)
+                        num687 = 0.4f;
+
+                    projectile.localAI[0]++;
+                    if (projectile.localAI[0] >= 180f)
                     {
-                        if (projectile.localAI[0] == 0f)
-                            Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104);
-
-                        float num687 = 1f;
-                        if (Main.npc[(int)projectile.ai[1]].type == NPCID.MoonLordFreeEye)
-                            num687 = 0.4f;
-
-                        projectile.localAI[0]++;
-                        if (projectile.localAI[0] >= 180f)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
-
-                        projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 180f) * 10f * num687;
-                        if (projectile.scale > num687)
-                            projectile.scale = num687;
-                        break;
+                        projectile.Kill();
+                        return true;
                     }
+
+                    projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 180f) * 10f * num687;
+                    if (projectile.scale > num687)
+                        projectile.scale = num687;
+                    break;
+                }
                 case 642:
+                {
+                    float num688 = 1f;
+                    projectile.localAI[0]++;
+                    if (projectile.localAI[0] >= 50f)
                     {
-                        float num688 = 1f;
-                        projectile.localAI[0]++;
-                        if (projectile.localAI[0] >= 50f)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
-
-                        projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 50f) * 10f * num688;
-                        if (projectile.scale > num688)
-                            projectile.scale = num688;
-                        break;
+                        projectile.Kill();
+                        return true;
                     }
+
+                    projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 50f) * 10f * num688;
+                    if (projectile.scale > num688)
+                        projectile.scale = num688;
+                    break;
+                }
                 case 537:
+                {
+                    float num689 = 0.8f;
+                    projectile.localAI[0]++;
+                    if (projectile.localAI[0] >= 60f)
                     {
-                        float num689 = 0.8f;
-                        projectile.localAI[0]++;
-                        if (projectile.localAI[0] >= 60f)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
-
-                        projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 60f) * 10f * num689;
-                        if (projectile.scale > num689)
-                            projectile.scale = num689;
-                        break;
+                        projectile.Kill();
+                        return true;
                     }
+
+                    projectile.scale = (float)Math.Sin(projectile.localAI[0] * (float)Math.PI / 60f) * 10f * num689;
+                    if (projectile.scale > num689)
+                        projectile.scale = num689;
+                    break;
+                }
             }
 
             return false;
@@ -386,106 +386,106 @@ namespace ROI.Content.Projectiles
             {
                 //DeathRay for the head centering
                 case ProjectileID.PhantasmalDeathray when Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == NPCID.MoonLordHead:
+                {
+                    if (Main.npc[(int)projectile.ai[1]].ai[0] == -2f)
                     {
-                        if (Main.npc[(int)projectile.ai[1]].ai[0] == -2f)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
-
-                        Vector2 value25 = Utils.Vector2FromElipse(elipseSizes: new Vector2(27f, 59f) * Main.npc[(int)projectile.ai[1]].localAI[1], angleVector: Main.npc[(int)projectile.ai[1]].localAI[0].ToRotationVector2());
-                        projectile.position = Main.npc[(int)projectile.ai[1]].Center + value25 - new Vector2(projectile.width, projectile.height) / 2f;
-                        break;
+                        projectile.Kill();
+                        return true;
                     }
+
+                    Vector2 value25 = Utils.Vector2FromElipse(elipseSizes: new Vector2(27f, 59f) * Main.npc[(int)projectile.ai[1]].localAI[1], angleVector: Main.npc[(int)projectile.ai[1]].localAI[0].ToRotationVector2());
+                    projectile.position = Main.npc[(int)projectile.ai[1]].Center + value25 - new Vector2(projectile.width, projectile.height) / 2f;
+                    break;
+                }
                 //DeathRay for the true eye centering
                 case ProjectileID.PhantasmalDeathray when Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == 400:
-                    {
-                        Vector2 value26 = Utils.Vector2FromElipse(elipseSizes: new Vector2(30f, 30f) * Main.npc[(int)projectile.ai[1]].localAI[1], angleVector: Main.npc[(int)projectile.ai[1]].localAI[0].ToRotationVector2());
-                        projectile.position = Main.npc[(int)projectile.ai[1]].Center + value26 - new Vector2(projectile.width, projectile.height) / 2f;
-                        break;
-                    }
+                {
+                    Vector2 value26 = Utils.Vector2FromElipse(elipseSizes: new Vector2(30f, 30f) * Main.npc[(int)projectile.ai[1]].localAI[1], angleVector: Main.npc[(int)projectile.ai[1]].localAI[0].ToRotationVector2());
+                    projectile.position = Main.npc[(int)projectile.ai[1]].Center + value26 - new Vector2(projectile.width, projectile.height) / 2f;
+                    break;
+                }
                 case ProjectileID.StardustSoldierLaser when Main.npc[(int)projectile.ai[1]].active && Main.npc[(int)projectile.ai[1]].type == 411:
-                    {
-                        Vector2 value27 = new Vector2(Main.npc[(int)projectile.ai[1]].direction * 6, -4f);
-                        projectile.position = Main.npc[(int)projectile.ai[1]].Center + value27 - projectile.Size / 2f + new Vector2(0f, 0f - Main.npc[(int)projectile.ai[1]].gfxOffY);
-                        break;
-                    }
+                {
+                    Vector2 value27 = new Vector2(Main.npc[(int)projectile.ai[1]].direction * 6, -4f);
+                    projectile.position = Main.npc[(int)projectile.ai[1]].Center + value27 - projectile.Size / 2f + new Vector2(0f, 0f - Main.npc[(int)projectile.ai[1]].gfxOffY);
+                    break;
+                }
                 case ProjectileID.ChargedBlasterLaser when Main.projectile[(int)projectile.ai[1]].active && Main.projectile[(int)projectile.ai[1]].type == 460:
-                    {
-                        Vector2 value28 = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
-                        projectile.position = Main.projectile[(int)projectile.ai[1]].Center + value28 * 16f - new Vector2(projectile.width, projectile.height) / 2f + new Vector2(0f, 0f - Main.projectile[(int)projectile.ai[1]].gfxOffY);
-                        projectile.velocity = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
-                        break;
-                    }
+                {
+                    Vector2 value28 = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
+                    projectile.position = Main.projectile[(int)projectile.ai[1]].Center + value28 * 16f - new Vector2(projectile.width, projectile.height) / 2f + new Vector2(0f, 0f - Main.projectile[(int)projectile.ai[1]].gfxOffY);
+                    projectile.velocity = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
+                    break;
+                }
                 //Lunar portal laser, not moon lord turret laser :P
                 case ProjectileID.MoonlordTurretLaser when Main.projectile[(int)projectile.ai[1]].active && Main.projectile[(int)projectile.ai[1]].type == 641:
                     projectile.Center = Main.projectile[(int)projectile.ai[1]].Center;
                     projectile.velocity = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].ai[1].ToRotationVector2());
                     break;
                 default:
+                {
+                    if (projectile.type != ProjectileID.LastPrismLaser || !Main.projectile[(int)projectile.ai[1]].active || Main.projectile[(int)projectile.ai[1]].type != ProjectileID.LastPrism)
                     {
-                        if (projectile.type != ProjectileID.LastPrismLaser || !Main.projectile[(int)projectile.ai[1]].active || Main.projectile[(int)projectile.ai[1]].type != ProjectileID.LastPrism)
-                        {
-                            projectile.Kill();
-                            return true;
-                        }
+                        projectile.Kill();
+                        return true;
+                    }
 
-                        float num680 = (int)projectile.ai[0] - 2.5f;
-                        Vector2 value29 = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
-                        Projectile tempName = Main.projectile[(int)projectile.ai[1]];
-                        float num681 = num680 * ((float)Math.PI / 6f);
-                        float num682 = 20f;
-                        Vector2 zero = Vector2.Zero;
-                        float num683 = 1f;
-                        float num684 = 15f;
-                        float num685 = -2f;
-                        if (tempName.ai[0] < 180f)
+                    float num680 = (int)projectile.ai[0] - 2.5f;
+                    Vector2 value29 = Vector2.Normalize(Main.projectile[(int)projectile.ai[1]].velocity);
+                    Projectile tempName = Main.projectile[(int)projectile.ai[1]];
+                    float num681 = num680 * ((float)Math.PI / 6f);
+                    float num682 = 20f;
+                    Vector2 zero = Vector2.Zero;
+                    float num683 = 1f;
+                    float num684 = 15f;
+                    float num685 = -2f;
+                    if (tempName.ai[0] < 180f)
+                    {
+                        num683 = 1f - tempName.ai[0] / 180f;
+                        num684 = 20f - tempName.ai[0] / 180f * 14f;
+                        if (tempName.ai[0] < 120f)
                         {
-                            num683 = 1f - tempName.ai[0] / 180f;
-                            num684 = 20f - tempName.ai[0] / 180f * 14f;
-                            if (tempName.ai[0] < 120f)
-                            {
-                                num682 = 20f - 4f * (tempName.ai[0] / 120f);
-                                projectile.Opacity = tempName.ai[0] / 120f * 0.4f;
-                            }
-                            else
-                            {
-                                num682 = 16f - 10f * ((tempName.ai[0] - 120f) / 60f);
-                                projectile.Opacity = 0.4f + (tempName.ai[0] - 120f) / 60f * 0.6f;
-                            }
-
-                            num685 = -22f + tempName.ai[0] / 180f * 20f;
+                            num682 = 20f - 4f * (tempName.ai[0] / 120f);
+                            projectile.Opacity = tempName.ai[0] / 120f * 0.4f;
                         }
                         else
                         {
-                            num683 = 0f;
-                            num682 = 1.75f;
-                            num684 = 6f;
-                            tempName.Opacity = 1f;
-                            num685 = -2f;
+                            num682 = 16f - 10f * ((tempName.ai[0] - 120f) / 60f);
+                            projectile.Opacity = 0.4f + (tempName.ai[0] - 120f) / 60f * 0.6f;
                         }
 
-                        float num686 = (tempName.ai[0] + num680 * num682) / (num682 * 6f) * ((float)Math.PI * 2f);
-                        num681 = Vector2.UnitY.RotatedBy(num686).Y * ((float)Math.PI / 6f) * num683;
-                        zero = (Vector2.UnitY.RotatedBy(num686) * new Vector2(4f, num684)).RotatedBy(tempName.velocity.ToRotation());
-                        projectile.position = tempName.Center + value29 * 16f - tempName.Size / 2f + new Vector2(0f, 0f - Main.projectile[(int)tempName.ai[1]].gfxOffY);
-                        projectile.position += tempName.velocity.ToRotation().ToRotationVector2() * num685;
-                        projectile.position += zero;
-                        projectile.velocity = Vector2.Normalize(tempName.velocity).RotatedBy(num681);
-                        projectile.scale = 1.4f * (1f - num683);
-                        projectile.damage = tempName.damage;
-                        if (tempName.ai[0] >= 180f)
-                        {
-                            projectile.damage *= 3;
-                            vector39 = tempName.Center;
-                        }
-
-                        if (!Collision.CanHitLine(Main.player[tempName.owner].Center, 0, 0, tempName.Center, 0, 0))
-                            vector39 = Main.player[tempName.owner].Center;
-
-                        projectile.friendly = tempName.ai[0] > 30f;
-                        break;
+                        num685 = -22f + tempName.ai[0] / 180f * 20f;
                     }
+                    else
+                    {
+                        num683 = 0f;
+                        num682 = 1.75f;
+                        num684 = 6f;
+                        tempName.Opacity = 1f;
+                        num685 = -2f;
+                    }
+
+                    float num686 = (tempName.ai[0] + num680 * num682) / (num682 * 6f) * ((float)Math.PI * 2f);
+                    num681 = Vector2.UnitY.RotatedBy(num686).Y * ((float)Math.PI / 6f) * num683;
+                    zero = (Vector2.UnitY.RotatedBy(num686) * new Vector2(4f, num684)).RotatedBy(tempName.velocity.ToRotation());
+                    projectile.position = tempName.Center + value29 * 16f - tempName.Size / 2f + new Vector2(0f, 0f - Main.projectile[(int)tempName.ai[1]].gfxOffY);
+                    projectile.position += tempName.velocity.ToRotation().ToRotationVector2() * num685;
+                    projectile.position += zero;
+                    projectile.velocity = Vector2.Normalize(tempName.velocity).RotatedBy(num681);
+                    projectile.scale = 1.4f * (1f - num683);
+                    projectile.damage = tempName.damage;
+                    if (tempName.ai[0] >= 180f)
+                    {
+                        projectile.damage *= 3;
+                        vector39 = tempName.Center;
+                    }
+
+                    if (!Collision.CanHitLine(Main.player[tempName.owner].Center, 0, 0, tempName.Center, 0, 0))
+                        vector39 = Main.player[tempName.owner].Center;
+
+                    projectile.friendly = tempName.ai[0] > 30f;
+                    break;
+                }
             }
 
             return false;

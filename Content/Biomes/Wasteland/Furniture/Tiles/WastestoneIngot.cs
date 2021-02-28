@@ -1,10 +1,10 @@
-using ROI.API.CustomModLoader;
 using Microsoft.Xna.Framework;
+using ROI.API;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    internal class WastestoneIngot : LegacyIngot
+    public class WastestoneIngot : LegacyIngot
     {
         public override Color MapEntryColor => new Color(68, 74, 100);
         public override string MapNameLegend => "Wastestone Ingot";

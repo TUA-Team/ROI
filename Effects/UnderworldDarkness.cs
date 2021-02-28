@@ -7,7 +7,7 @@ using Terraria.Graphics.Shaders;
 
 namespace ROI.Effects
 {
-    internal static class UnderworldDarkness
+    public static class UnderworldDarkness
     {
         public const string UNDERWORLD_FILTER_NAME = "UnderworldFilter";
 

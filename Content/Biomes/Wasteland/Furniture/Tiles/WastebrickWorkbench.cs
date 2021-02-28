@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    public sealed class WastebrickWorkbench : ModTile
+    public class WastebrickWorkbench : ModTile
     {
         public override void SetDefaults()
         {

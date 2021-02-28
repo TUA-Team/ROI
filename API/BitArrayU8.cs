@@ -2,7 +2,7 @@
 
 namespace ROI.API
 {
-    public sealed class BitArrayU8
+    public class BitArrayU8
     {
         public BitArrayU8(bool[] values)
         {

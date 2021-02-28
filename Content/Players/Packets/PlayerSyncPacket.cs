@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ROI.Players.Packets
 {
-    public sealed class PlayerSyncPacket : NetworkPacket
+    public class PlayerSyncPacket : NetworkPacket
     {
         public PlayerSyncPacket(ROIPlayer plr)
         {

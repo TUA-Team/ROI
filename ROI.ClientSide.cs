@@ -14,7 +14,7 @@ namespace ROI
     public sealed partial class ROIMod
     {
         //public MusicConfig MusicConfig;
-        internal DebugConfig DebugConfig;
+        public DebugConfig DebugConfig;
 
         private void LoadClient()
         {
@@ -63,11 +63,11 @@ namespace ROI
             }*/
         }
 
-/*        public override void ModifyLightingBrightness(ref float scale)
-        {
-            if (Subworld.IsActive<WastelandDepthSubworld>())
-                scale *= 1.1f;
-        }*/
+        /*        public override void ModifyLightingBrightness(ref float scale)
+                {
+                    if (Subworld.IsActive<WastelandDepthSubworld>())
+                        scale *= 1.1f;
+                }*/
 
         public override void UpdateUI(GameTime gameTime) => InterfaceLoader.Instance.UpdateUI(gameTime);
 

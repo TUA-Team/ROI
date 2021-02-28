@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Items
 {
-    public sealed class WastebrickBookcase : ModItem
+    public class WastebrickBookcase : ModItem
     {
         public override void SetStaticDefaults()
         {

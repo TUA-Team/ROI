@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class Wastebrick : ModItem
+    public class Wastebrick : ModItem
     {
         public override void SetStaticDefaults()
         {

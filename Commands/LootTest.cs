@@ -2,7 +2,7 @@
 
 namespace ROI.Commands
 {
-    internal sealed class LootTest : ModCommand
+    public class LootTest : ModCommand
     {
         public override bool Autoload(ref string name) => ROIMod.DEBUG;
 

@@ -2,7 +2,7 @@
 
 namespace ROI.API.Loot.Targets
 {
-    public sealed class PlayerTarget : LootTarget
+    public class PlayerTarget : LootTarget
     {
         private readonly Player player;
 
@@ -13,7 +13,7 @@ namespace ROI.API.Loot.Targets
 
         public override void Spawn(LootEntry item)
         {
-            int stack = item.Min > item.Max ? item.Min : Main.rand.Next(item.Min, item.Max); ;
+            int stack = item.Min > item.Max ? item.Min : Main.rand.Next(item.Min, item.Max);
             player.QuickSpawnItem(item.Type, stack);
         }
     }

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class WastelandDirtWall : ModItem
+    public class WastelandDirtWall : ModItem
     {
         public override void SetDefaults()
         {

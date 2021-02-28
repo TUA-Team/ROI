@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
-    public sealed class UraniumOre : ModTile
+    public class UraniumOre : ModTile
     {
         public override void SetDefaults()
         {

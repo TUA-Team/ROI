@@ -8,7 +8,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    public sealed class WastebrickDoorOpen : ModTile
+    public class WastebrickDoorOpen : ModTile
     {
         public override void SetDefaults()
         {

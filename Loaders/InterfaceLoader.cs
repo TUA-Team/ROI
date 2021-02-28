@@ -1,6 +1,6 @@
-using ROI.API;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ROI.API;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -8,9 +8,9 @@ using Terraria.UI;
 
 namespace ROI.Loaders
 {
-    // this is internal because all of the UI states are internal
+    // this is public because all of the UI states are public
     // possible choices: use normal UserInterfaces, use public properties, use public setter methods, use public states
-    internal sealed class InterfaceLoader : Singleton<InterfaceLoader>
+    public class InterfaceLoader : Singleton<InterfaceLoader>
     {
         //public VoidPillarHealthBar vPillarHealthState;
         //public ROIUserInterface<VoidPillarHealthBar> vPillarHealthInterface;

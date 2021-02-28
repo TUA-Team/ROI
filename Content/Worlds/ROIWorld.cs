@@ -17,7 +17,7 @@ namespace ROI.Content.Worlds
         }
 
 
-        public bool StrangePresenceDebuff { get; internal set; }
+        public bool StrangePresenceDebuff { get; public set; }
 
         public int PillarSpawningTime { get; private set; }
     }

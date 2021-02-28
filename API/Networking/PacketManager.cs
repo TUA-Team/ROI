@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -6,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ROI.API.Networking
 {
-    public sealed class PacketManager : Singleton<PacketManager>
+    public class PacketManager : Singleton<PacketManager>
     {
         private struct PacketStyleInfo
         {
@@ -20,6 +21,7 @@ namespace ROI.API.Networking
             }
         }
 
+        private Dictionary<Type, int> byType;
         private PacketStyleInfo[] styles;
 
         public override void Load()
@@ -32,7 +34,7 @@ namespace ROI.API.Networking
         public ModPacket GetPacketFor(Type type)
         {
             var packet = Mod.GetPacket();
-            packet.Write(styles[IdByType.Get(type)].Id);
+            packet.Write(styles[byType[type]].Id);
             return packet;
         }
 

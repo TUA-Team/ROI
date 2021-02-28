@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    public sealed class WastebrickDresser : ModTile
+    public class WastebrickDresser : ModTile
     {
         public override void SetDefaults()
         {

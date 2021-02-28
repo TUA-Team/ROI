@@ -2,7 +2,7 @@
 
 namespace ROI.API.Loot.Chest
 {
-    public sealed class ChestTarget : LootTarget
+    public class ChestTarget : LootTarget
     {
         private readonly Item[] items;
 

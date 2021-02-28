@@ -9,7 +9,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
-    internal class WastebrickChandelier : ModTile
+    public class WastebrickChandelier : ModTile
     {
         public override void SetDefaults()
         {

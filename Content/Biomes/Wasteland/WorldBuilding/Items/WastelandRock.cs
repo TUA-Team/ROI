@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class WastelandRock : ModItem
+    public class WastelandRock : ModItem
     {
         public override void SetDefaults()
         {

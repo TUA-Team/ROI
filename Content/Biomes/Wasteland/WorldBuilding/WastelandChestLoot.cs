@@ -6,7 +6,7 @@ using Terraria.ID;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding
 {
-    internal sealed class WastelandChestLoot : LootTable
+    public class WastelandChestLoot : LootTable
     {
         public WastelandChestLoot(LootTarget target) : base(target)
         {
@@ -20,7 +20,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                 (new LootEntry(ROIMod.Instance.ItemType(nameof(Poutine))), 0.1),
                 (new LootEntry(ItemID.SuspiciousLookingEye), 2)
             },
-            
+
             new GeneralPoolRule
             {
                 (new TreasureRule

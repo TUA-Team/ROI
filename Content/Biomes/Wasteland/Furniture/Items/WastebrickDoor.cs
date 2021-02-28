@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Items
 {
-    public sealed class WastebrickDoor : ModItem
+    public class WastebrickDoor : ModItem
     {
         public override void SetStaticDefaults()
         {

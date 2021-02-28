@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Tiles
 {
-    public sealed class TerraMusicBox : ModTile
+    public class TerraMusicBox : ModTile
     {
         public override void SetDefaults()
         {

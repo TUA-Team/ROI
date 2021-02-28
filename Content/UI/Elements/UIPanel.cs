@@ -8,7 +8,7 @@ namespace ROI.Content.UI.Elements
 {
     // TODO: (low prio) Replace with the Advanced UI ui system
     // refactor note: tbh, what even is this class
-    internal class UIPanel : UIElement
+    public class UIPanel : UIElement
     {
         private Vector2 offset;
         public bool dragging;

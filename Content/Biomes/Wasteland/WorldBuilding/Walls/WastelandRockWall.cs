@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 {
-    public sealed class WastelandRockWall : ModWall
+    public class WastelandRockWall : ModWall
     {
         public override void SetDefaults()
         {
@@ -12,7 +12,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
         }
     }
 
-    public sealed class WastelandRockWallSafe : ModWall
+    public class WastelandRockWallSafe : ModWall
     {
         public override bool Autoload(ref string name, ref string texture)
         {

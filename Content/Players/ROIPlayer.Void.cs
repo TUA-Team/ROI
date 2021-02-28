@@ -105,18 +105,18 @@ namespace ROI.Players
         public float DebuffDurationMultiplier { get; set; }
 
 
-        public short VoidAffinity { get; internal set; }
+        public short VoidAffinity { get; public set; }
 
-        public short MaxVoidAffinity { get; internal set; }
+        public short MaxVoidAffinity { get; public set; }
 
-        //public VoidTier VoidTier { get; internal set; }
+        //public VoidTier VoidTier { get; public set; }
 
 
         public uint VoidExposure { get; private set; }
 
-        //public int VoidEffectAttemptCooldown { get; internal set; }
+        //public int VoidEffectAttemptCooldown { get; public set; }
 
-        public int VoidItemCooldown { get; internal set; }
+        public int VoidItemCooldown { get; public set; }
 
 
         *//*        public int VoidHeartHP { get; set; }

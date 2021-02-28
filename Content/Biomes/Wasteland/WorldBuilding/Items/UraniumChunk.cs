@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class UraniumChunk : ModItem
+    public class UraniumChunk : ModItem
     {
         public override void SetStaticDefaults()
         {

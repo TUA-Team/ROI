@@ -10,7 +10,7 @@ using Terraria.ObjectData;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
-    public sealed class IrradiatedChest : ModTile
+    public class IrradiatedChest : ModTile
     {
         public override void SetDefaults()
         {

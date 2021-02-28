@@ -4,7 +4,7 @@ using Terraria;
 
 namespace ROI.Content.Projectiles.Special
 {
-    public sealed class UraniumSpikeProjectile : ROIProjectile
+    public class UraniumSpikeProjectile : ROIProjectile
     {
         public UraniumSpikeProjectile() : base("Uranium Spike", 32, 64) { }
 

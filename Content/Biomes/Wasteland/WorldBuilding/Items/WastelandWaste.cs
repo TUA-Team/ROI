@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class WastelandWaste : ModItem
+    public class WastelandWaste : ModItem
     {
         public override void SetStaticDefaults()
         {

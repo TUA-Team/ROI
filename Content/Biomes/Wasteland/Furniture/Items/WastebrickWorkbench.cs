@@ -2,7 +2,7 @@
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Items
 {
-    internal class WastebrickWorkbench : ModItem
+    public class WastebrickWorkbench : ModItem
     {
         public override void SetStaticDefaults()
         {

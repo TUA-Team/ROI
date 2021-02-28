@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Commands
 {
-    internal sealed class EnterDimension : ModCommand
+    public class EnterDimension : ModCommand
     {
         public override bool Autoload(ref string name) => ROIMod.DEBUG;
 

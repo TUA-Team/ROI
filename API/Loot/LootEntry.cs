@@ -3,7 +3,7 @@
     /// <summary>
     /// A single item to spawn in a loot table
     /// </summary>
-    public sealed class LootEntry : LootRule
+    public class LootEntry : LootRule
     {
         public readonly int Type;
         public readonly int Min;

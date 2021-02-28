@@ -3,7 +3,7 @@ using Terraria;
 
 namespace ROI.API.Loot.General
 {
-    public sealed class GeneralPoolRule : EntryCollectionRule
+    public class GeneralPoolRule : EntryCollectionRule
     {
         public override void SpawnLoot(LootTarget target)
         {

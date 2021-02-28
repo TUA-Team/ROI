@@ -1,10 +1,10 @@
 ﻿using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Items
 {
-    internal class WastestoneBrickWall : ModItem
+    public class WastestoneBrickWall : ModItem
     {
         public override void SetStaticDefaults()
         {

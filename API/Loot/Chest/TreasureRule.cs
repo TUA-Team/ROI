@@ -6,7 +6,7 @@ using Terraria.Utilities;
 
 namespace ROI.API.Loot.Chest
 {
-    public sealed class TreasureRule : EntryCollectionRule
+    public class TreasureRule : EntryCollectionRule
     {
         public override void SpawnLoot(LootTarget target)
         {

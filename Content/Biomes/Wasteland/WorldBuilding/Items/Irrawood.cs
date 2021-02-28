@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 {
-    public sealed class Irrawood : ModItem
+    public class Irrawood : ModItem
     {
         public override void SetDefaults()
         {

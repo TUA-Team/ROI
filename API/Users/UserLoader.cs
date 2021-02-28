@@ -7,7 +7,7 @@ namespace ROI.API.Users
 {
     // web's code
     // TODO: make this somehow verify users properly
-    public sealed class UserLoader : Singleton<UserLoader>
+    public class UserLoader : Singleton<UserLoader>
     {
         public override void Load()
         {

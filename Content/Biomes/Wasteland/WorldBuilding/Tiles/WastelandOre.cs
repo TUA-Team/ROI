@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
-    public sealed class WastelandOre : ModTile
+    public class WastelandOre : ModTile
     {
         public override void SetDefaults()
         {

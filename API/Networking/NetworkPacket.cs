@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 namespace ROI.API.Networking
 {
     public abstract class NetworkPacket
-	{
+    {
         private readonly ModPacket writer;
 
         protected NetworkPacket()

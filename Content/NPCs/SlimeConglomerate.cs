@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.NPCs
 {
-    public sealed class SlimeConglomerate : ModNPC
+    public class SlimeConglomerate : ModNPC
     {
         /*private static readonly IDictionary<int, Color> SlimeCodes = new Dictionary<int, Color> {
             { 1, new Color (0, 80, 255, 100) }, // blue

@@ -75,6 +75,7 @@ namespace ROI.Helpers
             string json = string.Empty;
             try
             {
+                // TODO: figure out how to do this without HttpClient
                 using (var client = new HttpClient())
                 {
                     client.DefaultRequestHeaders.Add("Accept", "application/vnd.github.v3+json");

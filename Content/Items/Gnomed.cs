@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 
 namespace ROI.Content.Items
 {
-    public sealed class Gnomed : ModItem
+    public class Gnomed : ModItem
     {
         public override void SetDefaults()
         {
