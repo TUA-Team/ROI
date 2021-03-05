@@ -1,4 +1,5 @@
-﻿/*using ROI.API.Networking;
+﻿using ROI.API.Networking;
+using ROI.Content.Players;
 using System.IO;
 
 namespace ROI.Players.Packets
@@ -7,17 +8,16 @@ namespace ROI.Players.Packets
     {
         public PlayerSyncPacket(ROIPlayer plr)
         {
-            Writer.Write(plr.VoidAffinity);
-            Writer.Write(plr.MaxVoidAffinity);
+            /*Writer.Write(plr.VoidAffinity);
+            Writer.Write(plr.MaxVoidAffinity);*/
         }
 
         public override void Read(BinaryReader reader, int sender)
         {
             var plr = ROIPlayer.Get(sender);
 
-            plr.VoidAffinity = reader.ReadInt16();
-            plr.MaxVoidAffinity = reader.ReadInt16();
+            /*plr.VoidAffinity = reader.ReadInt16();
+            plr.MaxVoidAffinity = reader.ReadInt16();*/
         }
     }
 }
-*/

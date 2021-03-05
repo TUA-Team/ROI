@@ -1,9 +1,8 @@
-﻿/*using ROI.Players.Packets;
-using System.Collections.Generic;
+﻿using ROI.Players.Packets;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace ROI.Players
+namespace ROI.Content.Players
 {
     // TODO: (low prio) there are so many partials that it might be better to autoload ourselves lol
     public sealed partial class ROIPlayer : ModPlayer
@@ -13,7 +12,7 @@ namespace ROI.Players
         public static ROIPlayer Get(Player player) => player.GetModPlayer<ROIPlayer>();
 
 
-        private void UpdatePreviousBuffs()
+        /*private void UpdatePreviousBuffs()
         {
             PreviousBuffs.Clear();
 
@@ -49,14 +48,14 @@ namespace ROI.Players
         public override void ResetEffects()
         {
             ResetEffectsVoid();
-        }
+        }*/
 
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer) =>
             new PlayerSyncPacket(this).Send(toWho, fromWho);
 
 
-        public override void PostUpdate()
+        /*public override void PostUpdate()
         {
             PostUpdateVoid();
         }
@@ -72,6 +71,6 @@ namespace ROI.Players
             ModifyHitByProjectileVoid(proj, ref damage, ref crit);
         }
 
-        private List<int> PreviousBuffs { get; set; }
+        private List<int> PreviousBuffs { get; set; }*/
     }
-}*/
+}

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader.IO;
 
 namespace ROI.API.Verlet
 {
-    public abstract class VerletContext : TagSerializable
+    public abstract class VerletContext
     {
         protected IList<VerletPoint> points = new List<VerletPoint>();
         protected IList<VerletSegment> segments = new List<VerletSegment>();
@@ -36,20 +37,14 @@ namespace ROI.API.Verlet
                 for (int i = 0; i < segments.Count; i++)
                 {
                     var seg = segments[i];
-                    var start = points[seg.start];
-                    var end = points[seg.next];
 
-                    var vec = end.pos - start.pos;
-                    var len = (start.pos - end.pos).Length();
+                    var vec = seg.end.pos - seg.start.pos;
+                    var len = (seg.start.pos - seg.end.pos).Length();
 
                     // Determine the percentage of the stick's current length that is unintended
                     var percent = (len - seg.size) / len;
-
-                    // Since vec is the segment as an isolated vector, we can just multiply it by 
-                    // the percent and remove the unintended length, but also divide it by two
-                    // so that each vertex moves closer to the middle by half the extra length
-                    start.pos += vec * percent * 0.5f;
-                    end.pos -= vec * percent * 0.5f;
+                    seg.start.pos += vec * percent * 0.5f;
+                    seg.end.pos -= vec * percent * 0.5f;
                 }
             }
         }
@@ -60,7 +55,7 @@ namespace ROI.API.Verlet
             for (int i = 0; i < segments.Count; i++)
             {
                 VerletSegment seg = segments[i];
-                DrawSegment(sb, i, points[seg.start].pos, points[seg.next].pos);
+                DrawSegment(sb, i, seg.start.pos, seg.end.pos);
             }
             sb.End();
         }
@@ -94,14 +89,15 @@ namespace ROI.API.Verlet
         /// </summary>
         /// <param name="vertices">The positions of the vertices</param>
         /// <param name="sizes">The length of each corresponding segment in <paramref name="sticks"/></param>
-        protected void AddSegments(Vector2[] vertices, float[] sizes)
+        /// <returns>The id of the first segment added</returns>
+        protected int AddBody(Vector2[] vertices, float[] sizes)
         {
             var sticks = new (int start, int next)[vertices.Length - 1];
             for (int i = 0; i < sticks.Length; i++)
             {
                 sticks[i] = (i, i + 1);
             }
-            AddSegments(vertices, sticks, sizes);
+            return AddBody(vertices, sticks, sizes);
         }
 
         /// <summary>
@@ -110,7 +106,8 @@ namespace ROI.API.Verlet
         /// <param name="vertices">The positions of the vertices</param>
         /// <param name="sticks">Indices in <paramref name="vertices"/> to use for the segments</param>
         /// <param name="sizes">The length of each corresponding segment in <paramref name="sticks"/></param>
-        protected void AddSegments(Vector2[] vertices, (int start, int end)[] sticks, float[] sizes)
+        /// <returns>The id of the first segment added</returns>
+        protected int AddBody(Vector2[] vertices, (int start, int end)[] sticks, float[] sizes)
         {
             int firstIndex = points.Count;
 
@@ -123,21 +120,71 @@ namespace ROI.API.Verlet
             for (int i = 0; i < sticks.Length; i++)
             {
                 var (start, end) = sticks[i];
-                segments.Add(new VerletSegment(start + firstIndex, end + firstIndex, sizes[i]));
+                segments.Add(new VerletSegment(points[start + firstIndex], points[end + firstIndex], sizes[i]));
             }
+
+            return segments.Count - sticks.Length;
         }
 
 
-        public virtual TagCompound SerializeData() => new TagCompound
+        // Since each segment will likely reference points that other segments also use,
+        // a dictionary is created. The dictionary is also used since each segment doesn't
+        // directly know the index of its consituent points.
+        // The keys are the unique positions, the values are the index to each 
+        // unique position. The index will then be used later at load. It uses Vector3 because it's
+        // already included in the default serializers.
+
+        protected TagCompound SerializeData(out Dictionary<Vector2, int> map)
         {
-            [nameof(points)] = points,
-            [nameof(segments)] = segments
-        };
+            var tag = new TagCompound();
+            map = new Dictionary<Vector2, int>();
+
+
+            for (int i = 0; i < segments.Count; i++)
+            {
+                var seg = segments[i];
+                if (!map.ContainsKey(seg.start.pos))
+                {
+                    map.Add(seg.start.pos, map.Count);
+                }
+                if (!map.ContainsKey(seg.end.pos))
+                {
+                    map.Add(seg.end.pos, map.Count);
+                }
+            }
+
+            tag.Add(nameof(points), map.Keys.ToList());
+
+
+            var segBuffer = new List<Vector3>();
+
+            for (int i = 0; i < segments.Count; i++)
+            {
+                var seg = segments[i];
+                segBuffer.Add(new Vector3(map[seg.start.pos], map[seg.end.pos], seg.size));
+            }
+
+            tag.Add(nameof(segments), segBuffer);
+
+
+            return tag;
+        }
 
         protected static void BaseDeserialize(VerletContext ctx, TagCompound tag)
         {
-            ctx.points = tag.GetList<VerletPoint>(nameof(points));
-            ctx.segments = tag.GetList<VerletSegment>(nameof(segments));
+            var vertices = tag.GetList<Vector2>(nameof(points));
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                Vector2 vertex = vertices[i];
+                ctx.points.Add(new VerletPoint(vertex, vertex));
+            }
+
+            var sticks = tag.GetList<Vector3>(nameof(segments));
+            for (int i = 0; i < sticks.Count; i++)
+            {
+                var stick = sticks[i];
+                ctx.segments.Add(new VerletSegment(ctx.points[(int)stick.X], ctx.points[(int)stick.Y], stick.Z));
+            }
         }
     }
 }

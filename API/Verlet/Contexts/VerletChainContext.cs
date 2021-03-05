@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ModLoader.IO;
 
@@ -8,7 +9,7 @@ namespace ROI.API.Verlet.Contexts
 {
     public abstract class VerletChainContext : VerletContext
     {
-        protected IList<int> anchors = new List<int>();
+        protected IList<VerletPoint> anchors = new List<VerletPoint>();
         protected IList<ChainDrawData> drawData = new List<ChainDrawData>();
 
 
@@ -17,7 +18,7 @@ namespace ROI.API.Verlet.Contexts
             // Reset anchors
             for (int i = 0; i < anchors.Count; i++)
             {
-                var anchor = points[anchors[i]];
+                var anchor = anchors[i];
                 anchor.pos = anchor.old;
             }
         }
@@ -61,18 +62,15 @@ namespace ROI.API.Verlet.Contexts
         }
 
 
-        public abstract string Tex { get; }
-        public virtual float Gravity => 0.3f;
-        public virtual float CollisionMult => 0.04f;
+        protected abstract string Tex { get; }
+        protected virtual float Gravity => 0.3f;
+        protected virtual float CollisionMult => 0.04f;
 
 
-        public override TagCompound SerializeData()
+        public TagCompound SerializeData()
         {
-            var tag = base.SerializeData();
-            tag.Add(nameof(Tex), Tex);
-            tag.Add(nameof(Gravity), Gravity);
-            tag.Add(nameof(CollisionMult), CollisionMult);
-            tag.Add(nameof(anchors), anchors);
+            var tag = SerializeData(out var map);
+            tag.Add(nameof(anchors), anchors.Select(a => map[a.pos]).ToList());
             tag.Add(nameof(drawData), drawData);
             return tag;
         }
@@ -80,7 +78,13 @@ namespace ROI.API.Verlet.Contexts
         protected static void BaseDeserialize(VerletChainContext ctx, TagCompound tag)
         {
             VerletContext.BaseDeserialize(ctx, tag);
-            ctx.anchors = tag.GetList<int>(nameof(anchors));
+
+            var anchorBuffer = tag.GetList<int>(nameof(anchors));
+            for (int i = 0; i < anchorBuffer.Count; i++)
+            {
+                ctx.anchors.Add(ctx.points[anchorBuffer[i]]);
+            }
+
             ctx.drawData = tag.GetList<ChainDrawData>(nameof(drawData));
         }
     }

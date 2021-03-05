@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
+using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using ROI.Helpers;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,15 +47,15 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             return true;
         }
 
-        public override bool CanKillTile(int i, int j, ref bool blockDamaged)
-        {
-
-            return true;
-        }
-
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
             Main.tile[i, j].type = (ushort)ModContent.TileType<WastelandDirt>();
+
+            var te = ModContent.GetInstance<TEWastelandVine>();
+            if (te.Find(i, j) != -1)
+            {
+                te.Kill(i, j);
+            }
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

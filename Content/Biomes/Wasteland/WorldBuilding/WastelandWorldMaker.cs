@@ -2,10 +2,12 @@ using Microsoft.Xna.Framework;
 using ROI.Content.Biomes.Wasteland.Furniture.Walls;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
+using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using ROI.Worlds;
 using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.World.Generation;
@@ -111,7 +113,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
             for (int i = 0; i < 3; i++)
             {
                 var angle = MathHelper.ToRadians(genRand.Next(360));
-                var dist = genRand.Next(20, 30);
+                int dist = genRand.Next(20, 30);
                 int x = (int)(Math.Sin(angle) * dist) + center.X;
                 int y = (int)(Math.Cos(angle) * dist) + center.Y;
 
@@ -129,7 +131,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
             {
                 for (int y = pos.Y; y < pos.Y + height; y++)
                 {
-                    var rand = noise.GetNoise(x, y);
+                    float rand = noise.GetNoise(x, y);
                     if (rand < -0.1f)
                     {
                         var tile = Main.tile[x, y];
@@ -141,7 +143,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                 }
             }
 
-            // Add rocks and grass
+            // Add rocks and grass and vines
             for (int x = pos.X; x < pos.X + width; x++)
             {
                 for (int y = pos.Y; y < pos.Y + height; y++)
@@ -149,8 +151,18 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                     if (GeneralWorldHelper.IsExposed(x, y) &&
                         Main.tile[x, y].type == DirtType)
                     {
-
                         Main.tile[x, y].type = GrassType;
+                        if (!Main.tile[x, y + 1].active())
+                        {
+                            // Baseline is 3, use noise to go smaller or bigger
+                            int len = (int)(3 + noise.GetNoise(x, y) * 5);
+                            if (len > 0)
+                            {
+                                //int index = ModContent.GetInstance<TEWastelandVine>().Place(x, y);
+                                //TEWastelandVine te = TileEntity.ByID[index] as TEWastelandVine;
+                                //(te.anchorID, te.segID) = WastelandWorld.vineContext.AddVine(new Vector2(x * 16, y * 16), len);
+                            }
+                        }
                     }
 
                     else if (genRand.Next(1400) == 0)

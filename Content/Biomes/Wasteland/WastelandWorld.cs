@@ -1,4 +1,5 @@
 ﻿using ROI.Content.Biomes.Wasteland.WorldBuilding;
+using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using System.Collections.Generic;
 using Terraria;
@@ -11,6 +12,7 @@ namespace ROI.Content.Biomes.Wasteland
 {
     public class WastelandWorld : ModWorld
     {
+        public static int wastelandTiles;
         public static WastelandVineContext vineContext;
 
 
@@ -21,12 +23,12 @@ namespace ROI.Content.Biomes.Wasteland
 
         public override TagCompound Save() => new TagCompound
         {
-            [nameof(vineContext)] = vineContext
+            [nameof(vineContext)] = vineContext.SerializeData()
         };
 
         public override void Load(TagCompound tag)
         {
-            vineContext = tag.Get<WastelandVineContext>(nameof(vineContext));
+            vineContext = WastelandVineContext.Deserialize(tag.GetCompound(nameof(vineContext)));
         }
 
 
@@ -49,6 +51,14 @@ namespace ROI.Content.Biomes.Wasteland
             {
                 tasks.Insert(index + 1, new PassLegacy("ROI: Wasteland", new WastelandWorldMaker(mod).Make));
             }
+        }
+
+        // TODO: (low prio) generalize this?
+        public override void TileCountsAvailable(int[] tileCounts)
+        {
+            wastelandTiles = tileCounts[ModContent.TileType<WastelandDirt>()] +
+                tileCounts[ModContent.TileType<WastelandRock>()] +
+                tileCounts[ModContent.TileType<WastelandGrass>()];
         }
     }
 }

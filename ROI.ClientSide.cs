@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using ROI.Content.Configs;
 using ROI.Content.Items;
+using ROI.Content.Players;
 using ROI.Loaders;
 using System;
 using System.Collections.Generic;
@@ -53,21 +54,18 @@ namespace ROI
             if (Main.myPlayer == -1 || Main.gameMenu || !Main.LocalPlayer.active)
                 return;
 
+            var plr = ROIPlayer.Get();
+
             // Highest to lowest priority here, just return if a condition is validated
 
-            /*if (Subworld.IsActive<WastelandDepthSubworld>())
+            if (plr.ZoneWasteland)
             {
                 music = GetSoundSlot(SoundType.Music, "Sounds/Music/WastelandDepth");
                 priority = MusicPriority.Environment;
                 return;
-            }*/
+            }
         }
 
-        /*        public override void ModifyLightingBrightness(ref float scale)
-                {
-                    if (Subworld.IsActive<WastelandDepthSubworld>())
-                        scale *= 1.1f;
-                }*/
 
         public override void UpdateUI(GameTime gameTime) => InterfaceLoader.Instance.UpdateUI(gameTime);
 

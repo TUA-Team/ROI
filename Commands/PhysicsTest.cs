@@ -17,7 +17,7 @@ namespace ROI.Commands
             switch (args[0])
             {
                 case "wastelandvine":
-                    WastelandWorld.vineContext.AddVine(caller.Player.position - new Vector2(0, 60), 4);
+                    WastelandWorld.vineContext.AddVine(caller.Player.position - new Vector2(0, 60), 7);
                     break;
             }
         }

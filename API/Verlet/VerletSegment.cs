@@ -1,32 +1,16 @@
-﻿using System;
-using Terraria.ModLoader.IO;
-
-namespace ROI.API.Verlet
+﻿namespace ROI.API.Verlet
 {
-    public class VerletSegment : TagSerializable
+    public class VerletSegment
     {
-        public int start;
-        public int next;
+        public VerletPoint start;
+        public VerletPoint end;
         public float size;
 
-        public VerletSegment(int start, int next, float size)
+        public VerletSegment(VerletPoint start, VerletPoint end, float size)
         {
             this.start = start;
-            this.next = next;
+            this.end = end;
             this.size = size;
         }
-
-
-        public TagCompound SerializeData() => new TagCompound
-        {
-            [nameof(start)] = start,
-            [nameof(next)] = next,
-            [nameof(size)] = size
-        };
-
-        public static readonly Func<TagCompound, VerletSegment> DESERIALIZER = tag =>
-        {
-            return new VerletSegment(tag.GetInt(nameof(start)), tag.GetInt(nameof(next)), tag.GetFloat(nameof(size)));
-        };
     }
 }
