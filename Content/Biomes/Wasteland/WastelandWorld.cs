@@ -1,11 +1,9 @@
-﻿using ROI.Content.Biomes.Wasteland.WorldBuilding;
+﻿using ROI.API.Verlet.Contexts.Chains;
+using ROI.Content.Biomes.Wasteland.WorldBuilding;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
-using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.GameContent.Generation;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
 using Terraria.World.Generation;
 
 namespace ROI.Content.Biomes.Wasteland
@@ -13,33 +11,12 @@ namespace ROI.Content.Biomes.Wasteland
     public class WastelandWorld : ModWorld
     {
         public static int wastelandTiles;
-        public static WastelandVineContext vineContext;
+        public static VerletChainContext vineContext;
 
 
         public override void Initialize()
         {
-            vineContext = new WastelandVineContext();
-        }
-
-        public override TagCompound Save() => new TagCompound
-        {
-            [nameof(vineContext)] = vineContext.SerializeData()
-        };
-
-        public override void Load(TagCompound tag)
-        {
-            vineContext = WastelandVineContext.Deserialize(tag.GetCompound(nameof(vineContext)));
-        }
-
-
-        public override void PostUpdate()
-        {
-            vineContext.Update();
-        }
-
-        public override void PostDrawTiles()
-        {
-            vineContext.Draw(Main.spriteBatch);
+            vineContext = new VerletChainContext("Content/Biomes/Wasteland/WorldBuilding/Vines/WastelandLushVine");
         }
 
 

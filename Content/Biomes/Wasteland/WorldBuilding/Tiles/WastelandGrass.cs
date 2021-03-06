@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ROI.API.Verlet.Contexts.Chains;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using ROI.Helpers;
 using Terraria;
@@ -23,6 +25,32 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             // TODO: SetModTree(new WastelandTree());
         }
 
+
+        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        {
+            // TODO: Make this work with slopes and stuff
+            int index = ModContent.GetInstance<TEWastelandVine>().Find(i, j);
+            if (index != -1)
+            {
+                TEWastelandVine te = TileEntity.ByID[index] as TEWastelandVine;
+                VerletChainContext ctx = WastelandWorld.vineContext;
+
+                ctx.Update(te);
+                ctx.Draw(spriteBatch, te);
+            }
+
+            return true;
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            var color = new Color(152, 208, 113).ToVector3();
+            r = color.X;
+            g = color.Y;
+            b = color.Z;
+        }
+
+
         public override void RandomUpdate(int i, int j)
         {
             if (Main.tile[i, j - 1].lava())
@@ -41,11 +69,19 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             }
         }
 
+
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandDirt>(), i, j);
             return true;
         }
+
+        public override int SaplingGrowthType(ref int style)
+        {
+            style = 0;
+            return ModContent.TileType<WastelandSapling>();
+        }
+
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
@@ -55,21 +91,9 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             if (te.Find(i, j) != -1)
             {
                 te.Kill(i, j);
+                Dust.NewDust(new Vector2(i * 16, j * 16), 5, 5, DustID.Grass);
+                Main.PlaySound(SoundID.Grass, i * 16, j * 16);
             }
-        }
-
-        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
-        {
-            var color = new Color(152, 208, 113).ToVector3();
-            r = color.X;
-            g = color.Y;
-            b = color.Z;
-        }
-
-        public override int SaplingGrowthType(ref int style)
-        {
-            style = 0;
-            return ModContent.TileType<WastelandSapling>();
         }
     }
 }

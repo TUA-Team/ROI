@@ -2,7 +2,7 @@
 using System;
 using Terraria.ModLoader.IO;
 
-namespace ROI.API.Verlet.Contexts
+namespace ROI.API.Verlet.Contexts.Chains
 {
     public class ChainDrawData : TagSerializable
     {

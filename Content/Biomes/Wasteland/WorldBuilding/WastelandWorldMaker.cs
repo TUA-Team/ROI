@@ -152,15 +152,18 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                         Main.tile[x, y].type == DirtType)
                     {
                         Main.tile[x, y].type = GrassType;
+
                         if (!Main.tile[x, y + 1].active())
                         {
                             // Baseline is 3, use noise to go smaller or bigger
-                            int len = (int)(3 + noise.GetNoise(x, y) * 5);
+                            int len = (int)(3 + noise.GetNoise(x, y) * 4) + genRand.Next(6);
                             if (len > 0)
                             {
-                                //int index = ModContent.GetInstance<TEWastelandVine>().Place(x, y);
-                                //TEWastelandVine te = TileEntity.ByID[index] as TEWastelandVine;
-                                //(te.anchorID, te.segID) = WastelandWorld.vineContext.AddVine(new Vector2(x * 16, y * 16), len);
+                                int index = ModContent.GetInstance<TEWastelandVine>().Place(x, y);
+                                TEWastelandVine te = TileEntity.ByID[index] as TEWastelandVine;
+                                te.GenerateDrawData(len);
+                                te.GeneratePoints();
+                                te.GenerateSegments();
                             }
                         }
                     }
