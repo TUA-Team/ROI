@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using ROI.Helpers;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -17,12 +16,13 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             AddMapEntry(new Color(130, 114, 109));
         }
 
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
+        // TODO: was this needed?
+        /*public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandGrass>(), i, j);
             WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandRock>(), i, j);
 
             return true;
-        }
+        }*/
     }
 }

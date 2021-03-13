@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ROI.Helpers;
+using ROI.Utilities;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -81,8 +81,8 @@ namespace ROI.Content.NPCs
                 {
                     target.active = false;
                     target.netUpdate = true;
-                    npc.life = (int)NumberHelper.ExpCap(npc.life + target.life, 0, 750, 0.001f);
-                    npc.lifeMax = (int)NumberHelper.ExpCap(npc.life + target.lifeMax, 0, 750, 0.001f);
+                    npc.life = (int)NumberUtils.ExpCap(npc.life + target.life, 0, 750, 0.001f);
+                    npc.lifeMax = (int)NumberUtils.ExpCap(npc.life + target.lifeMax, 0, 750, 0.001f);
                     npc.color = npc.color.Mix(target.color);
                     npc.scale = (npc.scale + target.scale * .4f).ExpCap(0, 5, .25f);
                     npc.width = (int)(24 * npc.scale);

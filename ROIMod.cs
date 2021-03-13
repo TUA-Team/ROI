@@ -8,8 +8,6 @@ namespace ROI
     {
         public static ROIMod Instance => ModContent.GetInstance<ROIMod>();
 
-        public const bool DEBUG = true;
-
         public override void Load()
         {
             Backporting.Init(this);

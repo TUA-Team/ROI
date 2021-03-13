@@ -19,8 +19,11 @@
   </Target>
   
   <ItemGroup>
+    <Compile Remove="Helpers\**" />
     <Compile Remove="_archive\**" />
+    <EmbeddedResource Remove="Helpers\**" />
     <EmbeddedResource Remove="_archive\**" />
+    <None Remove="Helpers\**" />
     <None Remove="_archive\**" />
   </ItemGroup>
   

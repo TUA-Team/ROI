@@ -1,4 +1,4 @@
-﻿using ROI.API.Networking;
+﻿using ROI.Core.Networking;
 using System.IO;
 using Terraria.ModLoader;
 

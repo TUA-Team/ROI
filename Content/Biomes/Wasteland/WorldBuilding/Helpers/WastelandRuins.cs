@@ -1,9 +1,8 @@
-﻿using Microsoft.Xna.Framework;
-using ROI.API;
+﻿/*using Microsoft.Xna.Framework;
 using ROI.Content.Biomes.Wasteland.Furniture.Tiles;
 using ROI.Content.Biomes.Wasteland.Furniture.Walls;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
-using ROI.Worlds;
+using ROI.Core.Utilities.Helpers;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -94,10 +93,10 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers
                 for (int j = roomLocation.Y; j < roomLocation.Y + roomLocation.Height; j++)
                 {
                     //Chest
-                    if (GeneralWorldHelper.CanPlaceTile(i, j, 2, 2) && WorldGen.genRand.Next(20) == 0)
+                    if (WorldGen.CanPlaceTile(i, j, 2, 2) && WorldGen.genRand.Next(20) == 0)
                     {
                         int index = WorldGen.PlaceChest(i, j, (ushort)ModContent.TileType<IrradiatedChest>(), false, 1);
-                        new WastelandChestLoot(new API.Loot.Chest.ChestTarget(index)).Populate();
+                        new WastelandChestLoot(new Core.Loot.Chest.ChestTarget(index)).Populate();
                     }
                 }
             }
@@ -178,3 +177,4 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers
         }
     }
 }
+*/

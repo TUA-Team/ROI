@@ -13,6 +13,13 @@ namespace ROI.Content.Configs
         [Tooltip("Opens the download link in your browser when nightly builds are released.\n" +
             "Only use if you know what you are doing!.\n" +
             "Redownload from the Mod Browser to get stable.")]
+        [ReloadRequired]
         public bool Nightly { get; set; }
+
+        [DefaultValue(false)]
+        [Label("Debug Mode")]
+        [Tooltip("Enables all kinds of developer features.")]
+        [ReloadRequired]
+        public bool DebugModue { get; set; }
     }
 }

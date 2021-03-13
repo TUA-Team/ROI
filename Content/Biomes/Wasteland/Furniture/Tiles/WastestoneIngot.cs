@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using ROI.API;
+using ROI.Core;
 using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles

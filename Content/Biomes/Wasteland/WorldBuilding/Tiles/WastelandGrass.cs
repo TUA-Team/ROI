@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.API.Verlet.Contexts.Chains;
+using ROI.Core.Verlet.Contexts.Chains;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
-using ROI.Helpers;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
@@ -25,7 +24,6 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             // TODO: SetModTree(new WastelandTree());
         }
 
-
         public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             // TODO: Make this work with slopes and stuff
@@ -41,7 +39,6 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 
             return true;
         }
-
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             var color = new Color(152, 208, 113).ToVector3();
@@ -49,7 +46,6 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             g = color.Y;
             b = color.Z;
         }
-
 
         public override void RandomUpdate(int i, int j)
         {
@@ -69,19 +65,16 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             }
         }
 
-
         public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
         {
             WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandDirt>(), i, j);
             return true;
         }
-
         public override int SaplingGrowthType(ref int style)
         {
             style = 0;
             return ModContent.TileType<WastelandSapling>();
         }
-
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {

@@ -1,6 +1,6 @@
-﻿using ROI.API.Loot;
-using ROI.API.Loot.Chest;
-using ROI.API.Loot.General;
+﻿using ROI.Core.Loot;
+using ROI.Core.Loot.Chest;
+using ROI.Core.Loot.General;
 using ROI.Content.Items;
 using Terraria.ID;
 

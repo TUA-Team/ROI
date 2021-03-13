@@ -2,10 +2,8 @@
 using ROI.Content.Configs;
 using ROI.Content.Items;
 using ROI.Content.Players;
-using ROI.Loaders;
-using System;
+using ROI.Content.UI;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
@@ -28,18 +26,7 @@ namespace ROI
 
             if (DebugConfig.Nightly)
             {
-                var path = Path.Combine(Main.SavePath, "ROI-beta-timestamp.txt");
-                if (File.Exists(path))
-                {
-                    var data = File.ReadAllText(path);
-                    Helpers.NightlyHelper.CheckForNightly(DateTime.Parse(data));
-                }
-                else
-                {
-                    var data = Helpers.NightlyHelper.CheckForNightly(DateTime.MinValue);
-                    if (data != null)
-                        File.WriteAllText(path, data);
-                }
+                CheckForNightly();
             }
         }
 

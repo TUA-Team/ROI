@@ -1,4 +1,4 @@
-﻿/*using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using ROI.Content.NPCs;
 using System.Collections.Generic;
 using Terraria;
@@ -12,7 +12,7 @@ namespace ROI.Content.Worlds
         {
             TagCompound tag = new TagCompound()
             {
-                [nameof(StrangePresenceDebuff)] = StrangePresenceDebuff
+                
             };
 
             List<TagCompound> npcTags = new List<TagCompound>();
@@ -43,8 +43,6 @@ namespace ROI.Content.Worlds
 
         public override void Load(TagCompound tag)
         {
-            StrangePresenceDebuff = tag.GetBool(nameof(StrangePresenceDebuff));
-
             List<TagCompound> npcTags = tag.GetList<TagCompound>(nameof(ISaveableEntity)) as List<TagCompound>;
 
             foreach (TagCompound npcTag in npcTags)
@@ -66,4 +64,3 @@ namespace ROI.Content.Worlds
         }
     }
 }
-*/
