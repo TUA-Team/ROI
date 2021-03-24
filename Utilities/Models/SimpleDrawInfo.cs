@@ -2,13 +2,12 @@
 using System;
 using Terraria.ModLoader.IO;
 
-namespace ROI.Core.Verlet.Contexts.Chains
+namespace ROI.Utilities.Models
 {
-    public class ChainDrawData : TagSerializable
+    public class SimpleDrawSource : TagSerializable
     {
         public Rectangle source;
         public Vector2 origin;
-
 
         public TagCompound SerializeData() => new TagCompound
         {
@@ -16,9 +15,9 @@ namespace ROI.Core.Verlet.Contexts.Chains
             [nameof(origin)] = origin,
         };
 
-        public static readonly Func<TagCompound, ChainDrawData> DESERIALIZER = tag =>
+        public static readonly Func<TagCompound, SimpleDrawSource> DESERIALIZER = tag =>
         {
-            var data = new ChainDrawData
+            var data = new SimpleDrawSource
             {
                 source = tag.Get<Rectangle>(nameof(source)),
                 origin = tag.Get<Vector2>(nameof(origin))

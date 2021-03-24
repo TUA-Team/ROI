@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using ROI.Content.Configs;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -6,12 +7,25 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ROI
 {
     partial class ROIMod
     {
-        // TODO: (med prio) change this to use actual beta releases, not silly issue posts
+        public DebugConfig DebugConfig;
+
+        private void LoadDebug()
+        {
+            DebugConfig = ModContent.GetInstance<DebugConfig>();
+
+            if (DebugConfig.Nightly)
+                CheckForNightly();
+
+            if (!DebugConfig.DebugMode)
+                return;
+        }
+
         private void CheckForNightly()
         {
             if (!NetworkAvailable())

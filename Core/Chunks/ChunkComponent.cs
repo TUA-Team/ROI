@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Core.Chunks
 {
@@ -24,5 +25,7 @@ namespace ROI.Core.Chunks
         public virtual void OnInit() { }
         public virtual void Update() { }
         public virtual void PostDrawTiles(SpriteBatch sb) { }
+        public virtual TagCompound Save() => null;
+        public virtual void Load(TagCompound tag) { }
     }
 }

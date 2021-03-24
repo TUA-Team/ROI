@@ -65,11 +65,6 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             }
         }
 
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-        {
-            WorldHelper.TileMergeAttempt(Type, (ushort)ModContent.TileType<WastelandDirt>(), i, j);
-            return true;
-        }
         public override int SaplingGrowthType(ref int style)
         {
             style = 0;

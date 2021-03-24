@@ -1,3 +1,5 @@
+using ROI.Core.Networking;
+using System.IO;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -12,10 +14,6 @@ namespace ROI
         {
             Backporting.Init(this);
 
-            InitializeLoaders();
-
-            // Utils.GenerateLocalization(this);
-
             if (!Main.dedServ)
             {
                 LoadClient();
@@ -24,8 +22,6 @@ namespace ROI
 
         public override void Unload()
         {
-            UnloadLoaders();
-
             if (!Main.dedServ)
             {
                 UnloadClient();
@@ -33,5 +29,8 @@ namespace ROI
 
             Backporting.Clear();
         }
+
+        public override void HandlePacket(BinaryReader reader, int whoAmI) =>
+            PacketManager.Instance.Handle(reader, whoAmI);
     }
 }

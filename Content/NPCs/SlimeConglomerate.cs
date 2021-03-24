@@ -73,6 +73,7 @@ namespace ROI.Content.NPCs
         {
             if (Main.netMode == NetmodeID.MultiplayerClient || count == 6)
                 return;
+
             for (int i = 0; i < Main.npc.Length; i++)
             {
                 NPC target = Main.npc[i];
@@ -81,9 +82,9 @@ namespace ROI.Content.NPCs
                 {
                     target.active = false;
                     target.netUpdate = true;
-                    npc.life = (int)NumberUtils.ExpCap(npc.life + target.life, 0, 750, 0.001f);
-                    npc.lifeMax = (int)NumberUtils.ExpCap(npc.life + target.lifeMax, 0, 750, 0.001f);
-                    npc.color = npc.color.Mix(target.color);
+                    npc.life = (int)SpatialUtils.ExpCap(npc.life + target.life, 0, 750, 0.001f);
+                    npc.lifeMax = (int)SpatialUtils.ExpCap(npc.life + target.lifeMax, 0, 750, 0.001f);
+                    npc.color = Color.Lerp(npc.color, target.color, 0.5f);
                     npc.scale = (npc.scale + target.scale * .4f).ExpCap(0, 5, .25f);
                     npc.width = (int)(24 * npc.scale);
                     var oldHeight = npc.height;

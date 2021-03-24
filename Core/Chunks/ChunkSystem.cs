@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ROI.Utilities.Models;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Core.Chunks
 {
     public class ChunkSystem : ModWorld 
     {
+        // TODO: move this to a config
+        private const int ChunkEnumerateSize = 2;
+
         private static Dictionary<uint, Chunk> map;
-        public static readonly List<ChunkComponent> components;
+        public static readonly List<ChunkComponent> components = new List<ChunkComponent>();
 
         public override void Initialize()
         {
@@ -27,7 +30,7 @@ namespace ROI.Core.Chunks
 
         public override void PostUpdate()
         {
-            foreach (var chunk in FindChunks(Main.LocalPlayer, 3))
+            foreach (var chunk in FindChunks(Main.LocalPlayer, ChunkEnumerateSize))
             {
                 foreach (var component in chunk.GetComponents())
                 {
@@ -41,7 +44,7 @@ namespace ROI.Core.Chunks
 
             sb.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.GameViewMatrix.ZoomMatrix);
 
-            foreach (var chunk in FindChunks(Main.LocalPlayer, 3))
+            foreach (var chunk in FindChunks(Main.LocalPlayer))
             {
                 foreach (var component in chunk.GetComponents())
                 {
@@ -50,6 +53,29 @@ namespace ROI.Core.Chunks
             }
 
             sb.End();
+        }
+        public override TagCompound Save()
+        {
+            TagCompound tag = new TagCompound();
+
+            foreach (Chunk chunk in map.Values)
+            {
+                if (chunk.Save() is TagCompound nestedTag)
+                {
+                    tag[chunk.PackPosition().ToString()] = nestedTag;
+                }
+            }
+
+            return tag;
+        }
+        public override void Load(TagCompound tag)
+        {
+            foreach (var pair in tag)
+            {
+                uint pos = uint.Parse(pair.Key);
+                Chunk chunk = map[pos] = new Chunk((int)pos >> 16, (int)pos & 0xFFFF);
+                chunk.Load(tag.GetCompound(pair.Key));
+            }
         }
 
         public static Chunk GetOrCreate(int x, int y)
@@ -63,7 +89,7 @@ namespace ROI.Core.Chunks
 
             return chunk;
         }
-        public static IEnumerable<Chunk> FindChunks(Player player, int areaSize, bool instantiate = false)
+        public static IEnumerable<Chunk> FindChunks(Player player, int areaSize = 0, bool instantiate = false)
         {
             if (player?.active != true)
             {
@@ -72,7 +98,7 @@ namespace ROI.Core.Chunks
 
             return FindChunks(player.position.ToTileCoordinates(), areaSize, instantiate);
         }
-        public static IEnumerable<Chunk> FindChunks(PointS32 tileCenter, int areaSize, bool instantiate = false)
+        public static IEnumerable<Chunk> FindChunks(PointS32 tileCenter, int areaSize = 0, bool instantiate = false)
         {
             PointS32 chunkCenter = TileToChunkCoordinates(tileCenter);
 

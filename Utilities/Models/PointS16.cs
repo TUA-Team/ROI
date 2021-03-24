@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
+using System.Text.RegularExpressions;
 
 namespace ROI.Utilities.Models
 {
@@ -15,7 +17,38 @@ namespace ROI.Utilities.Models
 
         public override bool Equals(object obj) => obj is PointS16 that && that.X == X && that.Y == Y;
         public override int GetHashCode() => (ushort)X << 16 | (ushort)Y;
-        public override string ToString() => $"X: {X}, Y: {Y}";
+        public override string ToString() => $"X:{X}, Y:{Y}";
+
+        private static readonly Regex Parser = new Regex("X:(?<X>[0-9].*), Y:(?<Y>[0-9].*)", RegexOptions.Compiled);
+        public static bool TryParse(string input, out PointS16 p)
+        {
+            Match match = Parser.Match(input);
+
+            if (match.Success)
+            {
+                p = new PointS16(
+                    short.Parse(match.Groups["X"].Value),
+                    short.Parse(match.Groups["Y"].Value)
+                );
+
+                return true;
+            }
+
+            p = default;
+            return false;
+        }
+        public static PointS16 Parse(string input)
+        {
+            Match match = Parser.Match(input);
+            if (match.Success)
+            {
+                return new PointS16(
+                    short.Parse(match.Groups["X"].Value),
+                    short.Parse(match.Groups["Y"].Value));
+            }
+
+            throw new FormatException("Could not parse " + nameof(PointS16));
+        }
 
         public static bool operator ==(PointS16 a, PointS16 b) => a.X == b.X && a.Y == b.Y;
         public static bool operator !=(PointS16 a, PointS16 b) => a.X != b.X || a.Y != b.Y;

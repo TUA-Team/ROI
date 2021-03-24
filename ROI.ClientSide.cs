@@ -1,33 +1,23 @@
-﻿using Microsoft.Xna.Framework;
-using ROI.Content.Configs;
-using ROI.Content.Items;
+﻿using ROI.Content.Items;
 using ROI.Content.Players;
-using ROI.Content.UI;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.UI;
 
 namespace ROI
 {
     public sealed partial class ROIMod
     {
         //public MusicConfig MusicConfig;
-        public DebugConfig DebugConfig;
 
         private void LoadClient()
         {
             //MusicConfig = ModContent.GetInstance<MusicConfig>();
-            DebugConfig = ModContent.GetInstance<DebugConfig>();
 
             AddMusicBox(GetSoundSlot(SoundType.Music, "Sounds/Music/Terra"),
                 ModContent.ItemType<TerraMusicBox>(),
                 ModContent.TileType<Content.Tiles.TerraMusicBox>());
 
-            if (DebugConfig.Nightly)
-            {
-                CheckForNightly();
-            }
+            LoadDebug();
         }
 
         private void UnloadClient()
@@ -52,10 +42,5 @@ namespace ROI
                 return;
             }
         }
-
-
-        public override void UpdateUI(GameTime gameTime) => InterfaceLoader.Instance.UpdateUI(gameTime);
-
-        public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) => InterfaceLoader.Instance.ModifyInterfaceLayers(layers);
     }
 }

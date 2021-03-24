@@ -20,6 +20,6 @@ namespace ROI.Content.Configs
         [Label("Debug Mode")]
         [Tooltip("Enables all kinds of developer features.")]
         [ReloadRequired]
-        public bool DebugModue { get; set; }
+        public bool DebugMode { get; set; }
     }
 }

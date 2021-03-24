@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 
 namespace ROI.Core.Chunks
 {
@@ -63,15 +64,44 @@ namespace ROI.Core.Chunks
 
         public IEnumerable<ChunkComponent> GetComponents()
         {
-            for (int i = 0; i < components.Length; i++)
+            return components;
+            /*for (int i = 0; i < components.Length; i++)
             {
                 if (components[i] is ChunkComponent component)
                 {
                     yield return component;
                 }
+            }*/
+        }
+
+        public TagCompound Save()
+        {
+            TagCompound tag = new TagCompound();
+
+            for (int i = 0; i < components.Length; i++)
+            {
+                ChunkComponent component = components[i];
+                if (component.Save() is TagCompound nestedTag)
+                {
+                    tag[component.Name] = nestedTag;
+                }
+            }
+
+            return tag.Count > 0 ? tag : null;
+        }
+        public void Load(TagCompound tag)
+        {
+            for (int i = 0; i < components.Length; i++)
+            {
+                ChunkComponent component = components[i];
+                if (tag.ContainsKey(component.Name))
+                {
+                    component.Load(tag.GetCompound(component.Name));
+                }
             }
         }
 
+        public uint PackPosition() => PackPosition(Position.X, Position.Y);
         public static uint PackPosition(int x, int y) => (uint)x << 16 | (ushort)y;
     }
 }

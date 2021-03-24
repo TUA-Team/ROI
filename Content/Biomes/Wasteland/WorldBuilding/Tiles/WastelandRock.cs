@@ -18,16 +18,5 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             drop = ModContent.ItemType<Items.WastelandRock>();
             TileID.Sets.ChecksForMerge[Type] = true;
         }
-
-        //TODO: (high prio) Broken?
-        public override bool TileFrame(int i, int j, ref bool resetFrame, ref bool noBreak)
-        {
-            // Following part need to moved into a seperate class
-            int tileToSearch = ModContent.TileType<WastelandDirt>();
-            WorldHelper.RegularMerge(i, j);
-            WorldHelper.SpecialTileMerge(i, j, tileToSearch);
-            //RegularMerge(i, j);
-            return false;
-        }
     }
 }
