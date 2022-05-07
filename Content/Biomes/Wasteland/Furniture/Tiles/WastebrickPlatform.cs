@@ -8,7 +8,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickPlatform : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -29,9 +29,10 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             TileObjectData.addTile(Type);
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             AddMapEntry(new Color(48, 44, 65));
-            drop = ModContent.ItemType<Items.WastebrickPlatform>();
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Platforms };
+
+            ItemDrop = ModContent.ItemType<Items.WastebrickPlatform>();
+
+            AdjTiles = new int[] { TileID.Platforms };
         }
 
         public override void PostSetDefaults()

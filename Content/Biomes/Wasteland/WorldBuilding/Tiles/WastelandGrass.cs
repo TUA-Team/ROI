@@ -1,17 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ROI.Core.Verlet.Contexts.Chains;
-using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
+//using ROI.Core.Verlet.Contexts.Chains;
+//using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandGrass : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = false;
@@ -24,7 +25,8 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             // TODO: SetModTree(new WastelandTree());
         }
 
-        public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
+        // TODO: vines
+        /*public override bool PreDraw(int i, int j, SpriteBatch spriteBatch)
         {
             // TODO: Make this work with slopes and stuff
             int index = ModContent.GetInstance<TEWastelandVine>().Find(i, j);
@@ -38,7 +40,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             }
 
             return true;
-        }
+        }*/
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             var color = new Color(152, 208, 113).ToVector3();
@@ -49,9 +51,9 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 
         public override void RandomUpdate(int i, int j)
         {
-            if (Main.tile[i, j - 1].lava())
+            if (Main.tile[i, j - 1].LiquidType == LiquidID.Lava)
             {
-                Main.tile[i, j].type = (ushort)ModContent.TileType<WastelandDirt>();
+                Main.tile[i, j].TileType = (ushort)ModContent.TileType<WastelandDirt>();
                 WorldGen.SquareTileFrame(i, j, true);
                 return;
             }
@@ -73,15 +75,16 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 
         public override void KillTile(int i, int j, ref bool fail, ref bool effectOnly, ref bool noItem)
         {
-            Main.tile[i, j].type = (ushort)ModContent.TileType<WastelandDirt>();
+            Main.tile[i, j].TileType = (ushort)ModContent.TileType<WastelandDirt>();
 
-            var te = ModContent.GetInstance<TEWastelandVine>();
+            // TODO: vines
+            /*var te = ModContent.GetInstance<TEWastelandVine>();
             if (te.Find(i, j) != -1)
             {
                 te.Kill(i, j);
                 Dust.NewDust(new Vector2(i * 16, j * 16), 5, 5, DustID.Grass);
-                Main.PlaySound(SoundID.Grass, i * 16, j * 16);
-            }
+                SoundEngine.PlaySound(SoundID.Grass, i * 16, j * 16);
+            }*/
         }
     }
 }

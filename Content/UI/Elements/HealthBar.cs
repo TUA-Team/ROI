@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿// TODO: Mod boss bar
+
+/*using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
 using Terraria;
@@ -39,7 +41,7 @@ namespace ROI.Content.UI.Elements
             {
                 offset.Y -= 50;
             }
-            Vector2 textSize = Main.fontDeathText.MeasureString(name) * 0.5f;
+            Vector2 textSize = Main.textfontDeathText.MeasureString(name) * 0.5f;
             Vector2 healthTextSize = Main.fontDeathText.MeasureString(health) * 0.5f;
 
             sb.Draw(_bg,
@@ -81,3 +83,4 @@ namespace ROI.Content.UI.Elements
     }
 }
 
+*/

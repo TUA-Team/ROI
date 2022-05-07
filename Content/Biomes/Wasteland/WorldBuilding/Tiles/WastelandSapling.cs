@@ -11,7 +11,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandSapling : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -31,11 +31,12 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.RandomStyleRange = 3;
             TileObjectData.addTile(Type);
-            sapling = true;
+
+            //sapling = true;
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wasteland Sapling");
             AddMapEntry(new Color(200, 200, 200), name);
-            adjTiles = new int[] { TileID.Saplings };
+            AdjTiles = new int[] { TileID.Saplings };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)

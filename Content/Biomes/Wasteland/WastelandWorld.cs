@@ -1,4 +1,6 @@
-﻿using ROI.Core.Verlet.Contexts.Chains;
+﻿// TODO: figure out world gen
+
+/*using ROI.Core.Verlet.Contexts.Chains;
 using ROI.Content.Biomes.Wasteland.WorldBuilding;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
 using System.Collections.Generic;
@@ -10,7 +12,6 @@ namespace ROI.Content.Biomes.Wasteland
 {
     public class WastelandWorld : ModWorld
     {
-        public static int wastelandTiles;
         public static VerletChainContext vineContext;
 
 
@@ -29,13 +30,6 @@ namespace ROI.Content.Biomes.Wasteland
                 tasks.Insert(index + 1, new PassLegacy("ROI: Wasteland", new WastelandWorldMaker(mod).Make));
             }
         }
-
-        // TODO: (low prio) generalize this?
-        public override void TileCountsAvailable(int[] tileCounts)
-        {
-            wastelandTiles = tileCounts[ModContent.TileType<WastelandDirt>()] +
-                tileCounts[ModContent.TileType<WastelandRock>()] +
-                tileCounts[ModContent.TileType<WastelandGrass>()];
-        }
     }
 }
+*/

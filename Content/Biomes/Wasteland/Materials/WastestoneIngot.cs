@@ -8,16 +8,16 @@ namespace ROI.Content.Biomes.Wasteland.Materials
     {
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 24;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.value = Item.sellPrice(0, 0, 99, 0);
-            item.maxStack = 999;
-            item.createTile = ModContent.TileType<Furniture.Tiles.WastestoneIngot>();
-            item.consumable = true;
+            Item.width = 30;
+            Item.height = 24;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.value = Item.sellPrice(0, 0, 99, 0);
+            Item.maxStack = 999;
+            Item.createTile = ModContent.TileType<Furniture.Tiles.WastestoneIngot>();
+            Item.consumable = true;
         }
 
-        public override void AddRecipes() => new RecipeBuilder(this)
+        public override void AddRecipes() => CreateRecipe()
                 .AddIngredient<WastestoneOre>(3)
                 .Register();
     }

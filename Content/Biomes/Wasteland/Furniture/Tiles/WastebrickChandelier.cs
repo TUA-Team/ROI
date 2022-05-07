@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -11,7 +12,9 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickChandelier : ModTile
     {
-        public override void SetDefaults()
+        private Asset<Texture2D> flameTexture;
+
+        public override void SetStaticDefaults()
         {
             Main.tileLighted[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -29,25 +32,33 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Chandelier");
             AddMapEntry(new Color(48, 44, 65), name);
-            drop = ModContent.ItemType<Items.WastebrickChandelier>();
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Torches };
+            AdjTiles = new int[] { TileID.Torches };
+
+            // Assets
+            if (!Main.dedServ)
+            {
+                flameTexture = ModContent.Request<Texture2D>("ROI/Content/Biomes/Wasteland/Furniture/Tiles/WastebrickChandelierFlame");
+            }
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
+        {
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<Items.WastebrickChandelier>());
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             Tile tile = Main.tile[i, j];
-            if (tile.frameX < 66)
+            if (tile.TileFrameX < 66)
             {
                 Vector3 color = Color.GreenYellow.ToVector3();
                 r = color.X;
                 g = color.Y;
                 b = color.Z;
             }
-
         }
 
-        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height)
+        public override void SetDrawPositions(int i, int j, ref int width, ref int offsetY, ref int height, ref short tileFrameX, ref short TileFrameY)
         {
             offsetY = 0;
             if (WorldGen.SolidTile(i, j - 1))
@@ -63,8 +74,8 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
         public override void PostDraw(int i, int j, SpriteBatch spriteBatch)
         {
             ulong seed = (ulong)((long)Main.TileFrameSeed ^ (((long)j << 32) | (uint)i));
-            int frameX = Main.tile[i, j].frameX;
-            int frameY = Main.tile[i, j].frameY;
+            int frameX = Main.tile[i, j].TileFrameX;
+            int TileFrameY = Main.tile[i, j].TileFrameY;
             int width = 60;
             int offsetY = 0;
             int height = 60;
@@ -79,8 +90,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             {
                 float num264 = (float)Utils.RandomInt(ref seed, -10, 11) * 0.15f;
                 float num265 = (float)Utils.RandomInt(ref seed, -10, 1) * 0.35f;
-                // TODO: what is TextureCache
-                //spriteBatch.Draw(TextureCache.ChandelierFlameTexture["Wastebrick_Chandelier"], new Vector2((float)(j * 16 - (int)Main.screenPosition.X) - ((float)width - 16f) / 2f + num264, (float)(i * 16 - (int)Main.screenPosition.Y + offsetY) + num265) + zero, new Microsoft.Xna.Framework.Rectangle(frameX, frameY, width, height), new Microsoft.Xna.Framework.Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(flameTexture.Value, new Vector2((float)(j * 16 - (int)Main.screenPosition.X) - ((float)width - 16f) / 2f + num264, (float)(i * 16 - (int)Main.screenPosition.Y + offsetY) + num265) + zero, new Microsoft.Xna.Framework.Rectangle(frameX, TileFrameY, width, height), new Microsoft.Xna.Framework.Color(100, 100, 100, 0), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
             }
         }
     }

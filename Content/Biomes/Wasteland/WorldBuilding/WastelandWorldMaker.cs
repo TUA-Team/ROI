@@ -1,6 +1,8 @@
-using Microsoft.Xna.Framework;
+// TODO: wasteland worldgen
+
+/*using Microsoft.Xna.Framework;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
-using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
+//using ROI.Content.Biomes.Wasteland.WorldBuilding.Vines;
 using ROI.Utilities;
 using ROI.Utilities.Models;
 using System;
@@ -8,7 +10,6 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.World.Generation;
 using static Terraria.WorldGen;
 
 // TODO: (low prio) torches
@@ -17,8 +18,8 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
     //Contain wasteland world gen
     public class WastelandWorldMaker
     {
-        /*private readonly Dictionary<int, int> SurfaceLevel = new Dictionary<int, int>();
-        private int HighestLevel = 300;*/
+        *//*private readonly Dictionary<int, int> SurfaceLevel = new Dictionary<int, int>();
+        private int HighestLevel = 300;*//*
         private Mod Mod { get; }
 
         private readonly ushort UraniumOreType;
@@ -53,7 +54,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                 while (flag)
                 {
                     var tile = Main.tile[pos.X, pos.Y];
-                    if (!tile.active() &&
+                    if (!tile.HasTile &&
                         tile.type != TileID.Granite &&
                         tile.wall != WallID.GraniteUnsafe)
                     {
@@ -77,7 +78,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
 
 
             return;
-/*
+*//*
             // Bottom
             BaseTerrain(new float[] { 0.0077f, 0.0011f, 0.022f, 0.04f }, new float[] { 0.7f, 0.05f, 0.02f, 0.01f }, new int[] { 5, 5, 5, 5 }, 450);
             // Top
@@ -95,7 +96,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
             //WastelandForgeGen(progress);
             WastelandUraniumOreGen(progress);
             //GrowingTree(progress);
-            //GenerateMysteriousGrotto(progress);*/
+            //GenerateMysteriousGrotto(progress);*//*
         }
 
 
@@ -149,7 +150,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                     {
                         Main.tile[x, y].type = GrassType;
 
-                        if (!Main.tile[x, y + 1].active())
+                        if (!Main.tile[x, y + 1].HasTile)
                         {
                             // Baseline is 3, use noise to go smaller or bigger
                             int len = (int)(3 + noise.GetNoise(x, y) * 4) + genRand.Next(6);
@@ -175,7 +176,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
         }
 
 
-/*        private int GetAmountOfBigLakes()
+*//*        private int GetAmountOfBigLakes()
         {
             switch (Main.maxTilesX)
             {
@@ -353,7 +354,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                     return false;
                 }
 
-                if (!Main.tile[x, i].active() && Main.tile[x, i].liquid == 0)
+                if (!Main.tile[x, i].HasTile && Main.tile[x, i].liquid == 0)
                 {
                     continue;
                 }
@@ -401,7 +402,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                 progress.Set(percent);
                 for (int j = Main.maxTilesY - 200; j < Main.maxTilesY; j++)
                 {
-                    if (Main.tile[i, j].type == DirtType && !Main.tile[i, j - 1].active())
+                    if (Main.tile[i, j].type == DirtType && !Main.tile[i, j - 1].HasTile)
                     {
                         Main.tile[i, j].wall = 0;
                         SpreadGrass(i, j, DirtType, grassType, true);
@@ -519,7 +520,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                     int num261 = genRand.Next(Main.maxTilesY - 250, Main.maxTilesY - 5);
                     if (Main.tile[num260, num261].wall == Mod.WallType(nameof(WastestoneBrickWall)))
                     {
-                        *//*for (; !Main.tile[num260, num261].active(); num261++)
+                        *//*for (; !Main.tile[num260, num261].HasTile; num261++)
                         {
                         }*//*
 
@@ -538,6 +539,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
                     }
                 }
             }
-        }*/
+        }*//*
     }
 }
+*/

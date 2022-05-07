@@ -5,9 +5,9 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Walls
 {
     public class WastestoneBrickWall : ModWall
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            drop = ModContent.ItemType<Items.WastestoneBrickWall>();
+            ItemDrop = ModContent.ItemType<Items.WastestoneBrickWall>();
             ModTranslation wall = CreateMapEntryName();
             wall.SetDefault("Wastestone Brick Wall");
             AddMapEntry(new Color(173, 255, 47), wall);

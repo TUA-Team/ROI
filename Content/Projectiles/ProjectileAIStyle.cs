@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.Shaders;
 using Terraria.Graphics.Effects;
 using Terraria.ID;
@@ -99,7 +100,7 @@ namespace ROI.Content.Projectiles
         {
             float laserLuminance = 0.5f;
             float laserAlphaMultiplier = 0f;
-            float lastPrismHue = projectile.GetPrismHue(projectile.ai[0]);
+            float lastPrismHue = projectile.GetLastPrismHue(projectile.ai[0], ref laserLuminance, ref laserAlphaMultiplier);
             Color lastPrismColorWithoutAlphaSet = Main.hslToRgb(lastPrismHue, 1f, laserLuminance);
             lastPrismColorWithoutAlphaSet.A = (byte)(lastPrismColorWithoutAlphaSet.A * laserAlphaMultiplier);
             Color lastPrismColor = lastPrismColorWithoutAlphaSet;
@@ -327,7 +328,7 @@ namespace ROI.Content.Projectiles
                 case ProjectileID.PhantasmalDeathray:
                 {
                     if (projectile.localAI[0] == 0f)
-                        Main.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104);
+                        SoundEngine.PlaySound(SoundID.Zombie, (int)projectile.position.X, (int)projectile.position.Y, 104);
 
                     float num687 = 1f;
                     if (Main.npc[(int)projectile.ai[1]].type == NPCID.MoonLordFreeEye)

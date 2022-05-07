@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,12 +10,11 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickBookcase : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
-            TileObjectData newTile = TileObjectData.newTile;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x4);
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.LavaPlacement = LiquidPlacement.Allowed;
@@ -22,13 +22,12 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             name.SetDefault("Wastebrick Bookcase");
             AddMapEntry(new Color(48, 44, 65), name);
             TileObjectData.addTile(Type);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Bookcases };
+            AdjTiles = new int[] { TileID.Bookcases };
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.WastebrickBookcase>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 64, ModContent.ItemType<Items.WastebrickBookcase>());
         }
     }
 }

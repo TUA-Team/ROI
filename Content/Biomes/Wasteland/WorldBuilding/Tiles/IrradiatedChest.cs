@@ -1,8 +1,10 @@
 using Microsoft.Xna.Framework;
 using System.Linq;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -12,7 +14,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class IrradiatedChest : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSpelunker[Type] = true;
             Main.tileContainer[Type] = true;
@@ -23,7 +25,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
-            TileObjectData.newTile.HookCheck = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
+            TileObjectData.newTile.HookCheckIfCanPlace = new PlacementHook(Chest.FindEmptyChest, -1, 0, true);
             TileObjectData.newTile.HookPostPlaceMyPlayer = new PlacementHook(Chest.AfterPlacement_Hook, -1, 0, false);
             TileObjectData.newTile.AnchorInvalidTiles = new[] { 127 };
             TileObjectData.newTile.StyleHorizontal = true;
@@ -37,28 +39,28 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             name = CreateMapEntryName(Name + "_Locked"); // With multiple map entries, you need unique translation keys.
             name.SetDefault("Locked Irradiated Chest");
             AddMapEntry(new Color(152, 208, 113), name, MapChestName);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Containers };
-            chest = "Irradiated Chest";
-            chestDrop = ModContent.ItemType<Items.IrradiatedChest>();
+
+            AdjTiles = new int[] { TileID.Containers };
+
+            ChestDrop = ModContent.ItemType<Items.IrradiatedChest>();
         }
 
-        public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].frameX / 36);
+        public override ushort GetMapOption(int i, int j) => (ushort)(Main.tile[i, j].TileFrameX / 36);
 
-        public override bool HasSmartInteract() => true;
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings) => true;
 
-        public override bool IsLockedChest(int i, int j) => Main.tile[i, j].frameX / 36 == 1;
+        public override bool IsLockedChest(int i, int j) => Main.tile[i, j].TileFrameX / 36 == 1;
 
         public string MapChestName(string name, int i, int j)
         {
             int left = i;
             int top = j;
             Tile tile = Main.tile[i, j];
-            if (tile.frameX % 36 != 0)
+            if (tile.TileFrameX % 36 != 0)
             {
                 left--;
             }
-            if (tile.frameY != 0)
+            if (tile.TileFrameY != 0)
             {
                 top--;
             }
@@ -78,11 +80,11 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             num = 1;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
             if (IsLockedChest(i, j))
                 return;
-            Item.NewItem(i * 16, j * 16, 32, 32, chestDrop);
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 32, ChestDrop);
             Chest.DestroyChest(i, j);
         }
 
@@ -92,31 +94,31 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
                 fail = true;
         }
 
-        public override bool NewRightClick(int i, int j)
+        public override bool RightClick(int i, int j)
         {
             Player player = Main.LocalPlayer;
             Tile tile = Main.tile[i, j];
             Main.mouseRightRelease = false;
             int left = i;
             int top = j;
-            if (tile.frameX % 36 != 0)
+            if (tile.TileFrameX % 36 != 0)
             {
                 left--;
             }
-            if (tile.frameY != 0)
+            if (tile.TileFrameY != 0)
             {
                 top--;
             }
             if (player.sign >= 0)
             {
-                Main.PlaySound(SoundID.MenuClose);
+                SoundEngine.PlaySound(SoundID.MenuClose);
                 player.sign = -1;
                 Main.editSign = false;
                 Main.npcChatText = "";
             }
             if (Main.editChest)
             {
-                Main.PlaySound(SoundID.MenuTick);
+                SoundEngine.PlaySound(SoundID.MenuTick);
                 Main.editChest = false;
                 Main.npcChatText = "";
             }
@@ -132,7 +134,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
                 {
                     player.chest = -1;
                     Recipe.FindRecipes();
-                    Main.PlaySound(SoundID.MenuClose);
+                    SoundEngine.PlaySound(SoundID.MenuClose);
                 }
                 else
                 {
@@ -162,7 +164,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
                         if (chest == player.chest)
                         {
                             player.chest = -1;
-                            Main.PlaySound(SoundID.MenuClose);
+                            SoundEngine.PlaySound(SoundID.MenuClose);
                         }
                         else
                         {
@@ -171,7 +173,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
                             Main.recBigList = false;
                             player.chestX = left;
                             player.chestY = top;
-                            Main.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
+                            SoundEngine.PlaySound(player.chest < 0 ? SoundID.MenuOpen : SoundID.MenuTick);
                         }
                         Recipe.FindRecipes();
                     }
@@ -186,44 +188,44 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             Tile tile = Main.tile[i, j];
             int left = i;
             int top = j;
-            if (tile.frameX % 36 != 0)
+            if (tile.TileFrameX % 36 != 0)
             {
                 left--;
             }
-            if (tile.frameY != 0)
+            if (tile.TileFrameY != 0)
             {
                 top--;
             }
             int chest = Chest.FindChest(left, top);
-            player.showItemIcon2 = -1;
+            player.cursorItemIconID = -1;
             if (chest < 0)
             {
-                player.showItemIconText = Language.GetTextValue("LegacyChestType.0");
+                player.cursorItemIconText = Language.GetTextValue("LegacyChestType.0");
             }
             else
             {
                 // TODO: (low prio) localization support
-                player.showItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
-                if (player.showItemIconText == "Irradiated Chest")
+                player.cursorItemIconText = Main.chest[chest].name.Length > 0 ? Main.chest[chest].name : "Irradiated Chest";
+                if (player.cursorItemIconText == "Irradiated Chest")
                 {
-                    player.showItemIcon2 = ModContent.ItemType<Items.IrradiatedChest>();
-                    if (Main.tile[left, top].frameX / 36 == 1)
-                        player.showItemIcon2 = ModContent.ItemType<Misc.IrradiatedKey>();
-                    player.showItemIconText = "";
+                    player.cursorItemIconID = ModContent.ItemType<Items.IrradiatedChest>();
+                    if (Main.tile[left, top].TileFrameX / 36 == 1)
+                        player.cursorItemIconID = ModContent.ItemType<Misc.IrradiatedKey>();
+                    player.cursorItemIconText = "";
                 }
             }
             player.noThrow = 2;
-            player.showItemIcon = true;
+            player.cursorItemIconEnabled = true;
         }
 
         public override void MouseOverFar(int i, int j)
         {
             MouseOver(i, j);
             Player player = Main.LocalPlayer;
-            if (player.showItemIconText == "")
+            if (player.cursorItemIconText == "")
             {
-                player.showItemIcon = false;
-                player.showItemIcon2 = -1;
+                player.cursorItemIconEnabled = false;
+                player.cursorItemIconID = -1;
             }
         }
 

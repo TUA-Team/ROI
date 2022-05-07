@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿// TODO: vines
+
+/*using Microsoft.Xna.Framework;
 using ROI.Core.Verlet;
 using ROI.Core.Verlet.Contexts.Chains;
 using ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles;
@@ -50,23 +52,21 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Vines
             }
         }
 
-        public override TagCompound Save()
+        public override void SaveData(TagCompound tag)
         {
-            return new TagCompound
-            {
-                [nameof(DrawData)] = DrawData,
-            };
+            tag.Add(nameof(DrawData), DrawData);
         }
-        public override void Load(TagCompound tag)
+        public override void LoadData(TagCompound tag)
         {
             DrawData = tag.GetList<ChainDrawData>(nameof(DrawData));
             GeneratePoints();
             GenerateSegments();
         }
 
-        public override bool ValidTile(int i, int j)
+        public override bool IsTileValidForEntity(int x, int y)
         {
-            return Main.tile[i, j].type == ModContent.TileType<WastelandGrass>();
+            return Main.tile[x, y].TileType == ModContent.TileType<WastelandGrass>();
         }
     }
 }
+*/

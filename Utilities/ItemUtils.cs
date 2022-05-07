@@ -64,12 +64,12 @@ namespace ROI.Utilities
         private static void SearchItems<T>(ref List<T> filtered, IEnumerable<Item> items) where T : ModItem
         {
             foreach (Item item in items)
-                if (item != null && item.modItem != null && item.IsOfType<T>())
-                    filtered.Add(item.modItem as T);
+                if (item != null && item.ModItem != null && item.IsOfType<T>())
+                    filtered.Add(item.ModItem as T);
         }
 
         public static bool IsOfType<T>(this Item item, out T mod) where T : ModItem => (mod = item as T) != null;
 
-        public static bool IsOfType<T>(this Item item) where T : ModItem => item.modItem is T;
+        public static bool IsOfType<T>(this Item item) where T : ModItem => item.ModItem is T;
     }
 }

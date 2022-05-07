@@ -8,7 +8,7 @@ using Terraria.ModLoader.IO;
 
 namespace ROI.Core.Chunks
 {
-    public class ChunkSystem : ModWorld 
+    public class ChunkSystem : ModSystem
     {
         // TODO: move this to a config
         private const int ChunkEnumerateSize = 2;
@@ -16,7 +16,7 @@ namespace ROI.Core.Chunks
         private static Dictionary<uint, Chunk> map;
         public static readonly List<ChunkComponent> components = new List<ChunkComponent>();
 
-        public override void Initialize()
+        public override void OnWorldLoad()
         {
             map = new Dictionary<uint, Chunk>();
         }
@@ -28,7 +28,8 @@ namespace ROI.Core.Chunks
             return components.Count - 1;
         }
 
-        public override void PostUpdate()
+
+        public override void PostUpdateWorld()
         {
             foreach (var chunk in FindChunks(Main.LocalPlayer, ChunkEnumerateSize))
             {
@@ -54,10 +55,8 @@ namespace ROI.Core.Chunks
 
             sb.End();
         }
-        public override TagCompound Save()
+        public override void SaveWorldData(TagCompound tag)
         {
-            TagCompound tag = new TagCompound();
-
             foreach (Chunk chunk in map.Values)
             {
                 if (chunk.Save() is TagCompound nestedTag)
@@ -65,10 +64,8 @@ namespace ROI.Core.Chunks
                     tag[chunk.PackPosition().ToString()] = nestedTag;
                 }
             }
-
-            return tag;
         }
-        public override void Load(TagCompound tag)
+        public override void LoadWorldData(TagCompound tag)
         {
             foreach (var pair in tag)
             {

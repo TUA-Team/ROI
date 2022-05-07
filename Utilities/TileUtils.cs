@@ -5,7 +5,7 @@ namespace ROI.Utilities
 {
     public static class TileUtils
     {
-        public static bool IsExposed(int x, int y) => CountNeighbors(x, y) <= 3;
+        /*public static bool IsExposed(int x, int y) => CountNeighbors(x, y) <= 3;
 
         public static int CountNeighbors(int x, int y, Func<int, int, bool> isValid = null)
         {
@@ -31,9 +31,9 @@ namespace ROI.Utilities
 
             bool checkValid(int i, int j)
             {
-                return Main.tile[i, j].active() && (isValid == null || isValid(i, j));
+                return Main.tile[i, j].HasTile && (isValid == null || isValid(i, j));
             }
-        }
+        }*/
 
         public static void TrimTileRunnerAftermath(int x, int y, int width, int height)
         {
@@ -43,23 +43,23 @@ namespace ROI.Utilities
                 {
                     if (!IsTileTouchingDirectly(i, j))
                     {
-                        Main.tile[i, j].active(false);
+                        Main.tile[i, j].ClearTile();
                     }
                 }
             }
 
             bool IsTileTouchingDirectly(int i, int j)
             {
-                return Main.tile[i + 1, j].active() || Main.tile[i - 1, j].active() || Main.tile[i, j + 1].active() || Main.tile[i, j - 1].active();
+                return Main.tile[i + 1, j].HasTile || Main.tile[i - 1, j].HasTile || Main.tile[i, j + 1].HasTile || Main.tile[i, j - 1].HasTile;
             }
         }
 
         public static void TileMergeAttempt(ushort self, ushort merge, int i, int j)
         {
-            int up = Main.tile[i, j - 1].type;
-            int down = Main.tile[i, j + 1].type;
-            int left = Main.tile[i - 1, j].type;
-            int right = Main.tile[i + 1, j].type;
+            int up = Main.tile[i, j - 1].TileType;
+            int down = Main.tile[i, j + 1].TileType;
+            int left = Main.tile[i - 1, j].TileType;
+            int right = Main.tile[i + 1, j].TileType;
 
             WorldGen.TileMergeAttempt(self, merge, ref up, ref down, ref left, ref right);
         }

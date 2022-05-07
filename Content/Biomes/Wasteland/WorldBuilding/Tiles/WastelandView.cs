@@ -8,7 +8,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandView : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);
@@ -26,7 +26,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             ModTranslation translation = CreateMapEntryName("ROI.Painting.WastelandView");
             translation.SetDefault("Painting");
             AddMapEntry(new Color(152, 208, 113), translation);
-            drop = ModContent.ItemType<Items.WastelandView>();
+            ItemDrop = ModContent.ItemType<Items.WastelandView>();
         }
     }
 }

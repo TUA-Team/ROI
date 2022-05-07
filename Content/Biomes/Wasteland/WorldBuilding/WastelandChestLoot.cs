@@ -3,6 +3,7 @@ using ROI.Core.Loot.Chest;
 using ROI.Core.Loot.General;
 using ROI.Content.Items;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace ROI.Content.Biomes.Wasteland.WorldBuilding
 {
@@ -17,7 +18,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding
         {
             new TreasureRule
             {
-                (new LootEntry(ROIMod.Instance.ItemType(nameof(Poutine))), 0.1),
+                (new LootEntry(ModContent.ItemType<Poutine>()), 0.1),
                 (new LootEntry(ItemID.SuspiciousLookingEye), 2)
             },
 

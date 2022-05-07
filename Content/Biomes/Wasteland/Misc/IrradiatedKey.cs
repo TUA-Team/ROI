@@ -7,12 +7,12 @@ namespace ROI.Content.Biomes.Wasteland.Misc
     {
         public override void SetDefaults()
         {
-            item.width = 14;
-            item.height = 20;
-            item.maxStack = 1;
+            Item.width = 14;
+            Item.height = 20;
+            Item.maxStack = 1;
         }
 
-        public override void AddRecipes() => new RecipeBuilder(this)
+        public override void AddRecipes() => CreateRecipe()
                 .AddTile(TileID.Hellforge)
                 .AddIngredient(ItemID.ShadowKey)
                 .Register();

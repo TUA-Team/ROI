@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿// TODO: switch to Modsystem
+
+/*using Microsoft.Xna.Framework;
 using ROI.Content.NPCs;
 using System.Collections.Generic;
 using Terraria;
@@ -64,3 +66,4 @@ namespace ROI.Content.Worlds
         }
     }
 }
+*/

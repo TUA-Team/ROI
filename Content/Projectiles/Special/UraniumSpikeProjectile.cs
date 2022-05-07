@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.ModLoader;
 
 namespace ROI.Content.Projectiles.Special
 {
@@ -11,7 +12,7 @@ namespace ROI.Content.Projectiles.Special
         public override void SetDefaults()
         {
             base.SetDefaults();
-            projectile.timeLeft = 60;
+            Projectile.timeLeft = 60;
         }
 
 
@@ -20,17 +21,17 @@ namespace ROI.Content.Projectiles.Special
 
         }
 
-        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        public override bool PreDraw(ref Color lightColor)
         {
-            bool isLowering = projectile.timeLeft > 30;
+            bool isLowering = Projectile.timeLeft > 30;
             float percentage = isLowering
-                ? (1 - ((projectile.timeLeft - 30) / 30f))
-                : (projectile.timeLeft / 30f);
-            Vector2 pos = projectile.position - new Vector2(0, 3 * 16 * percentage);
+                ? (1 - ((Projectile.timeLeft - 30) / 30f))
+                : (Projectile.timeLeft / 30f);
+            Vector2 pos = Projectile.position - new Vector2(0, 3 * 16 * percentage);
             int srcHeight = (int)(_height * (isLowering
-                ? (1 - ((projectile.timeLeft - 30) / 30f))
-                : (projectile.timeLeft / 30f)));
-            spriteBatch.Draw(mod.GetTexture("Content/Projectiles/Special/" + nameof(UraniumSpikeProjectile)),
+                ? (1 - ((Projectile.timeLeft - 30) / 30f))
+                : (Projectile.timeLeft / 30f)));
+            Main.spriteBatch.Draw(ModContent.Request<Texture2D>("ROI/Content/Projectiles/Special/" + nameof(UraniumSpikeProjectile)).Value,
                 pos - Main.screenPosition, new Rectangle(0, 0, _width, srcHeight), Color.White);
 
             return false;

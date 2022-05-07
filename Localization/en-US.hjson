@@ -1,0 +1,69 @@
+Mods: {
+	ROI: {
+		Common: {
+			VoidPillarHealthBar: Void Pillar - {0} Shield
+			VoidHeartHealthBar: Void HP: {0}/{1}
+			LoreIntro: Intro to Lore
+			LoreIntroDesc: Handed down from the ancients, this book is a log of almost every danger that awaits you, and may even reveal secrets that you would never know otherwise. After unlocking a lore entry, you may read it at any time. If you lose possession of it in any way, perhaps the wandering salesman who journeys by night may be willing to hand over his copy. Every adventurer holds a Lore Book, for for him/her, it may be the difference between life or gruesome death.
+			LoreTerranFacilities: Terran Corps.
+			LoreTeam: The Realm of Inf. Team
+			LoreCopperSword: Copper Shortsword
+			LoreCopperSwordDesc:
+				'''
+				Long have Terrarians debated on the weakest of blades. It is true, the Copper Shortsword's dullness and length make it one of the most ineffective weapons to be cast, but for the cost? The copper kit, the pick, the sword, the axe, it's standard issue for every adventurer, one gold coin and you'll be on your way to greatness.
+
+				However, we think it is safe to say more adventurers have lost their lives in battle with the Copper Shortsword in their hand than any other weapon. Probably just a coincidence though.
+				'''
+		}
+
+		ItemName: {
+			Void: The Void
+			Gnomed: Noggin Clontith
+		}
+
+		ItemTooltip: {
+			Void:
+				'''
+				"The wielder of this mysterious item will be in true communion with the void"
+				5 minute cooldown, grants a random void buff!
+				Stack up to 10 guaranteed effects that will last for 4 minutes!
+				Consumes 50 void affinity points per use
+				'''
+			Gnomed:
+				'''
+				"I'm not a gnelf, I'm not a gnoblin, I'm a GNOME, and you've been GNOMED!!"
+				A testament to the idiocy of humanity
+				'''
+		}
+
+		BuffName: {
+			DarkMind: Dark Mind
+			PillarPresence: Strange Presence
+			VoidSlowness: Void Slowness
+		}
+
+		BuffTooltip: {
+			DarkMind:
+				'''
+				You feel the darkness consuming your mind
+				-50% damage overall
+				+50% debuff duration
+				'''
+			PillarPresence: Something isn't right
+			VoidSlowness:
+				'''
+				The void is dragging you down
+				-75% movement speed
+				'''
+		}
+
+		NPCName: {
+			VoidPillar: Void Pillar
+			MutatedDemon: Mutated Demon
+		}
+
+		ProjectileName: {
+			WastelandSurfaceBubble: Radioactive Bubble
+		}
+	}
+}

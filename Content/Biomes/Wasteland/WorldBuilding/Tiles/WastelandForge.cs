@@ -8,7 +8,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandForge : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -23,9 +23,9 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wasteland Forge");
             AddMapEntry(new Color(34, 139, 34), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Hellforge, TileID.Furnaces };
-            drop = ModContent.ItemType<Items.WastelandForge>();
+
+            AdjTiles = new int[] { TileID.Hellforge, TileID.Furnaces };
+            ItemDrop = ModContent.ItemType<Items.WastelandForge>();
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)

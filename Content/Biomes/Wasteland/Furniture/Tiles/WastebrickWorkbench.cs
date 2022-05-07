@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -8,7 +9,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickWorkbench : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -18,12 +19,14 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             TileObjectData.newTile.CopyFrom(TileObjectData.Style2x1);
             TileObjectData.newTile.CoordinateHeights = new[] { 18 };
             TileObjectData.addTile(Type);
+
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsTable);
+
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Example Workbench");
             AddMapEntry(new Color(200, 200, 200), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.WorkBenches };
+
+            AdjTiles = new int[] { TileID.WorkBenches };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -31,9 +34,9 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.WastebrickWorkbench>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<Items.WastebrickWorkbench>());
         }
     }
 }

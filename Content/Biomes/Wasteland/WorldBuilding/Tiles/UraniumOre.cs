@@ -7,12 +7,12 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class UraniumOre : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandRock>()] = true;
-            drop = ModContent.ItemType<UraniumChunk>();
+            ItemDrop = ModContent.ItemType<UraniumChunk>();
             AddMapEntry(new Color(93, 202, 49));
         }
 

@@ -22,7 +22,7 @@ namespace ROI.Content.UI.Elements
 
         public UIPanel()
         {
-            _backgroundTexture = (Texture2D)ModContent.GetTexture("Terraria/UI/PanelBackground");
+            _backgroundTexture = ModContent.Request<Texture2D>("Terraria/UI/PanelBackground").Value;
 
             SetPadding(CORNER_SIZE);
         }

@@ -32,13 +32,13 @@ namespace ROI.Content.Items
 
         public override void SetDefaults()
         {
-            item.width = _width;
-            item.height = _height;
-            item.stack = _stack;
+            Item.width = _width;
+            Item.height = _height;
+            Item.stack = _stack;
 
-            item.value = Value;
-            item.defense = Defense;
-            item.rare = Rarity;
+            Item.value = Value;
+            Item.defense = Defense;
+            Item.rare = Rarity;
         }
 
 

@@ -7,13 +7,13 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
     {
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.width = 48;
-            item.height = 32;
-            item.useTime = 1;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.createTile = ModContent.TileType<Tiles.WastelandView>();
+            Item.maxStack = 99;
+            Item.width = 48;
+            Item.height = 32;
+            Item.useTime = 1;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.createTile = ModContent.TileType<Tiles.WastelandView>();
         }
     }
 }

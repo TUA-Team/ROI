@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,7 +10,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickChair : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
@@ -28,8 +29,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Chair");
             AddMapEntry(new Color(48, 44, 65), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Chairs };
+            AdjTiles = new int[] { TileID.Chairs };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -37,9 +37,9 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
-            Item.NewItem(i * 16, j * 16, 16, 32, ModContent.ItemType<Items.WastebrickChair>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 16, 32, ModContent.ItemType<Items.WastebrickChair>());
         }
     }
 }

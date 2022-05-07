@@ -6,13 +6,13 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandDirt : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolid[Type] = true;
             Main.tileBlockLight[Type] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandGrass>()] = true;
             Main.tileMerge[Type][ModContent.TileType<WastelandRock>()] = true;
-            drop = ModContent.ItemType<Items.WastelandDirt>();
+            ItemDrop = ModContent.ItemType<Items.WastelandDirt>();
             AddMapEntry(new Color(130, 114, 109));
         }
 

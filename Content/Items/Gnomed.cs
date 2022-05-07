@@ -7,18 +7,18 @@ namespace ROI.Content.Items
     {
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 40;
-            item.value = 2;
-            item.rare = ItemRarityID.White;
-            // item.useStyle = ItemUseStyleID.HoldingUp;
-            // item.useTime = 20;
-            // item.useAnimation = 20;
-            // item.reuseDelay = 50;
-            // item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/GnomedMeme");
+            Item.width = 30;
+            Item.height = 40;
+            Item.value = 2;
+            Item.rare = ItemRarityID.White;
+            // Item.useStyle = ItemUseStyleID.HoldingUp;
+            // Item.useTime = 20;
+            // Item.useAnimation = 20;
+            // Item.reuseDelay = 50;
+            // Item.UseSound = mod.GetLegacySoundSlot(SoundType.Item, "Sounds/Item/GnomedMeme");
         }
 
-        public override void AddRecipes() => new RecipeBuilder(this)
+        public override void AddRecipes() => CreateRecipe()
                 //.AddCondition((Mod as ROIMod).DevRecipeCondition)
                 .AddIngredient(ItemID.Wood)
                 .Register();

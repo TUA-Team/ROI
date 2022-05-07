@@ -6,7 +6,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
 {
     public class WastelandOre : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileMergeDirt[Type] = true;
             Main.tileSolid[Type] = true;
@@ -14,7 +14,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Toxic Ore");
             AddMapEntry(Color.YellowGreen, name);
-            drop = ModContent.ItemType<Materials.WastestoneOre>();
+            ItemDrop = ModContent.ItemType<Materials.WastestoneOre>();
         }
     }
 }

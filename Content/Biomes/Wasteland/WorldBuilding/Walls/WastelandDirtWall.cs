@@ -5,7 +5,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 {
     public class WastelandDirtWall : ModWall
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             AddMapEntry(new Color(104, 91, 87));
         }
@@ -13,15 +13,11 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 
     public class WastelandDirtWallSafe : ModWall
     {
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = GetType().Namespace.Replace('.', '/') + "/WastelandDirtWall";
-            return true;
-        }
+        public override string Texture => GetType().Namespace.Replace('.', '/') + "/WastelandDirtWall";
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            drop = ModContent.ItemType<Items.WastelandDirtWall>();
+            ItemDrop = ModContent.ItemType<Items.WastelandDirtWall>();
             AddMapEntry(new Color(104, 91, 87));
         }
     }

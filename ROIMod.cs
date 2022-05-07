@@ -12,8 +12,6 @@ namespace ROI
 
         public override void Load()
         {
-            Backporting.Init(this);
-
             if (!Main.dedServ)
             {
                 LoadClient();
@@ -26,8 +24,6 @@ namespace ROI
             {
                 UnloadClient();
             }
-
-            Backporting.Clear();
         }
 
         public override void HandlePacket(BinaryReader reader, int whoAmI) =>

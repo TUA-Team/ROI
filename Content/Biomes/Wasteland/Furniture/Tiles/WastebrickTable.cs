@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -8,7 +9,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickTable : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileSolidTop[Type] = true;
             Main.tileFrameImportant[Type] = true;
@@ -22,8 +23,8 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Table");
             AddMapEntry(new Color(48, 44, 65), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.Tables };
+
+            AdjTiles = new int[] { TileID.Tables };
         }
 
         public override void NumDust(int i, int j, bool fail, ref int num)
@@ -31,9 +32,9 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             num = fail ? 1 : 3;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 16, ModContent.ItemType<Items.WastebrickTable>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 16, ModContent.ItemType<Items.WastebrickTable>());
         }
     }
 }

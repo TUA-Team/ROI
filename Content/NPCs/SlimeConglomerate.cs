@@ -1,9 +1,11 @@
 using Microsoft.Xna.Framework;
 using ROI.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.Utilities;
 
 namespace ROI.Content.NPCs
 {
@@ -34,32 +36,33 @@ namespace ROI.Content.NPCs
 
         public override void SetStaticDefaults()
         {
-            Main.npcFrameCount[npc.type] = 2;
+            Main.npcFrameCount[NPC.type] = 2;
         }
 
         public override void SetDefaults()
         {
-            aiType = animationType = NPCID.BlueSlime;
-            npc.aiStyle = 1;
+            AIType = AnimationType = NPCID.BlueSlime;
+            NPC.aiStyle = 1;
 
-            npc.width = 24;
-            npc.height = 18;
+            NPC.width = 24;
+            NPC.height = 18;
 
-            npc.damage = 12;
-            npc.defense = 6;
-            npc.lifeMax = 40;
+            NPC.damage = 12;
+            NPC.defense = 6;
+            NPC.lifeMax = 40;
 
-            npc.HitSound = SoundID.NPCHit1;
-            npc.DeathSound = SoundID.NPCDeath1;
+            NPC.HitSound = SoundID.NPCHit1;
+            NPC.DeathSound = SoundID.NPCDeath1;
 
-            npc.alpha = 175;
-            npc.buffImmune[20] = true;
-            npc.buffImmune[31] = false;
-            npc.knockBackResist *= 0.9f;
-            npc.value = 10f;
-            npc.color = new Color(0, 80, 255, 100);
-            if (Main.expertMode)
-                npc.scaleStats();
+            NPC.alpha = 175;
+            NPC.buffImmune[20] = true;
+            NPC.buffImmune[31] = false;
+            NPC.knockBackResist *= 0.9f;
+            NPC.value = 10f;
+            NPC.color = new Color(0, 80, 255, 100);
+            // TODO: no clue how to do this
+            //if (Main.expertMode)
+            //    NPC.ScaleStats(Main.player.Count(x => x.active));
 
             count = 0;
         }
@@ -78,20 +81,20 @@ namespace ROI.Content.NPCs
             {
                 NPC target = Main.npc[i];
 
-                if (target.active && Slimes.Contains(target.type) && target.getRect().Intersects(npc.getRect()))
+                if (target.active && Slimes.Contains(target.type) && target.getRect().Intersects(NPC.getRect()))
                 {
                     target.active = false;
                     target.netUpdate = true;
-                    npc.life = (int)SpatialUtils.ExpCap(npc.life + target.life, 0, 750, 0.001f);
-                    npc.lifeMax = (int)SpatialUtils.ExpCap(npc.life + target.lifeMax, 0, 750, 0.001f);
-                    npc.color = Color.Lerp(npc.color, target.color, 0.5f);
-                    npc.scale = (npc.scale + target.scale * .4f).ExpCap(0, 5, .25f);
-                    npc.width = (int)(24 * npc.scale);
-                    var oldHeight = npc.height;
-                    npc.height = (int)(18 * npc.scale);
-                    npc.position.Y -= npc.height - oldHeight;
-                    npc.height--;
-                    npc.netUpdate = true;
+                    NPC.life = (int)SpatialUtils.ExpCap(NPC.life + target.life, 0, 750, 0.001f);
+                    NPC.lifeMax = (int)SpatialUtils.ExpCap(NPC.life + target.lifeMax, 0, 750, 0.001f);
+                    NPC.color = Color.Lerp(NPC.color, target.color, 0.5f);
+                    NPC.scale = (NPC.scale + target.scale * .4f).ExpCap(0, 5, .25f);
+                    NPC.width = (int)(24 * NPC.scale);
+                    var oldHeight = NPC.height;
+                    NPC.height = (int)(18 * NPC.scale);
+                    NPC.position.Y -= NPC.height - oldHeight;
+                    NPC.height--;
+                    NPC.netUpdate = true;
                     count++;
                 }
             }

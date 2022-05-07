@@ -14,7 +14,7 @@ namespace ROI.Content.Projectiles
             _width = width;
             _height = height;
 
-            CloneNewInstances = cloneNewInstances;
+            //CloneNewInstances = cloneNewInstances;
         }
 
         public override void SetStaticDefaults()
@@ -28,8 +28,8 @@ namespace ROI.Content.Projectiles
         {
             base.SetDefaults();
 
-            projectile.width = _width;
-            projectile.height = _height;
+            Projectile.width = _width;
+            Projectile.height = _height;
         }
 
 
@@ -44,6 +44,6 @@ namespace ROI.Content.Projectiles
 
         //public ROIPlayer Owner { get; protected set; }
 
-        public override bool CloneNewInstances { get; }
+        //public override bool CloneNewInstances { get; }
     }
 }

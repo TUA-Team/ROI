@@ -57,10 +57,10 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Helpers
 
                 Point bottomLeft = rectangle.BottomLeft().ToPoint();
                 bottomLeft.X += 2;
-                if (!Main.tile[bottomLeft.X, bottomLeft.Y].active())
+                if (!Main.tile[bottomLeft.X, bottomLeft.Y].HasTile)
                 {
                     int columnStart = bottomLeft.Y;
-                    while (!Main.tile[bottomLeft.X, columnStart].active() && WorldGen.InWorld(bottomLeft.X, columnStart))
+                    while (!Main.tile[bottomLeft.X, columnStart].HasTile && WorldGen.InWorld(bottomLeft.X, columnStart))
                     {
                         WorldGen.PlaceTile(bottomLeft.X, columnStart, TileID.WoodenBeam);
                     }

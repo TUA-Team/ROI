@@ -7,21 +7,21 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
     {
         public override void SetDefaults()
         {
-            item.width = 16;
-            item.height = 16;
-            item.scale *= 0.5f;
-            item.maxStack = 999;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 7;
-            item.autoReuse = true;
-            item.consumable = true;
-            item.createWall = ModContent.WallType<Walls.WastelandRockWallSafe>();
+            Item.width = 16;
+            Item.height = 16;
+            Item.scale *= 0.5f;
+            Item.maxStack = 999;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 7;
+            Item.autoReuse = true;
+            Item.consumable = true;
+            Item.createWall = ModContent.WallType<Walls.WastelandRockWallSafe>();
         }
 
-        public override void AddRecipes() => new RecipeBuilder(this, 4)
-                .AddIngredient<WastelandRock>()
-                .AddTile(TileID.WorkBenches)
-                .Register();
+        public override void AddRecipes() => CreateRecipe(4)
+            .AddIngredient<WastelandRock>()
+            .AddTile(TileID.WorkBenches)
+            .Register();
     }
 }

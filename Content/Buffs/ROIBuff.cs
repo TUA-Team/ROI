@@ -22,10 +22,8 @@ namespace ROI.Content.Buffs
             _longerExpertDebuff = longerExpertDebuff;
         }
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            base.SetDefaults();
-
             DisplayName.SetDefault(_displayName);
             Description.SetDefault(_tooltip);
 
@@ -34,7 +32,7 @@ namespace ROI.Content.Buffs
             Main.persistentBuff[Type] = _persistent;
 
             Main.debuff[Type] = _debuff;
-            longerExpertDebuff = _longerExpertDebuff;
+            // TODO: ?? LongerExpertDebuff = _longerExpertDebuff;
         }
     }
 }

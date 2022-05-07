@@ -6,7 +6,7 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 {
     public class WastelandRockWall : ModWall
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             AddMapEntry(new Color(34, 27, 43));
         }
@@ -14,15 +14,11 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Walls
 
     public class WastelandRockWallSafe : ModWall
     {
-        public override bool Autoload(ref string name, ref string texture)
-        {
-            texture = GetType().Namespace.Replace('.', '/') + "/WastelandRockWall";
-            return true;
-        }
+        public override string Texture => GetType().Namespace.Replace('.', '/') + "/WastelandRockWall";
 
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
-            drop = ModContent.ItemType<Items.WastelandRockWall>();
+            ItemDrop = ModContent.ItemType<Items.WastelandRockWall>();
             Main.wallHouse[Type] = true;
             AddMapEntry(new Color(34, 27, 43));
         }

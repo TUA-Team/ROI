@@ -13,12 +13,12 @@ namespace ROI.Content.Biomes.Wasteland.WorldBuilding.Items
 
         public override void SetDefaults()
         {
-            item.maxStack = 99;
-            item.useAnimation = 15;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 10;
-            item.consumable = true;
-            item.createTile = ModContent.TileType<Tiles.WastelandForge>();
+            Item.maxStack = 99;
+            Item.useAnimation = 15;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 10;
+            Item.consumable = true;
+            Item.createTile = ModContent.TileType<Tiles.WastelandForge>();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace ROI
                 return;
         }
 
+        // TODO: document how this works
         private void CheckForNightly()
         {
             if (!NetworkAvailable())

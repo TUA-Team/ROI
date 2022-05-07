@@ -2,6 +2,7 @@
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ObjectInteractions;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
@@ -10,7 +11,7 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
 {
     public class WastebrickDoorOpen : ModTile
     {
-        public override void SetDefaults()
+        public override void SetStaticDefaults()
         {
             Main.tileFrameImportant[Type] = true;
             Main.tileSolid[Type] = false;
@@ -55,18 +56,20 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             TileObjectData.newAlternate.Direction = TileObjectDirection.PlaceLeft;
             TileObjectData.addAlternate(1);
             TileObjectData.addTile(Type);
+
             AddToArray(ref TileID.Sets.RoomNeeds.CountsAsDoor);
             TileID.Sets.HousingWalls[Type] = true; //needed for non-solid blocks to count as walls
             TileID.Sets.HasOutlines[Type] = true;
+
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Wastebrick Door");
             AddMapEntry(new Color(48, 44, 65), name);
-            disableSmartCursor = true;
-            adjTiles = new int[] { TileID.OpenDoor };
-            closeDoorID = ModContent.TileType<WastebrickDoorClosed>();
+
+            AdjTiles = new int[] { TileID.OpenDoor };
+            CloseDoorID = ModContent.TileType<WastebrickDoorClosed>();
         }
 
-        public override bool HasSmartInteract()
+        public override bool HasSmartInteract(int i, int j, SmartInteractScanSettings settings)
         {
             return true;
         }
@@ -76,17 +79,17 @@ namespace ROI.Content.Biomes.Wasteland.Furniture.Tiles
             num = 1;
         }
 
-        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        public override void KillMultiTile(int i, int j, int frameX, int TileFrameY)
         {
-            Item.NewItem(i * 16, j * 16, 32, 48, ModContent.ItemType<Items.WastebrickDoor>());
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 48, ModContent.ItemType<Items.WastebrickDoor>());
         }
 
         public override void MouseOver(int i, int j)
         {
             Player player = Main.LocalPlayer;
             player.noThrow = 2;
-            player.showItemIcon = true;
-            player.showItemIcon2 = ModContent.ItemType<Items.WastebrickDoor>();
+            player.cursorItemIconEnabled = true;
+            player.cursorItemIconID = ModContent.ItemType<Items.WastebrickDoor>();
         }
     }
 }

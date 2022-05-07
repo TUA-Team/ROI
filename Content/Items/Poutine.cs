@@ -8,18 +8,18 @@ namespace ROI.Content.Items
     {
         public override void SetDefaults()
         {
-            item.width = 30;
-            item.height = 30;
-            item.useStyle = ItemUseStyleID.SwingThrow;
-            item.useTime = 10;
-            item.useAnimation = 20;
-            item.rare = 99;
-            item.lavaWet = true;
-            item.consumable = true;
-            item.maxStack = 30;
+            Item.width = 30;
+            Item.height = 30;
+            Item.useStyle = ItemUseStyleID.Swing;
+            Item.useTime = 10;
+            Item.useAnimation = 20;
+            Item.rare = 99;
+            Item.lavaWet = true;
+            Item.consumable = true;
+            Item.maxStack = 30;
         }
 
-        public override bool UseItem(Player player)
+        public override bool? UseItem(Player player)
         {
             if (player.HasBuff(BuffID.PotionSickness))
                 return false;
